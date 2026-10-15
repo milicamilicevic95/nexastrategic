@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terms of Business v1.0 — NexaStrategic Ltd</title>
+<meta name="description" content="NexaStrategic Ltd Terms of Business, version 1.0. These terms apply to every Engagement Order that incorporates them.">
+<style>
+:root{
+  --paper:#f5efe7; --ink:#191716; --wine:#5a202b; --blush:#ddb5b0;
+  --pink:#d94c86; --line:rgba(25,23,22,.18); --muted:#6e6763;
+  --display:"Roca One","Cooper Black",Georgia,serif;
+  --sans:"Neue Montreal","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+a{color:inherit}
+.wrap{width:min(1120px,calc(100% - 48px));margin:auto}
+nav{position:sticky;top:0;z-index:20;background:rgba(245,239,231,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.navin{height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-weight:700;letter-spacing:-.02em;text-decoration:none}
+.navin .links{display:flex;gap:20px;font-size:13px}
+.navin .links a{text-decoration:none}
+.navin button{border:1px solid var(--ink);background:transparent;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer}
+header{padding:64px 0 40px;border-bottom:1px solid var(--ink)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--wine)}
+h1,h2{font-family:var(--display);font-weight:400;letter-spacing:-.04em;line-height:.95;margin:0}
+h1{font-size:clamp(46px,7vw,92px);margin:20px 0 22px}
+h1 i,h2 i{font-style:normal;color:var(--pink)}
+.lede{font-size:clamp(18px,1.8vw,22px);max-width:62ch;line-height:1.35;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:26px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px;padding:48px 0 96px}
+.toc{position:sticky;top:88px;align-self:start;font-size:13px;display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 110px);overflow:auto}
+.toc b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.toc a{text-decoration:none;color:var(--muted)}
+.toc a:hover{color:var(--wine)}
+.toc span{font-variant-numeric:tabular-nums;display:inline-block;width:2em;color:var(--ink)}
+article{min-width:0}
+.how{background:var(--wine);color:#fff;padding:22px 24px;margin-bottom:40px;font-size:15px;max-width:780px}
+.how b{display:block;font-family:var(--display);font-weight:400;font-size:24px;line-height:1.1;margin-bottom:8px}
+section{padding:34px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0;padding-top:0}
+h2{font-size:clamp(28px,3.2vw,40px);margin-bottom:22px;display:flex;gap:18px;align-items:baseline}
+h2 .n{font-family:var(--sans);font-size:13px;letter-spacing:.12em;font-weight:700;color:var(--wine)}
+.cl{display:grid;grid-template-columns:3.2em minmax(0,1fr) 230px;gap:18px;margin:0 0 14px;align-items:start}
+.cl .no{font-weight:700;font-variant-numeric:tabular-nums}
+.cl p{margin:0}
+.cl ol{margin:6px 0 0;padding-left:1.6em;list-style:lower-alpha}
+.cl ol li{margin:3px 0}
+.plain{font-size:13px;line-height:1.45;color:var(--wine);border-left:3px solid var(--blush);padding-left:12px}
+.plain b{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+dfn{font-style:normal;font-weight:700}
+.defs{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:6px 0 0}
+.defs div{padding:8px 0;border-bottom:1px solid var(--line)}
+.sched{background:rgba(221,181,176,.28);padding:28px 28px 8px;margin-top:20px}
+.annex{border-top:2px solid var(--ink);margin-top:10px}
+.annex div{display:grid;grid-template-columns:200px minmax(0,1fr);gap:18px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.annex b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+footer{padding:30px 0;font-size:12px;border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+@media(max-width:900px){
+  .wrap{width:min(100% - 32px,1120px)}
+  .layout{grid-template-columns:1fr;gap:24px}
+  .toc{position:static;max-height:none;display:none}
+  .cl{grid-template-columns:2.8em minmax(0,1fr)}
+  .plain{grid-column:2}
+  .annex div{grid-template-columns:1fr;gap:4px}
+  .navin .links a:not(:first-child){display:none}
+}
+@media print{
+  nav,.toc,.how,.noprint{display:none!important}
+  body{background:#fff;font-size:10pt}
+  .wrap{width:auto}
+  .layout{display:block;padding:0}
+  header{padding:0 0 12pt}
+  h1{font-size:28pt}
+  section{break-inside:auto;padding:12pt 0}
+  .cl{grid-template-columns:3em minmax(0,1fr) 45mm;break-inside:avoid}
+  .sched{background:none;border:1px solid #999}
+  a{text-decoration:none}
+  @page{size:A4;margin:20mm 18mm}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap navin"><a class="brand" href="/">NexaStrategic</a><div class="links"><button type="button" onclick="window.print()">Print or save as PDF</button><a href="/">Home</a><a href="mailto:milica@nexastrategic.com">Contact</a></div></div></nav>
+
+<header><div class="wrap">
+  <div class="eyebrow">NexaStrategic Ltd · Terms of Business</div>
+  <h1>Terms of Business<i>.</i></h1>
+  <p class="lede">These terms apply to every engagement with NexaStrategic. Each client signs a short Engagement Order that sets out the commercial terms and incorporates these terms.</p>
+  <div class="meta"><span><b>Version</b> 1.0</span><span><b>Published</b> October 2026</span><span><b>Governing law</b> England and Wales</span><span><b>Applies to</b> Engagement Orders that refer to version 1.0</span></div>
+</div></header>
+
+<div class="wrap layout">
+<nav class="toc" aria-label="Contents"><b>Contents</b>
+  <a href="#c1"><span>1</span>Interpretation</a>
+  <a href="#c2"><span>2</span>The Agreement</a>
+  <a href="#c3"><span>3</span>The Services</a>
+  <a href="#c4"><span>4</span>Key Person</a>
+  <a href="#c5"><span>5</span>Client responsibilities</a>
+  <a href="#c6"><span>6</span>Status and authority</a>
+  <a href="#c7"><span>7</span>Liability</a>
+  <a href="#c8"><span>8</span>Fees and payment</a>
+  <a href="#c9"><span>9</span>Intellectual property</a>
+  <a href="#c10"><span>10</span>Confidentiality</a>
+  <a href="#c11"><span>11</span>Data protection</a>
+  <a href="#c12"><span>12</span>Non-solicitation</a>
+  <a href="#c13"><span>13</span>Compliance</a>
+  <a href="#c14"><span>14</span>Insurance</a>
+  <a href="#c15"><span>15</span>Termination</a>
+  <a href="#c16"><span>16</span>Changes</a>
+  <a href="#c17"><span>17</span>Disputes</a>
+  <a href="#c18"><span>18</span>General</a>
+  <a href="#s1"><span>S1</span>Data processing</a>
+</nav>
+
+<article>
+<div class="how"><b>How to read these terms</b>The numbered clauses are the contract. The notes in the right-hand margin summarise them in plain English. They help you read the clauses but have no legal effect (see clause 1.4).</div>
+
+<section id="c1"><h2><span class="n">1</span>Interpretation</h2>
+<div class="cl"><span class="no">1.1</span><div><p>In these Terms the following words have these meanings:</p>
+<div class="defs">
+<div><dfn>Agreement</dfn> means the Engagement Order, the Service Schedule attached to it and these Terms, as varied by any Change Note.</div>
+<div><dfn>Associate</dfn> means an individual or business, other than the Key Person, engaged by Nexa to help deliver the Services.</div>
+<div><dfn>Background IP</dfn> means all intellectual property owned by or licensed to Nexa that exists before the Engagement or is created independently of it, including Nexa's methods, frameworks, templates, tools, know-how and training materials, and any improvements to them.</div>
+<div><dfn>Business Day</dfn> means a day other than a Saturday, a Sunday or a bank or public holiday in England.</div>
+<div><dfn>Change Note</dfn> means a document varying the Agreement and signed by both parties under clause 16.</div>
+<div><dfn>Client</dfn> means the company named as the client in the Engagement Order.</div>
+<div><dfn>Confidential Information</dfn> means all information of a confidential nature disclosed by or on behalf of one party to the other in connection with the Agreement, in any form, including information about its business, finances, people, customers, suppliers, plans and know-how.</div>
+<div><dfn>Deliverables</dfn> means documents and materials that Nexa creates specifically for the Client and hands over as part of the Services, excluding Background IP.</div>
+<div><dfn>Engagement</dfn> means the provision of the Services under the Agreement.</div>
+<div><dfn>Engagement Order</dfn> means the signed engagement order between Nexa and the Client that incorporates these Terms.</div>
+<div><dfn>Fees</dfn> means the fees set out in or calculated under the Engagement Order.</div>
+<div><dfn>Key Person</dfn> means the individual named as Key Person in the Engagement Order.</div>
+<div><dfn>Nexa</dfn> means NexaStrategic Ltd, a company incorporated and registered in England and Wales with company number 15536373, whose registered office is at 7 Bell Yard, London, England, WC2A 2JR.</div>
+<div><dfn>Service Schedule</dfn> means the schedule attached to the Engagement Order describing the Services.</div>
+<div><dfn>Services</dfn> means the services described in the Engagement Order and the Service Schedule.</div>
+<div><dfn>Start Date</dfn> and <dfn>Initial Term</dfn> have the meanings given in the Engagement Order.</div>
+</div></div><div class="plain"><b>In plain English</b>Capitalised words have these meanings everywhere in the contract.</div></div>
+<div class="cl"><span class="no">1.2</span><p>In the Agreement: “including” and similar words do not limit the words that come before them; a reference to legislation includes that legislation as amended, extended or re-enacted from time to time, and any subordinate legislation made under it; “writing” and “written” include email; and the singular includes the plural and the other way round.</p><span></span></div>
+<div class="cl"><span class="no">1.3</span><p>Headings do not affect the interpretation of the Agreement.</p><span></span></div>
+<div class="cl"><span class="no">1.4</span><p>The plain-English notes in the margin of these Terms, and any similar notes in an Engagement Order or Service Schedule, are for guidance only. They do not form part of the Agreement and do not affect its interpretation.</p><div class="plain"><b>In plain English</b>These notes are a reading aid. If a note and a clause ever differ, the clause wins.</div></div>
+</section>
+
+<section id="c2"><h2><span class="n">2</span>The Agreement</h2>
+<div class="cl"><span class="no">2.1</span><p>The Agreement is formed when both parties have signed the Engagement Order. Each Engagement Order forms a separate Agreement.</p><span></span></div>
+<div class="cl"><span class="no">2.2</span><p>If there is any conflict between parts of the Agreement, the following order of priority applies: (a) any Change Note, the most recent first; (b) the Engagement Order; (c) the Service Schedule; and (d) these Terms. On matters of data protection, Schedule 1 takes priority over everything else.</p><div class="plain"><b>In plain English</b>The specific deal beats the standard terms.</div></div>
+<div class="cl"><span class="no">2.3</span><p>No terms set out in any purchase order, supplier onboarding pack, portal or similar document of the Client apply to the Agreement, even if Nexa signs, accepts or acknowledges that document, unless the Engagement Order expressly says they do.</p><div class="plain"><b>In plain English</b>Your purchase order terms don't override this contract.</div></div>
+</section>
+
+<section id="c3"><h2><span class="n">3</span>The Services</h2>
+<div class="cl"><span class="no">3.1</span><p>Nexa will provide the Services from the Start Date in accordance with the Agreement.</p><span></span></div>
+<div class="cl"><span class="no">3.2</span><p>Nexa will perform the Services with the reasonable skill, care and diligence to be expected of an experienced provider of operations advisory services, and in accordance with applicable law.</p><div class="plain"><b>In plain English</b>We promise to do the work properly.</div></div>
+<div class="cl"><span class="no">3.3</span><p>The Services are advisory and operational in nature. Nexa does not guarantee any particular commercial, financial or other outcome. The Client remains responsible for deciding whether to act on Nexa's recommendations and for the consequences of its decisions.</p><div class="plain"><b>In plain English</b>We advise and support. You decide, and outcomes aren't guaranteed.</div></div>
+<div class="cl"><span class="no">3.4</span><p>The Services do not include legal, tax, accounting, investment or other regulated advice. Where the Client needs such advice, it should obtain it from an appropriately qualified and regulated adviser. Any comment Nexa makes on these subjects is given for operational context only.</p><div class="plain"><b>In plain English</b>We aren't your lawyers or accountants.</div></div>
+<div class="cl"><span class="no">3.5</span><p>Nexa will use reasonable endeavours to meet any dates agreed for the Services. Time is not of the essence unless the Engagement Order says otherwise.</p><span></span></div>
+</section>
+
+<section id="c4"><h2><span class="n">4</span>Key Person</h2>
+<div class="cl"><span class="no">4.1</span><p>Nexa will provide the Services principally through the Key Person.</p><span></span></div>
+<div class="cl"><span class="no">4.2</span><p>Nexa will give the Client reasonable notice of any planned absence of the Key Person, including holiday. Where planned absence affects the Commitment or Hours Block in any month, Nexa will reschedule the affected time within that month or the following month.</p><div class="plain"><b>In plain English</b>Planned time off is flagged early, and the days are made up.</div></div>
+<div class="cl"><span class="no">4.3</span><div><p>If the Key Person is unable to provide the Services because of illness, injury or another unplanned cause, Nexa will tell the Client as soon as reasonably practicable. If the unavailability lasts for more than 10 consecutive Business Days, Nexa will, at the Client's choice:</p>
+<ol><li>propose a suitably experienced Associate to provide the Services during the unavailability, subject to the Client's approval, which the Client must not unreasonably withhold or delay; or</li>
+<li>reduce the Fees in proportion to the period of unavailability after the first 10 Business Days, by credit against the next invoice or, if no further invoice is due, by refund.</li></ol></div><div class="plain"><b>In plain English</b>If Mila is off sick for more than two weeks, you either approve cover or stop paying for the time she's away.</div></div>
+<div class="cl"><span class="no">4.4</span><p>If the Key Person is unable to provide the Services for more than 30 consecutive Business Days, either party may end the Agreement by giving at least 10 Business Days' written notice. The Initial Term and any notice period in the Engagement Order do not apply to termination under this clause.</p><div class="plain"><b>In plain English</b>After six weeks, either side can walk away.</div></div>
+<div class="cl"><span class="no">4.5</span><p>Nexa may use Associates to support the Key Person with the Client's prior approval, which may be given by email. Nexa remains responsible for the acts and omissions of its Associates as if they were its own and will ensure they are bound by obligations of confidentiality no less protective than clause 10.</p><span></span></div>
+<div class="cl"><span class="no">4.6</span><p>Nexa will not replace the Key Person permanently without the Client's prior written consent. If Nexa proposes a permanent replacement and the Client does not consent, either party may end the Agreement on 20 Business Days' written notice.</p><span></span></div>
+</section>
+
+<section id="c5"><h2><span class="n">5</span>Client responsibilities</h2>
+<div class="cl"><span class="no">5.1</span><div><p>The Client must:</p>
+<ol><li>give Nexa timely access to the people, information, systems and premises reasonably needed to provide the Services;</li>
+<li>make sure that information it provides is accurate and complete, and tell Nexa promptly if it becomes aware that it is not;</li>
+<li>make decisions and give approvals within a reasonable time;</li>
+<li>provide a safe working environment whenever the Key Person or any Associate works at its premises, together with any site induction and health and safety information they need; and</li>
+<li>obtain any third-party consents needed for Nexa to use the Client's systems or materials.</li></ol></div><div class="plain"><b>In plain English</b>Give us access, accurate information and a safe place to work.</div></div>
+<div class="cl"><span class="no">5.2</span><p>Nexa is not responsible for any delay or failure to perform the Services to the extent that it is caused by the Client's failure to comply with clause 5.1.</p><span></span></div>
+<div class="cl"><span class="no">5.3</span><p>The Client remains responsible for its own legal and regulatory compliance, including compliance with employment law and its obligations as an employer.</p><span></span></div>
+</section>
+
+<section id="c6"><h2><span class="n">6</span>Status and authority</h2>
+<div class="cl"><span class="no">6.1</span><p>Nexa provides the Services as an independent business on its own account. Nothing in the Agreement makes Nexa, the Key Person or any Associate an employee, worker, partner or agent of the Client.</p><div class="plain"><b>In plain English</b>We're a supplier, not staff.</div></div>
+<div class="cl"><span class="no">6.2</span><p>Nexa decides how the Services are carried out, subject to the Client's reasonable requirements on scope, timing and site rules. The Key Person is not subject to the Client's line management or disciplinary procedures.</p><span></span></div>
+<div class="cl"><span class="no">6.3</span><p>Nexa has no authority to bind the Client, sign on its behalf, make employment decisions or commit it to expenditure, except within the written limits of delegated authority set out in the Service Schedule.</p><div class="plain"><b>In plain English</b>Any authority is written down and capped.</div></div>
+<div class="cl"><span class="no">6.4</span><p>The Client must not require the Key Person to act as a director, or hold the Key Person out as one. The Client's board keeps responsibility for every decision of the Client, and Nexa's recommendations are advisory only, even where the Key Person attends board or management meetings.</p><div class="plain"><b>In plain English</b>The board decides. This keeps Mila from being treated as a shadow director.</div></div>
+<div class="cl"><span class="no">6.5</span><p>Where its policy permits, the Client will make sure that its directors' and officers' liability insurance covers the Key Person for acts in the course of the Services, and will give Nexa evidence of this on request.</p><span></span></div>
+<div class="cl"><span class="no">6.6</span><p>Nexa is responsible for all income tax, National Insurance contributions and other taxes due on payments it makes to the Key Person and any Associate. Subject to clause 6.7, Nexa will indemnify the Client against any such liability that falls on the Client, except to the extent it arises from the Client's failure to comply with clause 6.7.</p><span></span></div>
+<div class="cl"><span class="no">6.7</span><p>Where Chapter 10 of Part 2 of the Income Tax (Earnings and Pensions) Act 2003 applies to the Engagement, the Client must take reasonable care in reaching a status determination, give Nexa a status determination statement with reasons before the Start Date, and respond to any disagreement Nexa raises within 45 days. If the Client determines that the Engagement falls within those rules and the parties cannot agree how to proceed within 20 Business Days, either party may end the Agreement on written notice.</p><div class="plain"><b>In plain English</b>If you're medium or large, you make the IR35 call and must do it carefully.</div></div>
+</section>
+
+<section id="c7"><h2><span class="n">7</span>Liability</h2>
+<div class="cl"><span class="no">7.1</span><p>Nothing in the Agreement limits or excludes either party's liability for death or personal injury caused by its negligence, for fraud or fraudulent misrepresentation, or for any other liability that cannot be limited or excluded by law.</p><div class="plain"><b>In plain English</b>Some things can't be capped under English law.</div></div>
+<div class="cl"><span class="no">7.2</span><div><p>Subject to clause 7.1, Nexa is not liable to the Client, whether in contract, tort (including negligence), breach of statutory duty or otherwise, for any:</p>
+<ol><li>loss of profits;</li><li>loss of revenue, business, contracts or anticipated savings;</li><li>loss of goodwill or reputation;</li><li>loss or corruption of data, except to the extent caused by Nexa's breach of Schedule 1; or</li><li>indirect or consequential loss.</li></ol></div><div class="plain"><b>In plain English</b>Each excluded loss is named separately, which is what the courts expect.</div></div>
+<div class="cl"><span class="no">7.3</span><p>Subject to clauses 7.1 and 7.2, Nexa's total aggregate liability for all claims arising under or in connection with the Agreement, whether in contract, tort (including negligence), breach of statutory duty or otherwise, is limited to the greater of: (a) the total Fees paid and payable in the 12 months before the event giving rise to the first claim; and (b) the total Fees payable for the first 12 months of the Engagement, or for the whole Engagement if shorter.</p><div class="plain"><b>In plain English</b>There is one cap for everything, set at a year's fees.</div></div>
+<div class="cl"><span class="no">7.4</span><p>Except as expressly set out in the Agreement, all terms implied by statute or common law are excluded to the fullest extent permitted by law.</p><span></span></div>
+<div class="cl"><span class="no">7.5</span><p>Nexa has no liability for any claim unless the Client notifies Nexa of it in writing, with reasonable details, within 12 months of the date on which the Client became aware, or ought reasonably to have become aware, of the circumstances giving rise to it.</p><span></span></div>
+<div class="cl"><span class="no">7.6</span><p>Nothing in this clause 7 limits the Client's obligation to pay the Fees.</p><span></span></div>
+<div class="cl"><span class="no">7.7</span><p>The parties have negotiated this clause 7 as businesses with access to advice, and agree that it is reasonable having regard to the Fees, the nature of the Services and the insurance available to each of them.</p><span></span></div>
+</section>
+
+<section id="c8"><h2><span class="n">8</span>Fees and payment</h2>
+<div class="cl"><span class="no">8.1</span><p>The Client must pay the Fees set out in, or calculated in accordance with, the Engagement Order.</p><span></span></div>
+<div class="cl"><span class="no">8.2</span><p>Unless the Engagement Order says otherwise, Nexa will invoice monthly in advance, and each invoice is payable within the period stated in the Engagement Order, or within 14 days of its date if none is stated, into the bank account shown on the invoice.</p><div class="plain"><b>In plain English</b>Invoices go out at the start of the month and are due within 14 days.</div></div>
+<div class="cl"><span class="no">8.3</span><p>All Fees are exclusive of VAT. Where VAT is chargeable, the Client must pay it in addition to the Fees at the rate in force at the time of supply, on receipt of a valid VAT invoice.</p><span></span></div>
+<div class="cl"><span class="no">8.4</span><p>If the Client disputes any invoice in good faith, it must tell Nexa in writing within 7 days of receiving it, giving reasons, and must pay the undisputed amount by the due date. The parties will try to resolve the dispute promptly under clause 17.</p><span></span></div>
+<div class="cl"><span class="no">8.5</span><p>If any amount is not paid when due, Nexa may charge interest and fixed compensation under the Late Payment of Commercial Debts (Interest) Act 1998. If any undisputed amount remains unpaid 7 days after Nexa has sent a written reminder, Nexa may suspend the Services until payment is made, without liability for the suspension.</p><div class="plain"><b>In plain English</b>Late payment carries statutory interest, and work can pause until you pay.</div></div>
+<div class="cl"><span class="no">8.6</span><p>Nexa may review the Fees with effect from each anniversary of the Start Date. Nexa will give the Client at least 60 days' written notice of any increase. If the Client does not accept the increase, it may end the Agreement by written notice given before the increase takes effect, in which case the Agreement ends on that anniversary and the existing Fees apply until then. The Initial Term and any notice period in the Engagement Order do not apply to termination under this clause.</p><div class="plain"><b>In plain English</b>Fees can be reviewed once a year with 60 days' notice. If you don't accept a rise, you can leave at the anniversary.</div></div>
+<div class="cl"><span class="no">8.7</span><p>The Client must reimburse reasonable travel and other expenses that it has approved in advance, at cost, on production of receipts.</p><span></span></div>
+</section>
+
+<section id="c9"><h2><span class="n">9</span>Intellectual property</h2>
+<div class="cl"><span class="no">9.1</span><p>Nexa and its licensors own all Background IP. Nothing in the Agreement transfers any Background IP to the Client.</p><div class="plain"><b>In plain English</b>Our methods and templates stay ours.</div></div>
+<div class="cl"><span class="no">9.2</span><p>On payment in full of the Fees for the period in which they were created, Nexa assigns to the Client, with full title guarantee, all intellectual property in the Deliverables.</p><div class="plain"><b>In plain English</b>Once you've paid, the work made for you is yours.</div></div>
+<div class="cl"><span class="no">9.3</span><p>Nexa grants the Client a non-exclusive, perpetual, royalty-free, non-transferable licence to use any Background IP included in the Deliverables, for the Client's internal business purposes and those of its group companies. The licence continues after the Agreement ends.</p><span></span></div>
+<div class="cl"><span class="no">9.4</span><p>Nothing in the Agreement prevents Nexa from using the general skills, experience and know-how it develops in the course of the Engagement, provided it does not disclose the Client's Confidential Information.</p><span></span></div>
+</section>
+
+<section id="c10"><h2><span class="n">10</span>Confidentiality</h2>
+<div class="cl"><span class="no">10.1</span><p>Each party must keep the other's Confidential Information confidential, use it only to perform or receive the Services, and not disclose it except as permitted by this clause 10. These obligations continue during the Engagement and for 5 years after it ends, and indefinitely for trade secrets.</p><div class="plain"><b>In plain English</b>What you tell us stays with us, and the same applies in reverse.</div></div>
+<div class="cl"><span class="no">10.2</span><p>A party may disclose the other's Confidential Information to its employees, officers, Associates, insurers and professional advisers who need to know it for the purposes of the Agreement, provided they are bound by obligations of confidentiality, and the disclosing party remains responsible for their compliance.</p><span></span></div>
+<div class="cl"><span class="no">10.3</span><p>A party may disclose Confidential Information to the extent required by law, by a court or by a regulatory or governmental body, giving the other party as much notice as is lawful and practicable.</p><span></span></div>
+<div class="cl"><span class="no">10.4</span><p>This clause 10 does not apply to information that is or becomes public other than through a breach of the Agreement, was lawfully known to the recipient before disclosure, is lawfully received from a third party without a duty of confidence, or is developed independently.</p><span></span></div>
+<div class="cl"><span class="no">10.5</span><p>Nexa may name the Client as a client and describe the Engagement in general terms only with the Client's prior written consent, which may be given by email. Nexa may refer to the Engagement in anonymised form, provided the Client cannot reasonably be identified from it.</p><div class="plain"><b>In plain English</b>We'll only name you with your permission. Anonymous case studies are allowed.</div></div>
+</section>
+
+<section id="c11"><h2><span class="n">11</span>Data protection</h2>
+<div class="cl"><span class="no">11.1</span><p>Each party must comply with the UK GDPR, the Data Protection Act 2018, the Privacy and Electronic Communications (EC Directive) Regulations 2003 and all other applicable data protection law, in each case as amended from time to time, including by the Data (Use and Access) Act 2025 (<dfn>Data Protection Legislation</dfn>).</p><span></span></div>
+<div class="cl"><span class="no">11.2</span><p>Where Nexa processes personal data on the Client's behalf in providing the Services, the Client is the controller, Nexa is the processor, and Schedule 1 applies.</p><div class="plain"><b>In plain English</b>When we handle your staff or customer data, the rules in Schedule 1 apply.</div></div>
+<div class="cl"><span class="no">11.3</span><p>Each party is an independent controller of the business contact details of the other party's personnel that it uses to manage the Agreement. Nexa processes that data in accordance with its privacy notice.</p><span></span></div>
+</section>
+
+<section id="c12"><h2><span class="n">12</span>Non-solicitation</h2>
+<div class="cl"><span class="no">12.1</span><p>During the Engagement and for 6 months after it ends, neither party may, without the other's prior written consent, solicit or entice away, or employ or engage, any individual who was employed or engaged by the other party and was directly involved in the Services during the last 6 months of the Engagement. This does not apply to recruitment through a general advertisement not aimed at that individual.</p><div class="plain"><b>In plain English</b>Neither side poaches the other's people from the engagement for six months.</div></div>
+<div class="cl"><span class="no">12.2</span><p>If a party breaches clause 12.1, it must pay the other party a sum equal to 20% of the individual's gross annual remuneration in the first year of their new employment or engagement. The parties agree that this sum protects a legitimate interest in the stability of their teams and is proportionate.</p><span></span></div>
+<div class="cl"><span class="no">12.3</span><p>Each restriction in this clause 12 is separate. If any restriction is found unenforceable but would be enforceable with part of it deleted, it applies with the minimum deletion needed to make it enforceable.</p><span></span></div>
+</section>
+
+<section id="c13"><h2><span class="n">13</span>Compliance</h2>
+<div class="cl"><span class="no">13.1</span><div><p>Each party must, in connection with the Agreement:</p>
+<ol><li>comply with the Bribery Act 2010 and not do anything that would cause the other party to commit an offence under section 7 of that Act;</li>
+<li>comply with the Modern Slavery Act 2015 and take reasonable steps to ensure there is no slavery or human trafficking in its business;</li>
+<li>not engage in, or facilitate, tax evasion, and maintain reasonable procedures to prevent the facilitation of tax evasion under Part 3 of the Criminal Finances Act 2017; and</li>
+<li>not commit fraud, and not do anything that would cause the other party to commit an offence under section 199 of the Economic Crime and Corporate Transparency Act 2023.</li></ol></div><div class="plain"><b>In plain English</b>No bribery, modern slavery, tax evasion or fraud on either side.</div></div>
+<div class="cl"><span class="no">13.2</span><p>Each party must tell the other promptly if it becomes aware of any breach of clause 13.1 in connection with the Agreement. A material breach of clause 13.1 is a material breach that cannot be remedied for the purposes of clause 15.1.</p><span></span></div>
+</section>
+
+<section id="c14"><h2><span class="n">14</span>Insurance</h2>
+<div class="cl"><span class="no">14.1</span><p>During the Engagement and for 2 years after it ends, Nexa will maintain professional indemnity insurance and public liability insurance with reputable insurers, at levels of cover that Nexa reasonably considers appropriate for the Services. Nexa will give the Client evidence of this cover on request.</p><div class="plain"><b>In plain English</b>We carry professional indemnity and public liability cover and can show you the certificates.</div></div>
+</section>
+
+<section id="c15"><h2><span class="n">15</span>Termination</h2>
+<div class="cl"><span class="no">15.1</span><p>Either party may end the Agreement immediately by written notice if the other party commits a material breach of the Agreement that cannot be remedied, or that it fails to remedy within 20 Business Days of receiving written notice of the breach.</p><span></span></div>
+<div class="cl"><span class="no">15.2</span><p>To the extent permitted by law, either party may end the Agreement immediately by written notice if the other party becomes insolvent, makes an arrangement with its creditors, enters administration, liquidation or a similar procedure in any jurisdiction, or ceases to carry on business.</p><div class="plain"><b>In plain English</b>Insolvency allows termination where the law permits it.</div></div>
+<div class="cl"><span class="no">15.3</span><p>Nexa may end the Agreement by written notice if any undisputed amount remains unpaid 30 days after its due date and Nexa has sent the Client a written reminder at least 7 days before giving notice.</p><span></span></div>
+<div class="cl"><span class="no">15.4</span><div><p>When the Agreement ends for any reason:</p>
+<ol><li>the Client must pay all Fees and approved expenses for Services performed up to the date of termination;</li>
+<li>Nexa will refund, in proportion, any Fees paid in advance for any period after the date of termination, unless Nexa ended the Agreement under clause 15.1, 15.2 or 15.3;</li>
+<li>unused Commitment days and Hours Block hours lapse;</li>
+<li>each party must return or securely destroy the other's Confidential Information on request, except where it must keep a copy by law or for its legitimate record-keeping; and</li>
+<li>the parties' rights and remedies accrued up to termination are not affected.</li></ol></div><div class="plain"><b>In plain English</b>You pay for work done, and fees paid in advance for time after the end are refunded unless you were in breach.</div></div>
+<div class="cl"><span class="no">15.5</span><p>Clauses 1, 6.6, 7, 8 (as to amounts due), 9, 10, 11, 12, 15.4, 17 and 18, and Schedule 1 to the extent it applies to personal data still held, continue after the Agreement ends.</p><span></span></div>
+</section>
+
+<section id="c16"><h2><span class="n">16</span>Changes</h2>
+<div class="cl"><span class="no">16.1</span><p>Either party may propose a change to the Services, the Commitment, the Fees or any other part of the Agreement. A change takes effect only when set out in a Change Note signed by both parties, which may be signed electronically.</p><div class="plain"><b>In plain English</b>Changes are agreed on a one-page Change Note that both sides sign.</div></div>
+<div class="cl"><span class="no">16.2</span><p>Nexa is not obliged to perform work outside the scope of the Agreement until a Change Note has been signed, but may do so at the Client's written request, in which case it will be charged at the rates in the Engagement Order.</p><span></span></div>
+</section>
+
+<section id="c17"><h2><span class="n">17</span>Disputes</h2>
+<div class="cl"><span class="no">17.1</span><p>If a dispute arises in connection with the Agreement, either party may refer it by written notice to the Key Person and the Client's chief executive (or equivalent), who must meet within 10 Business Days and try in good faith to resolve it.</p><span></span></div>
+<div class="cl"><span class="no">17.2</span><p>If the dispute is not resolved within 15 Business Days of the notice under clause 17.1, the parties will try to settle it by mediation in accordance with the CEDR Model Mediation Procedure. Unless otherwise agreed, the mediator will be nominated by CEDR, and the parties will share the mediator's fees equally.</p><div class="plain"><b>In plain English</b>The two sides talk first, then try mediation, before anyone goes to court.</div></div>
+<div class="cl"><span class="no">17.3</span><p>Neither party may start court proceedings until 30 days after a request for mediation has been made, except to seek urgent interim relief or to protect a claim that would otherwise become time-barred.</p><span></span></div>
+</section>
+
+<section id="c18"><h2><span class="n">18</span>General</h2>
+<div class="cl"><span class="no">18.1</span><p><b>Events beyond control.</b> Neither party is liable for any delay or failure to perform its obligations, other than an obligation to pay, caused by an event beyond its reasonable control. If such an event continues for more than 30 days, either party may end the Agreement by written notice.</p><span></span></div>
+<div class="cl"><span class="no">18.2</span><p><b>Assignment.</b> Neither party may assign or transfer the Agreement without the other's prior written consent, which must not be unreasonably withheld. Nexa may subcontract support work to Associates in accordance with clause 4.5.</p><span></span></div>
+<div class="cl"><span class="no">18.3</span><p><b>Entire agreement.</b> The Agreement is the entire agreement between the parties about its subject matter and replaces any earlier proposal, discussion or understanding. Each party acknowledges that it has not relied on any statement, representation or assurance not set out in the Agreement. Nothing in this clause limits liability for fraud or fraudulent misrepresentation.</p><span></span></div>
+<div class="cl"><span class="no">18.4</span><p><b>Third parties.</b> No person other than Nexa and the Client has any right under the Contracts (Rights of Third Parties) Act 1999 to enforce any term of the Agreement.</p><div class="plain"><b>In plain English</b>Only the two signing companies can enforce the contract.</div></div>
+<div class="cl"><span class="no">18.5</span><p><b>Notices.</b> Notices under the Agreement must be in writing and sent by email to the address given in the Engagement Order, or to another address a party notifies. An email notice is treated as received at the time it is sent if that is between 9am and 5pm on a Business Day, and otherwise at 9am on the next Business Day. This clause does not apply to the service of legal proceedings, which may not be served by email.</p><span></span></div>
+<div class="cl"><span class="no">18.6</span><p><b>Variation and waiver.</b> The Agreement may be varied only under clause 16. A failure or delay in exercising a right is not a waiver of it.</p><span></span></div>
+<div class="cl"><span class="no">18.7</span><p><b>Severance.</b> If any provision of the Agreement is found invalid or unenforceable, it is treated as deleted to the minimum extent necessary, and the rest of the Agreement is unaffected.</p><span></span></div>
+<div class="cl"><span class="no">18.8</span><p><b>Counterparts and signature.</b> An Engagement Order or Change Note may be signed in any number of counterparts and by electronic signature, and each counterpart is an original.</p><span></span></div>
+<div class="cl"><span class="no">18.9</span><p><b>Costs.</b> Each party pays its own costs of negotiating and entering into the Agreement.</p><span></span></div>
+<div class="cl"><span class="no">18.10</span><p><b>Law and jurisdiction.</b> The Agreement and any dispute or claim, including any non-contractual dispute or claim, arising out of or in connection with it are governed by the law of England and Wales. Subject to clause 17, the courts of England and Wales have exclusive jurisdiction.</p><span></span></div>
+</section>
+
+<section id="s1" class="sched"><h2><span class="n">S1</span>Schedule 1 · Data processing<i>.</i></h2>
+<div class="cl"><span class="no">S1.1</span><p>This Schedule applies where Nexa processes personal data as processor on behalf of the Client under clause 11.2 (<dfn>Client Personal Data</dfn>). Words used in this Schedule that are defined in the UK GDPR have the meanings given there.</p><div class="plain"><b>In plain English</b>This is the processor contract that UK GDPR Article 28 requires.</div></div>
+<div class="cl"><span class="no">S1.2</span><div><p>Nexa must:</p>
+<ol><li>process Client Personal Data only on the Client's documented instructions, which are the Agreement and any further written instructions, unless the law requires otherwise, in which case Nexa will tell the Client first unless the law prohibits this;</li>
+<li>tell the Client promptly if, in its opinion, an instruction infringes the Data Protection Legislation;</li>
+<li>ensure that anyone it authorises to process Client Personal Data is bound by a duty of confidentiality;</li>
+<li>implement appropriate technical and organisational measures to protect Client Personal Data, as required by Article 32 of the UK GDPR;</li>
+<li>taking into account the nature of the processing, assist the Client by appropriate measures in responding to requests from data subjects to exercise their rights;</li>
+<li>assist the Client, taking into account the information available to Nexa, in meeting its obligations on security, personal data breach notification, data protection impact assessments and prior consultation with the Information Commissioner;</li>
+<li>notify the Client without undue delay, and in any event within 48 hours, after becoming aware of a personal data breach affecting Client Personal Data, with the information the Client reasonably needs to meet its own obligations;</li>
+<li>at the end of the Engagement, at the Client's choice, delete or return all Client Personal Data and delete existing copies, unless the law requires it to be kept; and</li>
+<li>make available to the Client the information reasonably necessary to demonstrate compliance with this Schedule, and allow and contribute to audits, including inspections, by the Client or an auditor it appoints, on reasonable notice and no more than once a year unless a personal data breach has occurred.</li></ol></div><span></span></div>
+<div class="cl"><span class="no">S1.3</span><p>The Client gives general authorisation for Nexa to use sub-processors, including providers of email, document storage and collaboration software. Nexa will give the Client a list of its current sub-processors on request and will notify the Client of any intended addition or replacement, giving the Client a reasonable opportunity to object. Nexa will impose data protection obligations on each sub-processor equivalent to those in this Schedule and remains liable to the Client for each sub-processor's performance.</p><div class="plain"><b>In plain English</b>We use standard business software and will tell you before adding providers.</div></div>
+<div class="cl"><span class="no">S1.4</span><p>Nexa must not transfer Client Personal Data outside the United Kingdom unless the transfer is to a country covered by UK adequacy regulations, including transfers to certified organisations under the UK Extension to the EU-US Data Privacy Framework, or is subject to appropriate safeguards such as the International Data Transfer Agreement or the International Data Transfer Addendum issued by the Information Commissioner.</p><span></span></div>
+<div class="cl"><span class="no">S1.5</span><p>The Client is responsible for ensuring that it has a lawful basis for the processing it instructs, and that its instructions comply with the Data Protection Legislation.</p><span></span></div>
+<div class="cl"><span class="no">S1.6</span><p>The processing details are set out below and may be supplemented in the Engagement Order.</p><span></span></div>
+<div class="annex">
+  <div><b>Subject matter</b><span>Provision of the Services.</span></div>
+  <div><b>Duration</b><span>The Engagement, and any period afterwards until Client Personal Data is deleted or returned under S1.2(h).</span></div>
+  <div><b>Nature and purpose</b><span>Accessing, reviewing, organising, storing and using personal data as needed to provide operations, people, process and governance support to the Client.</span></div>
+  <div><b>Types of personal data</b><span>Names, contact details, job and employment information, pay and benefits, performance and absence records, recruitment information, and other data the Client makes available. Special category data, such as health information, is processed only where the Services require it and the Client has instructed Nexa to do so.</span></div>
+  <div><b>Data subjects</b><span>The Client's employees, workers, contractors, job applicants, customers, suppliers and their personnel.</span></div>
+</div>
+</section>
+
+</article>
+</div>
+
+<footer><div class="wrap foot"><span>NexaStrategic Ltd · Registered in England and Wales, company number 15536373 · Registered office: 7 Bell Yard, London, England, WC2A 2JR</span><span>Terms of Business v1.0 · <a href="mailto:milica@nexastrategic.com">milica@nexastrategic.com</a></span></div></footer>
+</body>
+</html>
