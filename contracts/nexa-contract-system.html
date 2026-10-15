@@ -1,0 +1,347 @@
+<title>Nexa Contract System</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,100&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a desk with real A4 sheets laid on it. The sheets are always paper (contracts are printed objects);
+   the desk around them follows the viewer's theme. Brand tokens are lifted from nexastrategic.com. */
+:root{
+  /* brand (fixed, from site) */
+  --paper:#f5efe7; --ink:#191716; --wine:#5a202b; --blush:#ddb5b0; --pink:#d94c86; --muted:#6e6763;
+  --rule:rgba(25,23,22,.18);
+  /* desk (theme-aware) */
+  --desk:#ebe3d8; --desk-fg:#191716; --desk-muted:#6e6763; --desk-line:rgba(25,23,22,.16); --desk-card:#f5efe7; --desk-accent:#5a202b;
+  --shadow:0 1px 2px rgba(25,23,22,.06),0 18px 40px -18px rgba(25,23,22,.28);
+  /* type: Roca One + Neue Montreal in production; Google stand-ins here */
+  --display:"Roca One","Fraunces","Cooper Black",Georgia,serif;
+  --sans:"Neue Montreal","Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --desk:#141211; --desk-fg:#f1e9df; --desk-muted:#b3a9a1; --desk-line:rgba(241,233,223,.16); --desk-card:#1f1b1a; --desk-accent:#ddb5b0;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 24px 50px -20px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --desk:#141211; --desk-fg:#f1e9df; --desk-muted:#b3a9a1; --desk-line:rgba(241,233,223,.16); --desk-card:#1f1b1a; --desk-accent:#ddb5b0;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 24px 50px -20px rgba(0,0,0,.7); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--desk);color:var(--desk-fg);font-family:var(--sans);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;padding-block:56px 96px;display:flex;flex-direction:column;gap:88px}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.035em;text-wrap:balance;margin:0;font-variation-settings:"SOFT" 100}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--desk-accent)}
+.prose{max-width:66ch;color:var(--desk-fg)}
+.prose p{margin:0}
+.muted{color:var(--desk-muted)}
+section{display:flex;flex-direction:column;gap:28px;min-width:0}
+.sec-head{display:flex;flex-direction:column;gap:12px}
+.sec-head h2{font-size:clamp(32px,4.4vw,54px);line-height:.98}
+
+/* hero */
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:end}
+header h1{font-size:clamp(46px,7vw,96px);line-height:.9}
+header h1 em{font-style:normal;color:var(--desk-accent)}
+.lede{font-size:clamp(18px,1.8vw,22px);line-height:1.35;max-width:40ch;margin:24px 0 0}
+.hero-note{background:var(--wine);color:#fff;padding:20px 22px;font-size:14px;line-height:1.45}
+.hero-note b{display:block;font-family:var(--display);font-weight:400;font-size:22px;line-height:1.1;margin-bottom:8px;font-variation-settings:"SOFT" 100}
+
+/* document stack */
+.stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--desk-fg)}
+.tier{padding:22px 22px 24px 0;border-right:1px solid var(--desk-line);display:flex;flex-direction:column;gap:10px}
+.tier:not(:first-child){padding-left:22px}.tier:last-child{border-right:0}
+.tier .lvl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--desk-muted)}
+.tier h3{font-size:30px;line-height:1}
+.tier p{margin:0;font-size:15px}
+.tier .chg{margin-top:auto;font-size:13px;font-weight:600;padding-top:10px;border-top:1px solid var(--desk-line)}
+.seats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--desk-line);border:1px solid var(--desk-line)}
+.seat{background:var(--desk-card);padding:18px;display:flex;flex-direction:column;gap:6px}
+.seat b{font-family:var(--display);font-weight:400;font-size:26px;line-height:1;font-variation-settings:"SOFT" 100}
+.seat small{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--desk-muted);font-weight:600}
+.seat p{margin:4px 0 0;font-size:14px}
+.satellites{display:flex;flex-wrap:wrap;gap:10px}
+.sat{border:1px solid var(--desk-line);padding:8px 12px;font-size:13px;background:var(--desk-card)}
+.sat b{font-weight:600}
+
+/* sheets */
+.sheets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;align-items:start}
+.sheet-wrap{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cap{font-size:13px;color:var(--desk-muted)}
+.cap b{color:var(--desk-fg);font-weight:600}
+.sheet{container-type:inline-size;background:var(--paper);color:var(--ink);box-shadow:var(--shadow);aspect-ratio:210/297;width:100%;overflow:hidden;position:relative}
+.pg{position:absolute;inset:0;padding:7.5cqw 8cqw 6cqw;display:flex;flex-direction:column;font-size:1.72cqw;line-height:1.5}
+.pg .disp{font-family:var(--display);font-weight:400;letter-spacing:-.035em;font-variation-settings:"SOFT" 100}
+.runhead{display:flex;justify-content:space-between;align-items:baseline;font-size:1.45cqw;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding-bottom:2.2cqw;border-bottom:.18cqw solid var(--ink)}
+.runhead .mark{font-family:var(--display);text-transform:none;letter-spacing:-.02em;font-size:2.6cqw;font-weight:400;font-variation-settings:"SOFT" 100}
+.runhead .mark i{font-style:normal;color:var(--pink)}
+.folio{margin-top:auto;display:flex;justify-content:space-between;font-size:1.35cqw;color:var(--muted);padding-top:2cqw;border-top:.12cqw solid var(--rule)}
+
+/* cover */
+.cover .kick{margin-top:9cqw;font-size:1.5cqw;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--wine)}
+.cover h3{font-size:8.4cqw;line-height:.9;margin:2.4cqw 0 0;color:var(--ink)}
+.cover .between{margin-top:3.6cqw;font-size:2.15cqw;line-height:1.3;max-width:80%}
+.cover .between b{font-weight:600}
+.keys{margin-top:5cqw;display:grid;grid-template-columns:1fr 1fr;border-top:.18cqw solid var(--ink)}
+.key{padding:1.6cqw 2cqw 1.6cqw 0;border-bottom:.12cqw solid var(--rule)}
+.key:nth-child(even){padding-left:2cqw;border-left:.12cqw solid var(--rule)}
+.key span{display:block;font-size:1.3cqw;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.key strong{display:block;font-size:1.95cqw;font-weight:500;margin-top:.4cqw}
+.key strong.big{font-family:var(--display);font-weight:400;font-size:3.1cqw;line-height:1;font-variation-settings:"SOFT" 100}
+.ph{color:var(--wine);font-weight:600}
+.incorp{margin-top:3.2cqw;font-size:1.5cqw;color:var(--muted);max-width:86%}
+
+/* terms */
+.terms .title{margin-top:5cqw;display:flex;align-items:baseline;gap:2.4cqw}
+.terms .title .n{font-size:1.5cqw;letter-spacing:.12em;font-weight:700;color:var(--wine)}
+.terms .title h3{font-size:4.6cqw;line-height:1}
+.clauses{margin-top:3cqw;display:flex;flex-direction:column;gap:2.2cqw}
+.cl{display:grid;grid-template-columns:5.2cqw 1fr 22cqw;gap:2.2cqw;align-items:start}
+.cl .no{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.6cqw;padding-top:.15cqw}
+.cl .txt{margin:0}
+.cl .txt dfn{font-style:normal;font-weight:700}
+.cl .plain{font-size:1.42cqw;line-height:1.4;color:var(--wine);border-left:.3cqw solid var(--blush);padding-left:1.6cqw}
+.cl .plain b{display:block;font-size:1.15cqw;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4cqw}
+.cl.head .txt{font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:1.5cqw}
+
+/* signature */
+.sig h3{font-size:4.6cqw;margin-top:5cqw}
+.sig .intro{margin-top:2cqw;max-width:80%}
+.sigs{margin-top:5cqw;display:grid;grid-template-columns:1fr 1fr;gap:4cqw}
+.sb{display:flex;flex-direction:column;gap:1.2cqw}
+.sb .who{font-size:1.3cqw;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--wine)}
+.sb .line{height:9cqw;border-bottom:.18cqw solid var(--ink);position:relative}
+.sb .line i{position:absolute;bottom:1cqw;left:0;font-family:var(--display);font-style:normal;font-size:4.8cqw;color:var(--ink);font-variation-settings:"SOFT" 100;opacity:.85}
+.sb dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.6cqw 2cqw;font-size:1.55cqw}
+.sb dt{color:var(--muted)}.sb dd{margin:0}
+.close{margin-top:7cqw;background:var(--wine);color:#fff;padding:3cqw 3.4cqw;font-size:1.6cqw;line-height:1.45}
+.close .disp{display:block;font-size:3cqw;line-height:1.05;margin-bottom:1cqw}
+
+/* schedule */
+.sched .title{margin-top:5cqw}
+.sched .title span{font-size:1.5cqw;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--wine)}
+.sched .title h3{font-size:6cqw;line-height:.95;margin-top:1.4cqw}
+.sched .title h3 i{font-style:normal;color:var(--pink)}
+.sched .sub{margin-top:1.6cqw;font-size:1.9cqw;color:var(--muted)}
+.scope{margin-top:4cqw;border-top:.18cqw solid var(--ink)}
+.srow{display:grid;grid-template-columns:24cqw 1fr;gap:3cqw;padding:1.8cqw 0;border-bottom:.12cqw solid var(--rule)}
+.srow b{font-weight:600}
+.srow ul{margin:0;padding-left:2.4cqw}
+.out{margin-top:3cqw;display:grid;grid-template-columns:1fr 1fr;gap:3cqw}
+.out div{border:.12cqw solid var(--rule);padding:2cqw}
+.out b{display:block;font-size:1.3cqw;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8cqw;color:var(--wine)}
+
+/* positions table */
+.tbl{overflow-x:auto;border-top:1px solid var(--desk-fg)}
+table{width:100%;border-collapse:collapse;min-width:720px;font-size:15px}
+th{text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--desk-muted);font-weight:700;padding:14px 18px 12px 0;border-bottom:1px solid var(--desk-line)}
+td{vertical-align:top;padding:16px 18px 16px 0;border-bottom:1px solid var(--desk-line)}
+td:first-child{font-family:var(--display);font-size:20px;line-height:1.1;width:17%;font-variation-settings:"SOFT" 100}
+td:nth-child(2){width:38%}
+td .why{color:var(--desk-muted)}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--desk-line);border:1px solid var(--desk-line)}
+.rule{background:var(--desk-card);padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.rule h3{font-size:24px;line-height:1.05}
+.rule p{margin:0;font-size:15px}
+.swatches{display:flex;flex-wrap:wrap;gap:8px}
+.sw{display:flex;align-items:center;gap:8px;font-size:13px;border:1px solid var(--desk-line);padding:5px 10px 5px 5px;background:var(--desk)}
+.sw i{width:22px;height:22px;display:block;border:1px solid rgba(0,0,0,.12)}
+.sw code{font-size:12px;color:var(--desk-muted)}
+
+/* needs */
+.needs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px;border-top:1px solid var(--desk-fg)}
+.need{padding:16px 0;border-bottom:1px solid var(--desk-line);display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:15px}
+.need span{font-variant-numeric:tabular-nums;color:var(--desk-accent);font-weight:700;font-size:13px;padding-top:2px}
+.need b{font-weight:600}
+footer{font-size:13px;color:var(--desk-muted);border-top:1px solid var(--desk-line);padding-top:20px;max-width:80ch}
+
+@media (max-width:820px){
+  header,.sheets,.rules,.needs{grid-template-columns:1fr}
+  .stack,.seats{grid-template-columns:1fr}
+  .tier,.tier:not(:first-child){padding:18px 0;border-right:0;border-bottom:1px solid var(--desk-line)}
+  .wrap{gap:64px;padding-block:36px 72px}
+}
+@media (max-width:480px){
+  .pg{font-size:2cqw}
+  .cl{grid-template-columns:5cqw 1fr}.cl .plain{grid-column:2}
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="eyebrow">NexaStrategic Ltd · Contract system · Draft 0.1</div>
+    <h1>Fewer documents.<br><em>Clearer terms.</em></h1>
+    <p class="lede">One set of standard terms you rarely touch, a two-page engagement order for each client, and a schedule for each of the three seats.</p>
+  </div>
+  <div class="hero-note"><b>The design principle</b>The client negotiates one page, the cover. Everything behind it is standard and stays standard. That keeps deals fast and stops you running twelve slightly different contracts.</div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Architecture</div>
+    <h2>Three layers. Each one changes at a different speed.</h2>
+    <p class="prose muted">This is the cover-page model Common Paper and Bonterms popularised for SaaS, adapted for advisory. If the layers conflict, the engagement order wins over the schedule, and the schedule wins over the standard terms.</p>
+  </div>
+  <div class="stack">
+    <div class="tier"><span class="lvl">Layer 1 · Fixed</span><h3>Terms of Business</h3><p>The legal engine: status, IP, confidentiality, liability, data, termination, law and jurisdiction. Published at a versioned URL (nexastrategic.com/terms/v1) and incorporated by reference.</p><span class="chg">Changes: once a year, by you, never per client</span></div>
+    <div class="tier"><span class="lvl">Layer 2 · Per client</span><h3>Engagement Order</h3><p>The cover page. Parties, seat, start date, commitment, fees, notice, cap and any agreed variations, all in one key-terms grid. This is the only page that gets signed and redlined.</p><span class="chg">Changes: every engagement</span></div>
+    <div class="tier"><span class="lvl">Layer 3 · Per seat</span><h3>Seat Schedule</h3><p>Defines the role: scope, authority, deliverables and what is out of scope. Three versions, matching the three seats on the website.</p><span class="chg">Changes: rarely; you pick one, two or all three</span></div>
+  </div>
+  <div class="seats">
+    <div class="seat"><small>Schedule A · Fractional COO</small><b>Build.</b><p>Inside the business. Operational ownership, delegated authority with limits, management rhythm, people, delivery and risk.</p></div>
+    <div class="seat"><small>Schedule B · Operating Partner</small><b>Challenge.</b><p>Alongside the founders. Advisory only, with no executive authority. Covers decision support, sequencing and capacity.</p></div>
+    <div class="seat"><small>Schedule C · Board Advisor</small><b>Govern.</b><p>Around the board table. A non-director advisory seat with meeting cadence, papers and an optional equity mechanism.</p></div>
+  </div>
+  <div class="satellites">
+    <span class="sat"><b>Mutual NDA</b> · for the scoping stage, before any order</span>
+    <span class="sat"><b>Data Processing Addendum</b> · UK GDPR Art. 28, used when you touch employee data</span>
+    <span class="sat"><b>Change Note</b> · one page to vary scope or days mid-engagement</span>
+    <span class="sat"><b>Associate Agreement</b> · back-to-back terms for anyone you subcontract</span>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Specimen pages · A4</div>
+    <h2>What the client actually holds.</h2>
+    <p class="prose muted">These use example data, and [●] marks a blank to complete. The pink full stop is the one recurring flourish, the same device as on the site.</p>
+  </div>
+  <div class="sheets">
+
+    <div class="sheet-wrap">
+      <div class="sheet"><div class="pg cover">
+        <div class="runhead"><span class="mark">Nexa<i>.</i></span><span>Engagement Order · NX-2026-014</span></div>
+        <div class="kick">Engagement Order</div>
+        <h3 class="disp">Fractional<br>COO<span style="color:var(--pink)">.</span></h3>
+        <p class="between">Between <b>NexaStrategic Ltd</b> (company no. <span class="ph">[●]</span>) and <b>Example Client Ltd</b> (company no. <span class="ph">[●]</span>).</p>
+        <div class="keys">
+          <div class="key"><span>Seat</span><strong>Build · Schedule A</strong></div>
+          <div class="key"><span>Key person</span><strong>Milica Milićević</strong></div>
+          <div class="key"><span>Start date</span><strong>3 November 2026</strong></div>
+          <div class="key"><span>Initial term</span><strong>6 months, then rolling</strong></div>
+          <div class="key"><span>Commitment</span><strong class="big">6 days / month</strong></div>
+          <div class="key"><span>Fee</span><strong class="big">£<span class="ph">[●]</span> / month</strong></div>
+          <div class="key"><span>Invoicing</span><strong>Monthly in advance · 14 days</strong></div>
+          <div class="key"><span>Notice</span><strong>60 days after initial term</strong></div>
+          <div class="key"><span>Liability cap</span><strong>Fees paid in prior 12 months</strong></div>
+          <div class="key"><span>Law · forum</span><strong>England &amp; Wales</strong></div>
+        </div>
+        <p class="incorp">This Engagement Order incorporates the NexaStrategic Terms of Business v1.0 and Schedule A. Variations from those terms are listed in section 3 of this order. If there are none, it says “None”.</p>
+        <div class="folio"><span>NexaStrategic Ltd · London</span><span>1 / 2</span></div>
+      </div></div>
+      <p class="cap"><b>Engagement Order, page 1.</b> The deal on one page. The fee and commitment get display type because they are what both sides look for first.</p>
+    </div>
+
+    <div class="sheet-wrap">
+      <div class="sheet"><div class="pg terms">
+        <div class="runhead"><span class="mark">Nexa<i>.</i></span><span>Terms of Business · v1.0</span></div>
+        <div class="title"><span class="n">CLAUSE 6</span><h3 class="disp">Status &amp; authority</h3></div>
+        <div class="clauses">
+          <div class="cl"><span class="no">6.1</span><p class="txt">Nexa provides the Services as an independent business on its own account. Nothing in the Agreement makes Nexa or the <dfn>Key Person</dfn> an employee, worker, partner or agent of the Client.</p><div class="plain"><b>In plain English</b>We're a supplier, not staff.</div></div>
+          <div class="cl"><span class="no">6.2</span><p class="txt">Nexa has no authority to bind the Client, sign on its behalf or incur expenditure except within the written limits set out in the applicable Seat Schedule.</p><div class="plain"><b>In plain English</b>Any authority is written down and capped.</div></div>
+          <div class="cl"><span class="no">6.3</span><p class="txt">The Client shall not require the Key Person to act as, or hold themselves out as, a director. The Client's board retains responsibility for all decisions, and Nexa's recommendations are advisory.</p><div class="plain"><b>In plain English</b>The board decides. This keeps Mila from being treated as a shadow director.</div></div>
+          <div class="cl"><span class="no">6.4</span><p class="txt">The Client shall extend its directors' and officers' insurance to cover the Key Person for the duration of the Engagement, where its policy permits.</p><div class="plain"><b>In plain English</b>If you put Mila in the room, your D&amp;O policy covers her too.</div></div>
+          <div class="cl head"><span class="no">7</span><p class="txt">Liability</p><span></span></div>
+          <div class="cl"><span class="no">7.1</span><p class="txt">Nexa's total aggregate liability arising under or in connection with the Agreement shall not exceed the Fees paid or payable in the twelve months preceding the event giving rise to the claim.</p><div class="plain"><b>In plain English</b>Exposure is capped at a year's fees.</div></div>
+        </div>
+        <div class="folio"><span>Notes in the right-hand margin are not operative. See clause 1.4.</span><span>4 / 11</span></div>
+      </div></div>
+      <p class="cap"><b>Terms of Business, interior page.</b> Plain-English margin notes in wine are the signature device. A founder can read them in two minutes, and clause 1.4 stops them affecting interpretation.</p>
+    </div>
+
+    <div class="sheet-wrap">
+      <div class="sheet"><div class="pg sched">
+        <div class="runhead"><span class="mark">Nexa<i>.</i></span><span>Schedule A · Fractional COO</span></div>
+        <div class="title"><span>Schedule A</span><h3 class="disp">Build<i>.</i></h3><p class="sub">Inside the business. Operational ownership within agreed limits.</p></div>
+        <div class="scope">
+          <div class="srow"><b>Scope</b><ul><li>Operating model, ownership and management rhythm</li><li>People, hiring plan and workforce capacity</li><li>Delivery, supplier and risk management</li></ul></div>
+          <div class="srow"><b>Delegated authority</b><span>Approve spend up to £<span class="ph">[●]</span> per item within the approved budget. Hiring and firing need founder sign-off.</span></div>
+          <div class="srow"><b>Rhythm</b><span>Weekly founder session and a monthly operating review pack. Days are logged and reported monthly.</span></div>
+          <div class="srow"><b>Reporting line</b><span>CEO / Founder: <span class="ph">[●]</span></span></div>
+        </div>
+        <div class="out">
+          <div><b>Out of scope</b>Legal, tax or regulated financial advice. Statutory director duties. Line management of the finance function.</div>
+          <div><b>Unused days</b>Unused days roll forward one month and then lapse. Extra days are charged at the day rate in the Engagement Order.</div>
+        </div>
+        <div class="folio"><span>Read with the Terms of Business v1.0</span><span>A1</span></div>
+      </div></div>
+      <p class="cap"><b>Seat Schedule.</b> The seat names come straight from the website, so the contract tells the same story as the pitch.</p>
+    </div>
+
+    <div class="sheet-wrap">
+      <div class="sheet"><div class="pg sig">
+        <div class="runhead"><span class="mark">Nexa<i>.</i></span><span>Engagement Order · NX-2026-014</span></div>
+        <h3 class="disp">Agreed.</h3>
+        <p class="intro">Signed by authorised signatories. This order may be signed electronically and in counterparts.</p>
+        <div class="sigs">
+          <div class="sb"><span class="who">For NexaStrategic Ltd</span><div class="line"><i>M. Milićević</i></div><dl><dt>Name</dt><dd>Milica Milićević</dd><dt>Role</dt><dd>Director</dd><dt>Date</dt><dd><span class="ph">[●]</span></dd></dl></div>
+          <div class="sb"><span class="who">For Example Client Ltd</span><div class="line"></div><dl><dt>Name</dt><dd><span class="ph">[●]</span></dd><dt>Role</dt><dd><span class="ph">[●]</span></dd><dt>Date</dt><dd><span class="ph">[●]</span></dd></dl></div>
+        </div>
+        <div class="close"><span class="disp">Better decisions, not more opinions.</span>Notices to milica@nexastrategic.com. Advisory services do not constitute legal or financial advice.</div>
+        <div class="folio"><span>NexaStrategic Ltd · London</span><span>2 / 2</span></div>
+      </div></div>
+      <p class="cap"><b>Signature page.</b> The tagline appears once, on the closing block. Anywhere else in a contract it would read as marketing.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Drafting positions</div>
+    <h2>Where Nexa starts every negotiation.</h2>
+    <p class="prose muted">These are my proposed defaults for the standard terms. Your heads of terms will override any of them, which is the point of seeing them now.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Clause</th><th>Nexa default</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Contracting entity</td><td>NexaStrategic Ltd supplies, with you named as Key Person. You never contract personally.</td><td class="why">This keeps the limited liability shield and the outside-IR35 structure intact. Substitution is limited to approved associates with client consent, because a pure substitution right isn't credible for a named COO and HMRC tests working practices, not paper.</td></tr>
+      <tr><td>IR35</td><td>The client issues a Status Determination Statement if it's medium or large. Each side indemnifies for its own errors.</td><td class="why">Since April 2021, medium and large private-sector clients carry the determination duty. For small clients the decision stays with your company, and the contract should reflect how you actually work: own tools, no line management, control over method.</td></tr>
+      <tr><td>Authority</td><td>None unless the Seat Schedule sets it out, with a monetary limit.</td><td class="why">Section 251 of the Companies Act 2006 creates shadow director risk for anyone whose instructions the board habitually follows. That is the real exposure for the Build and Govern seats.</td></tr>
+      <tr><td>Liability</td><td>Capped at 12 months' fees. Indirect and consequential loss and lost profits are excluded. Fraud, death and personal injury are carved out.</td><td class="why">This cap is market-standard for advisory work and matches what PI insurers expect. Death, injury and fraud can't be excluded under UCTA 1977 anyway.</td></tr>
+      <tr><td>Fees &amp; payment</td><td>Monthly retainer invoiced in advance and payable in 14 days. Statutory interest applies to late payment.</td><td class="why">Billing in advance funds the month you're working. The Late Payment of Commercial Debts (Interest) Act 1998 gives you 8% over base, so the clause just points to it.</td></tr>
+      <tr><td>Term &amp; exit</td><td>A 3 to 6 month initial term, then rolling on 60 days' notice. Either side can terminate immediately for material breach or insolvency.</td><td class="why">Operating work needs a runway, because month one is diagnosis. The minimum term protects that, and the rolling notice stops the contract feeling like a trap.</td></tr>
+      <tr><td>IP</td><td>The client owns deliverables once paid. Nexa keeps its frameworks, templates and know-how, and grants the client a licence to use them internally.</td><td class="why">Your methodology is the business. Without a retained IP clause, every engagement arguably hands it over.</td></tr>
+      <tr><td>Non-solicit</td><td>Mutual and limited to 6 months. Team members introduced by Nexa are covered, and a placement fee applies.</td><td class="why">Six months is enforceable. Twelve months or more invites a restraint-of-trade challenge for a services relationship.</td></tr>
+      <tr><td>Data</td><td>A DPA is attached whenever you process staff or customer personal data.</td><td class="why">People work means HR data. A missing Article 28 contract is a compliance gap on the client's side, and they'll notice it in diligence.</td></tr>
+      <tr><td>Law &amp; disputes</td><td>English law and the English courts, with a 30-day escalation step to founders first.</td><td class="why">This works for UK clients. For US clients the terms stay English initially, and we add a New York or Delaware variant once you have a US entity or US-heavy revenue.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Design rules</div>
+    <h2>The brand, translated to paper.</h2>
+  </div>
+  <div class="rules">
+    <div class="rule"><h3>Colour</h3><p>The page is paper and the text is ink. Wine is for structure: clause numbers, margin notes and the closing block. Pink appears only as the full stop on the wordmark and headings. Blush is used for rules only.</p>
+      <div class="swatches"><span class="sw"><i style="background:#f5efe7"></i>Paper <code>#F5EFE7</code></span><span class="sw"><i style="background:#191716"></i>Ink <code>#191716</code></span><span class="sw"><i style="background:#5a202b"></i>Wine <code>#5A202B</code></span><span class="sw"><i style="background:#ddb5b0"></i>Blush <code>#DDB5B0</code></span><span class="sw"><i style="background:#d94c86"></i>Pink <code>#D94C86</code></span></div></div>
+    <div class="rule"><h3>Type</h3><p>Roca One for titles, seat names and the two headline numbers. Neue Montreal for everything else, with clause body at 9.5pt and 1.5 leading. Display type never goes in operative wording.</p></div>
+    <div class="rule"><h3>Two file formats</h3><p>The negotiation copy is a Word file in a safe font (Arial or Helvetica), because counterparties redline in Word and won't have Roca One installed. The executed copy is a branded PDF built from the same text. Contracts have to survive editing by other people, which is why you need both.</p></div>
+    <div class="rule"><h3>Numbering &amp; references</h3><p>Use one level of decimal numbering (6.1, 6.2) and avoid 6.1.2(a)(iii). Defined terms are bold at first use and capitalised after. Each order gets a reference (NX-YYYY-NNN) in the running head of every page.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <div class="eyebrow">Before I draft</div>
+    <h2>What I need alongside the heads of terms.</h2>
+  </div>
+  <div class="needs">
+    <div class="need"><span>1</span><div><b>Exact registered name and number.</b> The site says “NexaStrategic Ltd”. You said “Nexa Strategic”. The contract must match Companies House exactly.</div></div>
+    <div class="need"><span>2</span><div><b>Pricing model per seat.</b> Is it a retainer for a set number of days, a day rate, or a fixed fee per phase? Board Advisor may be a retainer plus equity.</div></div>
+    <div class="need"><span>3</span><div><b>Equity for the Govern seat.</b> Options, growth shares or an advisory share agreement? EMI isn't available to non-employees, so this changes Schedule C.</div></div>
+    <div class="need"><span>4</span><div><b>Your PI insurance limit.</b> The liability cap should sit at or below it.</div></div>
+    <div class="need"><span>5</span><div><b>VAT status</b> and whether fees are quoted exclusive of VAT.</div></div>
+    <div class="need"><span>6</span><div><b>US plans.</b> Do you have or expect a US entity? That decides whether we build the US variant now or later.</div></div>
+    <div class="need"><span>7</span><div><b>Associates.</b> Do you ever bring in other people? If so, the Associate Agreement becomes part of the first build.</div></div>
+    <div class="need"><span>8</span><div><b>Signing tool.</b> DocuSign, Dropbox Sign or PandaDoc? Each sets how the cover page fields need to be laid out.</div></div>
+  </div>
+</section>
+
+<footer>Draft 0.1, 15 October 2026. The clause wording here is illustrative and is not the final drafting. Specimen pages use Fraunces and Hanken Grotesk as web stand-ins for Roca One and Neue Montreal. Have a qualified solicitor review the final terms before you use them with clients.</footer>
+
+</div>
