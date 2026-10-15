@@ -1,0 +1,524 @@
+<title>Nexa Engagement Builder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,100&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: form on the left, the live Engagement Order on paper on the right. Paper is always paper; the workbench follows theme. */
+:root{
+  --paper:#f5efe7; --ink:#191716; --wine:#5a202b; --blush:#ddb5b0; --pink:#d94c86; --muted:#6e6763; --rule:rgba(25,23,22,.18);
+  --bg:#ebe3d8; --fg:#191716; --fg2:#6e6763; --line:rgba(25,23,22,.16); --panel:#f5efe7; --field:#fffaf4; --accent:#5a202b; --accent-fg:#ffffff; --warn:#a3341f;
+  --shadow:0 1px 2px rgba(25,23,22,.06),0 18px 40px -18px rgba(25,23,22,.28);
+  --display:"Roca One","Fraunces","Cooper Black",Georgia,serif;
+  --sans:"Neue Montreal","Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141211; --fg:#f1e9df; --fg2:#b3a9a1; --line:rgba(241,233,223,.16); --panel:#1f1b1a; --field:#2a2523; --accent:#ddb5b0; --accent-fg:#191716; --warn:#f0a08e;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 24px 50px -20px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141211; --fg:#f1e9df; --fg2:#b3a9a1; --line:rgba(241,233,223,.16); --panel:#1f1b1a; --field:#2a2523; --accent:#ddb5b0; --accent-fg:#191716; --warn:#f0a08e;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 24px 50px -20px rgba(0,0,0,.7); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button,input,select,textarea{font:inherit;color:inherit}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:14px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.brand h1{font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:-.03em;margin:0;font-variation-settings:"SOFT" 100}
+.brand h1 i{font-style:normal;color:var(--pink)}
+.brand span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--fg2)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--fg);background:transparent;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.chip:focus-within{outline:2px solid var(--pink);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.status{font-size:13px;color:var(--fg2);min-height:1.2em}
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:32px;padding-block:24px 80px;max-width:1360px;margin:0 auto}
+.form{display:flex;flex-direction:column;gap:18px;min-width:0}
+details{background:var(--panel);border:1px solid var(--line)}
+summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary .n{font-weight:600;letter-spacing:0;text-transform:none;color:var(--warn);font-size:12px}
+summary .n.ok{color:var(--fg2)}
+.fs{padding:2px 16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.f.full{grid-column:1/-1}
+label,.lab{font-size:12px;font-weight:600;color:var(--fg2)}
+input,select,textarea{background:var(--field);border:1px solid var(--line);padding:8px 10px;width:100%;min-width:0;border-radius:0}
+textarea{min-height:84px;resize:vertical;line-height:1.4}
+.hint{font-size:12px;color:var(--fg2)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 10px;background:var(--field);cursor:pointer;font-size:14px}
+.chip input{width:auto}
+.chip b{font-family:var(--display);font-weight:400;font-size:18px;font-variation-settings:"SOFT" 100}
+.saved{display:flex;flex-direction:column}
+.saved button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.saved button:focus-visible{outline:2px solid var(--pink)}
+.saved .ref{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+.saved .when{color:var(--fg2);font-size:12px}
+.empty{font-size:13px;color:var(--fg2);padding:4px 0}
+.checks{background:var(--panel);border:1px solid var(--line);padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.checks b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.checks .bad{color:var(--warn)}
+.preview{min-width:0;display:flex;flex-direction:column;gap:28px}
+.page{background:var(--paper);color:var(--ink);box-shadow:var(--shadow);padding:clamp(22px,6%,64px) clamp(20px,7%,72px) clamp(20px,5%,48px);font-size:13.5px;line-height:1.55;width:100%;max-width:820px;margin:0 auto;min-height:clamp(300px,90vw,1100px);display:flex;flex-direction:column;gap:12px}
+.rh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:18px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.rh .mk{font-family:var(--display);font-size:19px;text-transform:none;letter-spacing:-.02em;font-weight:400;font-variation-settings:"SOFT" 100}
+.rh .mk i{font-style:normal;color:var(--pink)}
+.page h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:.95;letter-spacing:-.035em;margin:10px 0 6px;font-variation-settings:"SOFT" 100;text-wrap:balance}
+.page h2 i{font-style:normal;color:var(--pink)}
+.page h3{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--wine);margin:16px 0 0}
+.page .kick{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--wine)}
+.page p{margin:0}
+.cl{display:grid;grid-template-columns:2.6em 1fr;gap:10px}
+.cl .no{font-weight:700;font-variant-numeric:tabular-nums}
+.cl ul{margin:4px 0 0;padding-left:1.2em}
+.kt{width:100%;border-collapse:collapse;border-top:2px solid var(--ink);margin-top:4px}
+.kt td{padding:7px 10px 7px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.kt td:first-child{width:36%;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:9px}
+.ph{background:rgba(217,76,134,.16);color:var(--wine);font-weight:700;padding:0 3px}
+.sigs{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:10px}
+.sb{display:flex;flex-direction:column;gap:6px}
+.sb .who{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--wine)}
+.sb .ln{height:54px;border-bottom:1.5px solid var(--ink);display:flex;align-items:flex-end;padding-bottom:4px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--muted);overflow-wrap:anywhere}
+.ft{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.note{font-size:12px;color:var(--fg2);max-width:820px;margin:0 auto;text-align:center}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.fs{grid-template-columns:1fr}.sigs{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="top">
+  <div class="brand"><h1>Nexa<i>.</i> Engagement Builder</h1><span id="refLabel">NX-2026-001</span></div>
+  <div class="acts">
+    <span class="status" id="status" role="status"></span>
+    <button class="btn" id="newBtn" type="button">New</button>
+    <button class="btn" id="saveBtn" type="button">Save</button>
+    <button class="btn primary" id="dlBtn" type="button">Download .docx</button>
+  </div>
+</div>
+
+<div class="grid">
+<form class="form" id="form" autocomplete="off" onsubmit="return false">
+
+  <div class="checks" id="checks"></div>
+
+  <details open id="d-client"><summary>Client <span class="n" data-sec="client"></span></summary><div class="fs">
+    <div class="f full"><label for="cl_name">Registered company name</label><input id="cl_name" placeholder="Example Client Ltd"></div>
+    <div class="f"><label for="cl_number">Company number</label><input id="cl_number" placeholder="12345678"></div>
+    <div class="f"><label for="cl_juris">Registered in</label><select id="cl_juris"><option>England and Wales</option><option>Scotland</option><option>Northern Ireland</option></select></div>
+    <div class="f full"><label for="cl_office">Registered office</label><input id="cl_office" placeholder="Check Companies House"></div>
+    <div class="f"><label for="cl_sign_name">Signatory name</label><input id="cl_sign_name"></div>
+    <div class="f"><label for="cl_sign_role">Signatory role</label><input id="cl_sign_role" placeholder="Director"></div>
+    <div class="f"><label for="cl_email">Signatory email</label><input id="cl_email" type="email"></div>
+    <div class="f"><label for="cl_notice">Notices email</label><input id="cl_notice" type="email" placeholder="Defaults to signatory"></div>
+    <div class="f full"><label for="cl_size">Company size for IR35</label><select id="cl_size"><option value="small">Small: meets 2 of turnover ≤ £15m, balance sheet ≤ £7.5m, ≤ 50 staff</option><option value="large">Medium or large: the client issues a status determination statement</option></select></div>
+  </div></details>
+
+  <details open id="d-eng"><summary>Engagement <span class="n" data-sec="eng"></span></summary><div class="fs">
+    <div class="f full"><span class="lab">Seats</span><div class="chips">
+      <label class="chip"><input type="checkbox" id="seat_A" checked><b>Build.</b> A</label>
+      <label class="chip"><input type="checkbox" id="seat_B"><b>Challenge.</b> B</label>
+      <label class="chip"><input type="checkbox" id="seat_C"><b>Govern.</b> C</label>
+    </div></div>
+    <div class="f"><label for="order_date">Order date</label><input id="order_date" type="date"></div>
+    <div class="f"><label for="start">Start date</label><input id="start" type="date"></div>
+    <div class="f"><label for="init_term">Initial term (months)</label><input id="init_term" type="number" min="1" value="6"></div>
+    <div class="f"><label for="notice">Notice after initial term (days)</label><input id="notice" type="number" min="1" value="60"></div>
+    <div class="f"><label for="days">Days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
+    <div class="f"><label for="fee">Monthly fee, £ excl. VAT</label><input id="fee" type="number" min="0" step="50"></div>
+    <div class="f"><label for="day_rate">Extra day rate, £ excl. VAT</label><input id="day_rate" type="number" min="0" step="50"></div>
+    <div class="f"><label for="pay_days">Payment terms (days)</label><input id="pay_days" type="number" min="1" value="14"></div>
+    <div class="f full"><label for="invoicing">Invoicing</label><select id="invoicing"><option value="advance">Monthly in advance</option><option value="arrears">Monthly in arrears</option></select></div>
+  </div></details>
+
+  <details id="d-A"><summary>Schedule A · Build <span class="n" data-sec="A"></span></summary><div class="fs">
+    <div class="f full"><label for="a_scope">Scope, one item per line</label><textarea id="a_scope">Operating model, ownership and management rhythm
+People, hiring plan and workforce capacity
+Delivery, supplier and operational risk management</textarea></div>
+    <div class="f"><label for="a_limit">Spend authority per item, £</label><input id="a_limit" type="number" min="0" step="100"></div>
+    <div class="f"><label for="a_report">Reports to</label><input id="a_report" placeholder="Name, CEO"></div>
+    <div class="f full"><label for="a_rhythm">Rhythm</label><input id="a_rhythm" value="Weekly founder session and a monthly operating review pack"></div>
+  </div></details>
+
+  <details id="d-B"><summary>Schedule B · Challenge <span class="n" data-sec="B"></span></summary><div class="fs">
+    <div class="f full"><label for="b_scope">Scope, one item per line</label><textarea id="b_scope">Decision support on structure, capacity and growth sequencing
+Challenge sessions on plans before they are committed
+Readiness reviews ahead of hiring, expansion or fundraising</textarea></div>
+    <div class="f full"><label for="b_rhythm">Rhythm</label><input id="b_rhythm" value="Fortnightly founder session, plus ad hoc calls by agreement"></div>
+  </div></details>
+
+  <details id="d-C"><summary>Schedule C · Govern <span class="n" data-sec="C"></span></summary><div class="fs">
+    <div class="f"><label for="c_meetings">Board meetings per year</label><input id="c_meetings" type="number" min="1" value="6"></div>
+    <div class="f"><label for="c_equity">Equity</label><select id="c_equity"><option value="none">None</option><option value="separate">Separate advisory share agreement</option></select></div>
+    <div class="f full"><label for="c_scope">Scope, one item per line</label><textarea id="c_scope">Attend board meetings as a non-voting adviser
+Review board papers and test the operating assumptions behind them
+Flag operational, people and governance risk to the board</textarea></div>
+  </div></details>
+
+  <details id="d-var"><summary>Variations to the Terms <span class="n ok">Optional</span></summary><div class="fs">
+    <div class="f full"><label for="variations">One variation per line. Leave empty for “None”.</label><textarea id="variations" placeholder="e.g. Clause 9.2: the non-solicitation period is 3 months."></textarea></div>
+  </div></details>
+
+  <details id="d-nexa"><summary>Nexa details <span class="n" data-sec="nexa"></span></summary><div class="fs">
+    <div class="f full"><span class="hint">These are saved once and reused on every order.</span></div>
+    <div class="f"><label for="nx_number">Company number</label><input id="nx_number"></div>
+    <div class="f"><label for="nx_juris">Registered in</label><input id="nx_juris" value="England and Wales"></div>
+    <div class="f full"><label for="nx_office">Registered office</label><input id="nx_office"></div>
+    <div class="f"><label for="nx_vat">VAT status</label><select id="nx_vat"><option value="pending">Registration pending</option><option value="registered">Registered</option></select></div>
+    <div class="f"><label for="nx_vat_no">VAT number</label><input id="nx_vat_no" placeholder="GB123456789"></div>
+    <div class="f"><label for="nx_vat_date">VAT effective date</label><input id="nx_vat_date" type="date"></div>
+    <div class="f"><label for="nx_email">Notices email</label><input id="nx_email" value="milica@nexastrategic.com"></div>
+    <div class="f"><label for="nx_sign">Signatory</label><input id="nx_sign" value="Milica Milićević"></div>
+    <div class="f"><label for="nx_role">Role</label><input id="nx_role" value="Director"></div>
+    <div class="f"><label for="nx_terms_ver">Terms version</label><input id="nx_terms_ver" value="v1.0"></div>
+    <div class="f"><label for="nx_terms_url">Terms URL</label><input id="nx_terms_url" value="nexastrategic.com/terms/v1"></div>
+    <div class="f full"><label for="tags">PandaDoc field tags</label><select id="tags"><option value="curly">Curly brackets {signature:Client}, for upload in the PandaDoc app</option><option value="square">Square brackets [signature:Client], for the PandaDoc API</option><option value="none">No tags, for print or another signing tool</option></select><span class="hint">PandaDoc swaps the tags for signature and date fields. Turn on field tag recognition when you upload, with signer roles “Nexa” and “Client”.</span></div>
+  </div></details>
+
+  <details open><summary>Saved engagements <span class="n ok" id="savedCount"></span></summary><div class="fs"><div class="f full saved" id="saved"><p class="empty">Saved orders appear here. Fill in a client and press Save to keep the first one.</p></div></div></details>
+</form>
+
+<div class="preview" id="preview" aria-label="Engagement Order preview"></div>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const PH="[●]";
+const NEXA_KEYS=["nx_number","nx_juris","nx_office","nx_vat","nx_vat_no","nx_vat_date","nx_email","nx_sign","nx_role","nx_terms_ver","nx_terms_url","tags"];
+const ENG_KEYS=["cl_name","cl_number","cl_juris","cl_office","cl_sign_name","cl_sign_role","cl_email","cl_notice","cl_size","seat_A","seat_B","seat_C","order_date","start","init_term","notice","days","fee","day_rate","pay_days","invoicing","a_scope","a_limit","a_report","a_rhythm","b_scope","b_rhythm","c_meetings","c_equity","c_scope","variations"];
+let ref=null, saved=[], db=null, downloads=null, dirty=false;
+
+function val(k){const e=$(k);return e.type==="checkbox"?e.checked:e.value.trim()}
+function setVal(k,v){const e=$(k);if(!e||v===undefined)return;if(e.type==="checkbox")e.checked=!!v;else e.value=v}
+function collect(keys){const o={};keys.forEach(k=>o[k]=val(k));return o}
+function today(){const d=new Date();return d.toISOString().slice(0,10)}
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+function ukDate(s){if(!s)return null;const [y,m,d]=s.split("-").map(Number);return d+" "+MONTHS[m-1]+" "+y}
+const gbp=new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP",minimumFractionDigits:0,maximumFractionDigits:2});
+function money(s){return s===""||s==null?null:gbp.format(Number(s))}
+function lines(s){return (s||"").split("\n").map(x=>x.trim()).filter(Boolean)}
+function plural(n,w){return n+" "+w+(Number(n)===1?"":"s")}
+
+/* ---------- document model: arrays of runs; a run is a string or {t,ph} ---------- */
+function F(v){return v==null||v===""?{t:PH,ph:true}:String(v)}
+function tag(kind,role,width){const s=$("tags").value;if(s==="none")return null;const u="_".repeat(width);return s==="curly"?"{"+kind+":"+role+u+"}":"["+kind+":"+role+u+"]"}
+
+function buildDoc(){
+  const e=collect(ENG_KEYS), n=collect(NEXA_KEYS);
+  const seats=[["A","Build","Fractional COO"],["B","Challenge","Operating Partner"],["C","Govern","Board Advisor"]].filter(s=>e["seat_"+s[0]]);
+  const seatNames=seats.map(s=>"Schedule "+s[0]+" ("+s[2]+")");
+  const title=seats.length===1?seats[0][2]:seats.length?"Operating Advisory":"Engagement";
+  const pages=[]; let cur;
+  const page=()=>{cur=[];pages.push(cur)};
+  const P=(...runs)=>cur.push({k:"p",runs});
+  const H=t=>cur.push({k:"h3",runs:[t]});
+  const C=(no,...runs)=>cur.push({k:"cl",no,runs});
+  const L=(no,items)=>cur.push({k:"cl",no,runs:[],list:items});
+  const T=rows=>cur.push({k:"table",rows});
+  const party=(name,juris,num,office,short)=>[{b:F(name)},", a company incorporated and registered in "+(juris||"England and Wales")+" with company number ",F(num),", whose registered office is at ",F(office)," (",{b:short},")"];
+
+  /* Page 1: cover + key terms */
+  page();
+  cur.push({k:"kick",runs:["Engagement Order · "+ref]});
+  cur.push({k:"h2",runs:[title],dot:true});
+  P("This Engagement Order is dated ",F(ukDate(e.order_date))," and is made between:");
+  C("(1)",...party("NexaStrategic Ltd",n.nx_juris,n.nx_number,n.nx_office,"Nexa"),"; and");
+  C("(2)",...party(e.cl_name,e.cl_juris,e.cl_number,e.cl_office,"the Client"),".");
+  H("1. Key terms");
+  const vatNote=n.nx_vat==="registered"?" plus VAT":" plus VAT (from Nexa's VAT effective date)";
+  T([
+    ["Seat"+(seats.length>1?"s":""),seats.length?seatNames.join(", "):F("")],
+    ["Key Person",F(n.nx_sign)],
+    ["Start Date",F(ukDate(e.start))],
+    ["Initial Term",e.init_term?plural(e.init_term,"month")+" from the Start Date":F("")],
+    ["Commitment",e.days?plural(e.days,"day")+" per month":F("")],
+    ["Monthly Fee",e.fee?money(e.fee)+vatNote:F("")],
+    ["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")],
+    ["Invoicing","Monthly in "+e.invoicing+", payable within "+F(e.pay_days?plural(e.pay_days,"day"):"")+" of invoice"],
+    ["Notice",e.notice?plural(e.notice,"day")+"' written notice, expiring no earlier than the end of the Initial Term":F("")],
+    ["Liability cap","As set out in clause 7.3 of the Terms: total Fees paid and payable in the 12 months before the first claim"],
+    ["Governing law","The law of England and Wales; the courts of England and Wales have exclusive jurisdiction"]
+  ]);
+
+  /* Page 2: operative clauses */
+  page();
+  H("2. The Agreement");
+  C("2.1","This Engagement Order, the Seat Schedule"+(seats.length>1?"s":"")+" attached to it and the NexaStrategic Terms of Business ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
+  C("2.2","If there is any conflict, this Engagement Order takes priority over the Seat Schedules, and the Seat Schedules take priority over the Terms.");
+  C("2.3","Words with capital letters that are not defined in this Engagement Order have the meanings given to them in the Terms.");
+  H("3. Fees, VAT and payment");
+  C("3.1","The Client must pay the Monthly Fee for the Commitment. Nexa will invoice monthly in "+e.invoicing+", and each invoice is payable within ",F(e.pay_days?plural(e.pay_days,"day"):"")," of its date.");
+  C("3.2","Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
+  C("3.3","All Fees are exclusive of VAT. The Client must pay VAT on the Fees, in addition to the Fees, at the rate in force at the time of supply.");
+  if(n.nx_vat==="registered") C("3.4","Nexa's VAT registration number is ",F(n.nx_vat_no),".");
+  else C("3.4","Nexa's VAT registration takes effect on ",F(ukDate(n.nx_vat_date)),". VAT will be added to all Fees for supplies made on or after that date, including supplies covered by invoices issued before it, and Nexa will issue VAT invoices for them.");
+  C("3.5","Reasonable expenses are payable at cost only where the Client has approved them in advance.");
+  C("3.6","If any invoice is not paid when due, Nexa may charge interest and compensation under the Late Payment of Commercial Debts (Interest) Act 1998.");
+  H("4. Term and notice");
+  C("4.1","The Engagement starts on the Start Date and continues for the Initial Term. It then continues until either party gives the notice set out in clause 1, which may not expire before the end of the Initial Term. Either party may also terminate in accordance with the Terms.");
+  H("5. Employment status");
+  if(e.cl_size==="large") C("5.1","The Client confirms that it is not a small company for the purposes of Chapter 10 of Part 2 of the Income Tax (Earnings and Pensions) Act 2003. The Client must give Nexa a status determination statement, with reasons, before the Start Date, and must respond to any disagreement Nexa raises within 45 days.");
+  else C("5.1","The Client confirms that it is a small company for the purposes of Chapter 10 of Part 2 of the Income Tax (Earnings and Pensions) Act 2003, and must tell Nexa promptly if that changes during the Engagement.");
+  H("6. Variations to the Terms");
+  const vars=lines(e.variations);
+  if(vars.length) vars.forEach((v,i)=>C("6."+(i+1),v)); else C("6.1","None.");
+  H("7. Notices");
+  C("7.1","Notices under the Agreement are sent by email to Nexa at ",F(n.nx_email)," and to the Client at ",F(e.cl_notice||e.cl_email),", or to any other address a party gives by notice. Legal proceedings may not be served by email.");
+
+  /* Page 3: execution */
+  page();
+  cur.push({k:"h2",runs:["Agreed"],dot:true});
+  P("This Engagement Order is entered into on the date of the last signature below. It may be signed in any number of counterparts and by electronic signature, and each counterpart is an original.");
+  cur.push({k:"sigs",cols:[
+    {who:"Signed for and on behalf of NexaStrategic Ltd",sig:tag("signature","Nexa",18),date:tag("date","Nexa",8),rows:[["Name",F(n.nx_sign)],["Role",F(n.nx_role)]]},
+    {who:"Signed for and on behalf of "+(e.cl_name||"the Client"),sig:tag("signature","Client",18),date:tag("date","Client",8),rows:[["Name",F(e.cl_sign_name)],["Role",F(e.cl_sign_role)]]}
+  ]});
+  P({i:"Advisory services do not constitute legal or financial advice."});
+
+  /* Schedules */
+  seats.forEach(s=>{
+    page();
+    cur.push({k:"kick",runs:["Schedule "+s[0]+" · "+s[2]]});
+    cur.push({k:"h2",runs:[s[1]],dot:true});
+    if(s[0]==="A"){
+      H("A1. Scope"); L("A1.1",lines(e.a_scope).length?lines(e.a_scope):[F("")]);
+      H("A2. Delegated authority");
+      C("A2.1","The Key Person may approve expenditure of up to ",F(money(e.a_limit))," per item, within the budget the Client's board has approved. Any hire, dismissal or contractual commitment beyond that limit needs the written approval of the Client's chief executive or board.");
+      C("A2.2","The Key Person acts on the Client's behalf only within this delegated authority. All other decisions stay with the Client's board, in line with clause 6 of the Terms.");
+      H("A3. Reporting and rhythm");
+      C("A3.1","The Key Person reports to ",F(e.a_report),". ",F(e.a_rhythm),".");
+      H("A4. Out of scope");
+      C("A4.1","Legal, tax or regulated financial advice; statutory director duties; and line management of the finance function.");
+    }
+    if(s[0]==="B"){
+      H("B1. Scope"); L("B1.1",lines(e.b_scope).length?lines(e.b_scope):[F("")]);
+      H("B2. Authority");
+      C("B2.1","This seat is advisory only. The Key Person has no executive authority and does not act on the Client's behalf.");
+      H("B3. Rhythm"); C("B3.1",F(e.b_rhythm),".");
+      H("B4. Out of scope"); C("B4.1","Legal, tax or regulated financial advice, and the implementation of recommendations unless agreed under Schedule A.");
+    }
+    if(s[0]==="C"){
+      H("C1. Scope"); L("C1.1",lines(e.c_scope).length?lines(e.c_scope):[F("")]);
+      H("C2. Board meetings");
+      C("C2.1","The Key Person will attend up to ",F(e.c_meetings)," board meetings a year, and receive board papers at the same time as the directors.");
+      C("C2.2","The Key Person is not appointed as a director, has no vote and owes no statutory duties as a director. The Client must not describe the Key Person as a director.");
+      H("C3. Equity");
+      C("C3.1",e.c_equity==="separate"?"Any equity participation will be documented in a separate advisory share agreement and does not form part of the Fees.":"No equity participation forms part of this Engagement.");
+    }
+  });
+  return {pages,seats,e,n};
+}
+
+/* ---------- missing-field checks ---------- */
+const REQUIRED={
+  client:[["cl_name","Client company name"],["cl_number","Client company number"],["cl_office","Client registered office"],["cl_sign_name","Client signatory"],["cl_sign_role","Signatory role"],["cl_email","Signatory email"]],
+  eng:[["order_date","Order date"],["start","Start date"],["init_term","Initial term"],["days","Days per month"],["fee","Monthly fee"],["day_rate","Extra day rate"],["pay_days","Payment terms"],["notice","Notice period"]],
+  A:[["a_limit","Spend authority"],["a_report","Reports to"]],
+  B:[["b_rhythm","Rhythm"]],
+  C:[["c_meetings","Board meetings"]],
+  nexa:[["nx_number","Nexa company number"],["nx_office","Nexa registered office"],["nx_email","Nexa notices email"]]
+};
+function missing(){
+  const out={};let all=[];
+  Object.entries(REQUIRED).forEach(([sec,list])=>{
+    if(["A","B","C"].includes(sec)&&!val("seat_"+sec)){out[sec]=null;return}
+    let m=list.filter(([k])=>!val(k)).map(x=>x[1]);
+    if(sec==="nexa"){if(val("nx_vat")==="registered"&&!val("nx_vat_no"))m.push("VAT number");if(val("nx_vat")==="pending"&&!val("nx_vat_date"))m.push("VAT effective date")}
+    out[sec]=m;all=all.concat(m)
+  });
+  if(!val("seat_A")&&!val("seat_B")&&!val("seat_C"))all.unshift("At least one seat");
+  return {out,all};
+}
+
+/* ---------- HTML render ---------- */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function runsHTML(runs){return runs.map(r=>{
+  if(typeof r==="string")return esc(r);
+  if(r.ph||r.t===PH)return '<span class="ph">'+PH+'</span>';
+  if(r.b!==undefined){const inner=typeof r.b==="string"?esc(r.b):runsHTML([r.b]);return "<b>"+inner+"</b>"}
+  if(r.i!==undefined)return "<i>"+esc(r.i)+"</i>";
+  return esc(r.t);
+}).join("")}
+function render(){
+  const {pages,n}=buildDoc();
+  const disc="NexaStrategic Ltd · Registered in "+esc(n.nx_juris||"England and Wales")+" no. "+(n.nx_number?esc(n.nx_number):PH)+" · Registered office "+(n.nx_office?esc(n.nx_office):PH)+(n.nx_vat==="registered"&&n.nx_vat_no?" · VAT "+esc(n.nx_vat_no):"");
+  $("preview").innerHTML=pages.map((pg,i)=>{
+    const body=pg.map(b=>{
+      if(b.k==="kick")return '<div class="kick">'+runsHTML(b.runs)+"</div>";
+      if(b.k==="h2")return "<h2>"+runsHTML(b.runs)+(b.dot?"<i>.</i>":"")+"</h2>";
+      if(b.k==="h3")return "<h3>"+runsHTML(b.runs)+"</h3>";
+      if(b.k==="p")return "<p>"+runsHTML(b.runs)+"</p>";
+      if(b.k==="cl")return '<div class="cl"><span class="no">'+esc(b.no)+"</span><div>"+runsHTML(b.runs)+(b.list?"<ul>"+b.list.map(x=>"<li>"+runsHTML([x])+"</li>").join("")+"</ul>":"")+"</div></div>";
+      if(b.k==="table")return '<table class="kt">'+b.rows.map(r=>"<tr><td>"+esc(r[0])+"</td><td>"+runsHTML([].concat(r[1]))+"</td></tr>").join("")+"</table>";
+      if(b.k==="sigs")return '<div class="sigs">'+b.cols.map(c=>'<div class="sb"><span class="who">'+esc(c.who)+'</span><div class="ln">'+(c.sig?esc(c.sig):"")+"</div>"+c.rows.map(r=>"<div><span style=\"color:var(--muted)\">"+r[0]+":</span> "+runsHTML([r[1]])+"</div>").join("")+'<div><span style="color:var(--muted)">Date:</span> '+(c.date?'<span style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--muted)">'+esc(c.date)+"</span>":"")+"</div></div>").join("")+"</div>";
+      return "";
+    }).join("");
+    return '<article class="page"><div class="rh"><span class="mk">Nexa<i>.</i></span><span>Engagement Order · '+esc(ref)+"</span></div>"+body+'<div class="ft"><span>'+disc+"</span><span>"+(i+1)+" / "+pages.length+"</span></div></article>";
+  }).join("")+'<p class="note">This is a draft generated from NexaStrategic standard terms. Read it in full before sending, and make sure the Terms of Business '+esc(val("nx_terms_ver")||"")+" are published at the URL quoted.</p>";
+  const m=missing();
+  document.querySelectorAll("summary .n[data-sec]").forEach(el=>{const s=m.out[el.dataset.sec];if(s===null){el.textContent="Not selected";el.className="n ok"}else if(s&&s.length){el.textContent=s.length+" to complete";el.className="n"}else{el.textContent="Complete";el.className="n ok"}});
+  $("checks").innerHTML=m.all.length?"<b>Before you send</b>"+m.all.slice(0,6).map(x=>'<span class="bad">'+esc(x)+" is missing</span>").join("")+(m.all.length>6?"<span class=\"bad\">and "+(m.all.length-6)+" more</span>":""):"<b>Ready</b><span>Every required field is filled in. Read the draft once more, then download it.</span>";
+  $("refLabel").textContent=ref;
+}
+
+/* ---------- DOCX writer (no library): OOXML + stored zip ---------- */
+const xe=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[c]));
+const WINE="5A202B",MUTED="6E6763",PINK="D94C86";
+function wr(text,o={}){
+  let pr='<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>';
+  if(o.b)pr+="<w:b/>";if(o.i)pr+="<w:i/>";if(o.caps)pr+="<w:caps/>";
+  if(o.color)pr+='<w:color w:val="'+o.color+'"/>';
+  if(o.sz)pr+='<w:sz w:val="'+o.sz+'"/><w:szCs w:val="'+o.sz+'"/>';
+  if(o.hl)pr+='<w:highlight w:val="yellow"/>';
+  if(o.sp)pr+='<w:spacing w:val="'+o.sp+'"/>';
+  return "<w:r><w:rPr>"+pr+'</w:rPr><w:t xml:space="preserve">'+xe(text)+"</w:t></w:r>";
+}
+function runsX(runs,base={}){return runs.map(r=>{
+  if(typeof r==="string")return wr(r,base);
+  if(r.ph||r.t===PH)return wr(PH,Object.assign({},base,{b:true,color:WINE,hl:true}));
+  if(r.b!==undefined)return typeof r.b==="string"?wr(r.b,Object.assign({},base,{b:true})):runsX([r.b],Object.assign({},base,{b:true}));
+  if(r.i!==undefined)return wr(r.i,Object.assign({},base,{i:true,color:MUTED}));
+  return wr(r.t,base);
+}).join("")}
+function px(content,o={}){
+  let pr="";
+  if(o.style)pr+='<w:pStyle w:val="'+o.style+'"/>';
+  if(o.keep)pr+="<w:keepNext/>";
+  if(o.pb)pr+="<w:pageBreakBefore/>";
+  if(o.ind)pr+='<w:ind w:left="'+o.ind+'" w:hanging="'+(o.hang||0)+'"/>';
+  pr+='<w:spacing w:before="'+(o.before||0)+'" w:after="'+(o.after==null?120:o.after)+'" w:line="276" w:lineRule="auto"/>';
+  if(o.border)pr+='<w:pBdr><w:bottom w:val="single" w:sz="12" w:space="4" w:color="191716"/></w:pBdr>';
+  if(o.tabs)pr+='<w:tabs><w:tab w:val="right" w:pos="9070"/></w:tabs>';
+  return "<w:p><w:pPr>"+pr+"</w:pPr>"+content+"</w:p>";
+}
+function tblX(rows){
+  const b='<w:tblBorders><w:top w:val="single" w:sz="12" w:color="191716"/><w:insideH w:val="single" w:sz="4" w:color="D6CFC7"/><w:bottom w:val="single" w:sz="4" w:color="D6CFC7"/></w:tblBorders>';
+  const cell=(w,content)=>'<w:tc><w:tcPr><w:tcW w:w="'+w+'" w:type="dxa"/><w:tcMar><w:top w:w="80" w:type="dxa"/><w:bottom w:w="80" w:type="dxa"/></w:tcMar></w:tcPr>'+content+"</w:tc>";
+  return '<w:tbl><w:tblPr><w:tblW w:w="9070" w:type="dxa"/>'+b+'<w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid><w:gridCol w:w="3100"/><w:gridCol w:w="5970"/></w:tblGrid>'+
+    rows.map(r=>"<w:tr>"+cell(3100,px(wr(r[0],{sz:16,b:true,color:MUTED,caps:true,sp:10}),{after:0}))+cell(5970,px(runsX([].concat(r[1]),{sz:19}),{after:0}))+"</w:tr>").join("")+"</w:tbl>"+px("",{after:120});
+}
+function docXML(){
+  const {pages}=buildDoc();
+  let body="";
+  pages.forEach((pg,pi)=>{
+    let first=true;
+    const pb=()=>{const v=first&&pi>0;first=false;return v};
+    if(pi===0){body+=px(wr("Nexa",{sz:36,color:"191716"})+wr(".",{sz:36,color:PINK})+wr("\tEngagement Order · "+ref,{sz:15,b:true,caps:true,sp:20}),{border:true,after:360,tabs:true});first=false}
+    pg.forEach(b=>{
+      if(b.k==="kick")body+=px(runsX(b.runs,{sz:16,b:true,caps:true,color:WINE,sp:20}),{pb:pb(),after:80,keep:true});
+      else if(b.k==="h2")body+=px(runsX(b.runs,{sz:56})+(b.dot?wr(".",{sz:56,color:PINK}):""),{pb:pb(),after:200,keep:true});
+      else if(b.k==="h3")body+=px(runsX(b.runs,{sz:17,b:true,caps:true,color:WINE,sp:16}),{pb:pb(),before:200,after:80,keep:true});
+      else if(b.k==="p")body+=px(runsX(b.runs,{sz:19}),{pb:pb()});
+      else if(b.k==="cl"){
+        body+=px(wr(b.no+"\t",{sz:19,b:true})+runsX(b.runs,{sz:19}),{pb:pb(),ind:720,hang:720});
+        if(b.list)b.list.forEach(it=>{body+=px(wr("•\t",{sz:19})+runsX([it],{sz:19}),{ind:1080,hang:360,after:60})});
+      }
+      else if(b.k==="table"){if(pb())body+=px("",{pb:true,after:0});body+=tblX(b.rows)}
+      else if(b.k==="sigs"){
+        b.cols.forEach(c=>{
+          body+=px(wr(c.who,{sz:16,b:true,caps:true,color:WINE,sp:10}),{before:360,after:80,keep:true});
+          body+=px(c.sig?wr(c.sig,{sz:19,color:MUTED}):wr(" ",{sz:19}),{before:480,after:60,border:true,keep:true});
+          c.rows.forEach(r=>body+=px(wr(r[0]+": ",{sz:19,color:MUTED})+runsX([r[1]],{sz:19}),{after:40,keep:true}));
+          body+=px(wr("Date: ",{sz:19,color:MUTED})+(c.date?wr(c.date,{sz:19,color:MUTED}):""),{after:120});
+        });
+      }
+    });
+  });
+  const sect='<w:sectPr><w:footerReference w:type="default" r:id="rIdF"/><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1417" w:right="1417" w:bottom="1417" w:left="1417" w:header="708" w:footer="567" w:gutter="0"/></w:sectPr>';
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:body>'+body+sect+"</w:body></w:document>";
+}
+function footerXML(){
+  const n=collect(NEXA_KEYS);
+  const t="NexaStrategic Ltd · Registered in "+(n.nx_juris||"England and Wales")+" no. "+(n.nx_number||PH)+" · Registered office "+(n.nx_office||PH)+(n.nx_vat==="registered"&&n.nx_vat_no?" · VAT "+n.nx_vat_no:"")+" · "+ref;
+  const fld=(code)=>'<w:r><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial"/><w:color w:val="'+MUTED+'"/><w:sz w:val="14"/></w:rPr><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial"/><w:color w:val="'+MUTED+'"/><w:sz w:val="14"/></w:rPr><w:instrText xml:space="preserve"> '+code+' </w:instrText></w:r><w:r><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial"/><w:color w:val="'+MUTED+'"/><w:sz w:val="14"/></w:rPr><w:fldChar w:fldCharType="separate"/></w:r>'+wr("1",{sz:14,color:MUTED})+'<w:r><w:fldChar w:fldCharType="end"/></w:r>';
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:ftr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:p><w:pPr><w:pBdr><w:top w:val="single" w:sz="4" w:space="6" w:color="D6CFC7"/></w:pBdr><w:tabs><w:tab w:val="right" w:pos="9070"/></w:tabs><w:spacing w:after="0"/></w:pPr>'+wr(t,{sz:14,color:MUTED})+wr("\t",{sz:14})+fld("PAGE")+wr(" / ",{sz:14,color:MUTED})+fld("NUMPAGES")+"</w:p></w:ftr>";
+}
+const STYLES='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="Arial" w:cs="Arial"/><w:color w:val="191716"/><w:sz w:val="19"/><w:szCs w:val="19"/><w:lang w:val="en-GB"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="120" w:line="276" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>';
+const CT='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>';
+const RELS='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>';
+const DRELS='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdS" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rIdF" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/></Relationships>';
+function coreXML(){const now=new Date().toISOString().slice(0,19)+"Z";return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>'+xe("Engagement Order "+ref)+'</dc:title><dc:creator>NexaStrategic Ltd</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">'+now+"</dcterms:created></cp:coreProperties>"}
+
+const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC[(c^b[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function zip(files){
+  const enc=new TextEncoder(),parts=[],central=[];let off=0;
+  const d=new Date(),dt=((d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1))&0xFFFF,dd=(((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate())&0xFFFF;
+  files.forEach(([name,str])=>{
+    const nb=enc.encode(name),data=enc.encode(str),crc=crc32(data);
+    const h=new DataView(new ArrayBuffer(30));
+    h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(10,dt,true);h.setUint16(12,dd,true);
+    h.setUint32(14,crc,true);h.setUint32(18,data.length,true);h.setUint32(22,data.length,true);h.setUint16(26,nb.length,true);h.setUint16(28,0,true);
+    parts.push(new Uint8Array(h.buffer),nb,data);
+    const c=new DataView(new ArrayBuffer(46));
+    c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(12,dt,true);c.setUint16(14,dd,true);
+    c.setUint32(16,crc,true);c.setUint32(20,data.length,true);c.setUint32(24,data.length,true);c.setUint16(28,nb.length,true);c.setUint32(42,off,true);
+    central.push(new Uint8Array(c.buffer),nb);
+    off+=30+nb.length+data.length;
+  });
+  const csize=central.reduce((a,b)=>a+b.length,0);
+  const e=new DataView(new ArrayBuffer(22));
+  e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,csize,true);e.setUint32(16,off,true);
+  return new Blob([...parts,...central,new Uint8Array(e.buffer)]);
+}
+function buildDocx(){return zip([["[Content_Types].xml",CT],["_rels/.rels",RELS],["word/document.xml",docXML()],["word/_rels/document.xml.rels",DRELS],["word/styles.xml",STYLES],["word/footer1.xml",footerXML()],["docProps/core.xml",coreXML()]])}
+window.__nexaBuildDocx=buildDocx;
+
+/* ---------- persistence ---------- */
+function say(t){$("status").textContent=t}
+function nextRef(){const y=new Date().getFullYear();const nums=saved.map(s=>s.id).filter(id=>id.startsWith("NX-"+y+"-")).map(id=>parseInt(id.split("-")[2],10)||0);return "NX-"+y+"-"+String((nums.length?Math.max(...nums):0)+1).padStart(3,"0")}
+function renderSaved(){
+  $("savedCount").textContent=saved.length?saved.length+" saved":"";
+  if(!saved.length){$("saved").innerHTML='<p class="empty">'+(db?"Saved orders appear here. Fill in a client and press Save to keep the first one.":"Sign in to claude.ai to save orders. Your current draft is kept in this browser.")+"</p>";return}
+  $("saved").innerHTML=saved.slice().sort((a,b)=>b.id.localeCompare(a.id)).map(s=>'<button type="button" data-id="'+esc(s.id)+'"><span class="ref">'+esc(s.id)+"</span><span>"+esc(s.data.cl_name||"Untitled client")+'</span><span class="when">'+esc(s.data.start?ukDate(s.data.start):"")+"</span></button>").join("");
+}
+function loadEngagement(id){const s=saved.find(x=>x.id===id);if(!s)return;ref=id;ENG_KEYS.forEach(k=>setVal(k,s.data[k]));sync();say("Opened "+id)}
+function draftSave(){try{localStorage.setItem("nexa-draft",JSON.stringify({ref,eng:collect(ENG_KEYS),nexa:collect(NEXA_KEYS)}))}catch(_){}}
+function draftLoad(){try{const d=JSON.parse(localStorage.getItem("nexa-draft")||"null");if(d){ENG_KEYS.forEach(k=>setVal(k,d.eng[k]));NEXA_KEYS.forEach(k=>setVal(k,d.nexa[k]));return d.ref}}catch(_){}return null}
+function syncSeats(){["A","B","C"].forEach(s=>{const d=$("d-"+s);if(val("seat_"+s)&&!d.dataset.touched)d.open=true;if(!val("seat_"+s))d.open=false})}
+function sync(){syncSeats();render();draftSave()}
+
+let nexaTimer=null;
+$("form").addEventListener("input",ev=>{dirty=true;sync();if(db&&NEXA_KEYS.includes(ev.target.id)){clearTimeout(nexaTimer);nexaTimer=setTimeout(()=>db.doc("config/nexa").set(collect(NEXA_KEYS)).catch(()=>say("Couldn't save Nexa details. Check you're signed in.")),800)}});
+$("form").addEventListener("change",()=>sync());
+["A","B","C"].forEach(s=>$("d-"+s).addEventListener("toggle",e=>{e.target.dataset.touched="1"}));
+$("saved").addEventListener("click",ev=>{const b=ev.target.closest("button[data-id]");if(b)loadEngagement(b.dataset.id)});
+$("newBtn").addEventListener("click",()=>{ENG_KEYS.forEach(k=>{const e=$(k);if(e.type==="checkbox")e.checked=k==="seat_A";else e.value=e.defaultValue});$("order_date").value=today();ref=nextRef();sync();say("New order "+ref)});
+$("saveBtn").addEventListener("click",async()=>{
+  if(!db){say("Saving needs you signed in to claude.ai. Your draft is kept in this browser.");return}
+  $("saveBtn").disabled=true;
+  try{await db.doc("engagements/"+ref).set({data:collect(ENG_KEYS),client:val("cl_name"),updated:new Date().toISOString()});await db.doc("config/nexa").set(collect(NEXA_KEYS));dirty=false;say("Saved "+ref)}
+  catch(e){say("Couldn't save: "+(e&&e.message||"try again"))}
+  finally{$("saveBtn").disabled=false}
+});
+$("dlBtn").addEventListener("click",async()=>{
+  const m=missing();
+  if(m.all.length)say(m.all.length+" field"+(m.all.length>1?"s are":" is")+" still marked [●] in the file.");
+  if(!downloads){say("Downloads aren't available in this view. Open the artifact in claude.ai.");return}
+  const safe=(val("cl_name")||"Client").replace(/[^A-Za-z0-9 &\-]/g,"").trim().replace(/\s+/g," ");
+  try{await downloads.save({filename:ref+" Engagement Order - "+safe+".docx",data:buildDocx()});say("Downloaded "+ref+(m.all.length?" with "+m.all.length+" blanks":""))}
+  catch(e){if(e&&e.code==="declined")say("Download cancelled.");else if(e&&e.code==="rate_limited")say("A download prompt is already open.");else say("Couldn't download: "+(e&&e.message||"unavailable here"))}
+});
+
+/* ---------- boot ---------- */
+$("order_date").value=today();
+const draftRef=draftLoad();
+ref=draftRef||"NX-"+new Date().getFullYear()+"-001";
+sync();renderSaved();
+
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  downloads=await window.claude.use("downloads");
+  if(!downloads)$("dlBtn").disabled=true;
+  db=await window.claude.use("db");
+  if(!db){renderSaved();return}
+  try{const c=await db.doc("config/nexa").get();if(c.exists){const d=c.data();NEXA_KEYS.forEach(k=>setVal(k,d[k]));sync()}}catch(_){}
+  db.collection("engagements").onSnapshot(snap=>{
+    saved=snap.docs.map(d=>({id:d.id,data:(d.data()||{}).data||{}}));
+    if(!draftRef&&!dirty&&!saved.some(s=>s.id===ref)){ref=nextRef();render()}
+    renderSaved();
+  },()=>say("Couldn't load saved orders."));
+})();
+})();
+</script>
