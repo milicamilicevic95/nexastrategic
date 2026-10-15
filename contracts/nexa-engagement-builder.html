@@ -136,17 +136,25 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
     <div class="f"><label for="order_date">Order date</label><input id="order_date" type="date"></div>
     <div class="f"><label for="start">Start date</label><input id="start" type="date"></div>
     <div class="f"><label for="init_term">Initial term (months)</label><input id="init_term" type="number" min="1" value="6"></div>
-    <div class="f"><label for="notice">Notice after initial term (days)</label><input id="notice" type="number" min="1" value="60"></div>
-    <div class="f" data-svc="FCOO ROA"><label for="days">Commitment, days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
+    <div class="f"><label for="term_mode">After the initial term</label><select id="term_mode"><option value="rolling">Rolls on until notice</option><option value="fixed">Expires unless renewed in writing</option></select></div>
+    <div class="f" data-term="rolling"><label for="notice">Notice after initial term (days)</label><input id="notice" type="number" min="1" value="60"></div>
+    <div class="f" data-term="fixed"><label for="renew_month">Renewal review in month</label><input id="renew_month" type="number" min="1" value="5"></div>
+    <div class="f full" data-svc="FCOO ROA"><label for="commit_mode">What the client is buying</label><select id="commit_mode"><option value="days">A set number of days per month</option><option value="scope">Defined advisory services, with no day commitment</option></select></div>
+    <div class="f" data-svc="FCOO ROA" data-commit="days"><label for="days">Commitment, days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
     <div class="f" data-svc="FCOO"><label for="fcoo_fee">Monthly fee, £ excl. VAT</label><input id="fcoo_fee" type="number" min="0" step="50" value="5000"><span class="hint">Starter level is £5,000. You can change it.</span></div>
-    <div class="f" data-svc="FCOO ROA"><label for="day_rate">Extra day rate, £ excl. VAT</label><input id="day_rate" type="number" min="0" step="50"></div>
-    <div class="f" data-svc="ROA"><label for="roa_rate">Rate per active client per month, £</label><input id="roa_rate" type="number" min="0" step="10" value="300"></div>
-    <div class="f" data-svc="ROA"><label for="roa_heads">Active clients at start</label><input id="roa_heads" type="number" min="1" step="1"><span class="hint" id="roa_calc"></span></div>
-    <div class="f" data-svc="ROA"><label for="roa_review">Review the rate at active clients</label><input id="roa_review" type="number" min="1" step="1" value="50"></div>
+    <div class="f" data-svc="FCOO ROA" data-commit="days"><label for="day_rate">Extra day rate, £ excl. VAT</label><input id="day_rate" type="number" min="0" step="50"></div>
+    <div class="f" data-svc="ROA"><label for="roa_unit">What you charge per</label><input id="roa_unit" value="Active Client"><span class="hint">Singular, capitalised, e.g. Paid Membership</span></div>
+    <div class="f" data-svc="ROA"><label for="roa_rate">Rate per unit per month, £</label><input id="roa_rate" type="number" min="0" step="10" value="300"></div>
+    <div class="f" data-svc="ROA"><label for="roa_heads">Number at start</label><input id="roa_heads" type="number" min="1" step="1"><span class="hint" id="roa_calc"></span></div>
+    <div class="f" data-svc="ROA"><label for="roa_review">Review point (number)</label><input id="roa_review" type="number" min="1" step="1" value="50"></div>
+    <div class="f full" data-svc="ROA"><label for="roa_def">Definition of the unit</label><textarea id="roa_def">a customer of the Client to which the Client provided, or was contracted to provide, goods or services at any time in the relevant month</textarea></div>
+    <div class="f full" data-svc="ROA"><label for="roa_track">The client must, one per line</label><textarea id="roa_track">tell Nexa the number of {units} by the last Business Day of each month
+give Nexa evidence of that number on reasonable request, such as a billing or CRM report</textarea><span class="hint">{units} is replaced with your unit name.</span></div>
     <div class="f" data-svc="OA"><label for="oa_rate">Hourly rate, £ excl. VAT</label><input id="oa_rate" type="number" min="0" step="5"></div>
     <div class="f" data-svc="OA"><label for="oa_hours">Hours per month, paid in advance</label><input id="oa_hours" type="number" min="1" step="0.5" value="10"><span class="hint" id="oa_calc"></span></div>
     <div class="f"><label for="pay_days">Payment terms (days)</label><input id="pay_days" type="number" min="1" value="14"></div>
     <div class="f full"><label for="invoicing">Invoicing</label><select id="invoicing"><option value="advance">Monthly in advance (standard)</option><option value="arrears">Monthly in arrears (agreed exception)</option></select></div>
+    <div class="f full"><label class="chip" for="prorate"><input type="checkbox" id="prorate" checked> Pro-rate part months at the start and end</label></div>
   </div></details>
 
   <details id="d-A"><summary>Schedule · Fractional COO <span class="n" data-sec="A"></span></summary><div class="fs">
@@ -205,7 +213,7 @@ const $=id=>document.getElementById(id);
 const PH="[●]";
 const NEXA_KEYS=["nx_number","nx_juris","nx_office","nx_vat","nx_vat_no","nx_vat_date","nx_email","nx_sign","nx_role","nx_terms_ver","nx_terms_url","tags"];
 const ENG_KEYS=["cl_name","cl_number","cl_juris","cl_office","cl_sign_name","cl_sign_role","cl_email","cl_notice","cl_size","svc","order_date","start","init_term","notice","days","fcoo_fee","day_rate","roa_rate","roa_heads","roa_review","oa_rate","oa_hours","pay_days","invoicing","a_scope","a_limit","a_report","a_rhythm","b_scope","b_rhythm","c_scope","c_rhythm","variations"];
-ENG_KEYS.unshift("doctype");ENG_KEYS.push("cn_order","cn_effective","cn_changes","cn_fee","cn_commit","nda_purpose","nda_years");
+ENG_KEYS.unshift("doctype");ENG_KEYS.push("term_mode","renew_month","commit_mode","roa_unit","roa_def","roa_track","prorate","cn_order","cn_effective","cn_changes","cn_fee","cn_commit","nda_purpose","nda_years");
 const DOCS={EO:{label:"Engagement Order",prefix:"NX"},CN:{label:"Change Note",prefix:"CN"},NDA:{label:"Mutual NDA",prefix:"NDA"}};
 const docType=()=>DOCS[val("doctype")]?val("doctype"):"EO";
 const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Resident Operations Adviser"},OA:{letter:"C",name:"Operations Adviser"}};
@@ -317,21 +325,22 @@ function buildDoc(){
   H("1. Key terms");
   const vatNote=n.nx_vat==="registered"?" plus VAT":" plus VAT (from Nexa's VAT effective date)";
   const fees=[];
+  const byDays=e.commit_mode!=="scope", fixed=e.term_mode==="fixed";
+  const Unit=(e.roa_unit||"Active Client").trim(), Units=/s$/i.test(Unit)?Unit:Unit+"s";
+  const commitRows=()=>byDays?[["Commitment",e.days?plural(e.days,"day")+" per month":F("")],["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")]]:[["Services","The defined advisory services in Schedule "+S+". There is no commitment to a number of days."],["Additional services","Require a separately agreed written scope and fee"]];
   if(e.svc==="ROA"){
-    fees.push(["Client Rate",e.roa_rate?money(e.roa_rate)+" per Active Client per month"+vatNote:F("")]);
-    fees.push(["Active Clients at Start Date",e.roa_heads?String(e.roa_heads):F("")]);
-    fees.push(["Monthly Fee at Start Date",roaFee!=null?money(roaFee)+vatNote+", adjusted monthly for Active Clients":F("")]);
-    fees.push(["Rate review","When Active Clients first reach "+(e.roa_review||PH)]);
-    fees.push(["Commitment",e.days?plural(e.days,"day")+" per month on site or remote":F("")]);
-    fees.push(["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")]);
+    fees.push(["Client Rate",e.roa_rate?money(e.roa_rate)+" per "+Unit+" per month"+vatNote:F("")]);
+    fees.push([Units+" at Start Date",e.roa_heads?String(e.roa_heads):F("")]);
+    fees.push(["Monthly Fee at Start Date",roaFee!=null?money(roaFee)+vatNote+", adjusted monthly for the number of "+Units:F("")]);
+    fees.push(["Review point","When "+Units+" first reach "+(e.roa_review||PH)+": rate, capacity, availability and tiered pricing"]);
+    fees.push(...commitRows());
   }else if(e.svc==="OA"){
     fees.push(["Hourly Rate",e.oa_rate?money(e.oa_rate)+" per hour"+vatNote:F("")]);
     fees.push(["Hours Block",e.oa_hours?plural(e.oa_hours,"hour")+" per month":F("")]);
     fees.push(["Monthly Fee",oaFee!=null?money(oaFee)+vatNote:F("")]);
   }else{
-    fees.push(["Commitment",e.days?plural(e.days,"day")+" per month":F("")]);
     fees.push(["Monthly Fee",e.fcoo_fee?money(e.fcoo_fee)+vatNote:F("")]);
-    fees.push(["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")]);
+    fees.push(...commitRows());
   }
   T([
     ["Service",svc.name+", Schedule "+S],
@@ -339,10 +348,10 @@ function buildDoc(){
     ["Start Date",F(ukDate(e.start))],
     ["Initial Term",e.init_term?plural(e.init_term,"month")+" from the Start Date":F("")],
     ...fees,
-    ["Invoicing","Monthly in "+inv+", payable within "+(e.pay_days?plural(e.pay_days,"day"):PH)+" of invoice"],
-    ["Notice",e.notice?plural(e.notice,"day")+"' written notice, expiring no earlier than the end of the Initial Term":F("")],
+    ["Invoicing","Monthly in "+inv+", payable within "+(e.pay_days?plural(e.pay_days,"day"):PH)+" of invoice"+(e.prorate?", with part months pro-rated":"")],
+    fixed?["Renewal","Renewal review in month "+(e.renew_month||PH)+". Expires at the end of the Initial Term unless renewed in writing"]:["Notice",e.notice?plural(e.notice,"day")+"' written notice, expiring no earlier than the end of the Initial Term":F("")],
     ["Key Person cover","Clause 4 of the Terms: after 10 consecutive Business Days of unplanned absence, approved cover or a pro rata reduction in the Fees"],
-    ["Annual fee review","On each anniversary of the Start Date, on at least 60 days' notice (clause 8.6 of the Terms)"],
+    ...(fixed?[]:[["Annual fee review","On each anniversary of the Start Date, on at least 60 days' notice (clause 8.6 of the Terms)"]]),
     ["Liability cap","As set out in clause 7.3 of the Terms: total Fees paid and payable in the 12 months before the first claim"],
     ["Governing law","The law of England and Wales; the courts of England and Wales have exclusive jurisdiction"]
   ]);
@@ -357,25 +366,37 @@ function buildDoc(){
   const payDays=F(e.pay_days?plural(e.pay_days,"day"):"");
   let k=1;const c3=(...r)=>C("3."+(k++),...r);
   const invText=inv==="advance"?"Nexa will invoice the Monthly Fee monthly in advance, on or before the first day of each month of the Engagement":"As agreed between the parties, Nexa will invoice the Monthly Fee monthly in arrears, at the end of each month of the Engagement";
+  const daysClause=()=>byDays?c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse."):c3("Additional services require a separately agreed written scope and fee.");
   if(e.svc==="ROA"){
-    c3("The Monthly Fee is the Client Rate multiplied by the number of Active Clients. ",{b:"Active Client"}," means a customer of the Client to which the Client provided, or was contracted to provide, goods or services at any time in the relevant month. For each month, the number of Active Clients is the number on the last Business Day of the previous month, and for the first month it is the number stated in clause 1. ",invText,", and each invoice is payable within ",payDays," of its date.");
-    c3("The Client must tell Nexa its number of Active Clients by the last Business Day of each month. On reasonable request, the Client must give Nexa evidence of that number, such as a billing or CRM report. Nexa needs only the number, not the names or details of the Client's customers. If the number changes, the Monthly Fee changes from the next invoice.");
-    c3("When the number of Active Clients first reaches ",F(e.roa_review),", the parties will review the Client Rate in good faith. Until they agree a new rate in writing, the existing Client Rate continues to apply.");
-    c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
+    const when=inv==="advance"?"the number on the last Business Day of the previous month, and for the first month it is the number stated in clause 1":"the number on the last Business Day of the month being invoiced";
+    c3("The Monthly Fee is the Client Rate multiplied by the number of ",Units,". ",{b:Unit}," means ",F(e.roa_def),". For each month, the number of "+Units+" is "+when+". ",invText,", and each invoice is payable within ",payDays," of its date.");
+    const track=lines(e.roa_track).map(x=>x.replace(/\{units\}/g,Units));
+    if(track.length){C("3."+(k++),"The Client must:");cur[cur.length-1].list=track}
+    c3((inv==="advance"?"If the number of "+Units+" changes, the Monthly Fee changes from the next invoice.":"Each monthly invoice uses the number of "+Units+" for the month it covers.")+" Any personal data Nexa receives to verify the number of "+Units+" is processed under Schedule 1 of the Terms, only to calculate the Fees and provide the Services.");
+    c3("When the number of "+Units+" first reaches ",F(e.roa_review),", the parties will review in good faith the Client Rate, Nexa's capacity and availability to support the Client at that level, and whether tiered pricing should apply. Until they agree any change in writing, the existing terms continue to apply.");
+    daysClause();
   }else if(e.svc==="OA"){
     c3("The Client buys the Hours Block each month at the Hourly Rate. ",invText,", and each invoice is payable within ",payDays," of its date.");
     c3("Time is recorded in units of 15 minutes. Unused hours roll forward for one month and then lapse. Hours beyond the Hours Block need the Client's prior written approval, which may be given by email, and are invoiced at the Hourly Rate with the next monthly invoice.");
   }else{
-    c3("The Client must pay the Monthly Fee for the Commitment. ",invText,", and each invoice is payable within ",payDays," of its date.");
-    c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
+    c3("The Client must pay the Monthly Fee"+(byDays?" for the Commitment":" for the Services")+". ",invText,", and each invoice is payable within ",payDays," of its date.");
+    daysClause();
   }
+  if(e.prorate&&e.svc!=="OA")c3("If the Engagement starts or ends part-way through a month, the Monthly Fee for that month is reduced in proportion to the number of calendar days in that month that fall within the Engagement.");
   c3("All Fees are exclusive of VAT. The Client must pay VAT on the Fees, in addition to the Fees, at the rate in force at the time of supply.");
   if(n.nx_vat==="registered") c3("Nexa's VAT registration number is ",F(n.nx_vat_no),".");
   else c3("Nexa's VAT registration takes effect on ",F(ukDate(n.nx_vat_date)),". VAT will be added to all Fees for supplies made on or after that date, including supplies covered by invoices issued before it, and Nexa will issue VAT invoices for them.");
   c3("Reasonable expenses are payable at cost only where the Client has approved them in advance.");
   c3("If any invoice is not paid when due, Nexa may charge interest and compensation under the Late Payment of Commercial Debts (Interest) Act 1998.");
-  H("4. Term and notice");
-  C("4.1","The Engagement starts on the Start Date and continues for the Initial Term. It then continues until either party gives the notice set out in clause 1, which may not expire before the end of the Initial Term. Either party may also terminate in accordance with the Terms.");
+  if(fixed){
+    H("4. Term and renewal");
+    C("4.1","The Engagement starts on the Start Date and continues for the Initial Term.");
+    C("4.2","During month ",F(e.renew_month)," of the Initial Term, the parties will review whether to renew the Engagement and on what terms.");
+    C("4.3","The Agreement expires at the end of the Initial Term unless the parties agree in writing to renew it, which may be done by Change Note. Either party may also terminate in accordance with the Terms.");
+  }else{
+    H("4. Term and notice");
+    C("4.1","The Engagement starts on the Start Date and continues for the Initial Term. It then continues until either party gives the notice set out in clause 1, which may not expire before the end of the Initial Term. Either party may also terminate in accordance with the Terms.");
+  }
   H("5. Employment status");
   if(e.cl_size==="large") C("5.1","The Client confirms that it is not a small company for the purposes of Chapter 10 of Part 2 of the Income Tax (Earnings and Pensions) Act 2003. The Client must give Nexa a status determination statement, with reasons, before the Start Date, and must respond to any disagreement Nexa raises within 45 days.");
   else C("5.1","The Client confirms that it is a small company for the purposes of Chapter 10 of Part 2 of the Income Tax (Earnings and Pensions) Act 2003, and must tell Nexa promptly if that changes during the Engagement.");
@@ -444,8 +465,8 @@ function missing(){
     if(dt!=="EO"&&["eng","FCOO","ROA","OA","A","B","C"].includes(sec)){out[sec]=null;return}
     if((sec==="CN"||sec==="NDA")&&sec!==dt){out[sec]=null;return}
     if(["A","B","C"].includes(sec)&&sec!==letter){out[sec]=null;return}
-    if(SERVICES[sec]){if(sec===svc){const m=list.filter(([k])=>!val(k)).map(x=>x[1]);out.eng=(out.eng||[]).concat(m);all=all.concat(m)}return}
-    let m=list.filter(([k])=>!val(k)).map(x=>x[1]);
+    if(SERVICES[sec]){if(sec===svc){const m=list.filter(([k])=>{const f=$(k).closest(".f");return !(f&&f.hidden)&&!val(k)}).map(x=>x[1]);out.eng=(out.eng||[]).concat(m);all=all.concat(m)}return}
+    let m=list.filter(([k])=>{const f=$(k).closest(".f");return !(f&&f.hidden)&&!val(k)}).map(x=>x[1]);
     if(sec==="nexa"&&dt!=="NDA"){if(val("nx_vat")==="registered"&&!val("nx_vat_no"))m.push("VAT number");if(val("nx_vat")==="pending"&&!val("nx_vat_date"))m.push("VAT effective date")}
     if(sec==="CN"&&!lines(val("cn_changes")).length&&!val("cn_fee")&&!val("cn_commit"))m.push("At least one change");
     out[sec]=(out[sec]||[]).concat(m);all=all.concat(m)
@@ -604,7 +625,9 @@ function syncSeats(){
   document.querySelectorAll("details[data-doc]").forEach(d=>{d.hidden=d.dataset.doc!==dt});
   ["A","B","C"].forEach(s=>{const d=$("d-"+s);d.hidden=dt!=="EO"||s!==letter});
   if(!ref||!ref.startsWith(DOCS[dt].prefix+"-"))ref=nextRef();
-  document.querySelectorAll(".f[data-svc]").forEach(f=>{f.hidden=!f.dataset.svc.split(" ").includes(svc)});
+  document.querySelectorAll(".f[data-svc],.f[data-term],.f[data-commit]").forEach(f=>{
+    f.hidden=(f.dataset.svc&&!f.dataset.svc.split(" ").includes(svc))||(f.dataset.term&&f.dataset.term!==val("term_mode"))||(f.dataset.commit&&f.dataset.commit!==val("commit_mode"));
+  });
   const rf=val("roa_rate")&&val("roa_heads")?Number(val("roa_rate"))*Number(val("roa_heads")):null;
   $("roa_calc").textContent=rf!=null?"Monthly fee at start: "+money(rf)+" plus VAT":"";
   const of=val("oa_rate")&&val("oa_hours")?Number(val("oa_rate"))*Number(val("oa_hours")):null;
@@ -617,7 +640,7 @@ $("form").addEventListener("input",ev=>{dirty=true;sync();if(db&&NEXA_KEYS.inclu
 $("form").addEventListener("change",()=>sync());
 ["A","B","C"].forEach(s=>$("d-"+s).addEventListener("toggle",e=>{e.target.dataset.touched="1"}));
 $("saved").addEventListener("click",ev=>{const b=ev.target.closest("button[data-id]");if(b)loadEngagement(b.dataset.id)});
-$("newBtn").addEventListener("click",()=>{const keep=val("doctype");ENG_KEYS.forEach(k=>{const e=$(k);if(e.tagName==="SELECT")e.selectedIndex=0;else e.value=e.defaultValue});$("doctype").value=keep;$("order_date").value=today();ref=nextRef();sync();say("New order "+ref)});
+$("newBtn").addEventListener("click",()=>{const keep=val("doctype");ENG_KEYS.forEach(k=>{const e=$(k);if(e.tagName==="SELECT")e.selectedIndex=0;else if(e.type==="checkbox")e.checked=e.defaultChecked;else e.value=e.defaultValue});$("doctype").value=keep;$("order_date").value=today();ref=nextRef();sync();say("New order "+ref)});
 $("saveBtn").addEventListener("click",async()=>{
   if(!db){say("Saving needs you signed in to claude.ai. Your draft is kept in this browser.");return}
   $("saveBtn").disabled=true;
