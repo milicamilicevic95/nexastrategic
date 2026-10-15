@@ -115,23 +115,24 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
   </div></details>
 
   <details open id="d-eng"><summary>Engagement <span class="n" data-sec="eng"></span></summary><div class="fs">
-    <div class="f full"><span class="lab">Seats</span><div class="chips">
-      <label class="chip"><input type="checkbox" id="seat_A" checked><b>Build.</b> A</label>
-      <label class="chip"><input type="checkbox" id="seat_B"><b>Challenge.</b> B</label>
-      <label class="chip"><input type="checkbox" id="seat_C"><b>Govern.</b> C</label>
-    </div></div>
+    <div class="f full"><label for="svc">Service</label><select id="svc"><option value="FCOO">Fractional COO</option><option value="ROA">Resident Operations Adviser</option><option value="OA">Operations Adviser</option></select></div>
     <div class="f"><label for="order_date">Order date</label><input id="order_date" type="date"></div>
     <div class="f"><label for="start">Start date</label><input id="start" type="date"></div>
     <div class="f"><label for="init_term">Initial term (months)</label><input id="init_term" type="number" min="1" value="6"></div>
     <div class="f"><label for="notice">Notice after initial term (days)</label><input id="notice" type="number" min="1" value="60"></div>
-    <div class="f"><label for="days">Days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
-    <div class="f"><label for="fee">Monthly fee, £ excl. VAT</label><input id="fee" type="number" min="0" step="50"></div>
-    <div class="f"><label for="day_rate">Extra day rate, £ excl. VAT</label><input id="day_rate" type="number" min="0" step="50"></div>
+    <div class="f" data-svc="FCOO ROA"><label for="days">Commitment, days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
+    <div class="f" data-svc="FCOO"><label for="fcoo_fee">Monthly fee, £ excl. VAT</label><input id="fcoo_fee" type="number" min="0" step="50" value="5000"><span class="hint">Starter level is £5,000. You can change it.</span></div>
+    <div class="f" data-svc="FCOO ROA"><label for="day_rate">Extra day rate, £ excl. VAT</label><input id="day_rate" type="number" min="0" step="50"></div>
+    <div class="f" data-svc="ROA"><label for="roa_rate">Rate per head per month, £</label><input id="roa_rate" type="number" min="0" step="10" value="300"></div>
+    <div class="f" data-svc="ROA"><label for="roa_heads">Headcount at start</label><input id="roa_heads" type="number" min="1" step="1"><span class="hint" id="roa_calc"></span></div>
+    <div class="f" data-svc="ROA"><label for="roa_review">Review the rate at headcount</label><input id="roa_review" type="number" min="1" step="1" value="50"></div>
+    <div class="f" data-svc="OA"><label for="oa_rate">Hourly rate, £ excl. VAT</label><input id="oa_rate" type="number" min="0" step="5"></div>
+    <div class="f" data-svc="OA"><label for="oa_hours">Hours per month, paid in advance</label><input id="oa_hours" type="number" min="1" step="0.5" value="10"><span class="hint" id="oa_calc"></span></div>
     <div class="f"><label for="pay_days">Payment terms (days)</label><input id="pay_days" type="number" min="1" value="14"></div>
-    <div class="f full"><label for="invoicing">Invoicing</label><select id="invoicing"><option value="advance">Monthly in advance</option><option value="arrears">Monthly in arrears</option></select></div>
+    <div class="f full"><label for="invoicing">Invoicing</label><select id="invoicing"><option value="advance">Monthly in advance (standard)</option><option value="arrears">Monthly in arrears (agreed exception)</option></select></div>
   </div></details>
 
-  <details id="d-A"><summary>Schedule A · Build <span class="n" data-sec="A"></span></summary><div class="fs">
+  <details id="d-A"><summary>Schedule · Fractional COO <span class="n" data-sec="A"></span></summary><div class="fs">
     <div class="f full"><label for="a_scope">Scope, one item per line</label><textarea id="a_scope">Operating model, ownership and management rhythm
 People, hiring plan and workforce capacity
 Delivery, supplier and operational risk management</textarea></div>
@@ -140,19 +141,19 @@ Delivery, supplier and operational risk management</textarea></div>
     <div class="f full"><label for="a_rhythm">Rhythm</label><input id="a_rhythm" value="Weekly founder session and a monthly operating review pack"></div>
   </div></details>
 
-  <details id="d-B"><summary>Schedule B · Challenge <span class="n" data-sec="B"></span></summary><div class="fs">
-    <div class="f full"><label for="b_scope">Scope, one item per line</label><textarea id="b_scope">Decision support on structure, capacity and growth sequencing
-Challenge sessions on plans before they are committed
-Readiness reviews ahead of hiring, expansion or fundraising</textarea></div>
-    <div class="f full"><label for="b_rhythm">Rhythm</label><input id="b_rhythm" value="Fortnightly founder session, plus ad hoc calls by agreement"></div>
+  <details id="d-B"><summary>Schedule · Resident Operations Adviser <span class="n" data-sec="B"></span></summary><div class="fs">
+    <div class="f full"><label for="b_scope">Scope, one item per line</label><textarea id="b_scope">Embedded operations support to the founder and leadership team
+Process design, documentation and operating cadence
+People operations, onboarding and hiring support
+Compliance housekeeping and supplier management</textarea></div>
+    <div class="f full"><label for="b_rhythm">Rhythm</label><input id="b_rhythm" value="On site on agreed days each month, with a monthly review with the founder"></div>
   </div></details>
 
-  <details id="d-C"><summary>Schedule C · Govern <span class="n" data-sec="C"></span></summary><div class="fs">
-    <div class="f"><label for="c_meetings">Board meetings per year</label><input id="c_meetings" type="number" min="1" value="6"></div>
-    <div class="f"><label for="c_equity">Equity</label><select id="c_equity"><option value="none">None</option><option value="separate">Separate advisory share agreement</option></select></div>
-    <div class="f full"><label for="c_scope">Scope, one item per line</label><textarea id="c_scope">Attend board meetings as a non-voting adviser
-Review board papers and test the operating assumptions behind them
-Flag operational, people and governance risk to the board</textarea></div>
+  <details id="d-C"><summary>Schedule · Operations Adviser <span class="n" data-sec="C"></span></summary><div class="fs">
+    <div class="f full"><label for="c_scope">Scope, one item per line</label><textarea id="c_scope">Advice on operations, people, process and governance questions as they arise
+Review of plans, policies and operating documents
+Sounding-board sessions with the founder</textarea></div>
+    <div class="f full"><label for="c_rhythm">How sessions are booked</label><input id="c_rhythm" value="Sessions are booked on request with at least 2 Business Days' notice"></div>
   </div></details>
 
   <details id="d-var"><summary>Variations to the Terms <span class="n ok">Optional</span></summary><div class="fs">
@@ -161,9 +162,9 @@ Flag operational, people and governance risk to the board</textarea></div>
 
   <details id="d-nexa"><summary>Nexa details <span class="n" data-sec="nexa"></span></summary><div class="fs">
     <div class="f full"><span class="hint">These are saved once and reused on every order.</span></div>
-    <div class="f"><label for="nx_number">Company number</label><input id="nx_number"></div>
+    <div class="f"><label for="nx_number">Company number</label><input id="nx_number" value="15536373"></div>
     <div class="f"><label for="nx_juris">Registered in</label><input id="nx_juris" value="England and Wales"></div>
-    <div class="f full"><label for="nx_office">Registered office</label><input id="nx_office"></div>
+    <div class="f full"><label for="nx_office">Registered office</label><input id="nx_office" value="7 Bell Yard, London, England, WC2A 2JR"></div>
     <div class="f"><label for="nx_vat">VAT status</label><select id="nx_vat"><option value="pending">Registration pending</option><option value="registered">Registered</option></select></div>
     <div class="f"><label for="nx_vat_no">VAT number</label><input id="nx_vat_no" placeholder="GB123456789"></div>
     <div class="f"><label for="nx_vat_date">VAT effective date</label><input id="nx_vat_date" type="date"></div>
@@ -186,11 +187,12 @@ Flag operational, people and governance risk to the board</textarea></div>
 const $=id=>document.getElementById(id);
 const PH="[●]";
 const NEXA_KEYS=["nx_number","nx_juris","nx_office","nx_vat","nx_vat_no","nx_vat_date","nx_email","nx_sign","nx_role","nx_terms_ver","nx_terms_url","tags"];
-const ENG_KEYS=["cl_name","cl_number","cl_juris","cl_office","cl_sign_name","cl_sign_role","cl_email","cl_notice","cl_size","seat_A","seat_B","seat_C","order_date","start","init_term","notice","days","fee","day_rate","pay_days","invoicing","a_scope","a_limit","a_report","a_rhythm","b_scope","b_rhythm","c_meetings","c_equity","c_scope","variations"];
+const ENG_KEYS=["cl_name","cl_number","cl_juris","cl_office","cl_sign_name","cl_sign_role","cl_email","cl_notice","cl_size","svc","order_date","start","init_term","notice","days","fcoo_fee","day_rate","roa_rate","roa_heads","roa_review","oa_rate","oa_hours","pay_days","invoicing","a_scope","a_limit","a_report","a_rhythm","b_scope","b_rhythm","c_scope","c_rhythm","variations"];
+const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Resident Operations Adviser"},OA:{letter:"C",name:"Operations Adviser"}};
 let ref=null, saved=[], db=null, downloads=null, dirty=false;
 
 function val(k){const e=$(k);return e.type==="checkbox"?e.checked:e.value.trim()}
-function setVal(k,v){const e=$(k);if(!e||v===undefined)return;if(e.type==="checkbox")e.checked=!!v;else e.value=v}
+function setVal(k,v){const e=$(k);if(!e||v===undefined||v===null)return;if(NEXA_KEYS.includes(k)&&v===""&&e.defaultValue)return;if(e.tagName==="SELECT"&&![...e.options].some(o=>o.value===v))return;if(e.type==="checkbox")e.checked=!!v;else e.value=v}
 function collect(keys){const o={};keys.forEach(k=>o[k]=val(k));return o}
 function today(){const d=new Date();return d.toISOString().slice(0,10)}
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -206,9 +208,11 @@ function tag(kind,role,width){const s=$("tags").value;if(s==="none")return null;
 
 function buildDoc(){
   const e=collect(ENG_KEYS), n=collect(NEXA_KEYS);
-  const seats=[["A","Build","Fractional COO"],["B","Challenge","Operating Partner"],["C","Govern","Board Advisor"]].filter(s=>e["seat_"+s[0]]);
-  const seatNames=seats.map(s=>"Schedule "+s[0]+" ("+s[2]+")");
-  const title=seats.length===1?seats[0][2]:seats.length?"Operating Advisory":"Engagement";
+  const svc=SERVICES[e.svc]||SERVICES.FCOO, S=svc.letter;
+  const title=svc.name;
+  const roaFee=e.roa_rate&&e.roa_heads?Number(e.roa_rate)*Number(e.roa_heads):null;
+  const oaFee=e.oa_rate&&e.oa_hours?Number(e.oa_rate)*Number(e.oa_hours):null;
+  const inv=e.invoicing==="arrears"?"arrears":"advance";
   const pages=[]; let cur;
   const page=()=>{cur=[];pages.push(cur)};
   const P=(...runs)=>cur.push({k:"p",runs});
@@ -227,15 +231,30 @@ function buildDoc(){
   C("(2)",...party(e.cl_name,e.cl_juris,e.cl_number,e.cl_office,"the Client"),".");
   H("1. Key terms");
   const vatNote=n.nx_vat==="registered"?" plus VAT":" plus VAT (from Nexa's VAT effective date)";
+  const fees=[];
+  if(e.svc==="ROA"){
+    fees.push(["Per Head Rate",e.roa_rate?money(e.roa_rate)+" per Head per month"+vatNote:F("")]);
+    fees.push(["Headcount at Start Date",e.roa_heads?String(e.roa_heads):F("")]);
+    fees.push(["Monthly Fee at Start Date",roaFee!=null?money(roaFee)+vatNote+", adjusted monthly for Headcount":F("")]);
+    fees.push(["Rate review","When Headcount first reaches "+(e.roa_review||F(""))]);
+    fees.push(["Commitment",e.days?plural(e.days,"day")+" per month on site or remote":F("")]);
+    fees.push(["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")]);
+  }else if(e.svc==="OA"){
+    fees.push(["Hourly Rate",e.oa_rate?money(e.oa_rate)+" per hour"+vatNote:F("")]);
+    fees.push(["Hours Block",e.oa_hours?plural(e.oa_hours,"hour")+" per month":F("")]);
+    fees.push(["Monthly Fee",oaFee!=null?money(oaFee)+vatNote:F("")]);
+  }else{
+    fees.push(["Commitment",e.days?plural(e.days,"day")+" per month":F("")]);
+    fees.push(["Monthly Fee",e.fcoo_fee?money(e.fcoo_fee)+vatNote:F("")]);
+    fees.push(["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")]);
+  }
   T([
-    ["Seat"+(seats.length>1?"s":""),seats.length?seatNames.join(", "):F("")],
+    ["Service",svc.name+", Schedule "+S],
     ["Key Person",F(n.nx_sign)],
     ["Start Date",F(ukDate(e.start))],
     ["Initial Term",e.init_term?plural(e.init_term,"month")+" from the Start Date":F("")],
-    ["Commitment",e.days?plural(e.days,"day")+" per month":F("")],
-    ["Monthly Fee",e.fee?money(e.fee)+vatNote:F("")],
-    ["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")],
-    ["Invoicing","Monthly in "+e.invoicing+", payable within "+F(e.pay_days?plural(e.pay_days,"day"):"")+" of invoice"],
+    ...fees,
+    ["Invoicing","Monthly in "+inv+", payable within "+(e.pay_days?plural(e.pay_days,"day"):PH)+" of invoice"],
     ["Notice",e.notice?plural(e.notice,"day")+"' written notice, expiring no earlier than the end of the Initial Term":F("")],
     ["Liability cap","As set out in clause 7.3 of the Terms: total Fees paid and payable in the 12 months before the first claim"],
     ["Governing law","The law of England and Wales; the courts of England and Wales have exclusive jurisdiction"]
@@ -244,17 +263,30 @@ function buildDoc(){
   /* Page 2: operative clauses */
   page();
   H("2. The Agreement");
-  C("2.1","This Engagement Order, the Seat Schedule"+(seats.length>1?"s":"")+" attached to it and the NexaStrategic Terms of Business ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
-  C("2.2","If there is any conflict, this Engagement Order takes priority over the Seat Schedules, and the Seat Schedules take priority over the Terms.");
+  C("2.1","This Engagement Order, the Service Schedule attached to it and the NexaStrategic Terms of Business ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
+  C("2.2","If there is any conflict, this Engagement Order takes priority over the Service Schedule, and the Service Schedule takes priority over the Terms.");
   C("2.3","Words with capital letters that are not defined in this Engagement Order have the meanings given to them in the Terms.");
   H("3. Fees, VAT and payment");
-  C("3.1","The Client must pay the Monthly Fee for the Commitment. Nexa will invoice monthly in "+e.invoicing+", and each invoice is payable within ",F(e.pay_days?plural(e.pay_days,"day"):"")," of its date.");
-  C("3.2","Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
-  C("3.3","All Fees are exclusive of VAT. The Client must pay VAT on the Fees, in addition to the Fees, at the rate in force at the time of supply.");
-  if(n.nx_vat==="registered") C("3.4","Nexa's VAT registration number is ",F(n.nx_vat_no),".");
-  else C("3.4","Nexa's VAT registration takes effect on ",F(ukDate(n.nx_vat_date)),". VAT will be added to all Fees for supplies made on or after that date, including supplies covered by invoices issued before it, and Nexa will issue VAT invoices for them.");
-  C("3.5","Reasonable expenses are payable at cost only where the Client has approved them in advance.");
-  C("3.6","If any invoice is not paid when due, Nexa may charge interest and compensation under the Late Payment of Commercial Debts (Interest) Act 1998.");
+  const payDays=F(e.pay_days?plural(e.pay_days,"day"):"");
+  let k=1;const c3=(...r)=>C("3."+(k++),...r);
+  const invText=inv==="advance"?"Nexa will invoice the Monthly Fee monthly in advance, on or before the first day of each month of the Engagement":"As agreed between the parties, Nexa will invoice the Monthly Fee monthly in arrears, at the end of each month of the Engagement";
+  if(e.svc==="ROA"){
+    c3("The Monthly Fee is the Per Head Rate multiplied by the Headcount. ",{b:"Headcount"}," means the number of employees and workers of the Client, together with any individual contractors engaged by the Client on a substantially full-time basis, on the first Business Day of the month. ",invText,", and each invoice is payable within ",payDays," of its date.");
+    c3("The Client must tell Nexa its Headcount by the first Business Day of each month and on request. If the Headcount changes, the Monthly Fee changes from the next invoice.");
+    c3("When the Headcount first reaches ",F(e.roa_review),", the parties will review the Per Head Rate in good faith. Until they agree a new rate in writing, the existing Per Head Rate continues to apply.");
+    c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
+  }else if(e.svc==="OA"){
+    c3("The Client buys the Hours Block each month at the Hourly Rate. ",invText,", and each invoice is payable within ",payDays," of its date.");
+    c3("Time is recorded in units of 15 minutes. Unused hours roll forward for one month and then lapse. Hours beyond the Hours Block need the Client's prior written approval, which may be given by email, and are invoiced at the Hourly Rate with the next monthly invoice.");
+  }else{
+    c3("The Client must pay the Monthly Fee for the Commitment. ",invText,", and each invoice is payable within ",payDays," of its date.");
+    c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
+  }
+  c3("All Fees are exclusive of VAT. The Client must pay VAT on the Fees, in addition to the Fees, at the rate in force at the time of supply.");
+  if(n.nx_vat==="registered") c3("Nexa's VAT registration number is ",F(n.nx_vat_no),".");
+  else c3("Nexa's VAT registration takes effect on ",F(ukDate(n.nx_vat_date)),". VAT will be added to all Fees for supplies made on or after that date, including supplies covered by invoices issued before it, and Nexa will issue VAT invoices for them.");
+  c3("Reasonable expenses are payable at cost only where the Client has approved them in advance.");
+  c3("If any invoice is not paid when due, Nexa may charge interest and compensation under the Late Payment of Commercial Debts (Interest) Act 1998.");
   H("4. Term and notice");
   C("4.1","The Engagement starts on the Start Date and continues for the Initial Term. It then continues until either party gives the notice set out in clause 1, which may not expire before the end of the Initial Term. Either party may also terminate in accordance with the Terms.");
   H("5. Employment status");
@@ -277,9 +309,9 @@ function buildDoc(){
   P({i:"Advisory services do not constitute legal or financial advice."});
 
   /* Schedules */
-  seats.forEach(s=>{
+  [[S,svc.name]].forEach(s=>{
     page();
-    cur.push({k:"kick",runs:["Schedule "+s[0]+" · "+s[2]]});
+    cur.push({k:"kick",runs:["Schedule "+s[0]+" · Service Schedule"]});
     cur.push({k:"h2",runs:[s[1]],dot:true});
     if(s[0]==="A"){
       H("A1. Scope"); L("A1.1",lines(e.a_scope).length?lines(e.a_scope):[F("")]);
@@ -294,40 +326,44 @@ function buildDoc(){
     if(s[0]==="B"){
       H("B1. Scope"); L("B1.1",lines(e.b_scope).length?lines(e.b_scope):[F("")]);
       H("B2. Authority");
-      C("B2.1","This seat is advisory only. The Key Person has no executive authority and does not act on the Client's behalf.");
+      C("B2.1","This service is advisory and supportive. The Key Person has no authority to bind the Client, approve expenditure or make employment decisions, and all decisions stay with the Client's board, in line with clause 6 of the Terms.");
+      C("B2.2","Working on the Client's premises does not make the Key Person part of the Client's workforce. Nexa decides how the Services are carried out, and the Key Person is not subject to the Client's line management.");
       H("B3. Rhythm"); C("B3.1",F(e.b_rhythm),".");
-      H("B4. Out of scope"); C("B4.1","Legal, tax or regulated financial advice, and the implementation of recommendations unless agreed under Schedule A.");
+      H("B4. Out of scope"); C("B4.1","Legal, tax or regulated financial advice; statutory director duties; and payroll processing.");
     }
     if(s[0]==="C"){
       H("C1. Scope"); L("C1.1",lines(e.c_scope).length?lines(e.c_scope):[F("")]);
-      H("C2. Board meetings");
-      C("C2.1","The Key Person will attend up to ",F(e.c_meetings)," board meetings a year, and receive board papers at the same time as the directors.");
-      C("C2.2","The Key Person is not appointed as a director, has no vote and owes no statutory duties as a director. The Client must not describe the Key Person as a director.");
-      H("C3. Equity");
-      C("C3.1",e.c_equity==="separate"?"Any equity participation will be documented in a separate advisory share agreement and does not form part of the Fees.":"No equity participation forms part of this Engagement.");
+      H("C2. Authority");
+      C("C2.1","This service is advisory only. The Key Person has no executive authority and does not act on the Client's behalf.");
+      H("C3. Booking"); C("C3.1",F(e.c_rhythm),". Nexa will keep a record of time spent and share it with each invoice.");
+      H("C4. Out of scope"); C("C4.1","Legal, tax or regulated financial advice, and implementing recommendations unless agreed separately.");
     }
   });
-  return {pages,seats,e,n};
+  return {pages,e,n};
 }
 
 /* ---------- missing-field checks ---------- */
 const REQUIRED={
   client:[["cl_name","Client company name"],["cl_number","Client company number"],["cl_office","Client registered office"],["cl_sign_name","Client signatory"],["cl_sign_role","Signatory role"],["cl_email","Signatory email"]],
-  eng:[["order_date","Order date"],["start","Start date"],["init_term","Initial term"],["days","Days per month"],["fee","Monthly fee"],["day_rate","Extra day rate"],["pay_days","Payment terms"],["notice","Notice period"]],
+  eng:[["order_date","Order date"],["start","Start date"],["init_term","Initial term"],["pay_days","Payment terms"],["notice","Notice period"]],
+  FCOO:[["days","Days per month"],["fcoo_fee","Monthly fee"],["day_rate","Extra day rate"]],
+  ROA:[["days","Days per month"],["roa_rate","Rate per head"],["roa_heads","Headcount"],["roa_review","Review headcount"],["day_rate","Extra day rate"]],
+  OA:[["oa_rate","Hourly rate"],["oa_hours","Hours per month"]],
   A:[["a_limit","Spend authority"],["a_report","Reports to"]],
   B:[["b_rhythm","Rhythm"]],
-  C:[["c_meetings","Board meetings"]],
+  C:[["c_rhythm","Booking"]],
   nexa:[["nx_number","Nexa company number"],["nx_office","Nexa registered office"],["nx_email","Nexa notices email"]]
 };
 function missing(){
   const out={};let all=[];
+  const svc=val("svc"),letter=SERVICES[svc].letter;
   Object.entries(REQUIRED).forEach(([sec,list])=>{
-    if(["A","B","C"].includes(sec)&&!val("seat_"+sec)){out[sec]=null;return}
+    if(["A","B","C"].includes(sec)&&sec!==letter){out[sec]=null;return}
+    if(SERVICES[sec]){if(sec===svc){const m=list.filter(([k])=>!val(k)).map(x=>x[1]);out.eng=(out.eng||[]).concat(m);all=all.concat(m)}return}
     let m=list.filter(([k])=>!val(k)).map(x=>x[1]);
     if(sec==="nexa"){if(val("nx_vat")==="registered"&&!val("nx_vat_no"))m.push("VAT number");if(val("nx_vat")==="pending"&&!val("nx_vat_date"))m.push("VAT effective date")}
-    out[sec]=m;all=all.concat(m)
+    out[sec]=(out[sec]||[]).concat(m);all=all.concat(m)
   });
-  if(!val("seat_A")&&!val("seat_B")&&!val("seat_C"))all.unshift("At least one seat");
   return {out,all};
 }
 
@@ -476,7 +512,15 @@ function renderSaved(){
 function loadEngagement(id){const s=saved.find(x=>x.id===id);if(!s)return;ref=id;ENG_KEYS.forEach(k=>setVal(k,s.data[k]));sync();say("Opened "+id)}
 function draftSave(){try{localStorage.setItem("nexa-draft",JSON.stringify({ref,eng:collect(ENG_KEYS),nexa:collect(NEXA_KEYS)}))}catch(_){}}
 function draftLoad(){try{const d=JSON.parse(localStorage.getItem("nexa-draft")||"null");if(d){ENG_KEYS.forEach(k=>setVal(k,d.eng[k]));NEXA_KEYS.forEach(k=>setVal(k,d.nexa[k]));return d.ref}}catch(_){}return null}
-function syncSeats(){["A","B","C"].forEach(s=>{const d=$("d-"+s);if(val("seat_"+s)&&!d.dataset.touched)d.open=true;if(!val("seat_"+s))d.open=false})}
+function syncSeats(){
+  const svc=val("svc"),letter=SERVICES[svc].letter;
+  ["A","B","C"].forEach(s=>{const d=$("d-"+s);d.hidden=s!==letter});
+  document.querySelectorAll(".f[data-svc]").forEach(f=>{f.hidden=!f.dataset.svc.split(" ").includes(svc)});
+  const rf=val("roa_rate")&&val("roa_heads")?Number(val("roa_rate"))*Number(val("roa_heads")):null;
+  $("roa_calc").textContent=rf!=null?"Monthly fee at start: "+money(rf)+" plus VAT":"";
+  const of=val("oa_rate")&&val("oa_hours")?Number(val("oa_rate"))*Number(val("oa_hours")):null;
+  $("oa_calc").textContent=of!=null?"Monthly fee: "+money(of)+" plus VAT":"";
+}
 function sync(){syncSeats();render();draftSave()}
 
 let nexaTimer=null;
@@ -484,7 +528,7 @@ $("form").addEventListener("input",ev=>{dirty=true;sync();if(db&&NEXA_KEYS.inclu
 $("form").addEventListener("change",()=>sync());
 ["A","B","C"].forEach(s=>$("d-"+s).addEventListener("toggle",e=>{e.target.dataset.touched="1"}));
 $("saved").addEventListener("click",ev=>{const b=ev.target.closest("button[data-id]");if(b)loadEngagement(b.dataset.id)});
-$("newBtn").addEventListener("click",()=>{ENG_KEYS.forEach(k=>{const e=$(k);if(e.type==="checkbox")e.checked=k==="seat_A";else e.value=e.defaultValue});$("order_date").value=today();ref=nextRef();sync();say("New order "+ref)});
+$("newBtn").addEventListener("click",()=>{ENG_KEYS.forEach(k=>{const e=$(k);if(e.tagName==="SELECT")e.selectedIndex=0;else e.value=e.defaultValue});$("order_date").value=today();ref=nextRef();sync();say("New order "+ref)});
 $("saveBtn").addEventListener("click",async()=>{
   if(!db){say("Saving needs you signed in to claude.ai. Your draft is kept in this browser.");return}
   $("saveBtn").disabled=true;
