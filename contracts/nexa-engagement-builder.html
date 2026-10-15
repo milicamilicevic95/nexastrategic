@@ -140,9 +140,9 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
     <div class="f" data-svc="FCOO ROA"><label for="days">Commitment, days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
     <div class="f" data-svc="FCOO"><label for="fcoo_fee">Monthly fee, £ excl. VAT</label><input id="fcoo_fee" type="number" min="0" step="50" value="5000"><span class="hint">Starter level is £5,000. You can change it.</span></div>
     <div class="f" data-svc="FCOO ROA"><label for="day_rate">Extra day rate, £ excl. VAT</label><input id="day_rate" type="number" min="0" step="50"></div>
-    <div class="f" data-svc="ROA"><label for="roa_rate">Rate per head per month, £</label><input id="roa_rate" type="number" min="0" step="10" value="300"></div>
-    <div class="f" data-svc="ROA"><label for="roa_heads">Headcount at start</label><input id="roa_heads" type="number" min="1" step="1"><span class="hint" id="roa_calc"></span></div>
-    <div class="f" data-svc="ROA"><label for="roa_review">Review the rate at headcount</label><input id="roa_review" type="number" min="1" step="1" value="50"></div>
+    <div class="f" data-svc="ROA"><label for="roa_rate">Rate per active client per month, £</label><input id="roa_rate" type="number" min="0" step="10" value="300"></div>
+    <div class="f" data-svc="ROA"><label for="roa_heads">Active clients at start</label><input id="roa_heads" type="number" min="1" step="1"><span class="hint" id="roa_calc"></span></div>
+    <div class="f" data-svc="ROA"><label for="roa_review">Review the rate at active clients</label><input id="roa_review" type="number" min="1" step="1" value="50"></div>
     <div class="f" data-svc="OA"><label for="oa_rate">Hourly rate, £ excl. VAT</label><input id="oa_rate" type="number" min="0" step="5"></div>
     <div class="f" data-svc="OA"><label for="oa_hours">Hours per month, paid in advance</label><input id="oa_hours" type="number" min="1" step="0.5" value="10"><span class="hint" id="oa_calc"></span></div>
     <div class="f"><label for="pay_days">Payment terms (days)</label><input id="pay_days" type="number" min="1" value="14"></div>
@@ -318,10 +318,10 @@ function buildDoc(){
   const vatNote=n.nx_vat==="registered"?" plus VAT":" plus VAT (from Nexa's VAT effective date)";
   const fees=[];
   if(e.svc==="ROA"){
-    fees.push(["Per Head Rate",e.roa_rate?money(e.roa_rate)+" per Head per month"+vatNote:F("")]);
-    fees.push(["Headcount at Start Date",e.roa_heads?String(e.roa_heads):F("")]);
-    fees.push(["Monthly Fee at Start Date",roaFee!=null?money(roaFee)+vatNote+", adjusted monthly for Headcount":F("")]);
-    fees.push(["Rate review","When Headcount first reaches "+(e.roa_review||F(""))]);
+    fees.push(["Client Rate",e.roa_rate?money(e.roa_rate)+" per Active Client per month"+vatNote:F("")]);
+    fees.push(["Active Clients at Start Date",e.roa_heads?String(e.roa_heads):F("")]);
+    fees.push(["Monthly Fee at Start Date",roaFee!=null?money(roaFee)+vatNote+", adjusted monthly for Active Clients":F("")]);
+    fees.push(["Rate review","When Active Clients first reach "+(e.roa_review||PH)]);
     fees.push(["Commitment",e.days?plural(e.days,"day")+" per month on site or remote":F("")]);
     fees.push(["Additional days",e.day_rate?money(e.day_rate)+" per day plus VAT, pre-approved in writing":F("")]);
   }else if(e.svc==="OA"){
@@ -358,9 +358,9 @@ function buildDoc(){
   let k=1;const c3=(...r)=>C("3."+(k++),...r);
   const invText=inv==="advance"?"Nexa will invoice the Monthly Fee monthly in advance, on or before the first day of each month of the Engagement":"As agreed between the parties, Nexa will invoice the Monthly Fee monthly in arrears, at the end of each month of the Engagement";
   if(e.svc==="ROA"){
-    c3("The Monthly Fee is the Per Head Rate multiplied by the Headcount. ",{b:"Headcount"}," means the number of employees and workers of the Client, together with any individual contractors engaged by the Client on a substantially full-time basis, on the first Business Day of the month. ",invText,", and each invoice is payable within ",payDays," of its date.");
-    c3("The Client must tell Nexa its Headcount by the first Business Day of each month and on request. If the Headcount changes, the Monthly Fee changes from the next invoice.");
-    c3("When the Headcount first reaches ",F(e.roa_review),", the parties will review the Per Head Rate in good faith. Until they agree a new rate in writing, the existing Per Head Rate continues to apply.");
+    c3("The Monthly Fee is the Client Rate multiplied by the number of Active Clients. ",{b:"Active Client"}," means a customer of the Client to which the Client provided, or was contracted to provide, goods or services at any time in the relevant month. For each month, the number of Active Clients is the number on the last Business Day of the previous month, and for the first month it is the number stated in clause 1. ",invText,", and each invoice is payable within ",payDays," of its date.");
+    c3("The Client must tell Nexa its number of Active Clients by the last Business Day of each month. On reasonable request, the Client must give Nexa evidence of that number, such as a billing or CRM report. Nexa needs only the number, not the names or details of the Client's customers. If the number changes, the Monthly Fee changes from the next invoice.");
+    c3("When the number of Active Clients first reaches ",F(e.roa_review),", the parties will review the Client Rate in good faith. Until they agree a new rate in writing, the existing Client Rate continues to apply.");
     c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse.");
   }else if(e.svc==="OA"){
     c3("The Client buys the Hours Block each month at the Hourly Rate. ",invText,", and each invoice is payable within ",payDays," of its date.");
@@ -428,7 +428,7 @@ const REQUIRED={
   client:[["cl_name","Client company name"],["cl_number","Client company number"],["cl_office","Client registered office"],["cl_sign_name","Client signatory"],["cl_sign_role","Signatory role"],["cl_email","Signatory email"]],
   eng:[["order_date","Order date"],["start","Start date"],["init_term","Initial term"],["pay_days","Payment terms"],["notice","Notice period"]],
   FCOO:[["days","Days per month"],["fcoo_fee","Monthly fee"],["day_rate","Extra day rate"]],
-  ROA:[["days","Days per month"],["roa_rate","Rate per head"],["roa_heads","Headcount"],["roa_review","Review headcount"],["day_rate","Extra day rate"]],
+  ROA:[["days","Days per month"],["roa_rate","Rate per active client"],["roa_heads","Active clients at start"],["roa_review","Review point"],["day_rate","Extra day rate"]],
   OA:[["oa_rate","Hourly rate"],["oa_hours","Hours per month"]],
   A:[["a_limit","Spend authority"],["a_report","Reports to"]],
   B:[["b_rhythm","Rhythm"]],
