@@ -1056,7 +1056,7 @@ document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]")
 let S={todos:[],doneAuto:{},snooze:{},inv:{},pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
 const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_divtarget","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
-let engagements=[],db=null,saveTimer=null,edited=false;
+let engagements=[],db=null,saveTimer=null,edited=false,myRevs=new Set(),pendingRemote=null;
 
 /* ---- clients UI ---- */
 function clientCard(c){
@@ -1102,9 +1102,16 @@ function renderOrphans(){
 }
 const setC=t=>{const c=S.clients[+t.dataset.c];c[t.dataset.k]=t.type==="number"?(t.value===""?"":parseFloat(t.value)):t.value};
 $("view-clients").addEventListener("input",e=>{const t=e.target;if(t.dataset.c===undefined)return;setC(t);update(true);queueSave()});
+async function syncOrder(c){
+  if(!db||!c||!c.ref)return;
+  try{const r=db.doc("engagements/"+c.ref),s=await r.get();if(!s.exists)return;const d=JSON.parse(JSON.stringify(s.data()));if(!d.data)return;
+    if(c.rate!==""&&c.rate!=null)d.data.roa_rate=String(c.rate);if(c.heads!==""&&c.heads!=null)d.data.roa_heads=String(c.heads);if(c.cap!==""&&c.cap!=null)d.data.roa_cap=String(c.cap);
+    d.updated=new Date().toISOString();await r.set(d);document.querySelectorAll("[data-saved]").forEach(x=>x.textContent="Saved, and contract "+c.ref+" updated")}catch(_){}
+}
 function refreshCardHeader(i){const c=S.clients[i];if(!c)return;const n=document.querySelector('[data-cname="'+i+'"]'),v=document.querySelector('[data-cval="'+i+'"]');if(n)n.textContent=c.name||"New client";if(v)v.innerHTML=fm(cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1))+'<em>/mo'+(c.status==="pipeline"?" weighted":"")+'</em>'}
 $("view-clients").addEventListener("input",e=>{const t=e.target;if(t.dataset.c!==undefined)refreshCardHeader(+t.dataset.c)});
 $("view-clients").addEventListener("change",e=>{const t=e.target;if(t.dataset.c===undefined)return;setC(t);
+  if(["rate","heads","cap"].includes(t.dataset.k))syncOrder(S.clients[+t.dataset.c]);
   if(t.dataset.k==="status"||t.dataset.k==="pricing"){const id=t.id;renderClients();const el=document.getElementById(id);if(el)el.focus()}else refreshCardHeader(+t.dataset.c);
   update(true);queueSave()});
 $("view-clients").addEventListener("click",e=>{
@@ -1605,7 +1612,7 @@ document.addEventListener("click",e=>{const q=e.target.closest("[data-qa]");if(!
   if(a==="contract"){show("legal");$("newBtn").click()}});
 
 /* ---- persistence ---- */
-function snapshot(){const o={clients:S.clients,costs:S.costs,divs:S.divs,pots:S.pots,leads:S.leads,work:S.work,results:S.results,todos:S.todos,doneAuto:S.doneAuto,snooze:S.snooze,inv:S.inv};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
+function snapshot(){const o={_rev:"",clients:S.clients,costs:S.costs,divs:S.divs,pots:S.pots,leads:S.leads,work:S.work,results:S.results,todos:S.todos,doneAuto:S.doneAuto,snooze:S.snooze,inv:S.inv};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
 function apply(o){
   if(!o)return;
   if(Array.isArray(o.clients))S.clients=o.clients;
@@ -1625,7 +1632,7 @@ function queueSave(){
   if(!db)return;clearTimeout(saveTimer);
   const mark=t=>{$("finSaved").textContent=t;document.querySelectorAll("[data-saved]").forEach(x=>x.textContent=t)};
   mark("Saving…");
-  saveTimer=setTimeout(()=>db.doc("finance/model").set(snapshot()).then(()=>mark("Saved")).catch(()=>mark("Couldn't save. Check you're signed in to claude.ai.")),700);
+  saveTimer=setTimeout(()=>{saveTimer=null;const o=snapshot();o._rev=uid()+Date.now();myRevs.add(o._rev);db.doc("finance/model").set(o).then(()=>mark("Saved")).catch(()=>mark("Couldn't save. Check you're signed in to claude.ai."))},700);
 }
 try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
 $("wk_date").value=new Date().toISOString().slice(0,10);
@@ -1636,7 +1643,17 @@ let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>
 (async()=>{
   if(!window.claude||!window.claude.use)return;
   db=await window.claude.use("db");if(!db)return;
-  try{const d=await db.doc("finance/model").get();if(d.exists&&!edited){apply(d.data());update()}else if(edited)queueSave()}catch(_){}
+  let first=true;
+  const applyRemote=d=>{const a=document.activeElement,typing=a&&a.matches&&a.matches(".fin input,.fin select,.fin textarea");
+    if(saveTimer||typing){pendingRemote=d;return}apply(d);update(true)};
+  db.doc("finance/model").onSnapshot(snap=>{
+    if(!snap.exists){if(first&&edited)queueSave();first=false;return}
+    const d=snap.data();
+    if(d._rev&&myRevs.has(d._rev)){first=false;return}
+    if(first&&edited){first=false;queueSave();return}
+    first=false;applyRemote(d);
+  },()=>{});
+  document.addEventListener("focusout",()=>setTimeout(()=>{if(pendingRemote&&!saveTimer){const d=pendingRemote;pendingRemote=null;const a=document.activeElement;if(a&&a.matches&&a.matches(".fin input,.fin select,.fin textarea")){pendingRemote=d;return}apply(d);update(true)}},50));
   db.collection("engagements").onSnapshot(snap=>{engagements=snap.docs.map(d=>Object.assign({id:d.id},(d.data()||{}).data||{}));update(true)},()=>{});
 })();
 })();
