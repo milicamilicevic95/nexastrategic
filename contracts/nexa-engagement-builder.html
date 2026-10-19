@@ -87,6 +87,24 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* Nexa OS shell + finance */
 [hidden]{display:none!important}
+.donutwrap{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center}
+.donutwrap svg{display:block;max-width:100%}
+.dleg{display:flex;flex-direction:column;gap:8px;font-size:13px}
+.dleg div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}
+.dleg i{width:12px;height:12px;border-radius:2px;display:block}
+.dleg b{font-variant-numeric:tabular-nums;font-weight:600}
+.hbar{display:flex;height:22px;gap:2px;margin:6px 0 10px}
+.hbar i{display:block;height:100%}
+.hbar i:first-child{border-radius:4px 0 0 4px}.hbar i:last-child{border-radius:0 4px 4px 0}
+.meter{height:12px;background:var(--gridc);position:relative;margin:8px 0}
+.meter i{position:absolute;left:0;top:0;bottom:0;background:var(--s1);border-radius:0 4px 4px 0}
+.meter u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}
+.mrow{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--fg2);flex-wrap:wrap}
+.chart .col{cursor:default}
+@media (max-width:560px){.donutwrap{grid-template-columns:1fr}}
+:root{--s3:#2a78d6;--s4:#1baf7a;--s5:#6250d6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s3:#3987e5;--s4:#199e70;--s5:#9085e9}}
+:root[data-theme="dark"]{--s3:#3987e5;--s4:#199e70;--s5:#9085e9}
 :root{--s1:#a8324e;--s2:#c98a2e;--good:#2f7a4a;--bad:#a3341f;--gridc:rgba(25,23,22,.10)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s1:#cf4f78;--s2:#b07a24;--good:#7cc596;--bad:#f0a08e;--gridc:rgba(241,233,223,.10)}}
 :root[data-theme="dark"]{--s1:#cf4f78;--s2:#b07a24;--good:#7cc596;--bad:#f0a08e;--gridc:rgba(241,233,223,.10)}
@@ -104,7 +122,9 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .lab2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--fg2)}
 .hero strong{display:block;font-size:clamp(44px,6vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:6px 0 4px}
 .sub{font-size:13px;color:var(--fg2);margin:0}
-.kpis,.mile{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpis,.mile{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;padding:1px 0 0 1px}
+.kpis .kpi,.mile .kpi{border:1px solid var(--line);margin:-1px 0 0 -1px}
+.welcome .kpis{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
 .kpi{background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
 .kpi span{font-size:12px;color:var(--fg2)}
 .kpi b{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -123,6 +143,8 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .chart{position:relative;min-height:240px}
 .chart svg{display:block;overflow:visible}
 .chart .gl{stroke:var(--gridc);stroke-width:1}
+.chart .dtot,.dtot{fill:var(--fg);font-size:22px;font-weight:600;font-family:var(--sans)}
+.donutwrap .tick{fill:var(--fg2);font-size:11px;font-family:var(--sans)}
 .chart .tick{fill:var(--fg2);font-size:11px;font-family:var(--sans);font-variant-numeric:tabular-nums}
 .chart .mark{stroke:var(--fg2);stroke-width:1;opacity:.45}
 .chart .cross{stroke:var(--fg2);stroke-width:1}
@@ -147,7 +169,7 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .tabs{flex-wrap:wrap}
 .fin{max-width:1360px;margin:0 auto;padding-block:24px 80px;display:flex;flex-direction:column;gap:20px}
 .fin .fgrid{padding:0}
-.welcome{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:end;padding:28px 0 8px}
+.welcome{display:grid;grid-template-columns:1fr;gap:20px;padding:28px 0 8px}
 .welcome h2,.phead h2{font-family:var(--display);font-weight:400;font-size:clamp(42px,6vw,76px);line-height:.95;letter-spacing:-.04em;margin:10px 0 12px;font-variation-settings:"SOFT" 100;text-wrap:balance}
 .phead h2{font-size:clamp(34px,4.5vw,54px);margin:0 0 6px}
 .welcome h2 i,.phead h2 i{font-style:normal;color:var(--pink)}
@@ -235,6 +257,7 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
     <div class="f" data-svc="ROA"><label for="roa_rate">Rate per unit per month, £</label><input id="roa_rate" type="number" min="0" step="10" value="300"></div>
     <div class="f" data-svc="ROA"><label for="roa_heads">Number at start</label><input id="roa_heads" type="number" min="1" step="1"><span class="hint" id="roa_calc"></span></div>
     <div class="f" data-svc="ROA"><label for="roa_review">Review point (number)</label><input id="roa_review" type="number" min="1" step="1" value="50"></div>
+    <div class="f" data-svc="ROA"><label for="roa_cap">Billing cap (number)</label><input id="roa_cap" type="number" min="1" step="1" placeholder="No cap"></div>
     <div class="f full" data-svc="ROA"><label for="roa_def">Definition of the unit</label><textarea id="roa_def">a customer of the Client to which the Client provided, or was contracted to provide, goods or services at any time in the relevant month</textarea></div>
     <div class="f full" data-svc="ROA"><label for="roa_track">The client must, one per line</label><textarea id="roa_track">tell Nexa the number of {units} by the last Business Day of each month
 give Nexa evidence of that number on reasonable request, such as a billing or CRM report</textarea><span class="hint">{units} is replaced with your unit name.</span></div>
@@ -307,6 +330,10 @@ Sounding-board sessions with the founder</textarea></div>
     <button class="door" type="button" data-go="pension"><span class="lab2">04 · Pension</span><b>Your SIPP projection</b><span id="doorPension"></span></button>
   </div>
   <div class="two">
+    <div class="card"><h3>Where each £100 of income goes</h3><p class="sub" id="donutSub"></p><div id="homeDonut" class="donutwrap"></div></div>
+    <div class="card"><h3>Income, next 12 months</h3><p class="sub">Excluding VAT, with pipeline weighted by likelihood.</p><div class="legend" id="homeIncLegend"></div><div class="chart" id="homeInc"></div></div>
+  </div>
+  <div class="two">
     <div class="card"><h3>Coming up</h3><div id="homeCal"></div></div>
     <div class="card"><h3>Things to act on</h3><div id="homeFlags" class="flags"></div><button class="btn" type="button" data-go="forecast">See all in Finance forecast</button></div>
   </div>
@@ -315,6 +342,7 @@ Sounding-board sessions with the founder</textarea></div>
 <section id="view-clients" class="fin" hidden aria-label="Active clients">
   <div class="phead"><div><h2>Active clients<i>.</i></h2><p class="sub">This list drives your forecast. Monthly fees exclude VAT.</p></div><div class="acts"><button class="btn primary" type="button" id="addClient">Add client</button></div></div>
   <div class="kpis" id="clientKpis"></div>
+  <div class="card"><h3>Income mix</h3><p class="sub">Share of monthly income by client, pipeline weighted by likelihood.</p><div id="clientMix"></div></div>
   <div id="orphanOrders"></div>
   <div id="clientList" class="clist"></div>
 </section>
@@ -334,10 +362,16 @@ Sounding-board sessions with the founder</textarea></div>
     <div class="f"><label for="fin_salary">Your salary, £/month</label><input id="fin_salary" type="number" min="0" step="1" value="1047"></div>
     <div class="f"><label for="fin_rent">Room rent paid to you, £/month</label><input id="fin_rent" type="number" min="0" step="10" value="1500"></div>
     <div class="f"><label for="fin_pension">Company pension to AJ Bell, £/month</label><input id="fin_pension" type="number" min="0" step="10" value="500"></div>
-    <div class="f"><label for="fin_div">Dividends you take, £/month</label><input id="fin_div" type="number" min="0" step="50" value="0"></div>
     <div class="f full" id="costs"></div>
     <div class="f full"><button class="btn" type="button" id="addCost">Add cost</button></div>
     <div class="f full"><label class="chip" for="fin_ea"><input type="checkbox" id="fin_ea"> Company can claim Employment Allowance</label><span class="hint">Not available while you're the only director and only employee on payroll.</span></div>
+  </div></details>
+
+  <details open><summary>Dividends</summary><div class="fs">
+    <div class="f full"><span class="hint">Log each dividend when you take it, or add planned ones with a future date.</span></div>
+    <div class="f full" id="divs"></div>
+    <div class="f full"><button class="btn" type="button" id="addDiv">Add dividend</button></div>
+    <div class="f full"><label for="fin_reserves">Retained profits at last year end, £</label><input id="fin_reserves" type="number" step="100" placeholder="From your accountant"><span class="hint">Dividends can only come from these plus this year's profit after tax.</span></div>
   </div></details>
 
   <details open><summary>Tax and cash</summary><div class="fs">
@@ -361,7 +395,9 @@ Sounding-board sessions with the founder</textarea></div>
     <div><span class="lab2">What you keep each month, after all tax</span><strong id="heroKeep">£0</strong><span class="sub" id="heroSub"></span></div>
     <div class="kpis" id="kpis"></div>
   </div>
-  <div class="card"><h3>Income forecast</h3><p class="sub">Monthly income, excluding VAT.</p><div class="legend" id="incLegend"></div><div class="chart" id="incChart"></div></div>
+  <div class="card"><h3>Dividends this tax year</h3><div id="divMeter"></div></div>
+  <div class="card"><h3>Income forecast</h3><p class="sub">Monthly income by client, excluding VAT.</p><div class="legend" id="incLegend"></div><div class="chart" id="incChart"></div></div>
+  <div class="card"><h3>Profit each month</h3><p class="sub">Before corporation tax.</p><div class="chart" id="profitChart"></div></div>
   <div class="card"><h3>Company cash</h3><p class="sub">Bank balance, and what's left once VAT and corporation tax owed are set aside.</p><div class="legend" id="cashLegend"></div><div class="chart" id="cashChart"></div></div>
   <div class="card"><h3>Month by month</h3><div id="cashTable"></div></div>
   <div class="card"><h3>Where this month's money goes</h3><p class="sub" id="flowSub"></p><div id="flow" class="flow"></div></div>
@@ -376,7 +412,7 @@ Sounding-board sessions with the founder</textarea></div>
 <div class="fgrid">
 <form class="form" id="penForm" autocomplete="off" onsubmit="return false">
   <details open><summary>You and your SIPP</summary><div class="fs">
-    <div class="f"><label for="fin_age">Your age now</label><input id="fin_age" type="number" min="18" max="80" step="1"></div>
+    <div class="f"><label for="fin_dob">Date of birth</label><input id="fin_dob" type="date"><span class="hint" id="ageHint"></span></div>
     <div class="f"><label for="fin_pot">Pot value today, £</label><input id="fin_pot" type="number" min="0" step="100" value="0"></div>
     <div class="f"><label for="pen_company">Company contribution, £/month</label><input id="pen_company" type="number" min="0" step="10" value="500"><span class="hint">Same figure as in Finance forecast.</span></div>
     <div class="f"><label for="fin_personal">Personal contribution, £/month</label><input id="fin_personal" type="number" min="0" step="10" value="0"><span class="hint">What you pay in. 25% basic-rate relief is added on top.</span></div>
@@ -391,6 +427,7 @@ Sounding-board sessions with the founder</textarea></div>
 </form>
 <div class="fout">
   <div class="card"><h3>Your pension</h3><p class="sub" id="penSub"></p><div class="mile" id="penTiles"></div><div class="legend" id="penLegend"></div><div class="chart" id="penChart"></div></div>
+  <div class="card"><h3>What builds your pot</h3><p class="sub" id="penBuildSub"></p><div id="penBuild"></div></div>
   <div class="card"><h3>What if you paid in more</h3><p class="sub">Extra each month on top of today's contributions, gross.</p><div id="penWhatIf"></div></div>
   <div class="card"><h3>Good to know</h3><div class="flags" id="penNotes"></div></div>
 </div>
@@ -403,7 +440,7 @@ const $=id=>document.getElementById(id);
 const PH="[●]";
 const NEXA_KEYS=["nx_number","nx_juris","nx_office","nx_vat","nx_vat_no","nx_vat_date","nx_email","nx_sign","nx_role","nx_terms_ver","nx_terms_url","tags"];
 const ENG_KEYS=["cl_name","cl_number","cl_juris","cl_office","cl_sign_name","cl_sign_role","cl_email","cl_notice","cl_size","svc","order_date","start","init_term","notice","days","fcoo_fee","day_rate","roa_rate","roa_heads","roa_review","oa_rate","oa_hours","pay_days","invoicing","a_scope","a_limit","a_report","a_rhythm","b_scope","b_rhythm","c_scope","c_rhythm","variations"];
-ENG_KEYS.unshift("doctype");ENG_KEYS.push("term_mode","renew_month","commit_mode","roa_unit","roa_def","roa_track","prorate","cn_order","cn_effective","cn_changes","cn_fee","cn_commit","nda_purpose","nda_years");
+ENG_KEYS.unshift("doctype");ENG_KEYS.push("roa_cap","term_mode","renew_month","commit_mode","roa_unit","roa_def","roa_track","prorate","cn_order","cn_effective","cn_changes","cn_fee","cn_commit","nda_purpose","nda_years");
 const DOCS={EO:{label:"Engagement Order",prefix:"NX"},CN:{label:"Change Note",prefix:"CN"},NDA:{label:"Mutual NDA",prefix:"NDA"}};
 const docType=()=>DOCS[val("doctype")]?val("doctype"):"EO";
 const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Resident Operations Adviser"},OA:{letter:"C",name:"Operations Adviser"}};
@@ -428,7 +465,7 @@ function buildDoc(){
   const e=collect(ENG_KEYS), n=collect(NEXA_KEYS);
   const svc=SERVICES[e.svc]||SERVICES.FCOO, S=svc.letter;
   const title=svc.name;
-  const roaFee=e.roa_rate&&e.roa_heads?Number(e.roa_rate)*Number(e.roa_heads):null;
+  const roaFee=e.roa_rate&&e.roa_heads?Number(e.roa_rate)*Math.min(Number(e.roa_heads),e.roa_cap?Number(e.roa_cap):Infinity):null;
   const oaFee=e.oa_rate&&e.oa_hours?Number(e.oa_rate)*Number(e.oa_hours):null;
   const inv=e.invoicing==="arrears"?"arrears":"advance";
   const pages=[]; let cur;
@@ -522,6 +559,7 @@ function buildDoc(){
     fees.push(["Client Rate",e.roa_rate?money(e.roa_rate)+" per "+Unit+" per month"+vatNote:F("")]);
     fees.push([Units+" at Start Date",e.roa_heads?String(e.roa_heads):F("")]);
     fees.push(["Monthly Fee at Start Date",roaFee!=null?money(roaFee)+vatNote+", adjusted monthly for the number of "+Units:F("")]);
+    if(e.roa_cap)fees.push(["Billing cap",e.roa_cap+" "+Units+", so the Monthly Fee will not exceed "+money(Number(e.roa_cap)*Number(e.roa_rate||0))+vatNote]);
     fees.push(["Review point","When "+Units+" first reach "+(e.roa_review||PH)+": rate, capacity, availability and tiered pricing"]);
     fees.push(...commitRows());
   }else if(e.svc==="OA"){
@@ -559,7 +597,7 @@ function buildDoc(){
   const daysClause=()=>byDays?c3("Days beyond the Commitment are charged at the additional day rate in clause 1 and only with the Client's prior written approval, which may be given by email. Unused days roll forward for one month and then lapse."):c3("Additional services require a separately agreed written scope and fee.");
   if(e.svc==="ROA"){
     const when=inv==="advance"?"the number on the last Business Day of the previous month, and for the first month it is the number stated in clause 1":"the number on the last Business Day of the month being invoiced";
-    c3("The Monthly Fee is the Client Rate multiplied by the number of ",Units,". ",{b:Unit}," means ",F(e.roa_def),". For each month, the number of "+Units+" is "+when+". ",invText,", and each invoice is payable within ",payDays," of its date.");
+    c3("The Monthly Fee is the Client Rate multiplied by the number of ",Units,". ",{b:Unit}," means ",F(e.roa_def),". For each month, the number of "+Units+" is "+when+"."+(e.roa_cap?" The number of "+Units+" used to calculate the Monthly Fee is capped at "+e.roa_cap+", so the Monthly Fee will not exceed "+money(Number(e.roa_cap)*Number(e.roa_rate||0))+" plus VAT.":"")+" ",invText,", and each invoice is payable within ",payDays," of its date.");
     const track=lines(e.roa_track).map(x=>x.replace(/\{units\}/g,Units));
     if(track.length){C("3."+(k++),"The Client must:");cur[cur.length-1].list=track}
     c3((inv==="advance"?"If the number of "+Units+" changes, the Monthly Fee changes from the next invoice.":"Each monthly invoice uses the number of "+Units+" for the month it covers.")+" Any personal data Nexa receives to verify the number of "+Units+" is processed under Schedule 1 of the Terms, only to calculate the Fees and provide the Services.");
@@ -818,7 +856,7 @@ function syncSeats(){
   document.querySelectorAll(".f[data-svc],.f[data-term],.f[data-commit]").forEach(f=>{
     f.hidden=(f.dataset.svc&&!f.dataset.svc.split(" ").includes(svc))||(f.dataset.term&&f.dataset.term!==val("term_mode"))||(f.dataset.commit&&f.dataset.commit!==val("commit_mode"));
   });
-  const rf=val("roa_rate")&&val("roa_heads")?Number(val("roa_rate"))*Number(val("roa_heads")):null;
+  const rf=val("roa_rate")&&val("roa_heads")?Number(val("roa_rate"))*Math.min(Number(val("roa_heads")),val("roa_cap")?Number(val("roa_cap")):Infinity):null;
   $("roa_calc").textContent=rf!=null?"Monthly fee at start: "+money(rf)+" plus VAT":"";
   const of=val("oa_rate")&&val("oa_hours")?Number(val("oa_rate"))*Number(val("oa_hours")):null;
   $("oa_calc").textContent=of!=null?"Monthly fee: "+money(of)+" plus VAT":"";
@@ -884,6 +922,10 @@ const ymKey=(y,m)=>y+"-"+String(m+1).padStart(2,"0");
 const fmtDate=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 const SVC={FCOO:"Fractional COO",ROA:"Resident Operations Adviser",OA:"Operations Adviser",Other:"Other"};
 const uid=()=>"c"+Math.random().toString(36).slice(2,9);
+const cfee=c=>c.pricing==="perhead"?(+c.rate||0)*Math.min(+c.heads||0,c.cap?+c.cap:Infinity):(+c.fee||0);
+const CCOL=["--s1","--s2","--s3","--s4","--s5"];
+function ageNow(){const v=$("fin_dob").value;if(!v)return 0;const d=new Date(v);return (Date.now()-d.getTime())/(365.2425*864e5)}
+function taxYearRange(ty){const y=+ty.slice(0,4);return [y+"-04-06",(y+1)+"-04-05"]}
 
 /* ---- views ---- */
 const VIEWS={home:"view-home",clients:"view-clients",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension"};
@@ -898,8 +940,8 @@ function show(v){
 document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]");if(t)show(t.dataset.view||t.dataset.go)});
 
 /* ---- state ---- */
-let S={clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
-const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_div","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_age","fin_pot","fin_personal","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
+let S={divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
+const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_pot","fin_personal","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
 let engagements=[],db=null,saveTimer=null;
 
@@ -908,18 +950,25 @@ function clientCard(c){
   const i=S.clients.indexOf(c);
   const refs=engagements.filter(g=>(g.doctype||"EO")==="EO").map(g=>`<option value="${esc(g.id)}"${c.ref===g.id?" selected":""}>${esc(g.id)} · ${esc(g.cl_name||"")}</option>`).join("");
   return `<article class="ccard ${c.status}">
-  <div class="chead"><span class="pill s-${c.status}">${c.status==="active"?"Active":c.status==="pipeline"?"Pipeline":"Ended"}</span><b>${esc(c.name||"New client")}</b><span class="cval">${fm((+c.fee||0)*(c.status==="pipeline"?(+c.prob||0)/100:1))}<em>/mo${c.status==="pipeline"?" weighted":""}</em></span></div>
+  <div class="chead"><span class="pill s-${c.status}">${c.status==="active"?"Active":c.status==="pipeline"?"Pipeline":"Ended"}</span><b>${esc(c.name||"New client")}</b><span class="cval">${fm(cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1))}<em>/mo${c.status==="pipeline"?" weighted":""}</em></span></div>
   <div class="fs cfs">
     <div class="f"><label for="cl${i}n">Client</label><input id="cl${i}n" data-c="${i}" data-k="name" value="${esc(c.name)}"></div>
     <div class="f"><label for="cl${i}s">Service</label><select id="cl${i}s" data-c="${i}" data-k="service">${Object.entries(SVC).map(([k,v])=>`<option value="${k}"${c.service===k?" selected":""}>${v}</option>`).join("")}</select></div>
     <div class="f"><label for="cl${i}t">Status</label><select id="cl${i}t" data-c="${i}" data-k="status"><option value="active"${c.status==="active"?" selected":""}>Active</option><option value="pipeline"${c.status==="pipeline"?" selected":""}>Pipeline</option><option value="ended"${c.status==="ended"?" selected":""}>Ended</option></select></div>
     <div class="f"${c.status==="pipeline"?"":" hidden"}><label for="cl${i}p">Likelihood, %</label><input id="cl${i}p" type="number" min="0" max="100" step="5" data-c="${i}" data-k="prob" value="${c.prob}"></div>
-    <div class="f"><label for="cl${i}f">Monthly fee, £ excl. VAT</label><input id="cl${i}f" type="number" step="0.01" data-c="${i}" data-k="fee" value="${c.fee}"></div>
+    <div class="f"><label for="cl${i}g">Pricing</label><select id="cl${i}g" data-c="${i}" data-k="pricing"><option value="fixed"${c.pricing!=="perhead"?" selected":""}>Fixed monthly fee</option><option value="perhead"${c.pricing==="perhead"?" selected":""}>Per head</option></select></div>
+    <div class="f"${c.pricing==="perhead"?" hidden":""}><label for="cl${i}f">Monthly fee, £ excl. VAT</label><input id="cl${i}f" type="number" step="0.01" data-c="${i}" data-k="fee" value="${c.fee}"></div>
+    <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}h">Heads this month</label><input id="cl${i}h" type="number" min="0" step="1" data-c="${i}" data-k="heads" value="${c.heads==null?"":c.heads}" placeholder="Add the count"></div>
+    <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}q">Price per head, £</label><input id="cl${i}q" type="number" min="0" step="10" data-c="${i}" data-k="rate" value="${c.rate==null?"":c.rate}"></div>
+    <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}k">Cap on heads</label><input id="cl${i}k" type="number" min="0" step="1" data-c="${i}" data-k="cap" value="${c.cap==null?"":c.cap}" placeholder="No cap"></div>
     <div class="f"><label for="cl${i}r">Received, £/month</label><input id="cl${i}r" type="number" step="0.01" data-c="${i}" data-k="received" value="${c.received===""||c.received==null?"":c.received}" placeholder="Same as fee"></div>
     <div class="f"><label for="cl${i}v">Once VAT-registered</label><select id="cl${i}v" data-c="${i}" data-k="vat"><option value="plus"${c.vat==="plus"?" selected":""}>VAT added on top</option><option value="incl"${c.vat==="incl"?" selected":""}>Price includes VAT</option></select></div>
     <div class="f"><label for="cl${i}a">Started</label><input id="cl${i}a" type="month" data-c="${i}" data-k="start" value="${esc(c.start)}"></div>
     <div class="f"><label for="cl${i}e">Ends</label><input id="cl${i}e" type="month" data-c="${i}" data-k="end" value="${esc(c.end)}"><span class="hint">Leave empty if rolling.</span></div>
     <div class="f"><label for="cl${i}o">Contract</label><select id="cl${i}o" data-c="${i}" data-k="ref"><option value="">Not linked</option>${refs}</select></div>
+    <div class="f"><label for="cl${i}y">Next step</label><input id="cl${i}y" data-c="${i}" data-k="nextStep" value="${esc(c.nextStep)}" placeholder="e.g. Send to sign"></div>
+    <div class="f"><label for="cl${i}d">By</label><input id="cl${i}d" type="date" data-c="${i}" data-k="nextDate" value="${esc(c.nextDate)}"></div>
+    ${c.pricing==="perhead"?`<div class="f full"><span class="lab">Heads against cap</span>${meterHTML(+c.heads||0,+c.cap||Math.max(+c.heads||0,1),(+c.heads||0)+" of "+(c.cap?c.cap+" cap":"no cap"),fm(cfee(c))+"/mo")}</div>`:""}
     <div class="f wide"><label for="cl${i}x">Notes</label><input id="cl${i}x" data-c="${i}" data-k="notes" value="${esc(c.notes)}"></div>
     <div class="f full"><button class="btn small" type="button" data-rmc="${i}">Remove client</button></div>
   </div></article>`;
@@ -929,7 +978,7 @@ function renderClients(){
   $("clientList").innerHTML=S.clients.slice().sort((a,b)=>order[a.status]-order[b.status]).map(clientCard).join("")||'<p class="empty">No clients yet. Add your first one above.</p>';
 }
 function orphans(){return engagements.filter(g=>(g.doctype||"EO")==="EO"&&!S.clients.some(c=>c.ref===g.id))}
-function eoFee(g){if(g.svc==="ROA")return (+g.roa_rate||0)*(+g.roa_heads||0);if(g.svc==="OA")return (+g.oa_rate||0)*(+g.oa_hours||0);return +g.fcoo_fee||0}
+function eoFee(g){if(g.svc==="ROA")return (+g.roa_rate||0)*Math.min(+g.roa_heads||0,g.roa_cap?+g.roa_cap:Infinity);if(g.svc==="OA")return (+g.oa_rate||0)*(+g.oa_hours||0);return +g.fcoo_fee||0}
 function renderOrphans(){
   const o=orphans();
   $("orphanOrders").innerHTML=o.length?`<div class="card"><h3>Orders in Legal that aren't on this list</h3>${o.map(g=>`<div class="kv"><span>${esc(g.id)} · ${esc(g.cl_name||"Unnamed client")} · ${esc(SVC[g.svc]||"")}${eoFee(g)?" · "+fm(eoFee(g))+"/mo":""}</span><button class="btn small" type="button" data-adopt="${esc(g.id)}">Add as client</button></div>`).join("")}</div>`:"";
@@ -941,10 +990,10 @@ $("view-clients").addEventListener("click",e=>{
   const r=e.target.closest("[data-rmc]");if(r){S.clients.splice(+r.dataset.rmc,1);renderClients();update();queueSave();return}
   const a=e.target.closest("[data-adopt]");if(a){const g=engagements.find(x=>x.id===a.dataset.adopt);if(!g)return;
     let end="";if(g.start&&g.term_mode==="fixed"&&g.init_term){const [yy,mm]=g.start.split("-").map(Number);const d=new Date(yy,mm-1+(+g.init_term)-1,1);end=ymKey(d.getFullYear(),d.getMonth())}
-    S.clients.push({id:uid(),name:g.cl_name||g.id,service:g.svc||"Other",status:"pipeline",fee:eoFee(g),received:"",vat:"plus",start:g.start?g.start.slice(0,7):"",end,prob:75,ref:g.id,notes:""});
+    S.clients.push({id:uid(),name:g.cl_name||g.id,service:g.svc||"Other",status:"pipeline",pricing:g.svc==="ROA"?"perhead":"fixed",rate:g.roa_rate||"",heads:g.roa_heads||"",cap:g.roa_cap||"",fee:eoFee(g),received:"",vat:"plus",start:g.start?g.start.slice(0,7):"",end,prob:75,ref:g.id,notes:""});
     renderClients();update();queueSave()}
 });
-$("addClient").addEventListener("click",()=>{S.clients.push({id:uid(),name:"",service:"FCOO",status:"pipeline",fee:0,received:"",vat:"plus",start:"",end:"",prob:50,ref:"",notes:""});renderClients();update();queueSave();const inputs=$("clientList").querySelectorAll('input[data-k="name"]');if(inputs.length)inputs[inputs.length-1].focus()});
+$("addClient").addEventListener("click",()=>{S.clients.push({id:uid(),name:"",service:"FCOO",status:"pipeline",pricing:"fixed",fee:0,received:"",vat:"plus",start:"",end:"",prob:50,ref:"",notes:""});renderClients();update();queueSave();const inputs=$("clientList").querySelectorAll('input[data-k="name"]');if(inputs.length)inputs[inputs.length-1].focus()});
 
 function renderCosts(){
   $("costs").innerHTML=S.costs.map((c,i)=>`<div class="row two">
@@ -952,6 +1001,10 @@ function renderCosts(){
     <div class="f"><label for="co${i}a">£/month</label><input id="co${i}a" type="number" step="1" data-l="costs" data-i="${i}" data-k="amt" value="${c.amt}"></div>
     <button class="btn small" type="button" data-rm="costs" data-i="${i}">Remove</button></div>`).join("");
 }
+function renderDivs(){
+  $("divs").innerHTML=S.divs.map((d,i)=>`<div class="row two"><div class="f"><label for="dv${i}d">Date</label><input id="dv${i}d" type="date" data-l="divs" data-i="${i}" data-k="date" value="${esc(d.date)}"></div><div class="f"><label for="dv${i}a">Amount, £</label><input id="dv${i}a" type="number" min="0" step="50" data-l="divs" data-i="${i}" data-k="amt" value="${d.amt}"></div><button class="btn small" type="button" data-rm="divs" data-i="${i}">Remove</button></div>`).join("")||'<p class="empty">No dividends logged yet.</p>';
+}
+$("addDiv").addEventListener("click",()=>{S.divs.push({date:new Date().toISOString().slice(0,10),amt:0});renderDivs();update();queueSave()});
 function onForm(e){
   const t=e.target;
   if(t.dataset.l){S[t.dataset.l][+t.dataset.i][t.dataset.k]=t.type==="number"?(t.value===""?"":parseFloat(t.value)):t.value}
@@ -960,7 +1013,7 @@ function onForm(e){
   update();queueSave();
 }
 ["finForm","penForm"].forEach(id=>{$(id).addEventListener("input",onForm);$(id).addEventListener("change",onForm)});
-$("finForm").addEventListener("click",e=>{const b=e.target.closest("button[data-rm]");if(b){S.costs.splice(+b.dataset.i,1);renderCosts();update();queueSave()}});
+$("finForm").addEventListener("click",e=>{const b=e.target.closest("button[data-rm]");if(b){S[b.dataset.rm].splice(+b.dataset.i,1);renderCosts();renderDivs();update();queueSave()}});
 $("addCost").addEventListener("click",()=>{S.costs.push({name:"",amt:0});renderCosts();update();queueSave()});
 
 /* ---- tax ---- */
@@ -984,7 +1037,7 @@ function model(){
   const lose=$("fin_lose").value,loseFrom=$("fin_lose_from").value,rise=num("fin_rise")/100;
   const months=[...Array(N)].map((_,i)=>{const d=new Date(now.getFullYear(),now.getMonth()+i,1);return {y:d.getFullYear(),m:d.getMonth(),key:ymKey(d.getFullYear(),d.getMonth()),label:MON[d.getMonth()]+" "+String(d.getFullYear()).slice(2)}});
   const vatFrom=$("fin_vat").value?$("fin_vat").value.slice(0,7):"";
-  const sal=num("fin_salary"),rent=num("fin_rent"),pen=num("fin_pension"),div=num("fin_div");
+  const sal=num("fin_salary"),rent=num("fin_rent"),pen=num("fin_pension");
   const other=S.costs.reduce((a,c)=>a+(+c.amt||0),0);
   const erNI=$("fin_ea").checked?0:Math.max(0,sal*12-5000)*.15/12;
   const rows=months.map(M=>{
@@ -993,10 +1046,10 @@ function model(){
       if(c.status==="ended")return;
       if(c.start&&M.key<c.start)return;if(c.end&&M.key>c.end)return;
       if(lose&&c.id===lose&&(!loseFrom||M.key>=loseFrom))return;
-      let inv=+c.fee||0;if(!inv)return;
+      let inv=cfee(c);if(!inv)return;
       if(rise&&c.start){const [sy,sm]=c.start.split("-").map(Number);const yrs=Math.floor(((M.y-sy)*12+(M.m-(sm-1)))/12);if(yrs>0)inv*=Math.pow(1+rise,yrs)}
       const w=c.status==="pipeline"?(weighted?(+c.prob||0)/100:0):1;if(!w)return;
-      const rec=(c.received===""||c.received==null)?inv:+c.received*(inv/(+c.fee||inv));
+      const rec=(c.received===""||c.received==null)?inv:+c.received*(inv/(cfee(c)||inv));
       const reg=vatFrom&&M.key>=vatFrom;let r=inv,v=0;
       if(reg){if(c.vat==="incl"){r=inv/1.2;v=inv-r}else{v=inv*.2}}
       const f=Math.max(0,inv-rec);
@@ -1004,7 +1057,8 @@ function model(){
       by[c.name||"Unnamed"]=(by[c.name||"Unnamed"]||0)+r*w;
     });
     const profit=rev-fees-sal-erNI-rent-pen-other;
-    return {...M,rev,act,vat,fees,cashIn,profit,by};
+    const div=S.divs.filter(d=>d.date&&d.date.slice(0,7)===M.key).reduce((a,d)=>a+(+d.amt||0),0);
+    return {...M,rev,act,vat,fees,cashIn,profit,by,div};
   });
   // corporation tax per 12-month block
   for(let b=0;b<rows.length;b+=12){const blk=rows.slice(b,b+12);const pr=blk.reduce((a,r)=>a+r.profit,0)*(12/blk.length);const ct=corpTax(pr)*(blk.length/12);const pos=blk.reduce((a,r)=>a+Math.max(0,r.profit),0)||1;blk.forEach(r=>r.ct=ct*Math.max(0,r.profit)/pos)}
@@ -1012,23 +1066,24 @@ function model(){
   const vatStartIdx=vatFrom?rows.findIndex(r=>r.key>=vatFrom):-1;
   rows.forEach((r,i)=>{
     const vatPaid=vatDue[i]||0;
-    bank+=r.cashIn-sal-erNI-rent-pen-other-div-vatPaid;vatOwed+=r.vat-vatPaid;
+    bank+=r.cashIn-sal-erNI-rent-pen-other-r.div-vatPaid;vatOwed+=r.vat-vatPaid;
     if(vatStartIdx>=0&&i>=vatStartIdx){qVat+=r.vat;qCount++;if(qCount===3){vatDue[i+2]=(vatDue[i+2]||0)+qVat;qVat=0;qCount=0}}
     ctAcc+=r.ct;r.bank=bank;r.free=bank-vatOwed-ctAcc;r.vatPaid=vatPaid;r.costs=sal+erNI+rent+pen+other+r.fees;
   });
   const first=rows.slice(0,12),annualProfit=first.reduce((a,r)=>a+r.profit,0)*(12/first.length),ct=corpTax(annualProfit);
-  const ty=$("fin_ty").value,salA=sal*12,rentA=rent*12,divA=div*12,propT=Math.max(0,rentA-num("fin_homecost"));
+  const ty=$("fin_ty").value,[tyS,tyE]=taxYearRange(ty),salA=sal*12,rentA=rent*12,divA=S.divs.filter(d=>d.date>=tyS&&d.date<=tyE).reduce((a,d)=>a+(+d.amt||0),0),propT=Math.max(0,rentA-num("fin_homecost"));
+  const div=divA/12,headroom=Math.max(0,50270-salA-propT-divA),reserves=num("fin_reserves");
   const tax=incomeTax(salA,propT,divA,ty),ni=empNI(salA),keepA=salA+rentA+divA-tax-ni,retained=annualProfit-ct-divA;
   const ctNoRent=corpTax(annualProfit+rentA),extraDiv=rentA-(ctNoRent-ct);
   const keepNoRent=salA+divA+extraDiv-incomeTax(salA,0,divA+extraDiv,ty)-ni;
   const ctM=annualProfit>1200?(corpTax(annualProfit)-corpTax(annualProfit-1200))/1200:.19;
   const x=1200*(1-ctM),divM=(incomeTax(salA,propT,divA+x,ty)-incomeTax(salA,propT,divA,ty))/x,penCost=100*(1-ctM)*(1-divM);
-  return {rows,annualProfit,ct,erNI,sal,rent,pen,div,other,tax,ni,keepA,retained,keepNoRent,penCost,vatFrom,ty,salA,rentA,divA,weighted};
+  return {rows,annualProfit,ct,erNI,sal,rent,pen,div,other,tax,ni,keepA,retained,keepNoRent,penCost,vatFrom,ty,salA,rentA,divA,weighted,headroom,reserves,propT};
 }
 
 /* ---- pension ---- */
 function projection(extra){
-  const age=num("fin_age");if(!age)return null;
+  const age=ageNow();if(!age)return null;
   const r=(num("fin_growth")-num("fin_charges"))/100/12,infl=num("fin_infl")/100,cg=num("fin_cgrow")/100;
   let pot=num("fin_pot"),c=num("fin_pension")+num("fin_personal")/0.8+(extra||0);
   const endAge=Math.max(61,num("fin_retire")+1,Math.ceil(age)+1);const pts=[{age,pot,real:pot}];
@@ -1039,7 +1094,7 @@ function projection(extra){
 /* ---- charts ---- */
 function niceStep(x){const p=Math.pow(10,Math.floor(Math.log10(Math.max(x,1))));const n=x/p;return (n<=1?1:n<=2?2:n<=5?5:10)*p}
 function compact(v){const a=Math.abs(v);return (v<0?"−":"")+"£"+(a>=1e6?(a/1e6).toFixed(1).replace(/\.0$/,"")+"m":a>=1e3?(a/1e3).toFixed(a<1e4&&a%1e3?1:0)+"k":a.toFixed(0))}
-const legend=(el,series)=>{el.innerHTML=series.length>1?series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)}</span>`).join(""):""};
+const legend=(el,series,always)=>{el.innerHTML=series.length>1||(always&&series.length)?series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)}</span>`).join(""):""};
 function lineChart(el,labels,series,opts={}){
   if(el.offsetParent===null)return;
   const W=Math.max(300,el.clientWidth||640),H=opts.h||240,pl=56,pr=16,pt=14,pb=28;
@@ -1062,29 +1117,67 @@ function lineChart(el,labels,series,opts={}){
   svg.addEventListener("pointerleave",()=>{tip.hidden=true;cross.setAttribute("visibility","hidden");el.querySelectorAll(".hdot").forEach(c=>c.setAttribute("visibility","hidden"))});
 }
 
+function colChart(el,labels,series,opts={}){
+  if(el.offsetParent===null)return;
+  const W=Math.max(300,el.clientWidth||640),H=opts.h||240,pl=56,pr=12,pt=14,pb=28;
+  const tot=labels.map((_,i)=>series.reduce((a,s)=>a+Math.max(0,s.values[i]),0)),neg=labels.map((_,i)=>series.reduce((a,s)=>a+Math.min(0,s.values[i]),0));
+  let lo=Math.min(0,...neg),hi=Math.max(1,...tot);const step=niceStep((hi-lo)/4);lo=Math.floor(lo/step)*step;hi=Math.ceil(hi/step)*step;
+  const ys=v=>pt+(H-pt-pb)*(1-(v-lo)/(hi-lo||1)),band=(W-pl-pr)/labels.length,bw=Math.min(24,band*.6),xs=i=>pl+band*i+band/2;
+  let g="";for(let v=lo;v<=hi+1e-6;v+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}" class="gl"/><text x="${pl-8}" y="${ys(v)+4}" class="tick" text-anchor="end">${compact(v)}</text>`;
+  const every=Math.ceil(labels.length/(W<480?4:8));labels.forEach((l,i)=>{if(i%every===0)g+=`<text x="${xs(i)}" y="${H-8}" class="tick" text-anchor="middle">${esc(l)}</text>`});
+  labels.forEach((_,i)=>{let up=0,dn=0;const segs=series.map(s=>({s,v:s.values[i]})).filter(x=>x.v);
+    segs.forEach((x,k)=>{const v=x.v;let y0,y1;if(v>=0){y0=up;up+=v;y1=up}else{y0=dn;dn+=v;y1=dn}
+      const top=ys(Math.max(y0,y1)),bot=ys(Math.min(y0,y1)),hgt=Math.max(0,bot-top-(k?2:0));const isTop=v>=0?segs.slice(k+1).every(z=>z.v<0):true;
+      const r=isTop?Math.min(4,hgt/2,bw/2):0,x0=xs(i)-bw/2;
+      g+=v>=0?`<path class="col" d="M${x0} ${top+hgt}V${top+r}Q${x0} ${top} ${x0+r} ${top}H${x0+bw-r}Q${x0+bw} ${top} ${x0+bw} ${top+r}V${top+hgt}Z" fill="var(${x.s.c})"/>`:`<path class="col" d="M${x0} ${top}V${bot-r}Q${x0} ${bot} ${x0+r} ${bot}H${x0+bw-r}Q${x0+bw} ${bot} ${x0+bw} ${bot-r}V${top}Z" fill="var(${x.s.c})"/>`});
+  });
+  g+=`<line x1="${pl}" x2="${W-pr}" y1="${ys(0)}" y2="${ys(0)}" class="mark"/>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(opts.aria||"")}">${g}<rect x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pt-pb}" fill="transparent"/></svg><div class="tip" hidden></div>`;
+  const svg=el.querySelector("svg"),tip=el.querySelector(".tip");
+  svg.addEventListener("pointermove",e=>{const rc=svg.getBoundingClientRect(),px=(e.clientX-rc.left)*(W/rc.width);const i=Math.max(0,Math.min(labels.length-1,Math.floor((px-pl)/band)));
+    tip.innerHTML=`<b>${esc(labels[i])}</b>`+series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)} <em>${fm(s.values[i])}</em></span>`).join("")+(series.length>1?`<span>Total <em>${fm(series.reduce((a,s)=>a+s.values[i],0))}</em></span>`:"");
+    tip.hidden=false;const left=(xs(i)/W)*rc.width;tip.style.left=Math.min(rc.width-tip.offsetWidth-4,Math.max(4,left+14))+"px";tip.style.top="8px"});
+  svg.addEventListener("pointerleave",()=>{tip.hidden=true});
+}
+function donut(el,segs,total){
+  const T=segs.reduce((a,s)=>a+s.v,0);if(!T){el.innerHTML='<p class="empty">Nothing to show yet.</p>';return}
+  const R=90,r=58,cx=100,cy=100;let a0=-Math.PI/2,g="";const gap=2/R;
+  segs.filter(s=>s.v>0).forEach(s=>{const a1=a0+s.v/T*Math.PI*2;const s0=a0+gap/2,s1=Math.max(s0,a1-gap/2),large=s1-s0>Math.PI?1:0;
+    const P=(rad,a)=>[cx+rad*Math.cos(a),cy+rad*Math.sin(a)];const [x0,y0]=P(R,s0),[x1,y1]=P(R,s1),[x2,y2]=P(r,s1),[x3,y3]=P(r,s0);
+    g+=`<path d="M${x0} ${y0}A${R} ${R} 0 ${large} 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 ${large} 0 ${x3} ${y3}Z" fill="var(${s.c})"><title>${esc(s.name)}: £${(s.v/T*100).toFixed(0)} of every £100 (${fm2(s.v)})</title></path>`;a0=a1});
+  el.innerHTML=`<svg viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Where each £100 of income goes">${g}<text x="100" y="96" text-anchor="middle" class="dtot">${fm(total)}</text><text x="100" y="116" text-anchor="middle" class="tick">a month</text></svg><div class="dleg">${segs.map(s=>`<div><i style="background:var(${s.c})"></i><span>${esc(s.name)}</span><b>£${Math.round(s.v/T*100)} · ${fm(s.v)}</b></div>`).join("")}</div>`;
+}
+function hbar(el,segs){
+  const T=segs.reduce((a,s)=>a+s.v,0);if(!T){el.innerHTML='<p class="empty">Nothing to show yet.</p>';return}
+  el.innerHTML=`<div class="hbar" role="img" aria-label="${esc(segs.map(s=>s.name+" "+Math.round(s.v/T*100)+"%").join(", "))}">${segs.map(s=>`<i style="width:${(s.v/T*100).toFixed(2)}%;background:var(${s.c})" title="${esc(s.name)}: ${fm(s.v)}"></i>`).join("")}</div><div class="dleg">${segs.map(s=>`<div><i style="background:var(${s.c})"></i><span>${esc(s.name)}</span><b>${Math.round(s.v/T*100)}% · ${fm(s.v)}</b></div>`).join("")}</div>`;
+}
+function meterHTML(v,max,left,right){const pct=Math.max(0,Math.min(100,v/max*100));return `<div class="meter" role="meter" aria-valuemin="0" aria-valuemax="${max}" aria-valuenow="${v}"><i style="width:${pct}%"></i></div><div class="mrow"><span>${left}</span><span>${right}</span></div>`}
+
 /* ---- calendar & flags ---- */
 function calendar(M){
   const cal=[],today=new Date(),t0=new Date(today.getFullYear(),today.getMonth(),today.getDate());
   const add=(d,t)=>{if(d>=t0)cal.push([d,t])};
   [2027,2028].forEach(y=>{add(new Date(y,0,31),"Self Assessment: balancing payment and first payment on account");add(new Date(y,6,31),"Self Assessment: second payment on account")});
   const ye=+$("fin_ye").value;
-  if(ye)[today.getFullYear()-1,today.getFullYear(),today.getFullYear()+1].forEach(y=>{const end=new Date(y,ye,0);const ctd=new Date(end);ctd.setMonth(ctd.getMonth()+9);ctd.setDate(ctd.getDate()+1);add(ctd,"Corporation tax due, year ending "+fmtDate(end));add(new Date(y,ye+9,0),"Company accounts due at Companies House")});
+  if(ye)[today.getFullYear()-1,today.getFullYear(),today.getFullYear()+1].forEach(y=>{const end=new Date(y,ye,0);const ctd=new Date(end);ctd.setMonth(ctd.getMonth()+9);ctd.setDate(ctd.getDate()+1);add(ctd,"Corporation tax due, year ending "+fmtDate(end)+" (accountant)");add(new Date(y,ye+9,0),"Company accounts due at Companies House (accountant)")});
   if(M.vatFrom){const [vy,vm]=M.vatFrom.split("-").map(Number);for(let q=0;q<6;q++){const qe=new Date(vy,vm-1+3*(q+1),0);add(new Date(qe.getFullYear(),qe.getMonth()+2,7),"VAT return and payment, quarter ending "+fmtDate(qe))}}
+  S.clients.filter(c=>c.status!=="ended"&&c.nextDate&&c.nextStep).forEach(c=>add(new Date(c.nextDate),c.nextStep+": "+(c.name||"client")));
   S.clients.filter(c=>c.status!=="ended"&&c.end).forEach(c=>{const [y,m]=c.end.split("-").map(Number);add(new Date(y,m-2,1),"Renewal review: "+(c.name||"client"));add(new Date(y,m,0),"Contract ends: "+(c.name||"client"))});
   [["fin_ins","Insurance renewal"],["fin_ico","ICO data protection fee renewal"],["fin_cs","Confirmation statement due"]].forEach(([id,t])=>{if($(id).value)add(new Date($(id).value),t)});
   return cal.sort((a,b)=>a[0]-b[0]);
 }
 function flags(M){
   const F=[],r0=M.rows[0];
-  const act=S.clients.filter(c=>c.status==="active"),tot=act.reduce((a,c)=>a+(+c.fee||0),0),top=act.slice().sort((a,b)=>(+b.fee||0)-(+a.fee||0))[0];
-  if(top&&tot&&(+top.fee||0)/tot>=.6)F.push(["warn","One client is "+Math.round((+top.fee||0)/tot*100)+"% of your income",esc(top.name)+" is most of your active income. Losing it would remove "+fm(top.fee)+" a month; try it with “What if you lost a client”. A long single-client engagement is also one of the things HMRC looks at for IR35."]);
-  const plus=act.filter(c=>c.vat==="plus"&&(+c.fee||0)>0&&!c.ref);
-  if(plus.length)F.push(["warn","Check you can add VAT on top",plus.map(c=>esc(c.name||"A client")).join(", ")+": once you're registered, confirm the contract lets you charge VAT on top. If it says nothing about VAT, the price is treated as including it, and "+fm2(plus[0].fee)+" becomes "+fm2(plus[0].fee/1.2)+" for you. Set the client to “Price includes VAT” to see the effect."]);
+  const act=S.clients.filter(c=>c.status==="active"),tot=act.reduce((a,c)=>a+cfee(c),0),top=act.slice().sort((a,b)=>cfee(b)-cfee(a))[0];
+  if(top&&tot&&cfee(top)/tot>=.6)F.push(["warn","One client is "+Math.round(cfee(top)/tot*100)+"% of your income",esc(top.name)+" is most of your active income. Losing it would remove "+fm(cfee(top))+" a month; try it with “What if you lost a client”. A long single-client engagement is also one of the things HMRC looks at for IR35."]);
+  const plus=act.filter(c=>c.vat==="plus"&&cfee(c)>0&&!c.ref);
+  if(plus.length)F.push(["warn","Check you can add VAT on top",plus.map(c=>esc(c.name||"A client")).join(", ")+": once you're registered, confirm the contract lets you charge VAT on top. If it says nothing about VAT, the price is treated as including it, and "+fm2(cfee(plus[0]))+" becomes "+fm2(cfee(plus[0])/1.2)+" for you. Set the client to “Price includes VAT” to see the effect."]);
   orphans().forEach(g=>F.push(["warn",esc(g.cl_name||g.id)+" isn't in the forecast","Order "+esc(g.id)+" is saved in Legal but not on your client list. Add it in Active clients."]));
-  S.clients.filter(c=>c.status!=="ended"&&!(+c.fee)).forEach(c=>F.push(["warn",esc(c.name||"A client")+" has no fee yet","It's on your list but adds nothing to the forecast until it has a monthly fee."]));
+  S.clients.filter(c=>c.status!=="ended"&&!cfee(c)).forEach(c=>F.push(["warn",esc(c.name||"A client")+(c.pricing==="perhead"?" needs a head count":" has no fee yet"),c.pricing==="perhead"?"Add this month's number of heads in Active clients, so it appears in your forecast.":"It's on your list but adds nothing to the forecast until it has a monthly fee."]));
   if(M.rent>0){const d=M.keepA-M.keepNoRent;F.push(["info","Room rent "+(d>=0?"saves you "+fm(d):"costs you "+fm(-d))+" a year against dividends","Taking "+fm(M.rentA)+" a year as rent rather than dividends changes what you keep by "+fm(Math.abs(d))+" ("+M.ty+" rules). Property income tax rises to 22% from April 2027. The rent must be a market rate for the space, backed by a written licence, and the room must not be used only for business."])}
   if(M.erNI>0)F.push(["info","Employer National Insurance: "+fm(M.erNI*12)+" a year","As the only director on payroll, the company can't claim Employment Allowance, so it pays 15% on your salary above £5,000."]);
-  if(M.divA>0&&M.retained<0)F.push(["bad","Dividends are higher than profits","You're planning "+fm(M.divA)+" a year, but post-tax profit is "+fm(M.annualProfit-M.ct)+". Dividends can only come from profits; the excess becomes a director's loan."]);
+  if(M.divA>0&&M.divA>M.annualProfit-M.ct+M.reserves)F.push(["bad","Dividends may be higher than available profits","You've logged "+fm(M.divA)+" this tax year, against about "+fm(M.annualProfit-M.ct)+" of profit after tax"+(M.reserves?" plus "+fm(M.reserves)+" retained":"")+". Dividends can only come from profits; the excess becomes a director's loan. Check with your accountant before the next one."]);
+  F.push(["info","You can take about "+fm(M.headroom)+" more in dividends this tax year at 10.75%","Above that, dividends are taxed at 35.75%. This assumes your salary and rent stay as they are."]);
   const sa=M.tax-incomeTax(M.salA,0,0,M.ty);
   if(sa>1000)F.push(["warn","Self Assessment: about "+fm(sa)+" a year","Tax on your rent and dividends isn't taken through payroll. Because it's over £1,000, HMRC adds payments on account, so your first January bill can be about one and a half years' worth. Set aside "+fm(sa/12)+" a month."]);
   const fixedM=M.sal+M.erNI+M.rent+M.pen+M.other,last=M.rows[M.rows.length-1];
@@ -1103,28 +1196,41 @@ function update(skipClients){
   loseSel.innerHTML='<option value="">No, everything continues</option>'+S.clients.filter(c=>c.status!=="ended").map(c=>`<option value="${esc(c.id)}"${c.id===cur?" selected":""}>${esc(c.name||"Unnamed client")}</option>`).join("");
   const M=model(),r0=M.rows[0],F=flags(M),C=calendar(M),P=projection(0);
   const active=S.clients.filter(c=>c.status==="active"),pipe=S.clients.filter(c=>c.status==="pipeline");
-  const mrr=active.reduce((a,c)=>a+(+c.fee||0),0),wp=pipe.reduce((a,c)=>a+(+c.fee||0)*(+c.prob||0)/100,0);
+  const mrr=active.reduce((a,c)=>a+cfee(c),0),wp=pipe.reduce((a,c)=>a+cfee(c)*(+c.prob||0)/100,0);
   const at57=P&&P.at(57);
   /* home */
   $("homeDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-  $("homeKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["What you keep",fm(M.keepA/12)+"/mo"],["Pension at 57",at57?fm(at57.pot):"Add your age"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("homeKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["What you keep",fm(M.keepA/12)+"/mo"],["Dividend room at 10.75%",fm(M.headroom)],["Pension at 57",at57?fm(at57.pot):"Add your date of birth"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   $("doorClients").textContent=active.length+" active"+(pipe.length?", "+pipe.length+" in pipeline":"")+" · "+fm(mrr)+" a month";
   const docs=engagements.length;$("doorLegal").textContent=docs+" saved document"+(docs===1?"":"s")+" · Terms of Business v1.0";
   const inc12=M.rows.slice(0,12).reduce((a,r)=>a+r.rev,0);$("doorForecast").textContent=fm(inc12)+" income over 12 months · "+fm(M.rows[Math.min(11,M.rows.length-1)].free)+" free cash";
-  $("doorPension").textContent=at57?fm(at57.pot)+" at 57, "+fm(at57.real)+" in today's money":"Add your age to see your projection";
+  $("doorPension").textContent=at57?fm(at57.pot)+" at 57, "+fm(at57.real)+" in today's money":"Add your date of birth to see your projection";
   $("homeCal").innerHTML=calHTML(C.slice(0,5))||'<p class="empty">Nothing due yet.</p>';
   $("homeFlags").innerHTML=flagHTML(F.filter(f=>f[0]!=="info").slice(0,3))||'<p class="empty">Nothing urgent.</p>';
   /* clients */
-  $("clientKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["Pipeline, weighted",fm(wp)+"/mo"],["Largest client share",mrr?Math.round(Math.max(...active.map(c=>+c.fee||0))/mrr*100)+"%":"–"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("clientKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["Pipeline, weighted",fm(wp)+"/mo"],["Largest client share",mrr?Math.round(Math.max(...active.map(cfee))/mrr*100)+"%":"–"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   renderOrphans();
   const sig=JSON.stringify(engagements.map(g=>g.id));if(!skipClients||sig!==lastClientsSig){if(!$("view-clients").contains(document.activeElement))renderClients();lastClientsSig=sig}
   /* forecast */
   $("heroKeep").textContent=fm(M.keepA/12);
-  $("heroSub").textContent="Salary, room rent and dividends, less your income tax and National Insurance ("+M.ty+" rules). That's "+fm(M.keepA)+" a year.";
+  $("heroSub").textContent="Salary, room rent and the dividends logged for "+M.ty+", less your income tax and National Insurance. That's "+fm(M.keepA)+" a year.";
   $("kpis").innerHTML=[["Company profit before tax",fm(M.annualProfit/12)+"/mo"],["Corporation tax to set aside",fm(M.ct/12)+"/mo"],["VAT to set aside",r0.vat?fm(r0.vat)+"/mo":"Not registered yet"],["Profit left in the company",fm(M.retained)+"/yr"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   const labels=M.rows.map(r=>r.label);
-  const is=[{name:"Active clients",c:"--s1",values:M.rows.map(r=>r.act)}];if(M.weighted&&pipe.length)is.push({name:"Including weighted pipeline",c:"--s2",values:M.rows.map(r=>r.rev)});
-  legend($("incLegend"),is);lineChart($("incChart"),labels,is,{aria:"Monthly income forecast"});
+  const cl=S.clients.filter(c=>c.status!=="ended");
+  const is=cl.map(c=>({name:c.name||"Unnamed",c:CCOL[S.clients.indexOf(c)%CCOL.length],values:M.rows.map(r=>r.by[c.name||"Unnamed"]||0)})).filter(s=>s.values.some(v=>v>0));
+  legend($("incLegend"),is,true);colChart($("incChart"),labels,is,{aria:"Monthly income by client"});
+  colChart($("profitChart"),labels,[{name:"Profit before tax",c:"--s1",values:M.rows.map(r=>r.profit)}],{aria:"Monthly profit"});
+  colChart($("homeInc"),labels.slice(0,12),is.map(s=>({...s,values:s.values.slice(0,12)})),{aria:"Income next 12 months",h:200});legend($("homeIncLegend"),is,true);
+  /* donut: where each £100 goes */
+  const D=[["Paid to you",M.sal+M.rent+M.div,"--s1"],["Pension",M.pen,"--s2"],["Tax",r0.ct+M.erNI,"--s3"],["Running costs",M.other+r0.fees,"--s4"],["Left in the company",Math.max(0,r0.rev-M.sal-M.rent-M.div-M.pen-r0.ct-M.erNI-M.other-r0.fees),"--s5"]];
+  donut($("homeDonut"),D.map(([n,v,c])=>({name:n,v,c})),r0.rev);
+  $("donutSub").textContent=r0.rev?"Based on "+fm2(r0.rev)+" of income in "+MONTHS_FULL[r0.m]+".":"Add a client with a fee to see this.";
+  /* client mix */
+  const mix=S.clients.filter(c=>c.status!=="ended"&&cfee(c)>0).map(c=>({name:c.name||"Unnamed",c:CCOL[S.clients.indexOf(c)%CCOL.length],v:cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1)}));
+  hbar($("clientMix"),mix);
+  /* dividends meter */
+  const used=M.divA,lim=used+M.headroom;
+  $("divMeter").innerHTML=meterHTML(used,Math.max(lim,1),fm(used)+" taken in "+M.ty,fm(M.headroom)+" left at 10.75%")+'<p class="hint">The basic-rate band ends at £50,270 of total income. Your salary and rent use '+fm(M.salA+M.propT)+' of it.</p>';
   const cs=[{name:"Bank balance",c:"--s1",values:M.rows.map(r=>r.bank)},{name:"After tax set aside",c:"--s2",values:M.rows.map(r=>r.free)}];
   legend($("cashLegend"),cs);lineChart($("cashChart"),labels,cs,{aria:"Company cash forecast"});
   let tb="";M.rows.forEach((r,i)=>{tb+=`<tr><td>${r.label}</td><td>${fm(r.rev)}</td><td>${fm(r.costs)}</td><td>${fm(r.profit)}</td><td>${fm(r.ct)}</td><td>${fm(r.vat)}</td><td>${fm(r.bank)}</td><td>${fm(r.free)}</td></tr>`;
@@ -1136,8 +1242,9 @@ function update(skipClients){
   $("cal").innerHTML=calHTML(C.slice(0,8))+(+$("fin_ye").value?"":'<p class="hint">Add your company year end to see corporation tax and accounts deadlines.</p>')+(M.vatFrom?"":'<p class="hint">Add your VAT registration date to see VAT return deadlines.</p>');
   $("flags").innerHTML=flagHTML(F.concat(M.pen>0?[["info","Each extra £100 into your pension costs you about "+fm(M.penCost)+" of take-home","Company pension contributions avoid corporation tax and dividend tax."]]:[]));
   /* pension */
+  $("ageHint").textContent=ageNow()?"Age "+Math.floor(ageNow()):"";
   const company=num("fin_pension"),gross=num("fin_personal")/0.8,ret=num("fin_retire")||60;
-  if(!P){$("penSub").textContent="Add your age and today's pot value to see the projection.";$("penTiles").innerHTML="";$("penLegend").innerHTML="";$("penChart").innerHTML='<p class="empty">The projection appears here once your age is filled in.</p>';$("penWhatIf").innerHTML=""}
+  if(!P){$("penSub").textContent="Add your date of birth and today's pot value to see the projection.";$("penBuild").innerHTML="";$("penTiles").innerHTML="";$("penLegend").innerHTML="";$("penChart").innerHTML='<p class="empty">The projection appears here once your date of birth is filled in.</p>';$("penWhatIf").innerHTML=""}
   else{
     $("penSub").textContent=fm(company+gross)+" a month going in ("+fm(company)+" from the company"+(gross?", "+fm(gross)+" personal including tax relief":"")+"), growing at "+(num("fin_growth")-num("fin_charges")).toFixed(2)+"% a year after charges. “Today's money” adjusts for "+num("fin_infl")+"% inflation.";
     const ages=[...new Set([50,57,60,ret])].sort((a,b)=>a-b);
@@ -1145,6 +1252,10 @@ function update(skipClients){
     const ps=[{name:"Pot value",c:"--s1",values:P.pts.map(p=>p.pot)},{name:"In today's money",c:"--s2",values:P.pts.map(p=>p.real)}];
     legend($("penLegend"),ps);
     lineChart($("penChart"),P.pts.map(p=>"Age "+Math.round(p.age)),ps,{marks:ages.map(a=>({i:P.pts.findIndex(p=>p.age>=a),label:String(a)})).filter(m=>m.i>0),aria:"Pension projection"});
+    const at=P.at(57)||P.pts[P.pts.length-1],yrs=at.age-P.age;let contrib=0,c0=company+gross,cg=num("fin_cgrow")/100;for(let y=0;y<Math.round(yrs);y++){contrib+=c0*12;c0*=1+cg}
+    const startPot=num("fin_pot"),growth=Math.max(0,at.pot-contrib-startPot);
+    $("penBuildSub").textContent="Your pot at "+Math.round(at.age)+": "+fm(at.pot)+".";
+    hbar($("penBuild"),[{name:"Pot today",v:startPot,c:"--s3"},{name:"Contributions",v:contrib,c:"--s1"},{name:"Investment growth",v:growth,c:"--s2"}].filter(x=>x.v>0));
     $("penWhatIf").innerHTML='<div class="scroll"><table><thead><tr><th>Extra a month</th><th>At 57</th><th>At '+ret+'</th><th>At '+ret+', today\'s money</th></tr></thead><tbody>'+[0,250,500,1000].map(x=>{const q=projection(x),a=q.at(57),b=q.at(ret);return `<tr${x?"":' class="tot"'}><td>${x?"+"+fm(x):"As now"}</td><td>${a?fm(a.pot):"–"}</td><td>${b?fm(b.pot):"–"}</td><td>${b?fm(b.real):"–"}</td></tr>`}).join("")+"</tbody></table></div>";
   }
   const N=[];
@@ -1157,15 +1268,16 @@ function update(skipClients){
 }
 
 /* ---- persistence ---- */
-function snapshot(){const o={clients:S.clients,costs:S.costs};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
+function snapshot(){const o={clients:S.clients,costs:S.costs,divs:S.divs};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
 function apply(o){
   if(!o)return;
   if(Array.isArray(o.clients))S.clients=o.clients;
   else if(Array.isArray(o.streams))S.clients=o.streams.map(s=>({id:uid(),name:s.name,service:"Other",status:"active",fee:s.invoiced,received:s.received,vat:s.vat||"plus",start:s.start||"",end:s.end||"",prob:100,ref:"",notes:""}));
   if(Array.isArray(o.costs))S.costs=o.costs;
+  if(Array.isArray(o.divs))S.divs=o.divs;
   FIELDS.forEach(f=>{if(o[f]===undefined)return;const e=$(f);if(e.type==="checkbox")e.checked=!!o[f];else e.value=o[f]});
   $("pen_company").value=$("fin_pension").value;
-  renderCosts();renderClients();
+  renderCosts();renderClients();renderDivs();
 }
 function queueSave(){
   try{localStorage.setItem("nexa-finance",JSON.stringify(snapshot()))}catch(_){}
@@ -1173,7 +1285,7 @@ function queueSave(){
   saveTimer=setTimeout(()=>db.doc("finance/model").set(snapshot()).then(()=>{$("finSaved").textContent="Saved."}).catch(()=>{$("finSaved").textContent="Couldn't save. Check you're signed in to claude.ai."}),900);
 }
 try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
-renderCosts();renderClients();
+renderCosts();renderClients();renderDivs();
 let start="home";if(location.hash&&VIEWS[location.hash.slice(1)])start=location.hash.slice(1);
 show(start);
 let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>update(true),150)});
