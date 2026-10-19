@@ -111,6 +111,37 @@ td.wrap{white-space:normal;text-align:left!important;min-width:200px}
 label.btn{display:inline-flex;align-items:center}
 .scen{margin-top:10px;display:flex;flex-direction:column;gap:6px}
 @media (max-width:1000px){.lead{grid-template-columns:1fr 1fr}.row.pot{grid-template-columns:1fr 1fr}}
+.hhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding-top:20px}
+.hhead h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,4.5vw,52px);line-height:1;letter-spacing:-.035em;margin:8px 0 0;font-variation-settings:"SOFT" 100}
+.hhead h2 i{font-style:normal;color:var(--pink)}
+.qa{display:flex;gap:8px;flex-wrap:wrap}
+.lead2{grid-template-columns:1.25fr 1fr}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.chip.small{padding:4px 8px;font-size:12px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.todoadd{display:grid;grid-template-columns:1fr 150px auto;gap:8px}
+.todos{display:flex;flex-direction:column}
+.todo{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.todo input[type=checkbox]{width:18px;height:18px;margin:0}
+.todo.done .tt{text-decoration:line-through;color:var(--fg2)}
+.todo .tag{font-size:11px;color:var(--fg2);border:1px solid var(--line);padding:1px 6px;white-space:nowrap}
+.todo .due{font-size:12px;color:var(--fg2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.todo .due.late{color:var(--bad);font-weight:600}
+.todo .x{all:unset;cursor:pointer;color:var(--fg2);font-size:16px;padding:0 4px}.todo .x:focus-visible{outline:2px solid var(--pink)}
+.grp{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--fg2);margin:12px 0 2px}
+.kv .rel{font-weight:400;color:var(--fg2);font-size:12px;margin-left:8px}
+.inv{display:grid;grid-template-columns:1.4fr 1fr .9fr 1fr 150px;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.inv b{font-variant-numeric:tabular-nums}
+.inv .sub{font-size:12px}
+.inv.head{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2);font-weight:700;border-top:0;padding-bottom:4px}
+.flag .snz{all:unset;cursor:pointer;font-size:12px;color:var(--fg2);text-decoration:underline;margin-top:6px;display:inline-block}
+.flag .snz:focus-visible{outline:2px solid var(--pink)}
+.home .doors{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.home .door{min-height:0;padding:12px 14px;gap:4px}
+.home .door b{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:0}
+.home .door span:last-child{margin-top:0;font-size:12px}
+@media (max-width:900px){.lead2{grid-template-columns:1fr}.inv{grid-template-columns:1fr 1fr}.inv.head{display:none}}
+@media (max-width:560px){.todoadd{grid-template-columns:1fr 1fr}.todoadd input:first-child{grid-column:1/-1}.qa .btn{flex:1 1 40%}}
 :root{--s3:#2a78d6;--s4:#1baf7a;--s5:#6250d6}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s3:#3987e5;--s4:#199e70;--s5:#9085e9}}
 :root[data-theme="dark"]{--s3:#3987e5;--s4:#199e70;--s5:#9085e9}
@@ -175,7 +206,8 @@ label.btn{display:inline-flex;align-items:center}
 .fin .empty{font-size:13px;color:var(--fg2)}
 @media (max-width:900px){.fgrid,.two{grid-template-columns:1fr}.fl{grid-template-columns:minmax(0,1fr) 84px}.fl .bar{grid-column:1/-1;grid-row:2}}
 .homebtn{all:unset;cursor:pointer}.homebtn:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
-.tabs{flex-wrap:wrap}
+.tabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;flex:none}
+.brand{min-width:0;max-width:100%}
 .fin{max-width:1360px;margin:0 auto;padding-block:24px 80px;display:flex;flex-direction:column;gap:20px}
 .fin .fgrid{padding:0}
 .welcome{display:grid;grid-template-columns:1fr;gap:20px;padding:28px 0 8px}
@@ -329,27 +361,38 @@ Sounding-board sessions with the founder</textarea></div>
 </div>
 
 <section id="view-home" class="fin home" hidden aria-label="Home">
-  <div class="welcome">
-    <div><span class="lab2" id="homeDate"></span><h2>Welcome to Nexa OS<i>.</i></h2><p class="sub big">Your clients, contracts, forecast and pension in one place.</p></div>
-    <div class="kpis" id="homeKpis"></div>
+  <div class="hhead">
+    <div><span class="lab2" id="homeDate"></span><h2 id="greet">Hello, Mila<i>.</i></h2></div>
+    <div class="qa" aria-label="Quick actions">
+      <button class="btn" type="button" data-qa="todo">Add a to-do</button>
+      <button class="btn" type="button" data-qa="log">Log hours</button>
+      <button class="btn" type="button" data-qa="lead">Add a lead</button>
+      <button class="btn" type="button" data-qa="div">Log a dividend</button>
+      <button class="btn primary" type="button" data-qa="contract">New contract</button>
+    </div>
   </div>
-  <div class="doors">
-    <button class="door" type="button" data-go="clients"><span class="lab2">01 · Active clients</span><b>Who you work for</b><span id="doorClients"></span></button>
-    <button class="door" type="button" data-go="legal"><span class="lab2">02 · Legal</span><b>Contracts and terms</b><span id="doorLegal"></span></button>
-    <button class="door" type="button" data-go="forecast"><span class="lab2">03 · Finance forecast</span><b>Cash, tax and take-home</b><span id="doorForecast"></span></button>
-    <button class="door" type="button" data-go="pension"><span class="lab2">04 · Pension</span><b>Your pension projection</b><span id="doorPension"></span></button>
-    <button class="door" type="button" data-go="outreach"><span class="lab2">05 · Outreach</span><b>Leads and conversations</b><span id="doorOutreach"></span></button>
-    <button class="door" type="button" data-go="capacity"><span class="lab2">06 · Capacity</span><b>Time and work done</b><span id="doorCapacity"></span></button>
-    <button class="door" type="button" data-go="portfolio"><span class="lab2">07 · Portfolio</span><b>Key results</b><span id="doorPortfolio"></span></button>
-  </div>
-  <div class="two">
-    <div class="card"><h3>Where each £100 of income goes</h3><p class="sub" id="donutSub"></p><div id="homeDonut" class="donutwrap"></div></div>
-    <div class="card"><h3>Income, next 12 months</h3><p class="sub">Excluding VAT, with pipeline weighted by likelihood.</p><div class="legend" id="homeIncLegend"></div><div class="chart" id="homeInc"></div></div>
-  </div>
-  <div class="two">
+  <div class="kpis" id="homeKpis"></div>
+  <div class="two lead2">
+    <div class="card"><div class="ch"><h3>This week</h3><label class="chip small" for="todoShowDone"><input type="checkbox" id="todoShowDone"> Show done</label></div>
+      <form class="todoadd" id="todoForm" onsubmit="return false"><label class="vh" for="todoText">New to-do</label><input id="todoText" placeholder="Add a to-do"><label class="vh" for="todoDue">Due</label><input id="todoDue" type="date"><button class="btn primary" type="submit" id="todoAdd">Add</button></form>
+      <div id="todoList" class="todos"></div></div>
     <div class="card"><h3>Coming up</h3><div id="homeCal"></div></div>
-    <div class="card"><h3>Things to act on</h3><div id="homeFlags" class="flags"></div><button class="btn" type="button" data-go="forecast">See all in Finance forecast</button></div>
   </div>
+  <div class="card"><div class="ch"><h3>Invoices</h3><span class="sub" id="invSub"></span></div><div id="homeInv"></div></div>
+  <div class="two">
+    <div class="card"><h3>Income, next 12 months</h3><p class="sub">Excluding VAT. Pipeline is faded and weighted by likelihood.</p><div class="legend" id="homeIncLegend"></div><div class="chart" id="homeInc"></div></div>
+    <div class="card"><h3>Pipeline</h3><div id="homePipe"></div></div>
+  </div>
+  <div class="card"><h3>Things to act on</h3><div id="homeFlags" class="flags"></div><button class="btn" type="button" data-go="forecast">See everything in Finance forecast</button></div>
+  <nav class="doors" aria-label="All sections">
+    <button class="door" type="button" data-go="clients"><b>Active clients</b><span id="doorClients"></span></button>
+    <button class="door" type="button" data-go="outreach"><b>Outreach</b><span id="doorOutreach"></span></button>
+    <button class="door" type="button" data-go="capacity"><b>Capacity</b><span id="doorCapacity"></span></button>
+    <button class="door" type="button" data-go="portfolio"><b>Portfolio</b><span id="doorPortfolio"></span></button>
+    <button class="door" type="button" data-go="legal"><b>Legal</b><span id="doorLegal"></span></button>
+    <button class="door" type="button" data-go="forecast"><b>Finance forecast</b><span id="doorForecast"></span></button>
+    <button class="door" type="button" data-go="pension"><b>Pension</b><span id="doorPension"></span></button>
+  </nav>
 </section>
 
 <section id="view-clients" class="fin" hidden aria-label="Active clients">
@@ -464,6 +507,7 @@ Sounding-board sessions with the founder</textarea></div>
   </div>
   <div class="card"><h3>Dividends this tax year</h3><div id="divMeter"></div></div>
   <div class="card"><h3>Income forecast</h3><p class="sub">Monthly income by client, excluding VAT.</p><div class="legend" id="incLegend"></div><div class="chart" id="incChart"></div></div>
+  <div class="card"><h3>Where each £100 of income goes</h3><p class="sub" id="donutSub"></p><div id="homeDonut" class="donutwrap"></div></div>
   <div class="card"><h3>Profit each month</h3><p class="sub">Before corporation tax.</p><div class="chart" id="profitChart"></div></div>
   <div class="card"><h3>Company cash</h3><p class="sub">Bank balance, and what's left once VAT and corporation tax owed are set aside.</p><div class="legend" id="cashLegend"></div><div class="chart" id="cashChart"></div></div>
   <div class="card"><h3>Month by month</h3><div id="cashTable"></div></div>
@@ -1009,7 +1053,7 @@ function show(v){
 document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]");if(t)show(t.dataset.view||t.dataset.go)});
 
 /* ---- state ---- */
-let S={pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
+let S={todos:[],doneAuto:{},snooze:{},inv:{},pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
 const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_divtarget","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
 let engagements=[],db=null,saveTimer=null;
@@ -1036,6 +1080,8 @@ function clientCard(c){
     <div class="f"><label for="cl${i}a">Started</label><input id="cl${i}a" type="month" data-c="${i}" data-k="start" value="${esc(c.start)}"></div>
     <div class="f"><label for="cl${i}e">Ends</label><input id="cl${i}e" type="month" data-c="${i}" data-k="end" value="${esc(c.end)}"><span class="hint">Leave empty if rolling.</span></div>
     <div class="f"><label for="cl${i}o">Contract</label><select id="cl${i}o" data-c="${i}" data-k="ref"><option value="">Not linked</option>${refs}</select></div>
+    <div class="f"><label for="cl${i}b">Billed through</label><select id="cl${i}b" data-c="${i}" data-k="billing">${["GoCardless","QuickBooks","Bank transfer","Other"].map(o=>`<option${(c.billing||"Bank transfer")===o?" selected":""}>${o}</option>`).join("")}</select></div>
+    <div class="f"><label for="cl${i}u">Invoiced</label><select id="cl${i}u" data-c="${i}" data-k="timing"><option value="advance"${c.timing!=="arrears"?" selected":""}>In advance, 1st of the month</option><option value="arrears"${c.timing==="arrears"?" selected":""}>In arrears, end of the month</option></select></div>
     <div class="f"><label for="cl${i}w">Planned hours a month</label><input id="cl${i}w" type="number" min="0" step="1" data-c="${i}" data-k="hours" value="${c.hours==null?"":c.hours}"></div>
     <div class="f"><label for="cl${i}y">Next step</label><input id="cl${i}y" data-c="${i}" data-k="nextStep" value="${esc(c.nextStep)}" placeholder="e.g. Send to sign"></div>
     <div class="f"><label for="cl${i}d">By</label><input id="cl${i}d" type="date" data-c="${i}" data-k="nextDate" value="${esc(c.nextDate)}"></div>
@@ -1261,7 +1307,9 @@ function flags(M){
   if(r0.fees>0)F.push(["info",fm2(r0.fees)+" a month is lost between invoice and bank","That's "+fm2(r0.fees*12)+" a year. Check whether it's bank or platform fees you could avoid."]);
   return F;
 }
-const flagHTML=F=>F.map(([k,t,b])=>`<div class="flag ${k}"><span class="pill">${k==="bad"?"Fix":k==="warn"?"Check":"Note"}</span><div><b>${t}</b><p>${b}</p></div></div>`).join("");
+const flagKey=t=>String(t).replace(/<[^>]*>/g,"").replace(/[£\d,.]+/g,"#").slice(0,80);
+const snoozed=f=>{const u=S.snooze[flagKey(f[1])];return u&&u>new Date().toISOString().slice(0,10)};
+const flagHTML=(F,canSnooze)=>F.map(([k,t,b])=>`<div class="flag ${k}"><span class="pill">${k==="bad"?"Fix":k==="warn"?"Check":"Note"}</span><div><b>${t}</b><p>${b}</p>${canSnooze?`<button class="snz" type="button" data-snz="${esc(flagKey(t))}">Hide for 30 days</button>`:""}</div></div>`).join("");
 const calHTML=c=>c.map(([d,t])=>`<div class="kv"><span>${esc(t)}</span><b>${fmtDate(d)}</b></div>`).join("");
 
 /* ---- render ---- */
@@ -1275,14 +1323,7 @@ function update(skipClients){
   const mrr=active.reduce((a,c)=>a+cfee(c),0),wp=pipe.reduce((a,c)=>a+cfee(c)*(+c.prob||0)/100,0);
   const at57=P&&P.at(57);
   /* home */
-  $("homeDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-  $("homeKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["What you keep",fm(M.keepA/12)+"/mo"],["Dividend room at 10.75%",fm(M.headroom)],["Pension at 57",at57?fm(at57.pot):"Add your date of birth"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
-  $("doorClients").textContent=active.length+" active"+(pipe.length?", "+pipe.length+" in pipeline":"")+" · "+fm(mrr)+" a month";
-  const docs=engagements.length;$("doorLegal").textContent=docs+" saved document"+(docs===1?"":"s")+" · Terms of Business v1.0";
-  const inc12=M.rows.slice(0,12).reduce((a,r)=>a+r.rev,0);$("doorForecast").textContent=fm(inc12)+" income over 12 months · "+fm(M.rows[Math.min(11,M.rows.length-1)].free)+" free cash";
-  $("doorPension").textContent=at57?fm(at57.pot)+" at 57, "+fm(at57.real)+" in today's money":"Add your date of birth to see your projection";
-  $("homeCal").innerHTML=calHTML(C.slice(0,5))||'<p class="empty">Nothing due yet.</p>';
-  $("homeFlags").innerHTML=flagHTML(F.filter(f=>f[0]!=="info").slice(0,3))||'<p class="empty">Nothing urgent.</p>';
+  renderHome(M,F,C,P,active,pipe,mrr,wp,r0);
   /* clients */
   $("clientKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["Pipeline, weighted",fm(wp)+"/mo"],["Largest client share",mrr?Math.round(Math.max(...active.map(cfee))/mrr*100)+"%":"–"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   renderOrphans();
@@ -1320,7 +1361,7 @@ function update(skipClients){
   $("flowSub").textContent="Out of "+fm2(r0.rev)+" of income in "+MONTHS_FULL[r0.m]+(r0.vat?", plus "+fm2(r0.vat)+" VAT you collect for HMRC":"")+".";
   $("flow").innerHTML=items.map(([l,v])=>`<div class="fl"><span>${esc(l)}</span><div class="bar"><i style="width:${Math.min(100,v/Math.max(1,r0.rev)*100).toFixed(1)}%"></i></div><b>${fm2(v)}</b></div>`).join("");
   $("cal").innerHTML=calHTML(C.slice(0,8))+(+$("fin_ye").value?"":'<p class="hint">Add your company year end to see corporation tax and accounts deadlines.</p>')+(M.vatFrom?"":'<p class="hint">Add your VAT registration date to see VAT return deadlines.</p>');
-  $("flags").innerHTML=flagHTML(F.concat(M.pen>0?[["info","Each extra £100 into your pension costs you about "+fm(M.penCost)+" of take-home","Company pension contributions avoid corporation tax and dividend tax."]]:[]));
+  $("flags").innerHTML=flagHTML(F.filter(f=>!snoozed(f)).concat(M.pen>0?[["info","Each extra £100 into your pension costs you about "+fm(M.penCost)+" of take-home","Company pension contributions avoid corporation tax and dividend tax."]]:[]));
   /* pension */
   $("ageHint").textContent=ageNow()?"Age "+Math.floor(ageNow()):"";
   const company=num("fin_pension"),gross=num("fin_personal")/0.8,ret=num("fin_retire")||60;
@@ -1495,15 +1536,80 @@ function extraFlags(){
   return F;
 }
 
+/* ---- home ---- */
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const daysTo=iso=>Math.round((new Date(iso+"T00:00:00")-new Date(todayISO()+"T00:00:00"))/864e5);
+const relDay=n=>n===0?"today":n===1?"tomorrow":n===-1?"yesterday":n<0?(-n)+" days ago":"in "+n+" days";
+function invoiceRows(M){
+  const now=new Date(),out=[];const vatFrom=M.vatFrom;
+  [0,1].forEach(off=>{const d=new Date(now.getFullYear(),now.getMonth()+off,1),key=ymKey(d.getFullYear(),d.getMonth());
+    S.clients.filter(c=>c.status==="active"||(c.status==="pipeline"&&c.start&&c.start<=key)).forEach(c=>{
+      if(c.start&&key<c.start)return;if(c.end&&key>c.end)return;
+      const ex=cfee(c);if(!ex)return;const reg=vatFrom&&key>=vatFrom;const vat=reg?(c.vat==="incl"?ex-ex/1.2:ex*.2):0;const net=c.vat==="incl"&&reg?ex/1.2:ex;
+      const issue=c.timing==="arrears"?new Date(d.getFullYear(),d.getMonth()+1,0):d;
+      out.push({k:c.id+"|"+key,c,key,month:MONTHS_FULL[d.getMonth()]+" "+d.getFullYear(),net,vat,total:net+vat,issue:issue.toISOString().slice(0,10),status:S.inv[c.id+"|"+key]||"To send",pipe:c.status==="pipeline"});
+    });});
+  return out;
+}
+function autoTodos(M,C){
+  const T=[],t=todayISO(),in14=new Date(Date.now()+14*864e5).toISOString().slice(0,10);
+  S.clients.filter(c=>c.status!=="ended"&&c.nextStep&&c.nextDate).forEach(c=>T.push({key:"c|"+c.id+"|"+c.nextStep+"|"+c.nextDate,text:c.nextStep+": "+(c.name||"client"),due:c.nextDate,tag:"Client",go:"clients"}));
+  S.leads.filter(l=>!["Won","Lost"].includes(l.status)).forEach(l=>{if(l.status==="New")T.push({key:"l|"+l.id+"|new",text:"Reply to "+(l.name||"new lead")+(l.company?" ("+l.company+")":""),due:l.created,tag:"Lead",go:"outreach"});else if(l.nextDate)T.push({key:"l|"+l.id+"|"+l.nextDate,text:"Follow up "+(l.name||"lead")+(l.company?" ("+l.company+")":""),due:l.nextDate,tag:"Lead",go:"outreach"})});
+  invoiceRows(M).filter(r=>r.status==="To send"&&!r.pipe&&r.issue<=in14).forEach(r=>T.push({key:"i|"+r.k,text:"Send "+(r.c.billing==="GoCardless"?"GoCardless collection":"invoice")+" to "+(r.c.name||"client")+": "+fm2(r.total)+(r.vat?" incl. VAT":""),due:r.issue,tag:"Invoice",go:"home"}));
+  C.filter(([d])=>d.toISOString().slice(0,10)<=in14).forEach(([d,txt])=>{if(/^(Contact lead|Send contract|Renewal review|Contract ends)/.test(txt))return;T.push({key:"d|"+txt+"|"+d.toISOString().slice(0,10),text:txt,due:d.toISOString().slice(0,10),tag:"Deadline",go:"forecast"})});
+  return T;
+}
+function renderHome(M,F,C,P,active,pipe,mrr,wp,r0){
+  const hr=new Date().getHours();$("greet").innerHTML=(hr<12?"Good morning":hr<18?"Good afternoon":"Good evening")+", Mila<i>.</i>";
+  $("homeDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const auto=autoTodos(M,C);const waiting=S.leads.filter(l=>l.status==="New"||(!["Won","Lost"].includes(l.status)&&l.nextDate&&l.nextDate<=todayISO())).length;
+  const now=new Date(),mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));const monISO=mon.toISOString().slice(0,10);
+  const wkLogged=S.work.filter(w=>w.date>=monISO).reduce((a,w)=>a+(+w.hours||0),0),wkPlan=S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0)*12/52;
+  const setAside=r0.ct+r0.vat;
+  $("homeKpis").innerHTML=[["What you keep",fm(M.keepA/12)+"/mo","After all personal tax"],["Set aside this month",fm(setAside),"Corporation tax"+(r0.vat?" and VAT":"")+(M.rows[1]&&M.rows[1].vat&&!r0.vat?"; VAT adds "+fm(M.rows[1].vat)+" from "+MONTHS_FULL[M.rows[1].m]:"")],["Leads waiting on you",String(waiting),waiting?"Reply or follow up":"All replied"],["Hours this week",(Math.round(wkLogged*4)/4)+(wkPlan?" of "+Math.round(wkPlan):"")+" hrs",wkPlan?"Against planned client hours":"Add planned hours on client cards"]].map(([l,v,s])=>`<div class="kpi"><span>${l}</span><b>${v}</b><em>${esc(s)}</em></div>`).join("");
+  /* to-dos */
+  const showDone=$("todoShowDone").checked;
+  const items=S.todos.map(t=>({...t,manual:true})).concat(auto.map(a=>({...a,id:a.key,done:!!S.doneAuto[a.key]}))).filter(t=>showDone||!t.done).sort((a,b)=>(a.done-b.done)||((a.due||"9999")>(b.due||"9999")?1:-1));
+  $("todoList").innerHTML=items.map(t=>{const n=t.due?daysTo(t.due):null;return `<div class="todo${t.done?" done":""}"><input type="checkbox" aria-label="Done: ${esc(t.text)}" data-td="${esc(t.id)}" data-man="${t.manual?1:0}"${t.done?" checked":""}><span class="tt">${esc(t.text)}${t.tag?` <span class="tag">${t.tag}</span>`:""}</span><span class="due${n!=null&&n<0&&!t.done?" late":""}">${n==null?"":relDay(n)}</span>${t.manual?`<button class="x" type="button" aria-label="Delete ${esc(t.text)}" data-tdx="${esc(t.id)}">×</button>`:"<span></span>"}</div>`}).join("")||'<p class="empty">Nothing on your list. Add a to-do above.</p>';
+  /* coming up, grouped */
+  const groups=[["This week",0,7],["Next week",7,14],["Later",14,99999]];
+  $("homeCal").innerHTML=groups.map(([g,a,b])=>{const rows=C.filter(([d])=>{const n=daysTo(d.toISOString().slice(0,10));return n>=a&&n<b}).slice(0,g==="Later"?4:8);return rows.length?`<div class="grp">${g}</div>`+rows.map(([d,t])=>{const n=daysTo(d.toISOString().slice(0,10));return `<div class="kv"><span>${esc(t)}</span><b>${fmtDate(d)}<span class="rel">${relDay(n)}</span></b></div>`}).join(""):""}).join("")||'<p class="empty">Nothing due yet.</p>';
+  /* invoices */
+  const inv=invoiceRows(M);
+  $("invSub").textContent=M.vatFrom?"VAT added from "+fmtDate(new Date(M.vatFrom+"T00:00:00")):"";
+  $("homeInv").innerHTML=inv.length?'<div class="inv head"><span>Client</span><span>Month</span><span>Amount</span><span>Billed</span><span>Status</span></div>'+inv.map(r=>`<div class="inv"><span>${esc(r.c.name||"Client")}${r.pipe?' <span class="sub">(if signed)</span>':""}</span><span class="sub">${r.month} · ${r.c.timing==="arrears"?"issue":"collect"} ${fmtDate(new Date(r.issue+"T00:00:00"))}</span><span><b>${fm2(r.total)}</b>${r.vat?`<span class="sub"> incl. ${fm2(r.vat)} VAT</span>`:""}</span><span class="sub">${esc(r.c.billing||"Bank transfer")}</span><span><label class="vh" for="iv_${esc(r.k)}">Status</label><select id="iv_${esc(r.k)}" data-inv="${esc(r.k)}">${["To send","Sent","Paid"].map(s=>`<option${r.status===s?" selected":""}>${s}</option>`).join("")}</select></span></div>`).join(""):'<p class="empty">No invoices due this month or next.</p>';
+  /* pipeline */
+  const stages=["Contacted","Call booked","Proposal sent"];const L=S.leads;
+  $("homePipe").innerHTML=(pipe.length?'<span class="lab">Clients in pipeline</span>'+pipe.map(c=>`<div class="kv"><span>${esc(c.name||"Unnamed")} · ${+c.prob||0}%${c.nextStep?" · "+esc(c.nextStep):""}</span><b>${fm(cfee(c))}/mo</b></div>`).join("")+`<div class="kv"><span>Weighted total</span><b>${fm(wp)}/mo</b></div>`:'<p class="empty">No pipeline clients.</p>')+'<span class="lab" style="margin-top:12px;display:block">Leads by stage</span><div class="flow">'+["New"].concat(stages).map(s=>{const n=L.filter(l=>l.status===s).length,mx=Math.max(1,...["New"].concat(stages).map(x=>L.filter(l=>l.status===x).length));return `<div class="fl"><span>${s}</span><div class="bar"><i style="width:${(n/mx*100).toFixed(1)}%"></i></div><b>${n}</b></div>`}).join("")+"</div>";
+  $("homeFlags").innerHTML=flagHTML(F.filter(f=>f[0]!=="info"&&!snoozed(f)).slice(0,4),true)||'<p class="empty">Nothing urgent.</p>';
+  const docs=engagements.length;$("doorLegal").textContent=docs+" saved document"+(docs===1?"":"s");
+  $("doorClients").textContent=active.length+" active, "+pipe.length+" pipeline";
+  $("doorForecast").textContent=fm(M.rows.slice(0,12).reduce((a,r)=>a+r.rev,0))+" over 12 months";
+  const at57=P&&P.at(57);$("doorPension").textContent=at57?fm(at57.pot)+" at 57":"Add your date of birth";
+}
+$("todoForm").addEventListener("submit",()=>{const t=$("todoText").value.trim();if(!t)return;S.todos.push({id:uid(),text:t,due:$("todoDue").value,done:false});$("todoText").value="";$("todoDue").value="";update(true);queueSave();$("todoText").focus()});
+$("todoShowDone").addEventListener("change",()=>update(true));
+$("todoList").addEventListener("change",e=>{const t=e.target;if(!t.dataset.td)return;if(t.dataset.man==="1"){const x=S.todos.find(y=>y.id===t.dataset.td);if(x)x.done=t.checked}else{if(t.checked)S.doneAuto[t.dataset.td]=todayISO();else delete S.doneAuto[t.dataset.td]}update(true);queueSave()});
+$("todoList").addEventListener("click",e=>{const b=e.target.closest("[data-tdx]");if(b){S.todos=S.todos.filter(x=>x.id!==b.dataset.tdx);update(true);queueSave()}});
+$("homeInv").addEventListener("change",e=>{const t=e.target;if(!t.dataset.inv)return;S.inv[t.dataset.inv]=t.value;update(true);queueSave()});
+document.addEventListener("click",e=>{const s=e.target.closest("[data-snz]");if(s){S.snooze[s.dataset.snz]=new Date(Date.now()+30*864e5).toISOString().slice(0,10);update(true);queueSave()}});
+document.addEventListener("click",e=>{const q=e.target.closest("[data-qa]");if(!q)return;const a=q.dataset.qa;
+  if(a==="todo"){$("todoText").focus();return}
+  if(a==="log"){show("capacity");$("wk_task").focus();return}
+  if(a==="lead"){show("outreach");$("addLead").click();return}
+  if(a==="div"){show("forecast");$("addDiv").click();const d=$("divs").querySelectorAll('input[data-k="amt"]');if(d.length)d[d.length-1].focus();return}
+  if(a==="contract"){show("legal");$("newBtn").click()}});
+
 /* ---- persistence ---- */
-function snapshot(){const o={clients:S.clients,costs:S.costs,divs:S.divs,pots:S.pots,leads:S.leads,work:S.work,results:S.results};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
+function snapshot(){const o={clients:S.clients,costs:S.costs,divs:S.divs,pots:S.pots,leads:S.leads,work:S.work,results:S.results,todos:S.todos,doneAuto:S.doneAuto,snooze:S.snooze,inv:S.inv};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
 function apply(o){
   if(!o)return;
   if(Array.isArray(o.clients))S.clients=o.clients;
   else if(Array.isArray(o.streams))S.clients=o.streams.map(s=>({id:uid(),name:s.name,service:"Other",status:"active",fee:s.invoiced,received:s.received,vat:s.vat||"plus",start:s.start||"",end:s.end||"",prob:100,ref:"",notes:""}));
   if(Array.isArray(o.costs))S.costs=o.costs;
   if(Array.isArray(o.divs))S.divs=o.divs;
-  ["pots","leads","work","results"].forEach(k=>{if(Array.isArray(o[k]))S[k]=o[k]});
+  ["pots","leads","work","results","todos"].forEach(k=>{if(Array.isArray(o[k]))S[k]=o[k]});
+  ["doneAuto","snooze","inv"].forEach(k=>{if(o[k]&&typeof o[k]==="object")S[k]=o[k]});
   if(!Array.isArray(o.pots)&&o.fin_pot)S.pots[0].value=+o.fin_pot;
   FIELDS.forEach(f=>{if(o[f]===undefined)return;const e=$(f);if(e.type==="checkbox")e.checked=!!o[f];else e.value=o[f]});
   $("pen_company").value=$("fin_pension").value;
