@@ -396,7 +396,7 @@ Sounding-board sessions with the founder</textarea></div>
 </section>
 
 <section id="view-clients" class="fin" hidden aria-label="Active clients">
-  <div class="phead"><div><h2>Active clients<i>.</i></h2><p class="sub">This list drives your forecast. Monthly fees exclude VAT.</p></div><div class="acts"><button class="btn primary" type="button" id="addClient">Add client</button></div></div>
+  <div class="phead"><div><h2>Active clients<i>.</i></h2><p class="sub">This list drives your forecast. Monthly fees exclude VAT.</p></div><div class="acts"><span class="status" data-saved></span><button class="btn primary" type="button" id="addClient">Add client</button></div></div>
   <div class="kpis" id="clientKpis"></div>
   <div class="card"><h3>Income mix</h3><p class="sub">Share of monthly income by client, pipeline weighted by likelihood.</p><div id="clientMix"></div></div>
   <div id="orphanOrders"></div>
@@ -1056,14 +1056,14 @@ document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]")
 let S={todos:[],doneAuto:{},snooze:{},inv:{},pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
 const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_divtarget","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
-let engagements=[],db=null,saveTimer=null;
+let engagements=[],db=null,saveTimer=null,edited=false;
 
 /* ---- clients UI ---- */
 function clientCard(c){
   const i=S.clients.indexOf(c);
   const refs=engagements.filter(g=>(g.doctype||"EO")==="EO").map(g=>`<option value="${esc(g.id)}"${c.ref===g.id?" selected":""}>${esc(g.id)} · ${esc(g.cl_name||"")}</option>`).join("");
   return `<article class="ccard ${c.status}">
-  <div class="chead"><span class="pill s-${c.status}">${c.status==="active"?"Active":c.status==="pipeline"?"Pipeline":"Ended"}</span><b>${esc(c.name||"New client")}</b><span class="cval">${fm(cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1))}<em>/mo${c.status==="pipeline"?" weighted":""}</em></span></div>
+  <div class="chead"><span class="pill s-${c.status}">${c.status==="active"?"Active":c.status==="pipeline"?"Pipeline":"Ended"}</span><b data-cname="${i}">${esc(c.name||"New client")}</b><span class="cval" data-cval="${i}">${fm(cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1))}<em>/mo${c.status==="pipeline"?" weighted":""}</em></span></div>
   <div class="fs cfs">
     <div class="f"><label for="cl${i}n">Client</label><input id="cl${i}n" data-c="${i}" data-k="name" value="${esc(c.name)}"></div>
     <div class="f"><label for="cl${i}s">Service</label><select id="cl${i}s" data-c="${i}" data-k="service">${Object.entries(SVC).map(([k,v])=>`<option value="${k}"${c.service===k?" selected":""}>${v}</option>`).join("")}</select></div>
@@ -1102,7 +1102,11 @@ function renderOrphans(){
 }
 const setC=t=>{const c=S.clients[+t.dataset.c];c[t.dataset.k]=t.type==="number"?(t.value===""?"":parseFloat(t.value)):t.value};
 $("view-clients").addEventListener("input",e=>{const t=e.target;if(t.dataset.c===undefined)return;setC(t);update(true);queueSave()});
-$("view-clients").addEventListener("change",e=>{const t=e.target;if(t.dataset.c===undefined)return;setC(t);renderClients();update(true);queueSave()});
+function refreshCardHeader(i){const c=S.clients[i];if(!c)return;const n=document.querySelector('[data-cname="'+i+'"]'),v=document.querySelector('[data-cval="'+i+'"]');if(n)n.textContent=c.name||"New client";if(v)v.innerHTML=fm(cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1))+'<em>/mo'+(c.status==="pipeline"?" weighted":"")+'</em>'}
+$("view-clients").addEventListener("input",e=>{const t=e.target;if(t.dataset.c!==undefined)refreshCardHeader(+t.dataset.c)});
+$("view-clients").addEventListener("change",e=>{const t=e.target;if(t.dataset.c===undefined)return;setC(t);
+  if(t.dataset.k==="status"||t.dataset.k==="pricing"){const id=t.id;renderClients();const el=document.getElementById(id);if(el)el.focus()}else refreshCardHeader(+t.dataset.c);
+  update(true);queueSave()});
 $("view-clients").addEventListener("click",e=>{
   const r=e.target.closest("[data-rmc]");if(r){S.clients.splice(+r.dataset.rmc,1);renderClients();update();queueSave();return}
   const a=e.target.closest("[data-adopt]");if(a){const g=engagements.find(x=>x.id===a.dataset.adopt);if(!g)return;
@@ -1327,7 +1331,7 @@ function update(skipClients){
   /* clients */
   $("clientKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["Pipeline, weighted",fm(wp)+"/mo"],["Largest client share",mrr?Math.round(Math.max(...active.map(cfee))/mrr*100)+"%":"–"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   renderOrphans();
-  const sig=JSON.stringify(engagements.map(g=>g.id));if(!skipClients||sig!==lastClientsSig){if(!$("view-clients").contains(document.activeElement))renderClients();lastClientsSig=sig}
+  const sig=JSON.stringify(engagements.map(g=>g.id));if((!skipClients||sig!==lastClientsSig)&&!$("view-clients").contains(document.activeElement)){renderClients();lastClientsSig=sig}
   renderWorkSelect();renderExtras(M);
   $("doorOutreach").textContent=S.leads.length?S.leads.filter(l=>l.status==="New").length+" waiting for a reply · "+S.leads.length+" leads in total":"Import your Meta lead forms";
   $("doorCapacity").textContent=Math.round(S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0))+" of "+Math.round(capAvail())+" hours a month committed";
@@ -1488,7 +1492,7 @@ function renderResults(){
   </div></article>`).join("")||'<p class="empty">No results yet. Add your first one above.</p>';
 }
 $("view-portfolio").addEventListener("input",e=>{const t=e.target;if(t.dataset.rs===undefined)return;S.results[+t.dataset.rs][t.dataset.k]=t.type==="checkbox"?t.checked:t.value;update(true);queueSave()});
-$("view-portfolio").addEventListener("change",e=>{const t=e.target;if(t.dataset.rs===undefined)return;S.results[+t.dataset.rs][t.dataset.k]=t.type==="checkbox"?t.checked:t.value;renderResults();update(true);queueSave()});
+$("view-portfolio").addEventListener("change",e=>{const t=e.target;if(t.dataset.rs===undefined)return;S.results[+t.dataset.rs][t.dataset.k]=t.type==="checkbox"?t.checked:t.value;if(["perm","onSite","headline"].includes(t.dataset.k)){const id=t.id;renderResults();const el=document.getElementById(id);if(el&&t.dataset.k!=="headline")el.focus()}update(true);queueSave()});
 $("view-portfolio").addEventListener("click",e=>{const b=e.target.closest("[data-rmr]");if(b){S.results.splice(+b.dataset.rmr,1);renderResults();update();queueSave()}});
 $("addResult").addEventListener("click",()=>{S.results.unshift({id:uid(),headline:"",area:"Operations",client:"",before:"",after:"",perm:"anon",how:"",when:"",onSite:false});renderResults();update();queueSave();const f=$("pfList").querySelector('input[data-k="headline"]');if(f)f.focus()});
 
@@ -1616,9 +1620,12 @@ function apply(o){
   renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderWork();renderResults();
 }
 function queueSave(){
+  edited=true;
   try{localStorage.setItem("nexa-finance",JSON.stringify(snapshot()))}catch(_){}
   if(!db)return;clearTimeout(saveTimer);
-  saveTimer=setTimeout(()=>db.doc("finance/model").set(snapshot()).then(()=>{$("finSaved").textContent="Saved."}).catch(()=>{$("finSaved").textContent="Couldn't save. Check you're signed in to claude.ai."}),900);
+  const mark=t=>{$("finSaved").textContent=t;document.querySelectorAll("[data-saved]").forEach(x=>x.textContent=t)};
+  mark("Saving…");
+  saveTimer=setTimeout(()=>db.doc("finance/model").set(snapshot()).then(()=>mark("Saved")).catch(()=>mark("Couldn't save. Check you're signed in to claude.ai.")),700);
 }
 try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
 $("wk_date").value=new Date().toISOString().slice(0,10);
@@ -1629,7 +1636,7 @@ let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>
 (async()=>{
   if(!window.claude||!window.claude.use)return;
   db=await window.claude.use("db");if(!db)return;
-  try{const d=await db.doc("finance/model").get();if(d.exists){apply(d.data());update()}}catch(_){}
+  try{const d=await db.doc("finance/model").get();if(d.exists&&!edited){apply(d.data());update()}else if(edited)queueSave()}catch(_){}
   db.collection("engagements").onSnapshot(snap=>{engagements=snap.docs.map(d=>Object.assign({id:d.id},(d.data()||{}).data||{}));update(true)},()=>{});
 })();
 })();
