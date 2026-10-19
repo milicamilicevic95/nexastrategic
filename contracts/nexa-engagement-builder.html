@@ -102,6 +102,15 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .mrow{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--fg2);flex-wrap:wrap}
 .chart .col{cursor:default}
 @media (max-width:560px){.donutwrap{grid-template-columns:1fr}}
+.llist{display:flex;flex-direction:column}
+.lead{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:14px 0;border-top:1px solid var(--line)}
+.lead .wide{grid-column:span 2}
+.lacts{flex-direction:row!important;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.row.pot{grid-template-columns:1.4fr 1fr 1fr auto;align-items:end}
+td.wrap{white-space:normal;text-align:left!important;min-width:200px}
+label.btn{display:inline-flex;align-items:center}
+.scen{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+@media (max-width:1000px){.lead{grid-template-columns:1fr 1fr}.row.pot{grid-template-columns:1fr 1fr}}
 :root{--s3:#2a78d6;--s4:#1baf7a;--s5:#6250d6}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s3:#3987e5;--s4:#199e70;--s5:#9085e9}}
 :root[data-theme="dark"]{--s3:#3987e5;--s4:#199e70;--s5:#9085e9}
@@ -174,7 +183,8 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .phead h2{font-size:clamp(34px,4.5vw,54px);margin:0 0 6px}
 .welcome h2 i,.phead h2 i{font-style:normal;color:var(--pink)}
 .sub.big{font-size:17px}
-.doors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.doors{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0;padding:1px 0 0 1px}
+.door{border:1px solid var(--line);margin:-1px 0 0 -1px}
 .door{all:unset;box-sizing:border-box;cursor:pointer;background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:8px;min-height:150px;transition:background-color .15s}
 .door:hover{background:var(--field)}.door:focus-visible{outline:2px solid var(--pink);outline-offset:-2px}
 .door b{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.05;letter-spacing:-.02em;font-variation-settings:"SOFT" 100}
@@ -192,13 +202,13 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .pill.s-active,.pill.s-pipeline,.pill.s-ended{padding:3px 8px;min-width:0}
 .pill.s-active{color:var(--good)}.pill.s-pipeline{color:var(--fg)}.pill.s-ended{color:var(--fg2)}
 tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
-@media (max-width:1000px){.doors{grid-template-columns:repeat(2,minmax(0,1fr))}.cfs{grid-template-columns:1fr 1fr}.welcome{grid-template-columns:1fr}}
+@media (max-width:1000px){.cfs{grid-template-columns:1fr 1fr}.welcome{grid-template-columns:1fr}}
 @media (max-width:1000px){.cfs .wide{grid-column:1/-1}}
-@media (max-width:560px){.doors,.cfs{grid-template-columns:1fr}}
+@media (max-width:560px){.doors,.cfs,.lead{grid-template-columns:1fr}}
 </style>
 
 <div class="top">
-  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
+  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
   <div class="acts" id="contractActs"><span id="refLabel" class="lab2">NX-2026-001</span>
     <span class="status" id="status" role="status"></span>
     <button class="btn" id="newBtn" type="button">New</button>
@@ -327,7 +337,10 @@ Sounding-board sessions with the founder</textarea></div>
     <button class="door" type="button" data-go="clients"><span class="lab2">01 · Active clients</span><b>Who you work for</b><span id="doorClients"></span></button>
     <button class="door" type="button" data-go="legal"><span class="lab2">02 · Legal</span><b>Contracts and terms</b><span id="doorLegal"></span></button>
     <button class="door" type="button" data-go="forecast"><span class="lab2">03 · Finance forecast</span><b>Cash, tax and take-home</b><span id="doorForecast"></span></button>
-    <button class="door" type="button" data-go="pension"><span class="lab2">04 · Pension</span><b>Your SIPP projection</b><span id="doorPension"></span></button>
+    <button class="door" type="button" data-go="pension"><span class="lab2">04 · Pension</span><b>Your pension projection</b><span id="doorPension"></span></button>
+    <button class="door" type="button" data-go="outreach"><span class="lab2">05 · Outreach</span><b>Leads and conversations</b><span id="doorOutreach"></span></button>
+    <button class="door" type="button" data-go="capacity"><span class="lab2">06 · Capacity</span><b>Time and work done</b><span id="doorCapacity"></span></button>
+    <button class="door" type="button" data-go="portfolio"><span class="lab2">07 · Portfolio</span><b>Key results</b><span id="doorPortfolio"></span></button>
   </div>
   <div class="two">
     <div class="card"><h3>Where each £100 of income goes</h3><p class="sub" id="donutSub"></p><div id="homeDonut" class="donutwrap"></div></div>
@@ -345,6 +358,57 @@ Sounding-board sessions with the founder</textarea></div>
   <div class="card"><h3>Income mix</h3><p class="sub">Share of monthly income by client, pipeline weighted by likelihood.</p><div id="clientMix"></div></div>
   <div id="orphanOrders"></div>
   <div id="clientList" class="clist"></div>
+</section>
+
+<section id="view-outreach" class="fin" hidden aria-label="Outreach">
+  <div class="phead"><div><h2>Outreach<i>.</i></h2><p class="sub">Leads from your Meta lead forms, and anyone else you're talking to.</p></div>
+    <div class="acts"><label class="btn" for="leadFile">Import Meta leads (CSV)</label><input id="leadFile" type="file" accept=".csv,.tsv,.txt" hidden><button class="btn primary" type="button" id="addLead">Add lead</button></div></div>
+  <p class="hint">In Meta Business Suite, go to All tools › Instant forms (or Leads Center), choose the form and download the leads as CSV. Then import the file here. Leads already imported are skipped.</p>
+  <p class="status" id="leadStatus" role="status"></p>
+  <div class="kpis" id="leadKpis"></div>
+  <div class="two">
+    <div class="card"><h3>Lead funnel</h3><div id="leadFunnel" class="flow"></div></div>
+    <div class="card"><h3>Needs a reply</h3><div id="leadDue"></div></div>
+  </div>
+  <div class="card"><h3>All leads</h3><div class="f"><label for="leadFilter">Show</label><select id="leadFilter"><option value="open">Open leads</option><option value="all">All leads</option><option value="Won">Won</option><option value="Lost">Lost</option></select></div><div id="leadList" class="llist"></div></div>
+</section>
+
+<section id="view-capacity" class="fin" hidden aria-label="Capacity">
+  <div class="phead"><div><h2>Capacity<i>.</i></h2><p class="sub">How much time you have, what's committed, and what you've actually done.</p></div></div>
+  <div class="kpis" id="capKpis"></div>
+  <div class="fgrid">
+    <form class="form" id="capForm" autocomplete="off" onsubmit="return false">
+      <details open><summary>Log work</summary><div class="fs">
+        <div class="f"><label for="wk_date">Date</label><input id="wk_date" type="date"></div>
+        <div class="f"><label for="wk_client">Client</label><select id="wk_client"></select></div>
+        <div class="f"><label for="wk_hours">Hours</label><input id="wk_hours" type="number" min="0.25" step="0.25" value="1"></div>
+        <div class="f full"><label for="wk_task">What you did</label><input id="wk_task" placeholder="e.g. Hiring plan workshop with founder"></div>
+        <div class="f full"><button class="btn primary" type="button" id="addWork">Log it</button></div>
+      </div></details>
+      <details open><summary>Your working pattern</summary><div class="fs">
+        <div class="f"><label for="cap_days">Days a week</label><input id="cap_days" type="number" min="0.5" max="7" step="0.5" value="5"></div>
+        <div class="f"><label for="cap_hours">Hours a day</label><input id="cap_hours" type="number" min="1" max="14" step="0.5" value="7.5"></div>
+        <div class="f"><label for="cap_leave">Weeks off a year</label><input id="cap_leave" type="number" min="0" max="20" step="1" value="6"></div>
+        <div class="f full"><span class="hint">Set planned hours for each client on its card in Active clients.</span></div>
+      </div></details>
+    </form>
+    <div class="fout">
+      <div class="card"><h3>This month</h3><div id="capMeter"></div></div>
+      <div class="card"><h3>Hours by week</h3><p class="sub">Last 12 weeks, by client.</p><div class="legend" id="wkLegend"></div><div class="chart" id="wkChart"></div></div>
+      <div class="card"><h3>What each client pays per hour</h3><p class="sub">Monthly fee divided by hours logged this month.</p><div id="capRates" class="flow"></div></div>
+      <div class="card"><h3>Work log</h3><div id="workList"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="view-portfolio" class="fin" hidden aria-label="Portfolio">
+  <div class="phead"><div><h2>Portfolio<i>.</i></h2><p class="sub">Key results from your work, ready for your website, proposals and LinkedIn.</p></div><div class="acts"><button class="btn primary" type="button" id="addResult">Add result</button></div></div>
+  <div class="kpis" id="pfKpis"></div>
+  <div class="two">
+    <div class="card"><h3>Results by area</h3><div id="pfAreas" class="flow"></div></div>
+    <div class="card"><h3>Can you use it?</h3><p class="sub">Clause 10.5 of your Terms: name a client only with their written consent. Anonymised results are fine.</p><div id="pfPerm"></div></div>
+  </div>
+  <div id="pfList" class="clist"></div>
 </section>
 
 <section id="view-forecast" class="fin" hidden aria-label="Finance forecast">
@@ -413,11 +477,12 @@ Sounding-board sessions with the founder</textarea></div>
 <form class="form" id="penForm" autocomplete="off" onsubmit="return false">
   <details open><summary>You and your SIPP</summary><div class="fs">
     <div class="f"><label for="fin_dob">Date of birth</label><input id="fin_dob" type="date"><span class="hint" id="ageHint"></span></div>
-    <div class="f"><label for="fin_pot">Pot value today, £</label><input id="fin_pot" type="number" min="0" step="100" value="0"></div>
+    
     <div class="f"><label for="pen_company">Company contribution, £/month</label><input id="pen_company" type="number" min="0" step="10" value="500"><span class="hint">Same figure as in Finance forecast.</span></div>
     <div class="f"><label for="fin_personal">Personal contribution, £/month</label><input id="fin_personal" type="number" min="0" step="10" value="0"><span class="hint">What you pay in. 25% basic-rate relief is added on top.</span></div>
     <div class="f"><label for="fin_retire">Planned retirement age</label><input id="fin_retire" type="number" min="57" max="75" value="60"></div>
   </div></details>
+  <details open><summary>Your pensions</summary><div class="fs"><div class="f full" id="pots"></div><div class="f full"><button class="btn" type="button" id="addPot">Add pension</button></div></div></details>
   <details open><summary>Assumptions</summary><div class="fs">
     <div class="f"><label for="fin_growth">Growth before charges, %/yr</label><input id="fin_growth" type="number" step="0.1" value="5"></div>
     <div class="f"><label for="fin_charges">Total charges, %/yr</label><input id="fin_charges" type="number" step="0.05" value="0.45"></div>
@@ -922,13 +987,14 @@ const ymKey=(y,m)=>y+"-"+String(m+1).padStart(2,"0");
 const fmtDate=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 const SVC={FCOO:"Fractional COO",ROA:"Resident Operations Adviser",OA:"Operations Adviser",Other:"Other"};
 const uid=()=>"c"+Math.random().toString(36).slice(2,9);
-const cfee=c=>c.pricing==="perhead"?(+c.rate||0)*Math.min(+c.heads||0,c.cap?+c.cap:Infinity):(+c.fee||0);
+const cHeads=c=>(c.heads===""||c.heads==null)?(+c.planHeads||0):+c.heads;
+const cfee=c=>c.pricing==="perhead"?(+c.rate||0)*Math.min(cHeads(c),c.cap?+c.cap:Infinity):(+c.fee||0);
 const CCOL=["--s1","--s2","--s3","--s4","--s5"];
 function ageNow(){const v=$("fin_dob").value;if(!v)return 0;const d=new Date(v);return (Date.now()-d.getTime())/(365.2425*864e5)}
 function taxYearRange(ty){const y=+ty.slice(0,4);return [y+"-04-06",(y+1)+"-04-05"]}
 
 /* ---- views ---- */
-const VIEWS={home:"view-home",clients:"view-clients",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension"};
+const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension"};
 function show(v){
   if(!VIEWS[v])v="home";
   Object.entries(VIEWS).forEach(([k,id])=>{$(id).hidden=k!==v});
@@ -940,8 +1006,8 @@ function show(v){
 document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]");if(t)show(t.dataset.view||t.dataset.go)});
 
 /* ---- state ---- */
-let S={divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
-const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_pot","fin_personal","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
+let S={pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
+const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
 let engagements=[],db=null,saveTimer=null;
 
@@ -960,15 +1026,17 @@ function clientCard(c){
     <div class="f"${c.pricing==="perhead"?" hidden":""}><label for="cl${i}f">Monthly fee, £ excl. VAT</label><input id="cl${i}f" type="number" step="0.01" data-c="${i}" data-k="fee" value="${c.fee}"></div>
     <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}h">Heads this month</label><input id="cl${i}h" type="number" min="0" step="1" data-c="${i}" data-k="heads" value="${c.heads==null?"":c.heads}" placeholder="Add the count"></div>
     <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}q">Price per head, £</label><input id="cl${i}q" type="number" min="0" step="10" data-c="${i}" data-k="rate" value="${c.rate==null?"":c.rate}"></div>
+    <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}j">Planning heads, if no count yet</label><input id="cl${i}j" type="number" min="0" step="1" data-c="${i}" data-k="planHeads" value="${c.planHeads==null?"":c.planHeads}"></div>
     <div class="f"${c.pricing==="perhead"?"":" hidden"}><label for="cl${i}k">Cap on heads</label><input id="cl${i}k" type="number" min="0" step="1" data-c="${i}" data-k="cap" value="${c.cap==null?"":c.cap}" placeholder="No cap"></div>
     <div class="f"><label for="cl${i}r">Received, £/month</label><input id="cl${i}r" type="number" step="0.01" data-c="${i}" data-k="received" value="${c.received===""||c.received==null?"":c.received}" placeholder="Same as fee"></div>
     <div class="f"><label for="cl${i}v">Once VAT-registered</label><select id="cl${i}v" data-c="${i}" data-k="vat"><option value="plus"${c.vat==="plus"?" selected":""}>VAT added on top</option><option value="incl"${c.vat==="incl"?" selected":""}>Price includes VAT</option></select></div>
     <div class="f"><label for="cl${i}a">Started</label><input id="cl${i}a" type="month" data-c="${i}" data-k="start" value="${esc(c.start)}"></div>
     <div class="f"><label for="cl${i}e">Ends</label><input id="cl${i}e" type="month" data-c="${i}" data-k="end" value="${esc(c.end)}"><span class="hint">Leave empty if rolling.</span></div>
     <div class="f"><label for="cl${i}o">Contract</label><select id="cl${i}o" data-c="${i}" data-k="ref"><option value="">Not linked</option>${refs}</select></div>
+    <div class="f"><label for="cl${i}w">Planned hours a month</label><input id="cl${i}w" type="number" min="0" step="1" data-c="${i}" data-k="hours" value="${c.hours==null?"":c.hours}"></div>
     <div class="f"><label for="cl${i}y">Next step</label><input id="cl${i}y" data-c="${i}" data-k="nextStep" value="${esc(c.nextStep)}" placeholder="e.g. Send to sign"></div>
     <div class="f"><label for="cl${i}d">By</label><input id="cl${i}d" type="date" data-c="${i}" data-k="nextDate" value="${esc(c.nextDate)}"></div>
-    ${c.pricing==="perhead"?`<div class="f full"><span class="lab">Heads against cap</span>${meterHTML(+c.heads||0,+c.cap||Math.max(+c.heads||0,1),(+c.heads||0)+" of "+(c.cap?c.cap+" cap":"no cap"),fm(cfee(c))+"/mo")}</div>`:""}
+    ${c.pricing==="perhead"?`<div class="f full"><span class="lab">Heads against cap</span>${meterHTML(cHeads(c),+c.cap||Math.max(cHeads(c),1),cHeads(c)+" of "+(c.cap?c.cap+" cap":"no cap")+((c.heads===""||c.heads==null)&&c.planHeads?" (planning figure)":""),fm(cfee(c))+"/mo")}${scenarioHTML(c)}</div>`:""}
     <div class="f wide"><label for="cl${i}x">Notes</label><input id="cl${i}x" data-c="${i}" data-k="notes" value="${esc(c.notes)}"></div>
     <div class="f full"><button class="btn small" type="button" data-rmc="${i}">Remove client</button></div>
   </div></article>`;
@@ -1013,6 +1081,8 @@ function onForm(e){
   update();queueSave();
 }
 ["finForm","penForm"].forEach(id=>{$(id).addEventListener("input",onForm);$(id).addEventListener("change",onForm)});
+$("penForm").addEventListener("click",e=>{const b=e.target.closest("button[data-rm]");if(b){S[b.dataset.rm].splice(+b.dataset.i,1);renderPots();update();queueSave()}});
+$("addPot").addEventListener("click",()=>{S.pots.push({name:"",value:0,monthly:0});renderPots();update();queueSave()});
 $("finForm").addEventListener("click",e=>{const b=e.target.closest("button[data-rm]");if(b){S[b.dataset.rm].splice(+b.dataset.i,1);renderCosts();renderDivs();update();queueSave()}});
 $("addCost").addEventListener("click",()=>{S.costs.push({name:"",amt:0});renderCosts();update();queueSave()});
 
@@ -1085,7 +1155,7 @@ function model(){
 function projection(extra){
   const age=ageNow();if(!age)return null;
   const r=(num("fin_growth")-num("fin_charges"))/100/12,infl=num("fin_infl")/100,cg=num("fin_cgrow")/100;
-  let pot=num("fin_pot"),c=num("fin_pension")+num("fin_personal")/0.8+(extra||0);
+  let pot=potsTotal(),c=num("fin_pension")+num("fin_personal")/0.8+potsMonthly()+(extra||0);
   const endAge=Math.max(61,num("fin_retire")+1,Math.ceil(age)+1);const pts=[{age,pot,real:pot}];
   for(let m=1;m<=(endAge-age)*12;m++){pot=pot*(1+r)+c;if(m%12===0){c*=1+cg;const yrs=m/12;pts.push({age:age+yrs,pot,real:pot/Math.pow(1+infl,yrs)})}}
   return {pts,age,at:a=>pts.find(p=>p.age>=a)||null};
@@ -1094,7 +1164,7 @@ function projection(extra){
 /* ---- charts ---- */
 function niceStep(x){const p=Math.pow(10,Math.floor(Math.log10(Math.max(x,1))));const n=x/p;return (n<=1?1:n<=2?2:n<=5?5:10)*p}
 function compact(v){const a=Math.abs(v);return (v<0?"−":"")+"£"+(a>=1e6?(a/1e6).toFixed(1).replace(/\.0$/,"")+"m":a>=1e3?(a/1e3).toFixed(a<1e4&&a%1e3?1:0)+"k":a.toFixed(0))}
-const legend=(el,series,always)=>{el.innerHTML=series.length>1||(always&&series.length)?series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)}</span>`).join(""):""};
+const legend=(el,series,always)=>{el.innerHTML=series.length>1||(always&&series.length)?series.map(s=>`<span><i style="background:var(${s.c})${s.ghost?";opacity:.45":""}"></i>${esc(s.name)}</span>`).join(""):""};
 function lineChart(el,labels,series,opts={}){
   if(el.offsetParent===null)return;
   const W=Math.max(300,el.clientWidth||640),H=opts.h||240,pl=56,pr=16,pt=14,pb=28;
@@ -1123,19 +1193,20 @@ function colChart(el,labels,series,opts={}){
   const tot=labels.map((_,i)=>series.reduce((a,s)=>a+Math.max(0,s.values[i]),0)),neg=labels.map((_,i)=>series.reduce((a,s)=>a+Math.min(0,s.values[i]),0));
   let lo=Math.min(0,...neg),hi=Math.max(1,...tot);const step=niceStep((hi-lo)/4);lo=Math.floor(lo/step)*step;hi=Math.ceil(hi/step)*step;
   const ys=v=>pt+(H-pt-pb)*(1-(v-lo)/(hi-lo||1)),band=(W-pl-pr)/labels.length,bw=Math.min(24,band*.6),xs=i=>pl+band*i+band/2;
-  let g="";for(let v=lo;v<=hi+1e-6;v+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}" class="gl"/><text x="${pl-8}" y="${ys(v)+4}" class="tick" text-anchor="end">${compact(v)}</text>`;
+  let g="";for(let v=lo;v<=hi+1e-6;v+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}" class="gl"/><text x="${pl-8}" y="${ys(v)+4}" class="tick" text-anchor="end">${opts.unit==="h"?v+"h":compact(v)}</text>`;
   const every=Math.ceil(labels.length/(W<480?4:8));labels.forEach((l,i)=>{if(i%every===0)g+=`<text x="${xs(i)}" y="${H-8}" class="tick" text-anchor="middle">${esc(l)}</text>`});
   labels.forEach((_,i)=>{let up=0,dn=0;const segs=series.map(s=>({s,v:s.values[i]})).filter(x=>x.v);
     segs.forEach((x,k)=>{const v=x.v;let y0,y1;if(v>=0){y0=up;up+=v;y1=up}else{y0=dn;dn+=v;y1=dn}
       const top=ys(Math.max(y0,y1)),bot=ys(Math.min(y0,y1)),hgt=Math.max(0,bot-top-(k?2:0));const isTop=v>=0?segs.slice(k+1).every(z=>z.v<0):true;
       const r=isTop?Math.min(4,hgt/2,bw/2):0,x0=xs(i)-bw/2;
-      g+=v>=0?`<path class="col" d="M${x0} ${top+hgt}V${top+r}Q${x0} ${top} ${x0+r} ${top}H${x0+bw-r}Q${x0+bw} ${top} ${x0+bw} ${top+r}V${top+hgt}Z" fill="var(${x.s.c})"/>`:`<path class="col" d="M${x0} ${top}V${bot-r}Q${x0} ${bot} ${x0+r} ${bot}H${x0+bw-r}Q${x0+bw} ${bot} ${x0+bw} ${bot-r}V${top}Z" fill="var(${x.s.c})"/>`});
+      g+=v>=0?`<path class="col" d="M${x0} ${top+hgt}V${top+r}Q${x0} ${top} ${x0+r} ${top}H${x0+bw-r}Q${x0+bw} ${top} ${x0+bw} ${top+r}V${top+hgt}Z" fill="var(${x.s.c})"${x.s.ghost?' fill-opacity=".45"':""}/>`:`<path class="col" d="M${x0} ${top}V${bot-r}Q${x0} ${bot} ${x0+r} ${bot}H${x0+bw-r}Q${x0+bw} ${bot} ${x0+bw} ${bot-r}V${top}Z" fill="var(${x.s.c})"/>`});
   });
   g+=`<line x1="${pl}" x2="${W-pr}" y1="${ys(0)}" y2="${ys(0)}" class="mark"/>`;
   el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(opts.aria||"")}">${g}<rect x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pt-pb}" fill="transparent"/></svg><div class="tip" hidden></div>`;
   const svg=el.querySelector("svg"),tip=el.querySelector(".tip");
   svg.addEventListener("pointermove",e=>{const rc=svg.getBoundingClientRect(),px=(e.clientX-rc.left)*(W/rc.width);const i=Math.max(0,Math.min(labels.length-1,Math.floor((px-pl)/band)));
-    tip.innerHTML=`<b>${esc(labels[i])}</b>`+series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)} <em>${fm(s.values[i])}</em></span>`).join("")+(series.length>1?`<span>Total <em>${fm(series.reduce((a,s)=>a+s.values[i],0))}</em></span>`:"");
+    const fv=v=>opts.unit==="h"?(Math.round(v*4)/4)+" hrs":fm(v);
+    tip.innerHTML=`<b>${esc(labels[i])}</b>`+series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)} <em>${fv(s.values[i])}</em></span>`).join("")+(series.length>1?`<span>Total <em>${fv(series.reduce((a,s)=>a+s.values[i],0))}</em></span>`:"");
     tip.hidden=false;const left=(xs(i)/W)*rc.width;tip.style.left=Math.min(rc.width-tip.offsetWidth-4,Math.max(4,left+14))+"px";tip.style.top="8px"});
   svg.addEventListener("pointerleave",()=>{tip.hidden=true});
 }
@@ -1151,6 +1222,7 @@ function hbar(el,segs){
   const T=segs.reduce((a,s)=>a+s.v,0);if(!T){el.innerHTML='<p class="empty">Nothing to show yet.</p>';return}
   el.innerHTML=`<div class="hbar" role="img" aria-label="${esc(segs.map(s=>s.name+" "+Math.round(s.v/T*100)+"%").join(", "))}">${segs.map(s=>`<i style="width:${(s.v/T*100).toFixed(2)}%;background:var(${s.c})" title="${esc(s.name)}: ${fm(s.v)}"></i>`).join("")}</div><div class="dleg">${segs.map(s=>`<div><i style="background:var(${s.c})"></i><span>${esc(s.name)}</span><b>${Math.round(s.v/T*100)}% · ${fm(s.v)}</b></div>`).join("")}</div>`;
 }
+function scenarioHTML(c){const cap=+c.cap||50,steps=[...new Set([Math.round(cap*.2),Math.round(cap*.4),Math.round(cap*.6),Math.round(cap*.8),cap].filter(x=>x>0))];return `<div class="scen"><span class="lab">Income at different head counts</span>${steps.map(n=>`<div class="fl"><span>${n} heads</span><div class="bar"><i style="width:${(n/cap*100).toFixed(1)}%"></i></div><b>${fm(n*(+c.rate||0))}/mo</b></div>`).join("")}</div>`}
 function meterHTML(v,max,left,right){const pct=Math.max(0,Math.min(100,v/max*100));return `<div class="meter" role="meter" aria-valuemin="0" aria-valuemax="${max}" aria-valuenow="${v}"><i style="width:${pct}%"></i></div><div class="mrow"><span>${left}</span><span>${right}</span></div>`}
 
 /* ---- calendar & flags ---- */
@@ -1162,6 +1234,7 @@ function calendar(M){
   if(ye)[today.getFullYear()-1,today.getFullYear(),today.getFullYear()+1].forEach(y=>{const end=new Date(y,ye,0);const ctd=new Date(end);ctd.setMonth(ctd.getMonth()+9);ctd.setDate(ctd.getDate()+1);add(ctd,"Corporation tax due, year ending "+fmtDate(end)+" (accountant)");add(new Date(y,ye+9,0),"Company accounts due at Companies House (accountant)")});
   if(M.vatFrom){const [vy,vm]=M.vatFrom.split("-").map(Number);for(let q=0;q<6;q++){const qe=new Date(vy,vm-1+3*(q+1),0);add(new Date(qe.getFullYear(),qe.getMonth()+2,7),"VAT return and payment, quarter ending "+fmtDate(qe))}}
   S.clients.filter(c=>c.status!=="ended"&&c.nextDate&&c.nextStep).forEach(c=>add(new Date(c.nextDate),c.nextStep+": "+(c.name||"client")));
+  S.leads.filter(l=>l.nextDate&&!["Won","Lost"].includes(l.status)).forEach(l=>add(new Date(l.nextDate),"Contact lead: "+(l.name||l.company||"lead")));
   S.clients.filter(c=>c.status!=="ended"&&c.end).forEach(c=>{const [y,m]=c.end.split("-").map(Number);add(new Date(y,m-2,1),"Renewal review: "+(c.name||"client"));add(new Date(y,m,0),"Contract ends: "+(c.name||"client"))});
   [["fin_ins","Insurance renewal"],["fin_ico","ICO data protection fee renewal"],["fin_cs","Confirmation statement due"]].forEach(([id,t])=>{if($(id).value)add(new Date($(id).value),t)});
   return cal.sort((a,b)=>a[0]-b[0]);
@@ -1194,7 +1267,7 @@ function update(skipClients){
   // client options for "what if" select
   const loseSel=$("fin_lose"),cur=loseSel.value;
   loseSel.innerHTML='<option value="">No, everything continues</option>'+S.clients.filter(c=>c.status!=="ended").map(c=>`<option value="${esc(c.id)}"${c.id===cur?" selected":""}>${esc(c.name||"Unnamed client")}</option>`).join("");
-  const M=model(),r0=M.rows[0],F=flags(M),C=calendar(M),P=projection(0);
+  const M=model(),r0=M.rows[0],F=flags(M).concat(extraFlags()),C=calendar(M),P=projection(0);
   const active=S.clients.filter(c=>c.status==="active"),pipe=S.clients.filter(c=>c.status==="pipeline");
   const mrr=active.reduce((a,c)=>a+cfee(c),0),wp=pipe.reduce((a,c)=>a+cfee(c)*(+c.prob||0)/100,0);
   const at57=P&&P.at(57);
@@ -1211,13 +1284,17 @@ function update(skipClients){
   $("clientKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["Pipeline, weighted",fm(wp)+"/mo"],["Largest client share",mrr?Math.round(Math.max(...active.map(cfee))/mrr*100)+"%":"–"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   renderOrphans();
   const sig=JSON.stringify(engagements.map(g=>g.id));if(!skipClients||sig!==lastClientsSig){if(!$("view-clients").contains(document.activeElement))renderClients();lastClientsSig=sig}
+  renderWorkSelect();renderExtras(M);
+  $("doorOutreach").textContent=S.leads.length?S.leads.filter(l=>l.status==="New").length+" waiting for a reply · "+S.leads.length+" leads in total":"Import your Meta lead forms";
+  $("doorCapacity").textContent=Math.round(S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0))+" of "+Math.round(capAvail())+" hours a month committed";
+  $("doorPortfolio").textContent=S.results.length+" key results · "+S.results.filter(r=>r.perm!=="private").length+" you can use";
   /* forecast */
   $("heroKeep").textContent=fm(M.keepA/12);
   $("heroSub").textContent="Salary, room rent and the dividends logged for "+M.ty+", less your income tax and National Insurance. That's "+fm(M.keepA)+" a year.";
   $("kpis").innerHTML=[["Company profit before tax",fm(M.annualProfit/12)+"/mo"],["Corporation tax to set aside",fm(M.ct/12)+"/mo"],["VAT to set aside",r0.vat?fm(r0.vat)+"/mo":"Not registered yet"],["Profit left in the company",fm(M.retained)+"/yr"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   const labels=M.rows.map(r=>r.label);
   const cl=S.clients.filter(c=>c.status!=="ended");
-  const is=cl.map(c=>({name:c.name||"Unnamed",c:CCOL[S.clients.indexOf(c)%CCOL.length],values:M.rows.map(r=>r.by[c.name||"Unnamed"]||0)})).filter(s=>s.values.some(v=>v>0));
+  const is=cl.map(c=>({name:(c.name||"Unnamed")+(c.status==="pipeline"?" (pipeline, "+(+c.prob||0)+"%)":""),ghost:c.status==="pipeline",c:CCOL[S.clients.indexOf(c)%CCOL.length],values:M.rows.map(r=>r.by[c.name||"Unnamed"]||0)})).filter(s=>s.values.some(v=>v>0));
   legend($("incLegend"),is,true);colChart($("incChart"),labels,is,{aria:"Monthly income by client"});
   colChart($("profitChart"),labels,[{name:"Profit before tax",c:"--s1",values:M.rows.map(r=>r.profit)}],{aria:"Monthly profit"});
   colChart($("homeInc"),labels.slice(0,12),is.map(s=>({...s,values:s.values.slice(0,12)})),{aria:"Income next 12 months",h:200});legend($("homeIncLegend"),is,true);
@@ -1244,40 +1321,190 @@ function update(skipClients){
   /* pension */
   $("ageHint").textContent=ageNow()?"Age "+Math.floor(ageNow()):"";
   const company=num("fin_pension"),gross=num("fin_personal")/0.8,ret=num("fin_retire")||60;
-  if(!P){$("penSub").textContent="Add your date of birth and today's pot value to see the projection.";$("penBuild").innerHTML="";$("penTiles").innerHTML="";$("penLegend").innerHTML="";$("penChart").innerHTML='<p class="empty">The projection appears here once your date of birth is filled in.</p>';$("penWhatIf").innerHTML=""}
+  if(!P){$("penSub").textContent="Add your date of birth to see the projection.";$("penBuild").innerHTML="";$("penTiles").innerHTML="";$("penLegend").innerHTML="";$("penChart").innerHTML='<p class="empty">The projection appears here once your date of birth is filled in.</p>';$("penWhatIf").innerHTML=""}
   else{
-    $("penSub").textContent=fm(company+gross)+" a month going in ("+fm(company)+" from the company"+(gross?", "+fm(gross)+" personal including tax relief":"")+"), growing at "+(num("fin_growth")-num("fin_charges")).toFixed(2)+"% a year after charges. “Today's money” adjusts for "+num("fin_infl")+"% inflation.";
+    $("penSub").textContent="Starting from "+fm(potsTotal())+" across your pensions, with "+fm(company+gross+potsMonthly())+" a month going in ("+fm(company)+" from the company"+(gross?", "+fm(gross)+" personal including tax relief":"")+"), growing at "+(num("fin_growth")-num("fin_charges")).toFixed(2)+"% a year after charges. “Today's money” adjusts for "+num("fin_infl")+"% inflation.";
     const ages=[...new Set([50,57,60,ret])].sort((a,b)=>a-b);
     $("penTiles").innerHTML=ages.map(a=>{const p=P.at(a);if(!p||a<P.age)return `<div class="kpi"><span>At ${a}</span><b>Already past</b></div>`;return `<div class="kpi"><span>At ${a}${a===57?" · earliest access":a===ret?" · retirement":""}</span><b>${fm(p.pot)}</b><em>${fm(p.real)} in today's money</em></div>`}).join("");
     const ps=[{name:"Pot value",c:"--s1",values:P.pts.map(p=>p.pot)},{name:"In today's money",c:"--s2",values:P.pts.map(p=>p.real)}];
     legend($("penLegend"),ps);
     lineChart($("penChart"),P.pts.map(p=>"Age "+Math.round(p.age)),ps,{marks:ages.map(a=>({i:P.pts.findIndex(p=>p.age>=a),label:String(a)})).filter(m=>m.i>0),aria:"Pension projection"});
-    const at=P.at(57)||P.pts[P.pts.length-1],yrs=at.age-P.age;let contrib=0,c0=company+gross,cg=num("fin_cgrow")/100;for(let y=0;y<Math.round(yrs);y++){contrib+=c0*12;c0*=1+cg}
-    const startPot=num("fin_pot"),growth=Math.max(0,at.pot-contrib-startPot);
+    const at=P.at(57)||P.pts[P.pts.length-1],yrs=at.age-P.age;let contrib=0,c0=company+gross+potsMonthly(),cg=num("fin_cgrow")/100;for(let y=0;y<Math.round(yrs);y++){contrib+=c0*12;c0*=1+cg}
+    const startPot=potsTotal(),growth=Math.max(0,at.pot-contrib-startPot);
     $("penBuildSub").textContent="Your pot at "+Math.round(at.age)+": "+fm(at.pot)+".";
-    hbar($("penBuild"),[{name:"Pot today",v:startPot,c:"--s3"},{name:"Contributions",v:contrib,c:"--s1"},{name:"Investment growth",v:growth,c:"--s2"}].filter(x=>x.v>0));
+    hbar($("penBuild"),[...(S.pots||[]).filter(p=>+p.value>0).map((p,k)=>({name:p.name.replace(/ \(company.*\)/,"")+" today",v:+p.value,c:k?"--s4":"--s3"})),{name:"Contributions",v:contrib,c:"--s1"},{name:"Investment growth",v:growth,c:"--s2"}].filter(x=>x.v>0));
     $("penWhatIf").innerHTML='<div class="scroll"><table><thead><tr><th>Extra a month</th><th>At 57</th><th>At '+ret+'</th><th>At '+ret+', today\'s money</th></tr></thead><tbody>'+[0,250,500,1000].map(x=>{const q=projection(x),a=q.at(57),b=q.at(ret);return `<tr${x?"":' class="tot"'}><td>${x?"+"+fm(x):"As now"}</td><td>${a?fm(a.pot):"–"}</td><td>${b?fm(b.pot):"–"}</td><td>${b?fm(b.real):"–"}</td></tr>`}).join("")+"</tbody></table></div>";
   }
   const N=[];
   N.push(["info","You can't draw on it before 57","From 6 April 2028 the minimum age to take money from a private pension rises from 55 to 57. The figure at 50 shows what you'll have built, not what you can spend."]);
   if(P&&P.at(ret))N.push(["info","Tax-free cash at "+ret+": about "+fm(Math.min(P.at(ret).pot*.25,268275)),"You can usually take 25% tax-free, up to £268,275 in total. The rest is taxed as income when you draw it."]);
+  if((S.pots||[]).filter(p=>+p.value>0).length>1)N.push(["info","You have more than one pension","Your Smart Pension pot from Copper.co is still invested. Consider moving it into your AJ Bell SIPP so everything sits in one place with one set of charges. Check first for exit fees or guaranteed benefits."]);
   N.push(["info","Annual allowance: "+fm((company+gross)*12)+" of £60,000 used","Contributions above £60,000 a year (including company contributions) are taxed, though you can carry forward unused allowance from the last three years."]);
   if(gross*12>M.salA)N.push(["warn","Personal contributions are above your relief limit","Tax relief on personal contributions is limited to your earnings from employment, which is your "+fm(M.salA)+" salary. Rent and dividends don't count. Company contributions aren't limited this way, so put extra in through the company."]);
   else N.push(["info","Company contributions are usually the better route","They avoid corporation tax and dividend tax. Personal contributions only get relief up to your "+fm(M.salA)+" salary, because rent and dividends don't count as earnings."]);
   $("penNotes").innerHTML=flagHTML(N);
 }
 
+
+/* ---- pension pots ---- */
+function potsTotal(){return (S.pots||[]).reduce((a,p)=>a+(+p.value||0),0)}
+function potsMonthly(){return (S.pots||[]).reduce((a,p)=>a+(+p.monthly||0),0)}
+function renderPots(){
+  $("pots").innerHTML=(S.pots||[]).map((p,i)=>`<div class="row pot">
+    <div class="f"><label for="pt${i}n">Pension</label><input id="pt${i}n" data-l="pots" data-i="${i}" data-k="name" value="${esc(p.name)}"></div>
+    <div class="f"><label for="pt${i}v">Value today, £</label><input id="pt${i}v" type="number" step="0.01" data-l="pots" data-i="${i}" data-k="value" value="${p.value}"></div>
+    <div class="f"><label for="pt${i}m">Other contributions, £/month</label><input id="pt${i}m" type="number" step="10" data-l="pots" data-i="${i}" data-k="monthly" value="${p.monthly||0}"></div>
+    <button class="btn small" type="button" data-rm="pots" data-i="${i}">Remove</button></div>`).join("");
+}
+
+/* ---- outreach ---- */
+const STAGES=["New","Contacted","Call booked","Proposal sent","Won","Lost"];
+function parseCSV(text){
+  const first=text.split(/\r?\n/)[0]||"";const d=(first.match(/\t/g)||[]).length>(first.match(/,/g)||[]).length?"\t":",";
+  const rows=[];let row=[],f="",q=false;
+  for(let i=0;i<text.length;i++){const ch=text[i];
+    if(q){if(ch==='"'){if(text[i+1]==='"'){f+='"';i++}else q=false}else f+=ch}
+    else if(ch==='"')q=true;else if(ch===d){row.push(f);f=""}else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&text[i+1]==="\n")i++;row.push(f);rows.push(row);row=[];f=""}else f+=ch}
+  if(f||row.length){row.push(f);rows.push(row)}
+  return rows.filter(r=>r.some(c=>c.trim()));
+}
+async function importLeads(file){
+  const buf=await file.arrayBuffer();const b=new Uint8Array(buf);
+  const text=(b[0]===0xFF&&b[1]===0xFE)?new TextDecoder("utf-16le").decode(buf):(b[0]===0xFE&&b[1]===0xFF)?new TextDecoder("utf-16be").decode(buf):new TextDecoder("utf-8").decode(buf);
+  const rows=parseCSV(text.replace(/^\uFEFF/,""));if(rows.length<2){$("leadStatus").textContent="That file has no leads in it.";return}
+  const head=rows[0].map(h=>h.trim().toLowerCase().replace(/\s+/g,"_"));
+  const col=(...names)=>{for(const n of names){const i=head.indexOf(n);if(i>=0)return i}return -1};
+  const iN=col("full_name","name"),iF=col("first_name"),iL=col("last_name"),iE=col("email","work_email"),iP=col("phone_number","phone","work_phone_number"),iC=col("company_name","company"),iT=col("created_time","created","date"),iFm=col("form_name","form"),iJ=col("job_title");
+  const skip=new Set([iN,iF,iL,iE,iP,iC,iT,iFm,iJ,col("id"),col("ad_id"),col("ad_name"),col("adset_id"),col("adset_name"),col("campaign_id"),col("campaign_name"),col("form_id"),col("is_organic"),col("platform"),col("lead_status")]);
+  let added=0,dup=0;
+  rows.slice(1).forEach(r=>{
+    const g=i=>i>=0?(r[i]||"").trim():"";
+    const name=g(iN)||[g(iF),g(iL)].filter(Boolean).join(" ");const email=g(iE);const created=(g(iT)||"").slice(0,10);
+    if(!name&&!email)return;
+    if(S.leads.some(l=>(email&&l.email.toLowerCase()===email.toLowerCase())||(!email&&l.name===name&&l.created===created))){dup++;return}
+    const extra=head.map((h,i)=>skip.has(i)||!r[i]||!r[i].trim()?null:h.replace(/_/g," ")+": "+r[i].trim()).filter(Boolean).join(" · ");
+    S.leads.push({id:uid(),name,company:g(iC),title:g(iJ),email,phone:g(iP).replace(/^p:/,""),source:"Meta lead form",form:g(iFm),created:/^\d{4}-\d{2}-\d{2}$/.test(created)?created:new Date().toISOString().slice(0,10),status:"New",nextDate:"",notes:extra});added++;
+  });
+  $("leadStatus").textContent="Imported "+added+" lead"+(added===1?"":"s")+(dup?", skipped "+dup+" already here":"")+".";
+  renderLeads();update();queueSave();
+}
+$("leadFile").addEventListener("change",e=>{const f=e.target.files[0];if(f)importLeads(f).catch(()=>{$("leadStatus").textContent="Couldn't read that file. Download it from Meta as CSV and try again."});e.target.value=""});
+$("addLead").addEventListener("click",()=>{S.leads.unshift({id:uid(),name:"",company:"",title:"",email:"",phone:"",source:"Direct",form:"",created:new Date().toISOString().slice(0,10),status:"New",nextDate:"",notes:""});renderLeads();update();queueSave();const f=$("leadList").querySelector('input[data-k="name"]');if(f)f.focus()});
+function renderLeads(){
+  const fl=$("leadFilter").value;
+  const list=S.leads.filter(l=>fl==="all"?true:fl==="open"?!["Won","Lost"].includes(l.status):l.status===fl);
+  $("leadList").innerHTML=list.map(l=>{const i=S.leads.indexOf(l);return `<div class="lead">
+    <div class="f"><label for="ld${i}n">Name</label><input id="ld${i}n" data-ld="${i}" data-k="name" value="${esc(l.name)}"></div>
+    <div class="f"><label for="ld${i}c">Company</label><input id="ld${i}c" data-ld="${i}" data-k="company" value="${esc(l.company)}"></div>
+    <div class="f"><label for="ld${i}e">Email</label><input id="ld${i}e" type="email" data-ld="${i}" data-k="email" value="${esc(l.email)}"></div>
+    <div class="f"><label for="ld${i}p">Phone</label><input id="ld${i}p" data-ld="${i}" data-k="phone" value="${esc(l.phone)}"></div>
+    <div class="f"><label for="ld${i}s">Stage</label><select id="ld${i}s" data-ld="${i}" data-k="status">${STAGES.map(s=>`<option${l.status===s?" selected":""}>${s}</option>`).join("")}</select></div>
+    <div class="f"><label for="ld${i}d">Next contact</label><input id="ld${i}d" type="date" data-ld="${i}" data-k="nextDate" value="${esc(l.nextDate)}"></div>
+    <div class="f"><span class="lab">Came in</span><span class="sub">${esc(fmtDate(new Date(l.created)))} · ${esc(l.source)}${l.form?" · "+esc(l.form):""}</span></div>
+    <div class="f wide"><label for="ld${i}x">Notes and form answers</label><input id="ld${i}x" data-ld="${i}" data-k="notes" value="${esc(l.notes)}"></div>
+    <div class="f lacts"><button class="btn small" type="button" data-conv="${i}">Make a pipeline client</button><button class="btn small" type="button" data-rml="${i}">Remove</button></div>
+  </div>`}).join("")||'<p class="empty">No leads here yet. Import your Meta lead form CSV or add one by hand.</p>';
+}
+$("leadFilter").addEventListener("change",renderLeads);
+$("view-outreach").addEventListener("input",e=>{const t=e.target;if(t.dataset.ld===undefined)return;S.leads[+t.dataset.ld][t.dataset.k]=t.value;update(true);queueSave()});
+$("view-outreach").addEventListener("change",e=>{const t=e.target;if(t.dataset.ld===undefined)return;S.leads[+t.dataset.ld][t.dataset.k]=t.value;if(t.dataset.k==="status"){if(t.value==="Contacted"&&!S.leads[+t.dataset.ld].contacted)S.leads[+t.dataset.ld].contacted=new Date().toISOString().slice(0,10);renderLeads()}update(true);queueSave()});
+$("view-outreach").addEventListener("click",e=>{
+  const r=e.target.closest("[data-rml]");if(r){S.leads.splice(+r.dataset.rml,1);renderLeads();update();queueSave();return}
+  const c=e.target.closest("[data-conv]");if(c){const l=S.leads[+c.dataset.conv];S.clients.push({id:uid(),name:l.company||l.name,service:"OA",status:"pipeline",pricing:"fixed",fee:0,received:"",vat:"plus",start:"",end:"",prob:25,ref:"",notes:"From "+l.source+(l.form?" ("+l.form+")":"")+". Contact: "+l.name+(l.email?", "+l.email:""),nextStep:"Follow up",nextDate:l.nextDate||""});if(l.status==="New"||l.status==="Contacted")l.status="Call booked";renderLeads();renderClients();update();queueSave();$("leadStatus").textContent=(l.company||l.name)+" added to Active clients as pipeline."}
+});
+
+/* ---- capacity ---- */
+function capAvail(){return num("cap_days")*num("cap_hours")*(52-num("cap_leave"))/12}
+function renderWorkSelect(){const cur=$("wk_client").value;$("wk_client").innerHTML=S.clients.filter(c=>c.status!=="ended").map(c=>`<option value="${esc(c.id)}"${c.id===cur?" selected":""}>${esc(c.name||"Unnamed")}</option>`).join("")+'<option value="admin"'+(cur==="admin"?" selected":"")+'>Nexa admin and business development</option>'}
+function clientName(id){if(id==="admin")return "Nexa admin";const c=S.clients.find(x=>x.id===id);return c?(c.name||"Unnamed"):"Removed client"}
+function renderWork(){
+  const rows=S.work.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,40);
+  $("workList").innerHTML=rows.length?'<div class="scroll"><table><thead><tr><th>Date</th><th>Client</th><th>Hours</th><th>What you did</th><th></th></tr></thead><tbody>'+rows.map(w=>`<tr><td>${esc(fmtDate(new Date(w.date)))}</td><td>${esc(clientName(w.client))}</td><td>${w.hours}</td><td class="wrap">${esc(w.task)}</td><td><button class="btn small" type="button" data-rmw="${esc(w.id)}">Remove</button></td></tr>`).join("")+"</tbody></table></div>":'<p class="empty">Nothing logged yet. Log your first session above.</p>';
+}
+$("addWork").addEventListener("click",()=>{const h=num("wk_hours");if(!h||!$("wk_date").value){$("wk_task").focus();return}S.work.push({id:uid(),date:$("wk_date").value,client:$("wk_client").value,hours:h,task:$("wk_task").value.trim()});$("wk_task").value="";renderWork();update();queueSave()});
+$("workList").addEventListener("click",e=>{const b=e.target.closest("[data-rmw]");if(b){S.work=S.work.filter(w=>w.id!==b.dataset.rmw);renderWork();update();queueSave()}});
+$("capForm").addEventListener("input",e=>{if(e.target.id.startsWith("cap_")){update();queueSave()}});
+
+/* ---- portfolio ---- */
+const AREAS=["Growth","People","Operations","Finance","Governance and risk","International"];
+const PERMS={named:"Client named, with consent",anon:"Anonymised",private:"Private, not for use"};
+function renderResults(){
+  $("pfList").innerHTML=S.results.map((r,i)=>`<article class="ccard"><div class="chead"><span class="pill s-${r.perm==="named"?"active":r.perm==="anon"?"pipeline":"ended"}">${r.perm==="named"?"Named":r.perm==="anon"?"Anonymised":"Private"}</span><b>${esc(r.headline||"New result")}</b>${r.onSite?'<span class="cval">On website</span>':""}</div>
+  <div class="fs cfs">
+    <div class="f wide"><label for="rs${i}h">Headline result</label><input id="rs${i}h" data-rs="${i}" data-k="headline" value="${esc(r.headline)}"></div>
+    <div class="f"><label for="rs${i}a">Area</label><select id="rs${i}a" data-rs="${i}" data-k="area">${AREAS.map(a=>`<option${r.area===a?" selected":""}>${a}</option>`).join("")}</select></div>
+    <div class="f"><label for="rs${i}c">Client</label><input id="rs${i}c" data-rs="${i}" data-k="client" value="${esc(r.client)}"></div>
+    <div class="f"><label for="rs${i}b">Before</label><input id="rs${i}b" data-rs="${i}" data-k="before" value="${esc(r.before)}"></div>
+    <div class="f"><label for="rs${i}t">After</label><input id="rs${i}t" data-rs="${i}" data-k="after" value="${esc(r.after)}"></div>
+    <div class="f"><label for="rs${i}p">Can you use it?</label><select id="rs${i}p" data-rs="${i}" data-k="perm">${Object.entries(PERMS).map(([k,v])=>`<option value="${k}"${r.perm===k?" selected":""}>${v}</option>`).join("")}</select></div>
+    <div class="f wide"><label for="rs${i}x">How you did it</label><input id="rs${i}x" data-rs="${i}" data-k="how" value="${esc(r.how)}"></div>
+    <div class="f"><label for="rs${i}d">When</label><input id="rs${i}d" type="month" data-rs="${i}" data-k="when" value="${esc(r.when)}"></div>
+    <div class="f"><label class="chip" for="rs${i}o"><input type="checkbox" id="rs${i}o" data-rs="${i}" data-k="onSite"${r.onSite?" checked":""}> On your website</label></div>
+    <div class="f"><button class="btn small" type="button" data-rmr="${i}">Remove</button></div>
+  </div></article>`).join("")||'<p class="empty">No results yet. Add your first one above.</p>';
+}
+$("view-portfolio").addEventListener("input",e=>{const t=e.target;if(t.dataset.rs===undefined)return;S.results[+t.dataset.rs][t.dataset.k]=t.type==="checkbox"?t.checked:t.value;update(true);queueSave()});
+$("view-portfolio").addEventListener("change",e=>{const t=e.target;if(t.dataset.rs===undefined)return;S.results[+t.dataset.rs][t.dataset.k]=t.type==="checkbox"?t.checked:t.value;renderResults();update(true);queueSave()});
+$("view-portfolio").addEventListener("click",e=>{const b=e.target.closest("[data-rmr]");if(b){S.results.splice(+b.dataset.rmr,1);renderResults();update();queueSave()}});
+$("addResult").addEventListener("click",()=>{S.results.unshift({id:uid(),headline:"",area:"Operations",client:"",before:"",after:"",perm:"anon",how:"",when:"",onSite:false});renderResults();update();queueSave();const f=$("pfList").querySelector('input[data-k="headline"]');if(f)f.focus()});
+
+/* ---- extras render ---- */
+function renderExtras(M){
+  const now=new Date(),mk=ymKey(now.getFullYear(),now.getMonth()),today=now.toISOString().slice(0,10);
+  /* outreach */
+  const L=S.leads,open=L.filter(l=>!["Won","Lost"].includes(l.status)),d30=new Date(Date.now()-30*864e5).toISOString().slice(0,10);
+  const fresh=L.filter(l=>l.created>=d30).length,won=L.filter(l=>l.status==="Won").length,uncontacted=L.filter(l=>l.status==="New").length;
+  const reached=L.filter(l=>l.status!=="New").length;
+  $("leadKpis").innerHTML=[["Leads, last 30 days",String(fresh)],["Waiting for a first reply",String(uncontacted)],["Reached a call or further",L.length?Math.round(L.filter(l=>["Call booked","Proposal sent","Won"].includes(l.status)).length/L.length*100)+"%":"–"],["Won",String(won)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  const maxS=Math.max(1,...STAGES.map(s=>L.filter(l=>l.status===s).length));
+  $("leadFunnel").innerHTML=STAGES.map(s=>{const n=L.filter(l=>l.status===s).length;return `<div class="fl"><span>${s}</span><div class="bar"><i style="width:${(n/maxS*100).toFixed(1)}%"></i></div><b>${n}</b></div>`}).join("");
+  const due=open.filter(l=>l.status==="New"||(l.nextDate&&l.nextDate<=today)).sort((a,b)=>(a.nextDate||a.created).localeCompare(b.nextDate||b.created));
+  $("leadDue").innerHTML=due.slice(0,8).map(l=>{const age=Math.floor((Date.now()-new Date(l.created))/864e5);return `<div class="kv"><span>${esc(l.name||"Unnamed")}${l.company?" · "+esc(l.company):""}</span><b>${l.status==="New"?(age<1?"New today":age+" day"+(age===1?"":"s")+" waiting"):"Due "+fmtDate(new Date(l.nextDate))}</b></div>`}).join("")||'<p class="empty">Nobody is waiting on you.</p>';
+  /* capacity */
+  const avail=capAvail();
+  const planned=S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0),plannedPipe=S.clients.filter(c=>c.status==="pipeline").reduce((a,c)=>a+(+c.hours||0)*(+c.prob||0)/100,0);
+  const logged=S.work.filter(w=>w.date.slice(0,7)===mk).reduce((a,w)=>a+(+w.hours||0),0);
+  $("capKpis").innerHTML=[["Available a month",Math.round(avail)+" hrs"],["Committed to active clients",Math.round(planned)+" hrs"],["Pipeline, weighted",Math.round(plannedPipe)+" hrs"],["Logged this month",(Math.round(logged*4)/4)+" hrs"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("capMeter").innerHTML=`<span class="lab">Committed</span>${meterHTML(planned,Math.max(avail,planned,1),Math.round(planned)+" of "+Math.round(avail)+" hrs committed",Math.round(Math.max(0,avail-planned))+" hrs free")}<span class="lab">With pipeline</span>${meterHTML(planned+plannedPipe,Math.max(avail,planned+plannedPipe,1),Math.round(planned+plannedPipe)+" hrs if the pipeline lands",avail?Math.round((planned+plannedPipe)/avail*100)+"% of your time":"")}<span class="lab">Logged so far</span>${meterHTML(logged,Math.max(avail,1),(Math.round(logged*4)/4)+" hrs logged in "+MONTHS_FULL[now.getMonth()],"")}${!planned?'<p class="hint">Add planned hours a month to each client card to see your committed time.</p>':""}`;
+  const weeks=[...Array(12)].map((_,i)=>{const d=new Date(now);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(11-i));return d});
+  const wkKeys=weeks.map(d=>d.toISOString().slice(0,10));
+  const ids=[...new Set(S.work.map(w=>w.client))];
+  const ws=ids.map(id=>{const ci=S.clients.findIndex(c=>c.id===id);return {name:clientName(id),c:id==="admin"?"--s5":CCOL[(ci<0?4:ci)%CCOL.length],values:weeks.map((d,k)=>{const end=new Date(d);end.setDate(end.getDate()+7);return S.work.filter(w=>w.client===id&&new Date(w.date)>=d&&new Date(w.date)<end).reduce((a,w)=>a+(+w.hours||0),0)})}});
+  legend($("wkLegend"),ws,true);
+  if(ws.length)colChart($("wkChart"),weeks.map(d=>d.getDate()+" "+MON[d.getMonth()]),ws,{aria:"Hours by week",unit:"h"});else $("wkChart").innerHTML='<p class="empty">Your weekly hours appear here once you log work.</p>';
+  const rates=S.clients.filter(c=>c.status==="active").map(c=>{const h=S.work.filter(w=>w.client===c.id&&w.date.slice(0,7)===mk).reduce((a,w)=>a+(+w.hours||0),0);return [c.name||"Unnamed",h?cfee(c)/h:0,h]});
+  const maxR=Math.max(1,...rates.map(r=>r[1]));
+  $("capRates").innerHTML=rates.map(([n,r,h])=>`<div class="fl"><span>${esc(n)}</span><div class="bar"><i style="width:${(r/maxR*100).toFixed(1)}%"></i></div><b>${h?fm(r)+"/hr":"No hours yet"}</b></div>`).join("")||'<p class="empty">No active clients.</p>';
+  /* portfolio */
+  const R=S.results;
+  $("pfKpis").innerHTML=[["Key results",String(R.length)],["Usable with client named",String(R.filter(r=>r.perm==="named").length)],["Usable anonymised",String(R.filter(r=>r.perm==="anon").length)],["Clients served",String(new Set(S.clients.filter(c=>c.status!=="pipeline").map(c=>c.name)).size)],["Trading since","March 2024"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  const maxA=Math.max(1,...AREAS.map(a=>R.filter(r=>r.area===a).length));
+  $("pfAreas").innerHTML=AREAS.map(a=>{const n=R.filter(r=>r.area===a).length;return `<div class="fl"><span>${a}</span><div class="bar"><i style="width:${(n/maxA*100).toFixed(1)}%"></i></div><b>${n}</b></div>`}).join("");
+  hbar($("pfPerm"),[{name:"Named, with consent",v:R.filter(r=>r.perm==="named").length,c:"--s4"},{name:"Anonymised",v:R.filter(r=>r.perm==="anon").length,c:"--s3"},{name:"Private",v:R.filter(r=>r.perm==="private").length,c:"--s5"}].filter(x=>x.v>0));
+}
+function extraFlags(){
+  const F=[];const uncontacted=S.leads.filter(l=>l.status==="New"&&(Date.now()-new Date(l.created))>864e5);
+  if(uncontacted.length)F.push(["warn",uncontacted.length+" lead"+(uncontacted.length===1?" has":"s have")+" waited more than a day","Leads from Meta forms go cold fast. Reply within 24 hours where you can. They're listed in Outreach."]);
+  if(S.leads.length)F.push(["warn","Your Meta lead forms need a privacy notice","Meta requires a privacy policy link on every lead form, and UK GDPR requires you to tell leads how you'll use their details. Your website doesn't have one yet."]);
+  const avail=capAvail(),planned=S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0),pp=S.clients.filter(c=>c.status==="pipeline").reduce((a,c)=>a+(+c.hours||0),0);
+  if(planned>avail)F.push(["bad","You're committed beyond your capacity","Active clients need "+Math.round(planned)+" hours a month, against "+Math.round(avail)+" available."]);
+  else if(planned+pp>avail)F.push(["warn","Winning the pipeline would overstretch you","Active and pipeline clients together need "+Math.round(planned+pp)+" hours a month, against "+Math.round(avail)+" available."]);
+  return F;
+}
+
 /* ---- persistence ---- */
-function snapshot(){const o={clients:S.clients,costs:S.costs,divs:S.divs};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
+function snapshot(){const o={clients:S.clients,costs:S.costs,divs:S.divs,pots:S.pots,leads:S.leads,work:S.work,results:S.results};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
 function apply(o){
   if(!o)return;
   if(Array.isArray(o.clients))S.clients=o.clients;
   else if(Array.isArray(o.streams))S.clients=o.streams.map(s=>({id:uid(),name:s.name,service:"Other",status:"active",fee:s.invoiced,received:s.received,vat:s.vat||"plus",start:s.start||"",end:s.end||"",prob:100,ref:"",notes:""}));
   if(Array.isArray(o.costs))S.costs=o.costs;
   if(Array.isArray(o.divs))S.divs=o.divs;
+  ["pots","leads","work","results"].forEach(k=>{if(Array.isArray(o[k]))S[k]=o[k]});
+  if(!Array.isArray(o.pots)&&o.fin_pot)S.pots[0].value=+o.fin_pot;
   FIELDS.forEach(f=>{if(o[f]===undefined)return;const e=$(f);if(e.type==="checkbox")e.checked=!!o[f];else e.value=o[f]});
   $("pen_company").value=$("fin_pension").value;
-  renderCosts();renderClients();renderDivs();
+  renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderWork();renderResults();
 }
 function queueSave(){
   try{localStorage.setItem("nexa-finance",JSON.stringify(snapshot()))}catch(_){}
@@ -1285,7 +1512,8 @@ function queueSave(){
   saveTimer=setTimeout(()=>db.doc("finance/model").set(snapshot()).then(()=>{$("finSaved").textContent="Saved."}).catch(()=>{$("finSaved").textContent="Couldn't save. Check you're signed in to claude.ai."}),900);
 }
 try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
-renderCosts();renderClients();renderDivs();
+$("wk_date").value=new Date().toISOString().slice(0,10);
+renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderWork();renderResults();
 let start="home";if(location.hash&&VIEWS[location.hash.slice(1)])start=location.hash.slice(1);
 show(start);
 let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>update(true),150)});
