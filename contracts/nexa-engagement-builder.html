@@ -1567,6 +1567,9 @@ function autoTodos(M,C){
   S.clients.filter(c=>c.status!=="ended"&&c.nextStep&&c.nextDate).forEach(c=>T.push({key:"c|"+c.id+"|"+c.nextStep+"|"+c.nextDate,text:c.nextStep+": "+(c.name||"client"),due:c.nextDate,tag:"Client",go:"clients"}));
   S.leads.filter(l=>!["Won","Lost"].includes(l.status)).forEach(l=>{if(l.status==="New")T.push({key:"l|"+l.id+"|new",text:"Reply to "+(l.name||"new lead")+(l.company?" ("+l.company+")":""),due:l.created,tag:"Lead",go:"outreach"});else if(l.nextDate)T.push({key:"l|"+l.id+"|"+l.nextDate,text:"Follow up "+(l.name||"lead")+(l.company?" ("+l.company+")":""),due:l.nextDate,tag:"Lead",go:"outreach"})});
   invoiceRows(M).filter(r=>r.status==="To send"&&!r.pipe&&r.issue<=in14).forEach(r=>T.push({key:"i|"+r.k,text:"Send "+(r.c.billing==="GoCardless"?"GoCardless collection":"invoice")+" to "+(r.c.name||"client")+": "+fm2(r.total)+(r.vat?" incl. VAT":""),due:r.issue,tag:"Invoice",go:"home"}));
+  {const n=new Date(),mon=new Date(n);mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));const fri=new Date(mon);fri.setDate(fri.getDate()+4);
+   T.push({key:"w|"+mon.toISOString().slice(0,10),text:"Weekly update: log this week's hours and any new results",due:fri.toISOString().slice(0,10),tag:"Weekly",go:"capacity"});
+   const first=new Date(n.getFullYear(),n.getMonth(),1);T.push({key:"m|"+ymKey(n.getFullYear(),n.getMonth()),text:"Monthly portfolio check-in: add this month's key results",due:first.toISOString().slice(0,10),tag:"Monthly",go:"portfolio"});}
   C.filter(([d])=>d.toISOString().slice(0,10)<=in14).forEach(([d,txt])=>{if(/^(Contact lead|Send contract|Renewal review|Contract ends)/.test(txt))return;T.push({key:"d|"+txt+"|"+d.toISOString().slice(0,10),text:txt,due:d.toISOString().slice(0,10),tag:"Deadline",go:"forecast"})});
   return T;
 }
