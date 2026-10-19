@@ -432,7 +432,9 @@ Sounding-board sessions with the founder</textarea></div>
   </div></details>
 
   <details open><summary>Dividends</summary><div class="fs">
-    <div class="f full"><span class="hint">Log each dividend when you take it, or add planned ones with a future date.</span></div>
+    <div class="f"><label for="fin_divreg">Regular dividend, £/month</label><input id="fin_divreg" type="number" min="0" step="50" value="0"></div>
+    <div class="f"><label for="fin_divstart">Paid every month since</label><input id="fin_divstart" type="month"></div>
+    <div class="f full"><span class="hint">Log one-off dividends below, with a future date if they're planned.</span></div>
     <div class="f full" id="divs"></div>
     <div class="f full"><button class="btn" type="button" id="addDiv">Add dividend</button></div>
     <div class="f full"><label for="fin_reserves">Retained profits at last year end, £</label><input id="fin_reserves" type="number" step="100" placeholder="From your accountant"><span class="hint">Dividends can only come from these plus this year's profit after tax.</span></div>
@@ -1007,7 +1009,7 @@ document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]")
 
 /* ---- state ---- */
 let S={pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
-const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
+const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
 let engagements=[],db=null,saveTimer=null;
 
@@ -1127,7 +1129,7 @@ function model(){
       by[c.name||"Unnamed"]=(by[c.name||"Unnamed"]||0)+r*w;
     });
     const profit=rev-fees-sal-erNI-rent-pen-other;
-    const div=S.divs.filter(d=>d.date&&d.date.slice(0,7)===M.key).reduce((a,d)=>a+(+d.amt||0),0);
+    const div=S.divs.filter(d=>d.date&&d.date.slice(0,7)===M.key).reduce((a,d)=>a+(+d.amt||0),0)+(num("fin_divreg")&&(!$("fin_divstart").value||M.key>=$("fin_divstart").value)?num("fin_divreg"):0);
     return {...M,rev,act,vat,fees,cashIn,profit,by,div};
   });
   // corporation tax per 12-month block
@@ -1141,7 +1143,7 @@ function model(){
     ctAcc+=r.ct;r.bank=bank;r.free=bank-vatOwed-ctAcc;r.vatPaid=vatPaid;r.costs=sal+erNI+rent+pen+other+r.fees;
   });
   const first=rows.slice(0,12),annualProfit=first.reduce((a,r)=>a+r.profit,0)*(12/first.length),ct=corpTax(annualProfit);
-  const ty=$("fin_ty").value,[tyS,tyE]=taxYearRange(ty),salA=sal*12,rentA=rent*12,divA=S.divs.filter(d=>d.date>=tyS&&d.date<=tyE).reduce((a,d)=>a+(+d.amt||0),0),propT=Math.max(0,rentA-num("fin_homecost"));
+  const ty=$("fin_ty").value,[tyS,tyE]=taxYearRange(ty),salA=sal*12,rentA=rent*12,divA=S.divs.filter(d=>d.date>=tyS&&d.date<=tyE).reduce((a,d)=>a+(+d.amt||0),0)+(()=>{const reg=num("fin_divreg");if(!reg)return 0;const y=+ty.slice(0,4),ds=$("fin_divstart").value;let n=0;for(let k=0;k<12;k++){const d=new Date(y,3+k,1),key=ymKey(d.getFullYear(),d.getMonth());if(!ds||key>=ds)n++}return n*reg})(),propT=Math.max(0,rentA-num("fin_homecost"));
   const div=divA/12,headroom=Math.max(0,50270-salA-propT-divA),reserves=num("fin_reserves");
   const tax=incomeTax(salA,propT,divA,ty),ni=empNI(salA),keepA=salA+rentA+divA-tax-ni,retained=annualProfit-ct-divA;
   const ctNoRent=corpTax(annualProfit+rentA),extraDiv=rentA-(ctNoRent-ct);
@@ -1307,7 +1309,7 @@ function update(skipClients){
   hbar($("clientMix"),mix);
   /* dividends meter */
   const used=M.divA,lim=used+M.headroom;
-  $("divMeter").innerHTML=meterHTML(used,Math.max(lim,1),fm(used)+" taken in "+M.ty,fm(M.headroom)+" left at 10.75%")+'<p class="hint">The basic-rate band ends at £50,270 of total income. Your salary and rent use '+fm(M.salA+M.propT)+' of it.</p>';
+  $("divMeter").innerHTML=meterHTML(Math.min(used,lim),Math.max(lim,used,1),fm(used)+" in "+M.ty+(num("fin_divreg")?", including "+fm(num("fin_divreg"))+" a month":""),M.headroom>0?fm(M.headroom)+" left at 10.75%":fm(used-(50270-M.salA-M.propT>0?50270-M.salA-M.propT:0))+" taxed at 35.75%")+'<p class="hint">The basic-rate band ends at £50,270 of total income. Your salary and rent use '+fm(M.salA+M.propT)+' of it.</p>';
   const cs=[{name:"Bank balance",c:"--s1",values:M.rows.map(r=>r.bank)},{name:"After tax set aside",c:"--s2",values:M.rows.map(r=>r.free)}];
   legend($("cashLegend"),cs);lineChart($("cashChart"),labels,cs,{aria:"Company cash forecast"});
   let tb="";M.rows.forEach((r,i)=>{tb+=`<tr><td>${r.label}</td><td>${fm(r.rev)}</td><td>${fm(r.costs)}</td><td>${fm(r.profit)}</td><td>${fm(r.ct)}</td><td>${fm(r.vat)}</td><td>${fm(r.bank)}</td><td>${fm(r.free)}</td></tr>`;
