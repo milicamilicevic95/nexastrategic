@@ -434,6 +434,7 @@ Sounding-board sessions with the founder</textarea></div>
   <details open><summary>Dividends</summary><div class="fs">
     <div class="f"><label for="fin_divreg">Regular dividend, £/month</label><input id="fin_divreg" type="number" min="0" step="50" value="0"></div>
     <div class="f"><label for="fin_divstart">Paid every month since</label><input id="fin_divstart" type="month"></div>
+    <div class="f full"><label for="fin_divtarget">Target dividends, £/month</label><input id="fin_divtarget" type="number" min="0" step="100" value="0"><span class="hint">For example, the level you want lenders to see for a mortgage.</span></div>
     <div class="f full"><span class="hint">Log one-off dividends below, with a future date if they're planned.</span></div>
     <div class="f full" id="divs"></div>
     <div class="f full"><button class="btn" type="button" id="addDiv">Add dividend</button></div>
@@ -1009,7 +1010,7 @@ document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]")
 
 /* ---- state ---- */
 let S={pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
-const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
+const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_divtarget","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
 let engagements=[],db=null,saveTimer=null;
 
@@ -1254,7 +1255,7 @@ function flags(M){
   if(M.divA>0&&M.divA>M.annualProfit-M.ct+M.reserves)F.push(["bad","Dividends may be higher than available profits","You've logged "+fm(M.divA)+" this tax year, against about "+fm(M.annualProfit-M.ct)+" of profit after tax"+(M.reserves?" plus "+fm(M.reserves)+" retained":"")+". Dividends can only come from profits; the excess becomes a director's loan. Check with your accountant before the next one."]);
   F.push(["info","You can take about "+fm(M.headroom)+" more in dividends this tax year at 10.75%","Above that, dividends are taxed at 35.75%. This assumes your salary and rent stay as they are."]);
   const sa=M.tax-incomeTax(M.salA,0,0,M.ty);
-  if(sa>1000)F.push(["warn","Self Assessment: about "+fm(sa)+" a year","Tax on your rent and dividends isn't taken through payroll. Because it's over £1,000, HMRC adds payments on account, so your first January bill can be about one and a half years' worth. Set aside "+fm(sa/12)+" a month."]);
+  if(sa>1000)F.push(["info","Self Assessment: about "+fm(sa)+" a year to set aside","Your accountant files and calculates this. It covers tax on your rent and dividends, which isn't taken through payroll. Keeping about "+fm(sa/12)+" a month aside means the January bill, including any payment on account, isn't a surprise."]);
   const fixedM=M.sal+M.erNI+M.rent+M.pen+M.other,last=M.rows[M.rows.length-1];
   if(last.free<fixedM*3)F.push(["warn","Thin cash buffer","After tax set-asides the company would have "+fm(last.free)+" at the end of the forecast, less than three months of fixed costs ("+fm(fixedM*3)+")."]);
   if(r0.fees>0)F.push(["info",fm2(r0.fees)+" a month is lost between invoice and bank","That's "+fm2(r0.fees*12)+" a year. Check whether it's bank or platform fees you could avoid."]);
@@ -1293,7 +1294,7 @@ function update(skipClients){
   /* forecast */
   $("heroKeep").textContent=fm(M.keepA/12);
   $("heroSub").textContent="Salary, room rent and the dividends logged for "+M.ty+", less your income tax and National Insurance. That's "+fm(M.keepA)+" a year.";
-  $("kpis").innerHTML=[["Company profit before tax",fm(M.annualProfit/12)+"/mo"],["Corporation tax to set aside",fm(M.ct/12)+"/mo"],["VAT to set aside",r0.vat?fm(r0.vat)+"/mo":"Not registered yet"],["Profit left in the company",fm(M.retained)+"/yr"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("kpis").innerHTML=[["Company profit before tax",fm(M.annualProfit/12)+"/mo"],["Corporation tax to set aside",fm(M.ct/12)+"/mo"],["VAT to set aside",r0.vat?fm(r0.vat)+"/mo":(()=>{const v=M.rows.find(r=>r.vat>0);return v?fm(v.vat)+"/mo from "+MONTHS_FULL[v.m]:"Not registered yet"})()],["Profit left in the company",fm(M.retained)+"/yr"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   const labels=M.rows.map(r=>r.label);
   const cl=S.clients.filter(c=>c.status!=="ended");
   const is=cl.map(c=>({name:(c.name||"Unnamed")+(c.status==="pipeline"?" (pipeline, "+(+c.prob||0)+"%)":""),ghost:c.status==="pipeline",c:CCOL[S.clients.indexOf(c)%CCOL.length],values:M.rows.map(r=>r.by[c.name||"Unnamed"]||0)})).filter(s=>s.values.some(v=>v>0));
@@ -1309,7 +1310,7 @@ function update(skipClients){
   hbar($("clientMix"),mix);
   /* dividends meter */
   const used=M.divA,lim=used+M.headroom;
-  $("divMeter").innerHTML=meterHTML(Math.min(used,lim),Math.max(lim,used,1),fm(used)+" in "+M.ty+(num("fin_divreg")?", including "+fm(num("fin_divreg"))+" a month":""),M.headroom>0?fm(M.headroom)+" left at 10.75%":fm(used-(50270-M.salA-M.propT>0?50270-M.salA-M.propT:0))+" taxed at 35.75%")+'<p class="hint">The basic-rate band ends at £50,270 of total income. Your salary and rent use '+fm(M.salA+M.propT)+' of it.</p>';
+  $("divMeter").innerHTML=meterHTML(Math.min(used,lim),Math.max(lim,used,1),fm(used)+" in "+M.ty+(num("fin_divreg")?", including "+fm(num("fin_divreg"))+" a month":""),M.headroom>0?fm(M.headroom)+" left at 10.75%":fm(used-(50270-M.salA-M.propT>0?50270-M.salA-M.propT:0))+" taxed at 35.75%")+(num("fin_divtarget")?(()=>{const t=num("fin_divtarget")*12,gap=t-used;return '<span class="lab">Against your target of '+fm(num("fin_divtarget"))+' a month</span>'+meterHTML(Math.min(used,t),t,fm(used)+" of "+fm(t)+" for "+M.ty,gap>0?fm(gap)+" short":"Target met")})():"")+'<p class="hint">The basic-rate band ends at £50,270 of total income. Your salary and rent use '+fm(M.salA+M.propT)+' of it.</p>';
   const cs=[{name:"Bank balance",c:"--s1",values:M.rows.map(r=>r.bank)},{name:"After tax set aside",c:"--s2",values:M.rows.map(r=>r.free)}];
   legend($("cashLegend"),cs);lineChart($("cashChart"),labels,cs,{aria:"Company cash forecast"});
   let tb="";M.rows.forEach((r,i)=>{tb+=`<tr><td>${r.label}</td><td>${fm(r.rev)}</td><td>${fm(r.costs)}</td><td>${fm(r.profit)}</td><td>${fm(r.ct)}</td><td>${fm(r.vat)}</td><td>${fm(r.bank)}</td><td>${fm(r.free)}</td></tr>`;
