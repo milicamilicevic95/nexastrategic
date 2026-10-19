@@ -1619,6 +1619,7 @@ document.addEventListener("click",e=>{const q=e.target.closest("[data-qa]");if(!
 function snapshot(){const o={_rev:"",clients:S.clients,costs:S.costs,divs:S.divs,pots:S.pots,leads:S.leads,work:S.work,results:S.results,todos:S.todos,doneAuto:S.doneAuto,snooze:S.snooze,inv:S.inv};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
 function apply(o){
   if(!o)return;
+  o=JSON.parse(JSON.stringify(o)); // stored snapshots arrive frozen; work on a copy
   if(Array.isArray(o.clients))S.clients=o.clients;
   else if(Array.isArray(o.streams))S.clients=o.streams.map(s=>({id:uid(),name:s.name,service:"Other",status:"active",fee:s.invoiced,received:s.received,vat:s.vat||"plus",start:s.start||"",end:s.end||"",prob:100,ref:"",notes:""}));
   if(Array.isArray(o.costs))S.costs=o.costs;
@@ -1636,7 +1637,7 @@ function queueSave(){
   if(!db)return;clearTimeout(saveTimer);
   const mark=t=>{$("finSaved").textContent=t;document.querySelectorAll("[data-saved]").forEach(x=>x.textContent=t)};
   mark("Saving…");
-  saveTimer=setTimeout(()=>{saveTimer=null;const o=snapshot();o._rev=uid()+Date.now();myRevs.add(o._rev);db.doc("finance/model").set(o).then(()=>mark("Saved")).catch(()=>mark("Couldn't save. Check you're signed in to claude.ai."))},700);
+  saveTimer=setTimeout(()=>{saveTimer=null;pendingRemote=null;const o=snapshot();o._rev=uid()+Date.now();myRevs.add(o._rev);db.doc("finance/model").set(o).then(()=>mark("Saved")).catch(()=>mark("Couldn't save. Check you're signed in to claude.ai."))},700);
 }
 try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
 $("wk_date").value=new Date().toISOString().slice(0,10);
