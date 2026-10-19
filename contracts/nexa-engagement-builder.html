@@ -1,4 +1,4 @@
-<title>Nexa Engagement Builder</title>
+<title>Nexa Operating System</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,11 +85,69 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
 .note{font-size:12px;color:var(--fg2);max-width:820px;margin:0 auto;text-align:center}
 @media (max-width:900px){.grid{grid-template-columns:1fr}.fs{grid-template-columns:1fr}.sigs{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Nexa OS shell + finance */
+[hidden]{display:none!important}
+:root{--s1:#a8324e;--s2:#c98a2e;--good:#2f7a4a;--bad:#a3341f;--gridc:rgba(25,23,22,.10)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--s1:#cf4f78;--s2:#b07a24;--good:#7cc596;--bad:#f0a08e;--gridc:rgba(241,233,223,.10)}}
+:root[data-theme="dark"]{--s1:#cf4f78;--s2:#b07a24;--good:#7cc596;--bad:#f0a08e;--gridc:rgba(241,233,223,.10)}
+.tabs{display:flex;gap:4px;border:1px solid var(--line);padding:3px;background:var(--panel)}
+.tab{border:0;background:transparent;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--fg2)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
+.tab:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.fgrid{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:32px;padding-block:24px 80px;max-width:1360px;margin:0 auto}
+.fout{display:flex;flex-direction:column;gap:20px;min-width:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+.row.two{grid-template-columns:1fr 120px auto;align-items:end}
+.row .btn.small{justify-self:start}
+.btn.small{padding:6px 10px;font-size:12px}
+.hero{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:18px}
+.lab2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--fg2)}
+.hero strong{display:block;font-size:clamp(44px,6vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:6px 0 4px}
+.sub{font-size:13px;color:var(--fg2);margin:0}
+.kpis,.mile{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.kpi span{font-size:12px;color:var(--fg2)}
+.kpi b{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi em{font-style:normal;font-size:12px;color:var(--fg2)}
+.card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;letter-spacing:-.02em;font-variation-settings:"SOFT" 100}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.flow{display:flex;flex-direction:column;gap:8px}
+.fl{display:grid;grid-template-columns:minmax(0,190px) 1fr 96px;gap:12px;align-items:center;font-size:13px}
+.fl b{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.bar{height:10px;background:var(--gridc)}
+.bar i{display:block;height:100%;background:var(--s1);border-radius:0 4px 4px 0;min-width:2px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--fg2)}
+.legend span,.tip span{display:flex;align-items:center;gap:6px}
+.legend i,.tip i{width:14px;height:3px;display:inline-block;border-radius:2px}
+.chart{position:relative;min-height:240px}
+.chart svg{display:block;overflow:visible}
+.chart .gl{stroke:var(--gridc);stroke-width:1}
+.chart .tick{fill:var(--fg2);font-size:11px;font-family:var(--sans);font-variant-numeric:tabular-nums}
+.chart .mark{stroke:var(--fg2);stroke-width:1;opacity:.45}
+.chart .cross{stroke:var(--fg2);stroke-width:1}
+.tip{position:absolute;background:var(--bg);border:1px solid var(--line);box-shadow:var(--shadow);padding:8px 10px;font-size:12px;display:flex;flex-direction:column;gap:4px;pointer-events:none;min-width:170px}
+.tip em{font-style:normal;font-weight:600;margin-left:auto;padding-left:10px;font-variant-numeric:tabular-nums}
+.tbl summary{padding:0;font-size:12px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--fg2)}
+.tbl{border:0;background:transparent}
+.scroll{overflow-x:auto}
+.scroll table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums;margin-top:8px}
+.scroll th,.scroll td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.scroll th:first-child,.scroll td:first-child{text-align:left}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.kv b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.flags{display:flex;flex-direction:column;gap:2px}
+.flag{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.flag p{margin:4px 0 0;font-size:13px;color:var(--fg2)}
+.pill{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 0;text-align:center;border:1px solid currentColor;align-self:start}
+.flag.warn .pill{color:var(--warn)}.flag.bad .pill{color:var(--bad)}.flag.info .pill{color:var(--fg2)}
+.fin .empty{font-size:13px;color:var(--fg2)}
+@media (max-width:900px){.fgrid,.two{grid-template-columns:1fr}.fl{grid-template-columns:minmax(0,1fr) 84px}.fl .bar{grid-column:1/-1;grid-row:2}}
 </style>
 
 <div class="top">
-  <div class="brand"><h1>Nexa<i>.</i> Engagement Builder</h1><span id="refLabel">NX-2026-001</span></div>
-  <div class="acts">
+  <div class="brand"><h1>Nexa<i>.</i> OS</h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="contracts" aria-selected="true">Contracts</button><button class="tab" type="button" role="tab" data-view="finance" aria-selected="false">Finance</button></nav></div>
+  <div class="acts" id="contractActs"><span id="refLabel" class="lab2">NX-2026-001</span>
     <span class="status" id="status" role="status"></span>
     <button class="btn" id="newBtn" type="button">New</button>
     <button class="btn" id="saveBtn" type="button">Save</button>
@@ -97,7 +155,7 @@ textarea{min-height:84px;resize:vertical;line-height:1.4}
   </div>
 </div>
 
-<div class="grid">
+<div class="grid" id="view-contracts">
 <form class="form" id="form" autocomplete="off" onsubmit="return false">
 
   <details open id="d-doc"><summary>Document</summary><div class="fs">
@@ -206,6 +264,78 @@ Sounding-board sessions with the founder</textarea></div>
 
 <div class="preview" id="preview" aria-label="Engagement Order preview"></div>
 </div>
+
+<section id="view-finance" class="fin" hidden aria-label="Finance">
+<div class="fgrid">
+<form class="form" id="finForm" autocomplete="off" onsubmit="return false">
+
+  <details open><summary>Income</summary><div class="fs">
+    <div class="f full"><span class="hint">Monthly amounts excluding VAT. “Received” is what lands in the bank, if different.</span></div>
+    <div class="f full" id="streams"></div>
+    <div class="f full"><button class="btn" type="button" id="addStream">Add income</button></div>
+    <div class="f full"><label class="chip" for="fin_pipeline"><input type="checkbox" id="fin_pipeline" checked> Include saved Engagement Orders from Contracts</label><span class="hint" id="pipeHint"></span></div>
+  </div></details>
+
+  <details open><summary>Company costs</summary><div class="fs">
+    <div class="f"><label for="fin_salary">Your salary, £/month</label><input id="fin_salary" type="number" min="0" step="1" value="1047"></div>
+    <div class="f"><label for="fin_rent">Room rent paid to you, £/month</label><input id="fin_rent" type="number" min="0" step="10" value="1500"></div>
+    <div class="f"><label for="fin_pension">Company pension to AJ Bell, £/month</label><input id="fin_pension" type="number" min="0" step="10" value="500"></div>
+    <div class="f"><label for="fin_div">Dividends you take, £/month</label><input id="fin_div" type="number" min="0" step="50" value="0"></div>
+    <div class="f full" id="costs"></div>
+    <div class="f full"><button class="btn" type="button" id="addCost">Add cost</button></div>
+    <div class="f full"><label class="chip" for="fin_ea"><input type="checkbox" id="fin_ea"> Company can claim Employment Allowance</label><span class="hint">Not available while you're the only director and only employee on payroll.</span></div>
+  </div></details>
+
+  <details open><summary>Tax and cash</summary><div class="fs">
+    <div class="f"><label for="fin_ty">Tax year for personal tax</label><select id="fin_ty"><option>2026/27</option><option>2027/28</option></select></div>
+    <div class="f"><label for="fin_vat">VAT registered from</label><input id="fin_vat" type="date"></div>
+    <div class="f"><label for="fin_open">Company bank balance today, £</label><input id="fin_open" type="number" step="100" value="0"></div>
+    <div class="f"><label for="fin_ye">Company year end month</label><select id="fin_ye"><option value="">Not set</option></select></div>
+    <div class="f full"><label for="fin_homecost">Deduction against the rent, £/year</label><input id="fin_homecost" type="number" min="0" step="100" value="1000"><span class="hint">£1,000 property allowance by default. Use your actual share of household costs if higher.</span></div>
+  </div></details>
+
+  <details open><summary>Pension (SIPP)</summary><div class="fs">
+    <div class="f"><label for="fin_age">Your age now</label><input id="fin_age" type="number" min="18" max="80" step="1"></div>
+    <div class="f"><label for="fin_pot">Pot value today, £</label><input id="fin_pot" type="number" min="0" step="100" value="0"></div>
+    <div class="f"><label for="fin_growth">Growth before charges, %/yr</label><input id="fin_growth" type="number" step="0.1" value="5"></div>
+    <div class="f"><label for="fin_charges">Total charges, %/yr</label><input id="fin_charges" type="number" step="0.05" value="0.45"></div>
+    <div class="f"><label for="fin_infl">Inflation, %/yr</label><input id="fin_infl" type="number" step="0.1" value="2.5"></div>
+    <div class="f"><label for="fin_cgrow">Raise contributions each year by, %</label><input id="fin_cgrow" type="number" step="0.5" value="0"></div>
+  </div></details>
+
+  <details open><summary>Mortgage</summary><div class="fs">
+    <div class="f full"><label for="fin_basis">How the lender counts your income</label><select id="fin_basis"><option value="div">Salary plus dividends (most lenders)</option><option value="profit">Salary plus share of company profit after tax</option></select></div>
+    <div class="f"><label for="fin_mult">Income multiple</label><input id="fin_mult" type="number" step="0.1" value="4.5"></div>
+    <div class="f"><label for="fin_dep">Deposit, £</label><input id="fin_dep" type="number" min="0" step="1000" value="0"></div>
+    <div class="f"><label for="fin_rate">Mortgage rate, %</label><input id="fin_rate" type="number" step="0.05" value="4.5"></div>
+    <div class="f"><label for="fin_term">Term, years</label><input id="fin_term" type="number" min="5" max="40" value="30"></div>
+    <div class="f full"><label class="chip" for="fin_rentinc"><input type="checkbox" id="fin_rentinc"> Count the room rent as income</label></div>
+  </div></details>
+  <p class="hint" id="finSaved"></p>
+</form>
+
+<div class="fout">
+  <div class="hero">
+    <div><span class="lab2">What you keep each month, after all tax</span><strong id="heroKeep">£0</strong><span class="sub" id="heroSub"></span></div>
+    <div class="kpis" id="kpis"></div>
+  </div>
+
+  <div class="card"><h3>Where this month's money goes</h3><p class="sub" id="flowSub"></p><div id="flow" class="flow"></div></div>
+
+  <div class="card"><h3>Company cash, next 12 months</h3><p class="sub">Bank balance, and what's left once VAT and corporation tax owed are set aside.</p><div class="legend" id="cashLegend"></div><div class="chart" id="cashChart"></div><details class="tbl"><summary>Show table</summary><div id="cashTable"></div></details></div>
+
+  <div class="card"><h3>Your pension</h3><p class="sub" id="penSub"></p><div class="mile" id="penTiles"></div><div class="legend" id="penLegend"></div><div class="chart" id="penChart"></div></div>
+
+  <div class="two">
+    <div class="card"><h3>Mortgage</h3><div id="mort"></div></div>
+    <div class="card"><h3>Coming up</h3><div id="cal"></div></div>
+  </div>
+
+  <div class="card"><h3>Things to act on</h3><div id="flags" class="flags"></div></div>
+  <p class="note">Estimates only, using 2026/27 rules (2027/28 property rates where selected). Check with your accountant before you rely on them.</p>
+</div>
+</div>
+</section>
 
 <script>
 (function(){
@@ -675,6 +805,287 @@ sync();renderSaved();
     if(!draftRef&&!dirty&&!saved.some(s=>s.id===ref)){ref=nextRef();render()}
     renderSaved();
   },()=>say("Couldn't load saved orders."));
+})();
+})();
+</script>
+
+<script>
+/* ---------- Nexa OS: tabs ---------- */
+(function(){
+const views={contracts:document.getElementById("view-contracts"),finance:document.getElementById("view-finance")};
+function show(v){
+  if(!views[v])v="contracts";
+  Object.entries(views).forEach(([k,el])=>{el.hidden=k!==v});
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.view===v)));
+  document.getElementById("contractActs").hidden=v!=="contracts";
+  try{localStorage.setItem("nexa-view",v)}catch(_){}
+  window.dispatchEvent(new Event("nexa-view"));
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>show(t.dataset.view)));
+let start="contracts";
+if(location.hash==="#finance")start="finance";else{try{start=localStorage.getItem("nexa-view")||"contracts"}catch(_){}}
+show(start);
+})();
+
+/* ---------- Nexa OS: finance ---------- */
+(function(){
+const $=id=>document.getElementById(id);
+const gbp0=new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP",maximumFractionDigits:0});
+const gbp2=new Intl.NumberFormat("en-GB",{style:"currency",currency:"GBP",minimumFractionDigits:2,maximumFractionDigits:2});
+const fm=v=>gbp0.format(Math.round(v||0)), fm2=v=>gbp2.format(v||0);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MONTHS_FULL=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const num=id=>{const v=parseFloat($(id).value);return isNaN(v)?0:v};
+
+const DEFAULT={streams:[{name:"Solar on Steroids",invoiced:7000,received:6977.20,vat:"plus",start:"",end:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
+let S=JSON.parse(JSON.stringify(DEFAULT));
+const FIELDS=["fin_pipeline","fin_salary","fin_rent","fin_pension","fin_div","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_age","fin_pot","fin_growth","fin_charges","fin_infl","fin_cgrow","fin_basis","fin_mult","fin_dep","fin_rate","fin_term","fin_rentinc"];
+MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
+let engagements=[], db=null, saveTimer=null;
+
+/* ---- lists ---- */
+function renderLists(){
+  $("streams").innerHTML=S.streams.map((s,i)=>`<div class="row">
+    <div class="f"><label for="st${i}n">Client</label><input id="st${i}n" data-l="streams" data-i="${i}" data-k="name" value="${esc(s.name)}"></div>
+    <div class="f"><label for="st${i}a">Invoiced, £/month</label><input id="st${i}a" type="number" step="0.01" data-l="streams" data-i="${i}" data-k="invoiced" value="${s.invoiced}"></div>
+    <div class="f"><label for="st${i}r">Received, £/month</label><input id="st${i}r" type="number" step="0.01" data-l="streams" data-i="${i}" data-k="received" value="${s.received===""||s.received==null?"":s.received}" placeholder="Same as invoiced"></div>
+    <div class="f"><label for="st${i}v">Once VAT-registered</label><select id="st${i}v" data-l="streams" data-i="${i}" data-k="vat"><option value="plus"${s.vat==="plus"?" selected":""}>VAT added on top</option><option value="incl"${s.vat==="incl"?" selected":""}>Price includes VAT</option></select></div>
+    <div class="f"><label for="st${i}s">From</label><input id="st${i}s" type="month" data-l="streams" data-i="${i}" data-k="start" value="${esc(s.start||"")}"></div>
+    <div class="f"><label for="st${i}e">Until</label><input id="st${i}e" type="month" data-l="streams" data-i="${i}" data-k="end" value="${esc(s.end||"")}"></div>
+    <button class="btn small" type="button" data-rm="streams" data-i="${i}">Remove</button></div>`).join("");
+  $("costs").innerHTML=S.costs.map((c,i)=>`<div class="row two">
+    <div class="f"><label for="co${i}n">Cost</label><input id="co${i}n" data-l="costs" data-i="${i}" data-k="name" value="${esc(c.name)}"></div>
+    <div class="f"><label for="co${i}a">£/month</label><input id="co${i}a" type="number" step="1" data-l="costs" data-i="${i}" data-k="amt" value="${c.amt}"></div>
+    <button class="btn small" type="button" data-rm="costs" data-i="${i}">Remove</button></div>`).join("");
+}
+$("finForm").addEventListener("input",ev=>{
+  const t=ev.target;
+  if(t.dataset.l){const v=t.type==="number"?(t.value===""?"":parseFloat(t.value)):t.value;S[t.dataset.l][+t.dataset.i][t.dataset.k]=v}
+  update();queueSave();
+});
+$("finForm").addEventListener("change",()=>{update();queueSave()});
+$("finForm").addEventListener("click",ev=>{
+  const b=ev.target.closest("button[data-rm]");
+  if(b){S[b.dataset.rm].splice(+b.dataset.i,1);renderLists();update();queueSave()}
+});
+$("addStream").addEventListener("click",()=>{S.streams.push({name:"",invoiced:0,received:"",vat:"plus",start:"",end:""});renderLists();update();queueSave()});
+$("addCost").addEventListener("click",()=>{S.costs.push({name:"",amt:0});renderLists();update();queueSave()});
+
+/* ---- tax ---- */
+const RATES={"2026/27":{prop:[.20,.40,.45]},"2027/28":{prop:[.22,.42,.47]}};
+function incomeTax(sal,prop,div,ty){
+  sal=Math.max(0,sal);prop=Math.max(0,prop);div=Math.max(0,div);
+  const ani=sal+prop+div;let pa=12570;if(ani>100000)pa=Math.max(0,pa-(ani-100000)/2);
+  let r=pa;const use=x=>{const u=Math.min(x,r);r-=u;return x-u};
+  const s=use(sal),p=use(prop),d=use(div);
+  let pos=0;
+  const band=(amt,rates)=>{let a=amt,t=0;[[37700,rates[0]],[125140,rates[1]],[Infinity,rates[2]]].forEach(([lim,rate])=>{if(a<=0)return;const room=Math.max(0,lim-pos),u=Math.min(a,room);t+=u*rate;a-=u;pos+=u});return t};
+  let tax=band(s,[.20,.40,.45])+band(p,RATES[ty].prop);
+  const da=Math.min(d,500);band(da,[0,0,0]);
+  tax+=band(d-da,[.1075,.3575,.3935]);
+  return tax;
+}
+const empNI=sal=>Math.max(0,Math.min(sal,50270)-12570)*.08+Math.max(0,sal-50270)*.02;
+function corpTax(p){if(p<=0)return 0;if(p<=50000)return p*.19;if(p>=250000)return p*.25;return p*.25-(250000-p)*3/200}
+
+/* ---- pipeline from Contracts ---- */
+function pipeline(){
+  return engagements.filter(g=>(g.doctype||"EO")==="EO").map(g=>{
+    let v=0,need=[];
+    if(g.svc==="ROA"){v=(+g.roa_rate||0)*(+g.roa_heads||0);if(!g.roa_heads)need.push("a count of "+((g.roa_unit||"Active Client")+"s").replace(/ss$/,"s"))}
+    else if(g.svc==="OA"){v=(+g.oa_rate||0)*(+g.oa_hours||0);if(!g.oa_rate)need.push("an hourly rate")}
+    else{v=+g.fcoo_fee||0}
+    if(!g.start)need.push("a start date");
+    let end="";
+    if(g.start&&g.term_mode==="fixed"&&g.init_term){const [yy,mm]=g.start.split("-").map(Number);const d=new Date(yy,mm-1+(+g.init_term)-1,1);end=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+    return {name:(g.cl_name||g.id)+" ("+g.id+")",invoiced:v,received:"",vat:"plus",start:g.start?g.start.slice(0,7):"",end,need,fromOrder:true,ok:!!g.start&&v>0};
+  });
+}
+
+/* ---- model ---- */
+function model(){
+  const now=new Date(),y0=now.getFullYear(),m0=now.getMonth();
+  const months=[...Array(12)].map((_,i)=>{const d=new Date(y0,m0+i,1);return {y:d.getFullYear(),m:d.getMonth(),label:MON[d.getMonth()]+" "+String(d.getFullYear()).slice(2)}});
+  months.forEach(M=>{M.key=M.y+"-"+String(M.m+1).padStart(2,"0")});
+  const pipe=$("fin_pipeline").checked?pipeline():[];
+  const streams=S.streams.concat(pipe.filter(p=>p.ok));
+  const vatFrom=$("fin_vat").value?$("fin_vat").value.slice(0,7):"";
+  const sal=num("fin_salary"),rent=num("fin_rent"),pen=num("fin_pension"),div=num("fin_div");
+  const other=S.costs.reduce((a,c)=>a+(+c.amt||0),0);
+  const erNI=$("fin_ea").checked?0:Math.max(0,sal*12-5000)*.15/12;
+  const rows=months.map(M=>{
+    let rev=0,vat=0,cashIn=0,fees=0;const by={};
+    streams.forEach(s=>{
+      if(s.start&&M.key<s.start)return;if(s.end&&M.key>s.end)return;
+      const inv=+s.invoiced||0;if(!inv)return;
+      const rec=(s.received===""||s.received==null)?inv:+s.received;
+      const reg=vatFrom&&M.key>=vatFrom;
+      let r=inv,v=0;
+      if(reg){if(s.vat==="incl"){r=inv/1.2;v=inv-r}else{v=inv*.2}}
+      const f=Math.max(0,inv-rec);
+      rev+=r;vat+=v;fees+=f;cashIn+=(s.vat==="incl"&&reg?inv:inv+v)-f;by[s.name||"Unnamed"]=(by[s.name||"Unnamed"]||0)+r;
+    });
+    const profit=rev-fees-sal-erNI-rent-pen-other;
+    return {...M,rev,vat,fees,cashIn,profit,by};
+  });
+  const annualProfit=rows.reduce((a,r)=>a+r.profit,0);
+  const ct=corpTax(annualProfit);
+  let bank=num("fin_open"),vatOwed=0,ctAcc=0,qVat=0,qCount=0;
+  const vatStartIdx=vatFrom?rows.findIndex(r=>r.key>=vatFrom):-1;
+  const vatDue={};
+  rows.forEach((r,i)=>{
+    r.ct=annualProfit>0?ct*(Math.max(0,r.profit)/Math.max(1,rows.reduce((a,x)=>a+Math.max(0,x.profit),0))):0;
+    let vatPaid=vatDue[i]||0;
+    bank+=r.cashIn-sal-erNI-rent-pen-other-div-vatPaid;
+    vatOwed+=r.vat-vatPaid;
+    if(vatStartIdx>=0&&i>=vatStartIdx){qVat+=r.vat;qCount++;if(qCount===3){vatDue[i+2]=(vatDue[i+2]||0)+qVat;qVat=0;qCount=0}}
+    ctAcc+=r.ct;
+    r.bank=bank;r.free=bank-vatOwed-ctAcc;r.vatPaid=vatPaid;
+  });
+  const ty=$("fin_ty").value;
+  const salA=sal*12,rentA=rent*12,divA=div*12,propT=Math.max(0,rentA-num("fin_homecost"));
+  const tax=incomeTax(salA,propT,divA,ty),ni=empNI(salA);
+  const keepA=salA+rentA+divA-tax-ni;
+  const retained=annualProfit-ct-divA;
+  // rent vs dividend comparison
+  const ctNoRent=corpTax(annualProfit+rentA),extraDiv=rentA-(ctNoRent-ct);
+  const keepNoRent=salA+divA+extraDiv-incomeTax(salA,0,divA+extraDiv,ty)-ni;
+  // pension marginal cost of £100
+  const ctM=annualProfit>1200?(corpTax(annualProfit)-corpTax(annualProfit-1200))/1200:.19;
+  const x=1200*(1-ctM),divM=(incomeTax(salA,propT,divA+x,ty)-incomeTax(salA,propT,divA,ty))/x;
+  const penCost=100*(1-ctM)*(1-divM);
+  return {rows,annualProfit,ct,erNI,sal,rent,pen,div,other,tax,ni,keepA,retained,keepNoRent,penCost,pipe,streams,vatFrom,ty,salA,rentA,divA,propT};
+}
+
+/* ---- pension ---- */
+function pension(pen){
+  const age=num("fin_age");if(!age)return null;
+  const r=(num("fin_growth")-num("fin_charges"))/100/12,infl=num("fin_infl")/100,cg=num("fin_cgrow")/100;
+  let pot=num("fin_pot"),c=pen;const pts=[{age,pot,real:pot}];const endAge=Math.max(61,Math.ceil(age)+1);
+  for(let mth=1;mth<=(endAge-age)*12;mth++){pot=pot*(1+r)+c;if(mth%12===0){c*=1+cg;const yrs=mth/12;pts.push({age:age+yrs,pot,real:pot/Math.pow(1+infl,yrs)})}}
+  const at=a=>pts.find(p=>p.age>=a)||null;
+  return {pts,at,age};
+}
+
+/* ---- charts (SVG, hover tooltip) ---- */
+function lineChart(el,labels,series,opts={}){
+  const W=Math.max(320,el.clientWidth||640),H=opts.h||240,pl=56,pr=16,pt=14,pb=28;
+  const all=series.flatMap(s=>s.values);let lo=Math.min(0,...all),hi=Math.max(...all,1);
+  const step=niceStep((hi-lo)/4);lo=Math.floor(lo/step)*step;hi=Math.ceil(hi/step)*step;
+  const xs=i=>pl+(labels.length<2?0:i*(W-pl-pr)/(labels.length-1)),ys=v=>pt+(H-pt-pb)*(1-(v-lo)/(hi-lo||1));
+  let g="";
+  for(let v=lo;v<=hi+1e-6;v+=step){g+=`<line x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}" class="gl"/><text x="${pl-8}" y="${ys(v)+4}" class="tick" text-anchor="end">${compact(v)}</text>`}
+  const every=Math.ceil(labels.length/(W<480?4:7));
+  labels.forEach((l,i)=>{if(i%every===0||i===labels.length-1)g+=`<text x="${xs(i)}" y="${H-8}" class="tick" text-anchor="middle">${esc(l)}</text>`});
+  (opts.marks||[]).forEach(mk=>{const X=xs(mk.i);g+=`<line x1="${X}" x2="${X}" y1="${pt}" y2="${H-pb}" class="mark"/><text x="${X+4}" y="${pt+10}" class="tick">${esc(mk.label)}</text>`});
+  series.forEach(s=>{
+    const d=s.values.map((v,i)=>(i?"L":"M")+xs(i).toFixed(1)+" "+ys(v).toFixed(1)).join(" ");
+    g+=`<path d="${d}" fill="none" stroke="var(${s.c})" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const li=s.values.length-1;g+=`<circle cx="${xs(li)}" cy="${ys(s.values[li])}" r="4.5" fill="var(${s.c})" stroke="var(--panel)" stroke-width="2"/>`;
+  });
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="${esc(opts.aria||"")}">${g}<line class="cross" x1="0" x2="0" y1="${pt}" y2="${H-pb}" visibility="hidden"/>${series.map((s,k)=>`<circle class="hdot" data-k="${k}" r="5" fill="var(${s.c})" stroke="var(--panel)" stroke-width="2" visibility="hidden"/>`).join("")}<rect x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pt-pb}" fill="transparent" class="hit"/></svg><div class="tip" hidden></div>`;
+  const svg=el.querySelector("svg"),tip=el.querySelector(".tip"),cross=el.querySelector(".cross");
+  const move=e=>{const rc=svg.getBoundingClientRect(),px=(e.clientX-rc.left)*(W/rc.width);let i=Math.round((px-pl)/((W-pl-pr)/Math.max(1,labels.length-1)));i=Math.max(0,Math.min(labels.length-1,i));
+    cross.setAttribute("x1",xs(i));cross.setAttribute("x2",xs(i));cross.setAttribute("visibility","visible");
+    el.querySelectorAll(".hdot").forEach(c=>{const s=series[+c.dataset.k];c.setAttribute("cx",xs(i));c.setAttribute("cy",ys(s.values[i]));c.setAttribute("visibility","visible")});
+    tip.innerHTML=`<b>${esc(labels[i])}</b>`+series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)} <em>${fm(s.values[i])}</em></span>`).join("");
+    tip.hidden=false;const left=(xs(i)/W)*rc.width;tip.style.left=Math.min(rc.width-tip.offsetWidth-4,Math.max(4,left+12))+"px";tip.style.top="8px"};
+  const leave=()=>{tip.hidden=true;cross.setAttribute("visibility","hidden");el.querySelectorAll(".hdot").forEach(c=>c.setAttribute("visibility","hidden"))};
+  svg.addEventListener("pointermove",move);svg.addEventListener("pointerleave",leave);
+}
+function niceStep(x){const p=Math.pow(10,Math.floor(Math.log10(Math.max(x,1))));const n=x/p;return (n<=1?1:n<=2?2:n<=5?5:10)*p}
+function compact(v){const a=Math.abs(v);return (v<0?"−":"")+"£"+(a>=1e6?(a/1e6).toFixed(a%1e6?1:0)+"m":a>=1e3?(a/1e3).toFixed(a%1e3&&a<1e4?1:0)+"k":a.toFixed(0))}
+const legend=(el,series)=>{el.innerHTML=series.map(s=>`<span><i style="background:var(${s.c})"></i>${esc(s.name)}</span>`).join("")};
+
+/* ---- render ---- */
+function update(){
+  const M=model(),r0=M.rows[0];
+  const keepM=M.keepA/12;
+  $("heroKeep").textContent=fm(keepM);
+  $("heroSub").textContent="Salary, room rent and dividends, less your income tax and National Insurance ("+M.ty+" rules). That's "+fm(M.keepA)+" a year.";
+  const setAside=(M.ct/12)+(r0.vat||0);
+  $("kpis").innerHTML=[
+    ["Company profit before tax",fm(M.annualProfit/12)+"/mo"],
+    ["Corporation tax to set aside",fm(M.ct/12)+"/mo"],
+    ["VAT to set aside",r0.vat?fm(r0.vat)+"/mo":"Not registered yet"],
+    ["Profit left in the company",fm(M.retained)+"/yr"]
+  ].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  // flow
+  const items=[["Salary",M.sal],["Employer National Insurance",M.erNI],["Room rent to you",M.rent],["Pension to AJ Bell",M.pen],["Other costs",M.other],["Lost between invoice and bank",r0.fees],["Corporation tax provision",M.ct/12],["Dividends to you",M.div],["Left in the company",Math.max(0,r0.rev-r0.fees-M.sal-M.erNI-M.rent-M.pen-M.other-M.ct/12-M.div)]].filter(x=>x[1]>0.005);
+  const tot=Math.max(1,r0.rev);
+  $("flowSub").textContent="Out of "+fm2(r0.rev)+" of income in "+MONTHS_FULL[r0.m]+(r0.vat?", plus "+fm2(r0.vat)+" VAT you collect for HMRC":"")+".";
+  $("flow").innerHTML=items.map(([l,v])=>`<div class="fl"><span>${esc(l)}</span><div class="bar"><i style="width:${Math.min(100,v/tot*100).toFixed(1)}%"></i></div><b>${fm2(v)}</b></div>`).join("");
+  // cash chart
+  const cs=[{name:"Bank balance",c:"--s1",values:M.rows.map(r=>r.bank)},{name:"After tax set aside",c:"--s2",values:M.rows.map(r=>r.free)}];
+  legend($("cashLegend"),cs);
+  lineChart($("cashChart"),M.rows.map(r=>r.label),cs,{aria:"Company cash over the next 12 months"});
+  $("cashTable").innerHTML='<div class="scroll"><table><thead><tr><th>Month</th><th>Income</th><th>VAT</th><th>Profit</th><th>Bank</th><th>After tax set aside</th></tr></thead><tbody>'+M.rows.map(r=>`<tr><td>${r.label}</td><td>${fm(r.rev)}</td><td>${fm(r.vat)}</td><td>${fm(r.profit)}</td><td>${fm(r.bank)}</td><td>${fm(r.free)}</td></tr>`).join("")+"</tbody></table></div>";
+  // pension
+  const P=pension(M.pen);
+  if(!P){$("penSub").textContent="Add your age and today's pot value to see the projection.";$("penTiles").innerHTML="";$("penLegend").innerHTML="";$("penChart").innerHTML='<p class="empty">The projection appears here once your age is filled in.</p>'}
+  else{
+    $("penSub").textContent=`${fm(M.pen)} a month from the company, growing at ${(num("fin_growth")-num("fin_charges")).toFixed(2)}% a year after charges. “Today's money” adjusts for ${num("fin_infl")}% inflation.`;
+    $("penTiles").innerHTML=[50,57,60].map(a=>{const p=P.at(a);if(!p||a<P.age)return `<div class="kpi"><span>At ${a}</span><b>Already past</b></div>`;return `<div class="kpi"><span>At ${a}${a===57?" · earliest access":""}</span><b>${fm(p.pot)}</b><em>${fm(p.real)} in today's money</em></div>`}).join("")+(P.at(60)?`<div class="kpi"><span>Tax-free cash at 60</span><b>${fm(Math.min(P.at(60).pot*.25,268275))}</b><em>25%, capped at £268,275</em></div>`:"");
+    const ps=[{name:"Pot value",c:"--s1",values:P.pts.map(p=>p.pot)},{name:"In today's money",c:"--s2",values:P.pts.map(p=>p.real)}];
+    legend($("penLegend"),ps);
+    const marks=[50,57,60].map(a=>({i:P.pts.findIndex(p=>p.age>=a),label:String(a)})).filter(m=>m.i>0);
+    lineChart($("penChart"),P.pts.map(p=>"Age "+Math.round(p.age)),ps,{marks,aria:"Pension pot projection"});
+  }
+  // mortgage
+  const income=M.salA+($("fin_basis").value==="div"?M.divA:Math.max(0,M.annualProfit-M.ct))+($("fin_rentinc").checked?M.rentA:0);
+  const loan=income*num("fin_mult"),i=num("fin_rate")/100/12,n=num("fin_term")*12;
+  const pay=(L,rate)=>{const j=rate/100/12;return j?L*j/(1-Math.pow(1+j,-n)):L/n};
+  $("mort").innerHTML=`<div class="kv"><span>Income a lender would see</span><b>${fm(income)}/yr</b></div><div class="kv"><span>Indicative maximum loan</span><b>${fm(loan)}</b></div><div class="kv"><span>With your deposit, price up to</span><b>${fm(loan+num("fin_dep"))}</b></div><div class="kv"><span>Monthly repayment at ${num("fin_rate")}%</span><b>${fm(pay(loan,num("fin_rate")))}</b></div><div class="kv"><span>If rates rise 3 points</span><b>${fm(pay(loan,num("fin_rate")+3))}</b></div><p class="hint">Lenders usually want two years of company accounts or SA302s. ${$("fin_basis").value==="div"&&!M.divA?"You take no dividends yet, so most lenders would only see your salary.":""}</p>`;
+  // calendar
+  const cal=[];const today=new Date();
+  const add=(d,t)=>{if(d>=new Date(today.getFullYear(),today.getMonth(),today.getDate()))cal.push([d,t])};
+  [2026,2027,2028].forEach(y=>{add(new Date(y,0,31),"Self Assessment: balancing payment and first payment on account");add(new Date(y,6,31),"Self Assessment: second payment on account")});
+  const ye=+$("fin_ye").value;
+  if(ye){[today.getFullYear()-1,today.getFullYear(),today.getFullYear()+1].forEach(y=>{const end=new Date(y,ye,0);const ctd=new Date(end);ctd.setMonth(ctd.getMonth()+9);ctd.setDate(ctd.getDate()+1);add(ctd,"Corporation tax payment for year ending "+end.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}));const acc=new Date(y,ye+9,0);add(acc,"Company accounts due at Companies House")})}
+  if(M.vatFrom){const [vy,vm]=M.vatFrom.split("-").map(Number);for(let q=0;q<6;q++){const qe=new Date(vy,vm-1+3*(q+1),0);const due=new Date(qe.getFullYear(),qe.getMonth()+2,7);add(due,"VAT return and payment for quarter ending "+qe.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}))}}
+  cal.sort((a,b)=>a[0]-b[0]);
+  $("cal").innerHTML=cal.slice(0,6).map(([d,t])=>`<div class="kv"><span>${esc(t)}</span><b>${d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}</b></div>`).join("")+(ye?"":'<p class="hint">Add your company year end to see corporation tax and accounts deadlines.</p>')+(M.vatFrom?"":'<p class="hint">Add your VAT registration date to see VAT return deadlines.</p>');
+  // flags
+  const F=[];
+  const tot12={};M.rows.forEach(r=>Object.entries(r.by).forEach(([k,v])=>tot12[k]=(tot12[k]||0)+v));
+  const totRev=Object.values(tot12).reduce((a,b)=>a+b,0);const top=Object.entries(tot12).sort((a,b)=>b[1]-a[1])[0];
+  if(top&&totRev&&top[1]/totRev>=.6)F.push(["warn","One client is "+Math.round(top[1]/totRev*100)+"% of your income",esc(top[0])+" is most of your revenue for the next 12 months. Losing it would remove "+fm(top[1]/12)+" a month. A long single-client engagement is also one of the things HMRC looks at for IR35."]);
+  const plus=S.streams.filter(s=>s.vat==="plus"&&(+s.invoiced||0)>0);
+  if(plus.length)F.push(["warn","Check you can add VAT on top",plus.map(s=>esc(s.name||"This client")).join(", ")+": once you're registered, confirm the contract lets you charge VAT on top. If it says nothing about VAT, the price is treated as including it, and "+fm2(plus[0].invoiced)+" becomes "+fm2(plus[0].invoiced/1.2)+" for you plus "+fm2(plus[0].invoiced-plus[0].invoiced/1.2)+" for HMRC. Switch the client to “Price includes VAT” to see that."]);
+  if(M.rent>0){const diff=M.keepA-M.keepNoRent;F.push(["info","Room rent: "+(diff>=0?"saves you "+fm(diff)+" a year":"costs you "+fm(-diff)+" a year")+" against dividends","Paying yourself "+fm(M.rentA)+" a year as rent, rather than leaving it in the company and taking it as dividends, changes what you keep by "+fm(Math.abs(diff))+" ("+M.ty+" rules). Property income tax rises to 22% from April 2027, so check 2027/28 too. The rent must be a market rate for the space, backed by a written licence, and the room must not be used only for business, or you risk capital gains tax on part of your home."])}
+  if(M.erNI>0)F.push(["info","Employer National Insurance: "+fm(M.erNI*12)+" a year","As the only director on payroll, the company can't claim Employment Allowance, so it pays 15% on your salary above £5,000."]);
+  if(M.divA>0&&M.retained<0)F.push(["bad","Dividends are higher than profits","You're planning "+fm(M.divA)+" of dividends a year, but post-tax profit is "+fm(M.annualProfit-M.ct)+". Dividends can only come from profits. Anything above that becomes a director's loan."]);
+  const sa=M.tax-incomeTax(M.salA,0,0,M.ty);
+  if(sa>1000)F.push(["warn","Self Assessment: about "+fm(sa)+" a year","Tax on your rent and dividends isn't taken through payroll. Because it's over £1,000, HMRC adds payments on account, so your first January bill can be about one and a half years' worth. Set aside "+fm(sa/12)+" a month."]);
+  const fixedM=M.sal+M.erNI+M.rent+M.pen+M.other;const last=M.rows[11];
+  if(last.free<fixedM*3)F.push(["warn","Thin cash buffer","After tax set-asides, the company has "+fm(last.free)+" in 12 months' time. That's less than three months of fixed costs ("+fm(fixedM*3)+")."]);
+  F.push(["info","Your pension unlocks at 57, not 50","From 6 April 2028 the minimum age to take money from a private pension rises to 57. The figure at 50 is what you'd have, but you couldn't draw on it yet."]);
+  if(M.pen>0)F.push(["info","Each extra £100 into your pension costs you about "+fm(M.penCost)+" of take-home","Company pension contributions avoid corporation tax and dividend tax. You're using "+fm(M.pen*12)+" of your £60,000 annual allowance."]);
+  M.pipe.filter(p=>!p.ok).forEach(p=>F.push(["warn",esc(p.name)+" isn't in the forecast yet","Add "+p.need.join(" and ")+" in Contracts to include it."]));
+  const feeM=r0.fees;if(feeM>0)F.push(["info",fm2(feeM)+" a month is lost between invoice and bank","That's "+fm2(feeM*12)+" a year. Check whether it's bank or platform fees you could avoid."]);
+  $("flags").innerHTML=F.map(([k,t,b])=>`<div class="flag ${k}"><span class="pill">${k==="bad"?"Fix":k==="warn"?"Check":"Note"}</span><div><b>${t}</b><p>${b}</p></div></div>`).join("");
+  const pp=M.pipe.filter(p=>p.ok).length;
+  $("pipeHint").textContent=M.pipe.length?pp+" of "+M.pipe.length+" saved orders are in the forecast.":"No saved Engagement Orders yet.";
+}
+
+/* ---- persistence ---- */
+function snapshot(){const o={streams:S.streams,costs:S.costs};FIELDS.forEach(f=>{const e=$(f);o[f]=e.type==="checkbox"?e.checked:e.value});return o}
+function apply(o){if(!o)return;if(Array.isArray(o.streams))S.streams=o.streams;if(Array.isArray(o.costs))S.costs=o.costs;FIELDS.forEach(f=>{if(o[f]===undefined)return;const e=$(f);if(e.type==="checkbox")e.checked=!!o[f];else e.value=o[f]});renderLists()}
+function queueSave(){
+  try{localStorage.setItem("nexa-finance",JSON.stringify(snapshot()))}catch(_){}
+  if(!db)return;clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>db.doc("finance/model").set(snapshot()).then(()=>{$("finSaved").textContent="Saved."}).catch(()=>{$("finSaved").textContent="Couldn't save. Check you're signed in to claude.ai."}),900);
+}
+try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
+renderLists();update();
+window.addEventListener("nexa-view",()=>{if(!document.getElementById("view-finance").hidden)update()});
+let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(update,150)});
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  db=await window.claude.use("db");if(!db)return;
+  try{const d=await db.doc("finance/model").get();if(d.exists){apply(d.data());update()}}catch(_){}
+  db.collection("engagements").onSnapshot(snap=>{engagements=snap.docs.map(d=>Object.assign({id:d.id},(d.data()||{}).data||{}));update()},()=>{});
 })();
 })();
 </script>
