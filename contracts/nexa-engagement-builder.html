@@ -172,6 +172,27 @@ label.btn{display:inline-flex;align-items:center}
 .card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .card h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;letter-spacing:-.02em;font-variation-settings:"SOFT" 100}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mixt{display:flex;flex-direction:column;font-size:13px;margin-top:4px}
+.mixt>div{display:grid;grid-template-columns:12px minmax(0,1fr) 92px 64px 76px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.mixt>div.h{color:var(--fg2);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-top:none;padding-top:0}
+.mixt>div.tot{font-weight:600}
+.mixt i{width:12px;height:12px;border-radius:2px;display:block}
+.mixt b{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.mixt .h b{font-weight:600}
+.mixt em{font-style:normal;color:var(--fg2);font-size:11px;margin-left:6px}
+.pform{grid-template-columns:repeat(auto-fit,minmax(160px,220px));padding:4px 0 6px}
+.plg{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--fg2);margin:8px 0 2px}
+.plg i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-2px}
+.pot{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+.prow{display:grid;grid-template-columns:minmax(0,210px) 1fr 160px;gap:14px;align-items:center}
+.prow .pl b{display:block;font-size:14px}
+.prow .pl span,.prow .pv span{display:block;font-size:12px;color:var(--fg2)}
+.pb{position:relative;height:22px;background:var(--gridc);border-radius:0 4px 4px 0}
+.pb i{position:absolute;left:0;top:0;height:100%;border-radius:0 4px 4px 0}
+.pb i.g{opacity:.28}
+.prow .pv{text-align:right}
+.prow .pv b{font-variant-numeric:tabular-nums;font-size:15px}
+@media (max-width:900px){.prow{grid-template-columns:minmax(0,1fr) auto}.prow .pb{grid-column:1/-1;grid-row:2}.mixt>div{grid-template-columns:12px minmax(0,1fr) 80px 52px 64px}}
 .flow{display:flex;flex-direction:column;gap:8px}
 .fl{display:grid;grid-template-columns:minmax(0,190px) 1fr 96px;gap:12px;align-items:center;font-size:13px}
 .fl b{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
@@ -365,7 +386,7 @@ Sounding-board sessions with the founder</textarea></div>
     <div><span class="lab2" id="homeDate"></span><h2 id="greet">Hello, Mila<i>.</i></h2></div>
     <div class="qa" aria-label="Quick actions">
       <button class="btn" type="button" data-qa="todo">Add a to-do</button>
-      <button class="btn" type="button" data-qa="log">Log hours</button>
+      <button class="btn" type="button" data-qa="log">Set hours</button>
       <button class="btn" type="button" data-qa="lead">Add a lead</button>
       <button class="btn" type="button" data-qa="div">Log a dividend</button>
       <button class="btn primary" type="button" data-qa="contract">New contract</button>
@@ -398,7 +419,8 @@ Sounding-board sessions with the founder</textarea></div>
 <section id="view-clients" class="fin" hidden aria-label="Active clients">
   <div class="phead"><div><h2>Active clients<i>.</i></h2><p class="sub">This list drives your forecast. Monthly fees exclude VAT.</p></div><div class="acts"><span class="status" data-saved></span><button class="btn primary" type="button" id="addClient">Add client</button></div></div>
   <div class="kpis" id="clientKpis"></div>
-  <div class="card"><h3>Income mix</h3><p class="sub">Share of monthly income by client, pipeline weighted by likelihood.</p><div id="clientMix"></div></div>
+  <div class="card"><h3>Income mix</h3><p class="sub">Share of monthly income, pipeline weighted by likelihood. The table shows each client in full, with your average hours and what they pay per hour.</p><div id="clientMix"></div></div>
+  <div class="card"><h3>Earning potential</h3><p class="sub">What you keep a year after all tax: now, if the pipeline lands, at full capacity, and as an employed full-time COO.</p><div class="fs pform" id="potForm"><div class="f"><label for="fin_ftsal">Full-time COO salary</label><input id="fin_ftsal" type="number" min="0" step="5000" value="130000"></div><div class="f"><label for="fin_ftpen">Employer pension, %</label><input id="fin_ftpen" type="number" min="0" max="20" step="0.5" value="5"></div></div><div id="potChart"></div><p class="hint" id="potNote"></p></div>
   <div id="orphanOrders"></div>
   <div id="clientList" class="clist"></div>
 </section>
@@ -417,29 +439,21 @@ Sounding-board sessions with the founder</textarea></div>
 </section>
 
 <section id="view-capacity" class="fin" hidden aria-label="Capacity">
-  <div class="phead"><div><h2>Capacity<i>.</i></h2><p class="sub">How much time you have, what's committed, and what you've actually done.</p></div></div>
+  <div class="phead"><div><h2>Capacity<i>.</i></h2><p class="sub">How much time you have and where it goes, from your average hours for each client.</p></div></div>
   <div class="kpis" id="capKpis"></div>
   <div class="fgrid">
     <form class="form" id="capForm" autocomplete="off" onsubmit="return false">
-      <details open><summary>Log work</summary><div class="fs">
-        <div class="f"><label for="wk_date">Date</label><input id="wk_date" type="date"></div>
-        <div class="f"><label for="wk_client">Client</label><select id="wk_client"></select></div>
-        <div class="f"><label for="wk_hours">Hours</label><input id="wk_hours" type="number" min="0.25" step="0.25" value="1"></div>
-        <div class="f full"><label for="wk_task">What you did</label><input id="wk_task" placeholder="e.g. Hiring plan workshop with founder"></div>
-        <div class="f full"><button class="btn primary" type="button" id="addWork">Log it</button></div>
-      </div></details>
+      <details open><summary>Average hours a month</summary><div class="fs" id="capClients"></div></details>
       <details open><summary>Your working pattern</summary><div class="fs">
         <div class="f"><label for="cap_days">Days a week</label><input id="cap_days" type="number" min="0.5" max="7" step="0.5" value="5"></div>
         <div class="f"><label for="cap_hours">Hours a day</label><input id="cap_hours" type="number" min="1" max="14" step="0.5" value="7.5"></div>
         <div class="f"><label for="cap_leave">Weeks off a year</label><input id="cap_leave" type="number" min="0" max="20" step="1" value="6"></div>
-        <div class="f full"><span class="hint">Set planned hours for each client on its card in Active clients.</span></div>
       </div></details>
     </form>
     <div class="fout">
-      <div class="card"><h3>This month</h3><div id="capMeter"></div></div>
-      <div class="card"><h3>Hours by week</h3><p class="sub">Last 12 weeks, by client.</p><div class="legend" id="wkLegend"></div><div class="chart" id="wkChart"></div></div>
-      <div class="card"><h3>What each client pays per hour</h3><p class="sub">Monthly fee divided by hours logged this month.</p><div id="capRates" class="flow"></div></div>
-      <div class="card"><h3>Work log</h3><div id="workList"></div></div>
+      <div class="card"><h3>A typical month</h3><div id="capMeter"></div></div>
+      <div class="card"><h3>Hours by client</h3><p class="sub">Average hours a month. Pipeline shown as if it lands.</p><div id="capByClient" class="flow"></div></div>
+      <div class="card"><h3>What each client pays per hour</h3><p class="sub">Monthly fee divided by your average hours.</p><div id="capRates" class="flow"></div></div>
     </div>
   </div>
 </section>
@@ -1055,7 +1069,7 @@ document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]")
 
 /* ---- state ---- */
 let S={todos:[],doneAuto:{},snooze:{},inv:{},pots:[{name:"AJ Bell SIPP (company contributions go here)",value:0,monthly:0},{name:"Smart Pension (Copper.co)",value:20489.85,monthly:0}],leads:[],work:[],results:[],divs:[],clients:[{id:uid(),name:"Solar on Steroids",service:"FCOO",status:"active",pricing:"fixed",fee:7000,received:6977.20,vat:"plus",start:"",end:"",prob:100,ref:"",notes:""}],costs:[{name:"Accountant",amt:0},{name:"Insurance",amt:0},{name:"Software and subscriptions",amt:0}]};
-const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_divtarget","fin_rent_ok","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow"];
+const FIELDS=["fin_horizon","fin_scen","fin_lose","fin_lose_from","fin_rise","fin_salary","fin_rent","fin_pension","fin_reserves","fin_divreg","fin_divstart","fin_divtarget","fin_rent_ok","fin_ea","fin_ty","fin_vat","fin_open","fin_ye","fin_homecost","fin_ins","fin_ico","fin_cs","fin_dob","fin_personal","cap_days","cap_hours","cap_leave","fin_retire","fin_growth","fin_charges","fin_infl","fin_cgrow","fin_ftsal","fin_ftpen"];
 MONTHS_FULL.forEach((m,i)=>{const o=document.createElement("option");o.value=String(i+1);o.textContent=m;$("fin_ye").appendChild(o)});
 let engagements=[],db=null,saveTimer=null,edited=false,myRevs=new Set(),pendingRemote=null;
 
@@ -1340,7 +1354,7 @@ function update(skipClients){
   $("clientKpis").innerHTML=[["Active clients",String(active.length)],["Active income",fm(mrr)+"/mo"],["Pipeline, weighted",fm(wp)+"/mo"],["Largest client share",mrr?Math.round(Math.max(...active.map(cfee))/mrr*100)+"%":"–"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   renderOrphans();
   const sig=JSON.stringify(engagements.map(g=>g.id));if((!skipClients||sig!==lastClientsSig)&&!$("view-clients").contains(document.activeElement)){renderClients();lastClientsSig=sig}
-  renderWorkSelect();renderExtras(M);
+  renderCapClients();renderExtras(M);
   $("doorOutreach").textContent=S.leads.length?S.leads.filter(l=>l.status==="New").length+" waiting for a reply · "+S.leads.length+" leads in total":"Import your Meta lead forms";
   $("doorCapacity").textContent=Math.round(S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0))+" of "+Math.round(capAvail())+" hours a month committed";
   $("doorPortfolio").textContent=S.results.length+" key results · "+S.results.filter(r=>r.perm!=="private").length+" you can use";
@@ -1360,7 +1374,7 @@ function update(skipClients){
   $("donutSub").textContent=r0.rev?"Based on "+fm2(r0.rev)+" of income in "+MONTHS_FULL[r0.m]+".":"Add a client with a fee to see this.";
   /* client mix */
   const mix=S.clients.filter(c=>c.status!=="ended"&&cfee(c)>0).map(c=>({name:c.name||"Unnamed",c:CCOL[S.clients.indexOf(c)%CCOL.length],v:cfee(c)*(c.status==="pipeline"?(+c.prob||0)/100:1)}));
-  hbar($("clientMix"),mix);
+  hbar($("clientMix"),mix);renderMix();renderPotential(M);
   /* dividends meter */
   const used=M.divA,lim=used+M.headroom;
   $("divMeter").innerHTML=meterHTML(Math.min(used,lim),Math.max(lim,used,1),fm(used)+" in "+M.ty+(num("fin_divreg")?", including "+fm(num("fin_divreg"))+" a month":""),M.headroom>0?fm(M.headroom)+" left at 10.75%":fm(used-(50270-M.salA-M.propT>0?50270-M.salA-M.propT:0))+" taxed at 35.75%")+(num("fin_divtarget")?(()=>{const t=num("fin_divtarget")*12,gap=t-used;return '<span class="lab">Against your target of '+fm(num("fin_divtarget"))+' a month</span>'+meterHTML(Math.min(used,t),t,fm(used)+" of "+fm(t)+" for "+M.ty,gap>0?fm(gap)+" short":"Target met")})():"")+'<p class="hint">The basic-rate band ends at £50,270 of total income. Your salary and rent use '+fm(M.salA+M.propT)+' of it.</p>';
@@ -1469,16 +1483,48 @@ $("view-outreach").addEventListener("click",e=>{
   const c=e.target.closest("[data-conv]");if(c){const l=S.leads[+c.dataset.conv];S.clients.push({id:uid(),name:l.company||l.name,service:"OA",status:"pipeline",pricing:"fixed",fee:0,received:"",vat:"plus",start:"",end:"",prob:25,ref:"",notes:"From "+l.source+(l.form?" ("+l.form+")":"")+". Contact: "+l.name+(l.email?", "+l.email:""),nextStep:"Follow up",nextDate:l.nextDate||""});if(l.status==="New"||l.status==="Contacted")l.status="Call booked";renderLeads();renderClients();update();queueSave();$("leadStatus").textContent=(l.company||l.name)+" added to Active clients as pipeline."}
 });
 
+/* ---- income mix & earning potential ---- */
+function renderMix(){
+  const list=S.clients.filter(c=>c.status!=="ended"&&cfee(c)>0);if(!list.length)return;
+  const h=c=>+c.hours||0,act=list.filter(c=>c.status==="active");
+  const tf=act.reduce((a,c)=>a+cfee(c),0),th=act.reduce((a,c)=>a+h(c),0);
+  const row=c=>`<div><i style="background:var(${CCOL[S.clients.indexOf(c)%CCOL.length]})"></i><span>${esc(c.name||"Unnamed")}${c.status==="pipeline"?`<em>Pipeline, ${+c.prob||0}%</em>`:""}</span><b>${fm(cfee(c))}</b><b>${h(c)?Math.round(h(c)):"–"}</b><b>${h(c)?fm(cfee(c)/h(c)):"–"}</b></div>`;
+  $("clientMix").insertAdjacentHTML("beforeend",`<div class="mixt"><div class="h"><span></span><span>Client</span><b>Fee a month</b><b>Hours</b><b>Per hour</b></div>${list.map(row).join("")}<div class="tot"><span></span><span>Active clients</span><b>${fm(tf)}</b><b>${th?Math.round(th):"–"}</b><b>${th?fm(tf/th):"–"}</b></div></div>`);
+}
+function coTake(revA,M){
+  const pen=M.pen*12,profit=revA-M.salA-M.erNI*12-M.rentA-pen-M.other*12;
+  const div=Math.max(0,profit-corpTax(profit));
+  return {take:M.salA+M.rentA+div-incomeTax(M.salA,M.propT,div,M.ty)-empNI(M.salA),pen};
+}
+function renderPotential(M){
+  const h=c=>+c.hours||0,sf=a=>a.reduce((s,c)=>s+cfee(c),0),sh=a=>a.reduce((s,c)=>s+h(c),0);
+  const act=S.clients.filter(c=>c.status==="active"),pip=S.clients.filter(c=>c.status==="pipeline");
+  const rated=S.clients.filter(c=>c.status!=="ended"&&cfee(c)>0&&h(c)>0),blend=sh(rated)?sf(rated)/sh(rated):0,avail=capAvail();
+  const ft=num("fin_ftsal"),ftp=ft*num("fin_ftpen")/100,ftTake=ft-incomeTax(ft,0,0,M.ty)-empNI(ft);
+  const R=[
+    {k:"Now",sub:Math.round(sh(act))+" hrs a month, active clients",gross:sf(act)*12,c:"--s1",...coTake(sf(act)*12,M)},
+    {k:"If the pipeline lands",sub:Math.round(sh(act)+sh(pip))+" hrs a month",gross:(sf(act)+sf(pip))*12,c:"--s1",...coTake((sf(act)+sf(pip))*12,M)},
+    {k:"Full capacity",sub:Math.round(avail)+" hrs a month at "+fm(blend)+"/hr",gross:blend*avail*12,c:"--s1",...coTake(blend*avail*12,M)},
+    {k:"Full-time COO",sub:"Employed, "+fm(ft)+" plus "+num("fin_ftpen")+"% pension",gross:ft,c:"--s3",take:ftTake,pen:ftp}];
+  const mx=Math.max(1,...R.map(r=>r.gross));
+  $("potChart").innerHTML=`<div class="plg"><span><i style="background:var(--s1)"></i>You keep, through Nexa</span><span><i style="background:var(--s3)"></i>You keep, employed</span><span><i style="background:var(--fg2);opacity:.35"></i>Before tax and costs</span></div><div class="pot" role="img" aria-label="${esc(R.map(r=>r.k+": "+fm(r.take)+" a year after tax").join(", "))}">${R.map(r=>`<div class="prow"><div class="pl"><b>${r.k}</b><span>${esc(r.sub)}</span></div><div class="pb"><i class="g" style="width:${(r.gross/mx*100).toFixed(1)}%;background:var(${r.c})" title="Before tax: ${fm(r.gross)} a year"></i><i style="width:${(Math.max(0,r.take)/mx*100).toFixed(1)}%;background:var(${r.c})" title="You keep: ${fm(r.take)} a year"></i></div><div class="pv"><b>${fm(r.take)} a year</b><span>${fm(r.take/12)} a month · ${fm(r.pen)} pension</span></div></div>`).join("")}</div>`;
+  let note="";
+  if(blend&&ft){let lo=0,hi=5e6;for(let i=0;i<60;i++){const m=(lo+hi)/2;coTake(m,M).take<ftTake?lo=m:hi=m}const be=hi/12/blend;
+    note=`At your blended rate of ${fm(blend)} an hour, you match a ${fm(ft)} full-time COO's take-home at about ${Math.round(be)} hours a month, ${avail?Math.round(be/avail*100):0}% of your capacity. Your active clients take ${Math.round(sh(act))} hours today.`}
+  else note="Set your average hours for each client in Capacity to see your hourly rate and break-even.";
+  $("potNote").textContent=note+" Through Nexa assumes all profit after corporation tax is paid to you as dividends, on top of your salary and room rent. Employed take-home is after income tax and employee National Insurance.";
+}
+$("potForm").addEventListener("input",()=>{update(true);queueSave()});
+
 /* ---- capacity ---- */
 function capAvail(){return num("cap_days")*num("cap_hours")*(52-num("cap_leave"))/12}
-function renderWorkSelect(){const cur=$("wk_client").value;$("wk_client").innerHTML=S.clients.filter(c=>c.status!=="ended").map(c=>`<option value="${esc(c.id)}"${c.id===cur?" selected":""}>${esc(c.name||"Unnamed")}</option>`).join("")+'<option value="admin"'+(cur==="admin"?" selected":"")+'>Nexa admin and business development</option>'}
 function clientName(id){if(id==="admin")return "Nexa admin";const c=S.clients.find(x=>x.id===id);return c?(c.name||"Unnamed"):"Removed client"}
-function renderWork(){
-  const rows=S.work.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,40);
-  $("workList").innerHTML=rows.length?'<div class="scroll"><table><thead><tr><th>Date</th><th>Client</th><th>Hours</th><th>What you did</th><th></th></tr></thead><tbody>'+rows.map(w=>`<tr><td>${esc(fmtDate(new Date(w.date)))}</td><td>${esc(clientName(w.client))}</td><td>${w.hours}</td><td class="wrap">${esc(w.task)}</td><td><button class="btn small" type="button" data-rmw="${esc(w.id)}">Remove</button></td></tr>`).join("")+"</tbody></table></div>":'<p class="empty">Nothing logged yet. Log your first session above.</p>';
+function renderCapClients(){
+  const box=$("capClients");if(box.contains(document.activeElement))return;
+  const list=S.clients.filter(c=>c.status!=="ended");
+  box.innerHTML=list.map(c=>`<div class="f"><label for="ch_${esc(c.id)}">${esc(c.name||"Unnamed")}${c.status==="pipeline"?" · pipeline":""}</label><input id="ch_${esc(c.id)}" type="number" min="0" step="1" data-cid="${esc(c.id)}" value="${esc(c.hours==null?"":String(c.hours))}"></div>`).join("")||'<p class="empty">Add a client in Active clients first.</p>';
 }
-$("addWork").addEventListener("click",()=>{const h=num("wk_hours");if(!h||!$("wk_date").value){$("wk_task").focus();return}S.work.push({id:uid(),date:$("wk_date").value,client:$("wk_client").value,hours:h,task:$("wk_task").value.trim()});$("wk_task").value="";renderWork();update();queueSave()});
-$("workList").addEventListener("click",e=>{const b=e.target.closest("[data-rmw]");if(b){S.work=S.work.filter(w=>w.id!==b.dataset.rmw);renderWork();update();queueSave()}});
+$("capClients").addEventListener("input",e=>{const t=e.target;if(!t.dataset.cid)return;const c=S.clients.find(x=>x.id===t.dataset.cid);if(!c)return;c.hours=t.value===""?"":+t.value;update();queueSave()});
 $("capForm").addEventListener("input",e=>{if(e.target.id.startsWith("cap_")){update();queueSave()}});
 
 /* ---- portfolio ---- */
@@ -1517,20 +1563,16 @@ function renderExtras(M){
   const due=open.filter(l=>l.status==="New"||(l.nextDate&&l.nextDate<=today)).sort((a,b)=>(a.nextDate||a.created).localeCompare(b.nextDate||b.created));
   $("leadDue").innerHTML=due.slice(0,8).map(l=>{const age=Math.floor((Date.now()-new Date(l.created))/864e5);return `<div class="kv"><span>${esc(l.name||"Unnamed")}${l.company?" · "+esc(l.company):""}</span><b>${l.status==="New"?(age<1?"New today":age+" day"+(age===1?"":"s")+" waiting"):"Due "+fmtDate(new Date(l.nextDate))}</b></div>`}).join("")||'<p class="empty">Nobody is waiting on you.</p>';
   /* capacity */
-  const avail=capAvail();
-  const planned=S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0),plannedPipe=S.clients.filter(c=>c.status==="pipeline").reduce((a,c)=>a+(+c.hours||0)*(+c.prob||0)/100,0);
-  const logged=S.work.filter(w=>w.date.slice(0,7)===mk).reduce((a,w)=>a+(+w.hours||0),0);
-  $("capKpis").innerHTML=[["Available a month",Math.round(avail)+" hrs"],["Committed to active clients",Math.round(planned)+" hrs"],["Pipeline, weighted",Math.round(plannedPipe)+" hrs"],["Logged this month",(Math.round(logged*4)/4)+" hrs"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
-  $("capMeter").innerHTML=`<span class="lab">Committed</span>${meterHTML(planned,Math.max(avail,planned,1),Math.round(planned)+" of "+Math.round(avail)+" hrs committed",Math.round(Math.max(0,avail-planned))+" hrs free")}<span class="lab">With pipeline</span>${meterHTML(planned+plannedPipe,Math.max(avail,planned+plannedPipe,1),Math.round(planned+plannedPipe)+" hrs if the pipeline lands",avail?Math.round((planned+plannedPipe)/avail*100)+"% of your time":"")}<span class="lab">Logged so far</span>${meterHTML(logged,Math.max(avail,1),(Math.round(logged*4)/4)+" hrs logged in "+MONTHS_FULL[now.getMonth()],"")}${!planned?'<p class="hint">Add planned hours a month to each client card to see your committed time.</p>':""}`;
-  const weeks=[...Array(12)].map((_,i)=>{const d=new Date(now);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(11-i));return d});
-  const wkKeys=weeks.map(d=>d.toISOString().slice(0,10));
-  const ids=[...new Set(S.work.map(w=>w.client))];
-  const ws=ids.map(id=>{const ci=S.clients.findIndex(c=>c.id===id);return {name:clientName(id),c:id==="admin"?"--s5":CCOL[(ci<0?4:ci)%CCOL.length],values:weeks.map((d,k)=>{const end=new Date(d);end.setDate(end.getDate()+7);return S.work.filter(w=>w.client===id&&new Date(w.date)>=d&&new Date(w.date)<end).reduce((a,w)=>a+(+w.hours||0),0)})}});
-  legend($("wkLegend"),ws,true);
-  if(ws.length)colChart($("wkChart"),weeks.map(d=>d.getDate()+" "+MON[d.getMonth()]),ws,{aria:"Hours by week",unit:"h"});else $("wkChart").innerHTML='<p class="empty">Your weekly hours appear here once you log work.</p>';
-  const rates=S.clients.filter(c=>c.status==="active").map(c=>{const h=S.work.filter(w=>w.client===c.id&&w.date.slice(0,7)===mk).reduce((a,w)=>a+(+w.hours||0),0);return [c.name||"Unnamed",h?cfee(c)/h:0,h]});
+  const avail=capAvail(),hrs=c=>+c.hours||0;
+  const actC=S.clients.filter(c=>c.status==="active"),pipC=S.clients.filter(c=>c.status==="pipeline");
+  const planned=actC.reduce((a,c)=>a+hrs(c),0),plannedPipe=pipC.reduce((a,c)=>a+hrs(c),0);
+  $("capKpis").innerHTML=[["Available a month",Math.round(avail)+" hrs"],["Active clients",Math.round(planned)+" hrs"],["Pipeline, if it lands",Math.round(plannedPipe)+" hrs"],["Free",Math.round(Math.max(0,avail-planned-plannedPipe))+" hrs"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("capMeter").innerHTML=`<span class="lab">Active clients</span>${meterHTML(planned,Math.max(avail,planned,1),Math.round(planned)+" of "+Math.round(avail)+" hrs",Math.round(Math.max(0,avail-planned))+" hrs free")}<span class="lab">With pipeline</span>${meterHTML(planned+plannedPipe,Math.max(avail,planned+plannedPipe,1),Math.round(planned+plannedPipe)+" hrs if the pipeline lands",avail?Math.round((planned+plannedPipe)/avail*100)+"% of your time":"")}${!planned?'<p class="hint">Set your average hours for each client on the left.</p>':""}`;
+  const capList=actC.concat(pipC),maxH=Math.max(1,...capList.map(hrs));
+  $("capByClient").innerHTML=capList.map(c=>`<div class="fl"><span>${esc(c.name||"Unnamed")}${c.status==="pipeline"?" · pipeline":""}</span><div class="bar"><i style="width:${(hrs(c)/maxH*100).toFixed(1)}%;background:var(${CCOL[S.clients.indexOf(c)%CCOL.length]})${c.status==="pipeline"?";opacity:.5":""}"></i></div><b>${hrs(c)?Math.round(hrs(c))+" hrs":"Not set"}</b></div>`).join("")||'<p class="empty">No clients yet.</p>';
+  const rates=capList.map(c=>[c.name||"Unnamed",hrs(c)?cfee(c)/hrs(c):0,hrs(c),c.status]);
   const maxR=Math.max(1,...rates.map(r=>r[1]));
-  $("capRates").innerHTML=rates.map(([n,r,h])=>`<div class="fl"><span>${esc(n)}</span><div class="bar"><i style="width:${(r/maxR*100).toFixed(1)}%"></i></div><b>${h?fm(r)+"/hr":"No hours yet"}</b></div>`).join("")||'<p class="empty">No active clients.</p>';
+  $("capRates").innerHTML=rates.map(([n,r,h,st])=>`<div class="fl"><span>${esc(n)}${st==="pipeline"?" · pipeline":""}</span><div class="bar"><i style="width:${(r/maxR*100).toFixed(1)}%"></i></div><b>${h?fm(r)+"/hr":"Set hours"}</b></div>`).join("")||'<p class="empty">No clients yet.</p>';
   /* portfolio */
   const R=S.results;
   $("pfKpis").innerHTML=[["Key results",String(R.length)],["Usable with client named",String(R.filter(r=>r.perm==="named").length)],["Usable anonymised",String(R.filter(r=>r.perm==="anon").length)],["Clients served",String(new Set(S.clients.filter(c=>c.status!=="pipeline").map(c=>c.name)).size)],["Trading since","March 2024"]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
@@ -1581,7 +1623,7 @@ function renderHome(M,F,C,P,active,pipe,mrr,wp,r0){
   const now=new Date(),mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));const monISO=mon.toISOString().slice(0,10);
   const wkLogged=S.work.filter(w=>w.date>=monISO).reduce((a,w)=>a+(+w.hours||0),0),wkPlan=S.clients.filter(c=>c.status==="active").reduce((a,c)=>a+(+c.hours||0),0)*12/52;
   const setAside=r0.ct+r0.vat;
-  $("homeKpis").innerHTML=[["What you keep",fm(M.keepA/12)+"/mo","After all personal tax"],["Set aside this month",fm(setAside),"Corporation tax"+(r0.vat?" and VAT":"")+(M.rows[1]&&M.rows[1].vat&&!r0.vat?"; VAT adds "+fm(M.rows[1].vat)+" from "+MONTHS_FULL[M.rows[1].m]:"")],["Leads waiting on you",String(waiting),waiting?"Reply or follow up":"All replied"],["Hours this week",(Math.round(wkLogged*4)/4)+(wkPlan?" of "+Math.round(wkPlan):"")+" hrs",wkPlan?"Against planned client hours":"Add planned hours on client cards"]].map(([l,v,s])=>`<div class="kpi"><span>${l}</span><b>${v}</b><em>${esc(s)}</em></div>`).join("");
+  $("homeKpis").innerHTML=[["What you keep",fm(M.keepA/12)+"/mo","After all personal tax"],["Set aside this month",fm(setAside),"Corporation tax"+(r0.vat?" and VAT":"")+(M.rows[1]&&M.rows[1].vat&&!r0.vat?"; VAT adds "+fm(M.rows[1].vat)+" from "+MONTHS_FULL[M.rows[1].m]:"")],["Leads waiting on you",String(waiting),waiting?"Reply or follow up":"All replied"],["Hours a month",Math.round(wkPlan*52/12)+" of "+Math.round(capAvail())+" hrs",wkPlan?"Average client hours against your capacity":"Set average hours in Capacity"]].map(([l,v,s])=>`<div class="kpi"><span>${l}</span><b>${v}</b><em>${esc(s)}</em></div>`).join("");
   /* to-dos */
   const showDone=$("todoShowDone").checked;
   const items=S.todos.map(t=>({...t,manual:true})).concat(auto.map(a=>({...a,id:a.key,done:!!S.doneAuto[a.key]}))).filter(t=>showDone||!t.done).sort((a,b)=>(a.done-b.done)||((a.due||"9999")>(b.due||"9999")?1:-1));
@@ -1610,7 +1652,7 @@ $("homeInv").addEventListener("change",e=>{const t=e.target;if(!t.dataset.inv)re
 document.addEventListener("click",e=>{const s=e.target.closest("[data-snz]");if(s){S.snooze[s.dataset.snz]=new Date(Date.now()+30*864e5).toISOString().slice(0,10);update(true);queueSave()}});
 document.addEventListener("click",e=>{const q=e.target.closest("[data-qa]");if(!q)return;const a=q.dataset.qa;
   if(a==="todo"){$("todoText").focus();return}
-  if(a==="log"){show("capacity");$("wk_task").focus();return}
+  if(a==="log"){show("capacity");const i=$("capClients").querySelector("input");if(i)i.focus();return}
   if(a==="lead"){show("outreach");$("addLead").click();return}
   if(a==="div"){show("forecast");$("addDiv").click();const d=$("divs").querySelectorAll('input[data-k="amt"]');if(d.length)d[d.length-1].focus();return}
   if(a==="contract"){show("legal");$("newBtn").click()}});
@@ -1629,7 +1671,7 @@ function apply(o){
   if(!Array.isArray(o.pots)&&o.fin_pot)S.pots[0].value=+o.fin_pot;
   FIELDS.forEach(f=>{if(o[f]===undefined)return;const e=$(f);if(e.type==="checkbox")e.checked=!!o[f];else e.value=o[f]});
   $("pen_company").value=$("fin_pension").value;
-  renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderWork();renderResults();
+  renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderResults();
 }
 function queueSave(){
   edited=true;
@@ -1640,8 +1682,7 @@ function queueSave(){
   saveTimer=setTimeout(()=>{saveTimer=null;pendingRemote=null;const o=snapshot();o._rev=uid()+Date.now();myRevs.add(o._rev);db.doc("finance/model").set(o).then(()=>mark("Saved")).catch(()=>mark("Couldn't save. Check you're signed in to claude.ai."))},700);
 }
 try{apply(JSON.parse(localStorage.getItem("nexa-finance")||"null"))}catch(_){}
-$("wk_date").value=new Date().toISOString().slice(0,10);
-renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderWork();renderResults();
+renderCosts();renderClients();renderDivs();renderPots();renderLeads();renderResults();
 let start="home";if(location.hash&&VIEWS[location.hash.slice(1)])start=location.hash.slice(1);
 show(start);
 let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>update(true),150)});
