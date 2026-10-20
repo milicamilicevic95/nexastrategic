@@ -172,6 +172,24 @@ label.btn{display:inline-flex;align-items:center}
 .card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .card h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;letter-spacing:-.02em;font-variation-settings:"SOFT" 100}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.seg{display:flex;gap:4px}.seg .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.ptbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin:0 0 14px}
+.pcard .chead{flex-wrap:wrap;row-gap:6px}
+.pcard .chead b{font-family:var(--display);font-size:20px;font-weight:400;flex:1 1 100%;min-width:0}
+.ev{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor;white-space:nowrap}
+.ev.Robust{color:var(--good)}.ev.Contested{color:var(--warn)}.ev.Anecdotal,.ev.Folk{color:var(--fg2)}
+.ptag{font-size:12px;color:var(--fg2)}
+.pbody{padding:14px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;font-size:14px;line-height:1.5}
+.pbody .w{grid-column:1/-1}
+.pbody h4{margin:0 0 3px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.pbody p{margin:0}
+.paka{font-style:italic;color:var(--fg2)}
+.pcor{border-left:3px solid var(--warn);padding-left:10px}
+.pline{display:flex;gap:10px;align-items:flex-start}.pline p{flex:1;font-family:var(--display);font-size:16px}
+.psrc{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px}.psrc a,.ptsrc a{color:var(--accent);overflow-wrap:anywhere}
+.ptsrc summary{cursor:pointer;list-style:none}.ptsrc summary h3{display:inline;font-size:16px;text-transform:none;letter-spacing:0}.ptsrc ol{font-size:13px;line-height:1.6;margin:10px 0 0;padding-left:22px}
+.pttable td{vertical-align:top;font-size:12.5px;line-height:1.45;min-width:160px}.pttable td:first-child{min-width:130px;font-weight:600}
+@media (max-width:900px){.ptbar{grid-template-columns:1fr 1fr}.pbody{grid-template-columns:1fr}}
 .mixt{display:flex;flex-direction:column;font-size:13px;margin-top:4px}
 .mixt>div{display:grid;grid-template-columns:12px minmax(0,1fr) 92px 64px 76px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
 .mixt>div.h{color:var(--fg2);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-top:none;padding-top:0}
@@ -261,7 +279,7 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
 </style>
 
 <div class="top">
-  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
+  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
   <div class="acts" id="contractActs"><span id="refLabel" class="lab2">NX-2026-001</span>
     <span class="status" id="status" role="status"></span>
     <button class="btn" id="newBtn" type="button">New</button>
@@ -410,6 +428,7 @@ Sounding-board sessions with the founder</textarea></div>
     <button class="door" type="button" data-go="outreach"><b>Outreach</b><span id="doorOutreach"></span></button>
     <button class="door" type="button" data-go="capacity"><b>Capacity</b><span id="doorCapacity"></span></button>
     <button class="door" type="button" data-go="portfolio"><b>Portfolio</b><span id="doorPortfolio"></span></button>
+    <button class="door" type="button" data-go="patterns"><b>Pattern library</b><span id="doorPatterns"></span></button>
     <button class="door" type="button" data-go="legal"><b>Legal</b><span id="doorLegal"></span></button>
     <button class="door" type="button" data-go="forecast"><b>Finance forecast</b><span id="doorForecast"></span></button>
     <button class="door" type="button" data-go="pension"><b>Pension</b><span id="doorPension"></span></button>
@@ -466,6 +485,19 @@ Sounding-board sessions with the founder</textarea></div>
     <div class="card"><h3>Can you use it?</h3><p class="sub">Clause 10.5 of your Terms: name a client only with their written consent. Anonymised results are fine.</p><div id="pfPerm"></div></div>
   </div>
   <div id="pfList" class="clist"></div>
+</section>
+
+<section id="view-patterns" class="fin" hidden aria-label="Pattern library">
+  <div class="phead"><div><h2>Pattern library<i>.</i></h2><p class="sub">Psychological, behavioural and strategic patterns: the proper name, where it came from and how good the evidence is. New entries arrive each morning.</p></div><div class="acts"><div class="seg" role="group" aria-label="Layout"><button class="btn small" type="button" data-ptv="cards" aria-pressed="true">Cards</button><button class="btn small" type="button" data-ptv="table" aria-pressed="false">Table</button></div></div></div>
+  <div class="kpis" id="ptKpis"></div>
+  <div class="ptbar">
+    <div class="f"><label for="ptQ">Search</label><input id="ptQ" type="search" placeholder="Name, phrase or idea"></div>
+    <div class="f"><label for="ptCat">Category</label><select id="ptCat"></select></div>
+    <div class="f"><label for="ptEv">Evidence</label><select id="ptEv"><option value="">Any</option><option>Robust</option><option>Contested</option><option>Anecdotal</option><option>Folk wisdom</option></select></div>
+    <div class="f"><label for="ptUse">Use for</label><select id="ptUse"><option value="">Anything</option><option>Masterclass</option><option>Client work</option><option>LinkedIn</option></select></div>
+  </div>
+  <div id="ptList" class="clist"></div>
+  <details class="card ptsrc"><summary><h3>Every source</h3></summary><ol id="ptSrc"></ol></details>
 </section>
 
 <section id="view-forecast" class="fin" hidden aria-label="Finance forecast">
@@ -1056,7 +1088,7 @@ function ageNow(){const v=$("fin_dob").value;if(!v)return 0;const d=new Date(v);
 function taxYearRange(ty){const y=+ty.slice(0,4);return [y+"-04-06",(y+1)+"-04-05"]}
 
 /* ---- views ---- */
-const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension"};
+const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",patterns:"view-patterns",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension"};
 function show(v){
   if(!VIEWS[v])v="home";
   Object.entries(VIEWS).forEach(([k,id])=>{$(id).hidden=k!==v});
@@ -1483,6 +1515,49 @@ $("view-outreach").addEventListener("click",e=>{
   const c=e.target.closest("[data-conv]");if(c){const l=S.leads[+c.dataset.conv];S.clients.push({id:uid(),name:l.company||l.name,service:"OA",status:"pipeline",pricing:"fixed",fee:0,received:"",vat:"plus",start:"",end:"",prob:25,ref:"",notes:"From "+l.source+(l.form?" ("+l.form+")":"")+". Contact: "+l.name+(l.email?", "+l.email:""),nextStep:"Follow up",nextDate:l.nextDate||""});if(l.status==="New"||l.status==="Contacted")l.status="Call booked";renderLeads();renderClients();update();queueSave();$("leadStatus").textContent=(l.company||l.name)+" added to Active clients as pipeline."}
 });
 
+/* ---- pattern library ---- */
+let patterns=[],ptView="cards";
+const PTCATS=["Cognitive bias","Social psychology","Organisational behaviour","Behavioural economics","Military and strategic doctrine","Sports and performance culture","Negotiation and influence","History and anthropology","Systems thinking"];
+const host=u=>{try{return new URL(u).hostname.replace(/^www\./,"")}catch(_){return u}};
+const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
+function renderPatterns(){
+  const sel=$("ptCat"),cur=sel.value,cats=[...new Set(PTCATS.concat(patterns.map(p=>p.category).filter(Boolean)))];
+  sel.innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option${c===cur?" selected":""}>${esc(c)}</option>`).join("");
+  const q=$("ptQ").value.trim().toLowerCase(),cat=sel.value,ev=$("ptEv").value,use=$("ptUse").value;
+  const L=patterns.filter(p=>(!cat||p.category===cat)&&(!ev||p.evidence===ev)&&(!use||(p.useFor||"").includes(use))&&(!q||[p.name,p.aka,p.definition,p.origin,p.founder].join(" ").toLowerCase().includes(q)));
+  const n=k=>patterns.filter(p=>p.evidence===k).length;
+  $("ptKpis").innerHTML=[["Patterns",String(patterns.length)],["Robust",String(n("Robust"))],["Contested",String(n("Contested"))],["Anecdotal or folk",String(n("Anecdotal")+n("Folk wisdom"))],["Categories",String(new Set(patterns.map(p=>p.category)).size)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  const links=p=>(p.sources||[]).map(safeUrl).filter(Boolean).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(host(u))}</a>`).join("");
+  if(!patterns.length){$("ptList").innerHTML='<p class="empty">The library is empty. New patterns are added each morning.</p>'}
+  else if(!L.length){$("ptList").innerHTML='<p class="empty">Nothing matches. Clear a filter to see more.</p>'}
+  else if(ptView==="table"){
+    const H=["Name","Also known as","Category","Definition","Origin","Evidence","Evidence note","In founder-led companies","Use for","LinkedIn angle","Sources"];
+    $("ptList").innerHTML='<div class="card"><div class="scroll"><table class="pttable"><thead><tr>'+H.map(h=>`<th>${h}</th>`).join("")+'</tr></thead><tbody>'+L.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.aka)}</td><td>${esc(p.category)}</td><td>${esc(p.definition)}</td><td>${esc(p.origin)}</td><td><span class="ev ${esc((p.evidence||"").split(" ")[0])}">${esc(p.evidence)}</span></td><td>${esc(p.evidenceNote)}</td><td>${esc(p.founder)}</td><td>${esc(p.useFor)}</td><td>${esc(p.linkedin)}</td><td><div class="psrc">${links(p)}</div></td></tr>`).join("")+'</tbody></table></div></div>';
+  } else {
+    $("ptList").innerHTML=L.map(p=>`<article class="ccard pcard"><div class="chead"><b>${esc(p.name)}</b><span class="ev ${esc((p.evidence||"").split(" ")[0])}">${esc(p.evidence)}</span><span class="ptag">${esc(p.category)}${p.type?" · "+esc(p.type):""}</span></div>
+    <div class="pbody">
+      ${p.aka?`<p class="w paka">“${esc(p.aka)}”</p>`:""}
+      <div class="w"><p>${esc(p.definition)}</p></div>
+      <div><h4>Origin</h4><p>${esc(p.origin)}</p></div>
+      <div><h4>Evidence</h4><p>${esc(p.evidenceNote)}</p></div>
+      ${p.corrections?`<div class="w pcor"><h4>Correction</h4><p>${esc(p.corrections)}</p></div>`:""}
+      <div class="w"><h4>In founder-led companies</h4><p>${esc(p.founder)}</p></div>
+      <div class="w"><h4>LinkedIn angle</h4><div class="pline"><p>${esc(p.linkedin)}</p><button class="btn small" type="button" data-ptcopy="${esc(p.id)}">Copy</button></div></div>
+      <div><h4>Use for</h4><p>${esc(p.useFor)}</p></div>
+      <div><h4>Sources</h4><div class="psrc">${links(p)}</div></div>
+    </div></article>`).join("");
+  }
+  const all=[...new Set(patterns.flatMap(p=>(p.sources||[]).map(safeUrl).filter(Boolean)))];
+  $("ptSrc").innerHTML=all.map(u=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`).join("")||"<li>No sources yet.</li>";
+  $("doorPatterns").textContent=patterns.length?patterns.length+" patterns · "+n("Robust")+" with robust evidence":"New entries each morning";
+}
+["ptQ","ptCat","ptEv","ptUse"].forEach(id=>$(id).addEventListener("input",renderPatterns));renderPatterns();
+document.addEventListener("click",e=>{
+  const v=e.target.closest("[data-ptv]");if(v){ptView=v.dataset.ptv;document.querySelectorAll("[data-ptv]").forEach(b=>b.setAttribute("aria-pressed",String(b===v)));renderPatterns();return}
+  const c=e.target.closest("[data-ptcopy]");if(c){const p=patterns.find(x=>x.id===c.dataset.ptcopy);if(!p)return;const done=()=>{c.textContent="Copied";setTimeout(()=>c.textContent="Copy",1500)};
+    try{navigator.clipboard.writeText(p.linkedin).then(done,()=>{const r=document.createRange();r.selectNodeContents(c.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r)})}catch(_){}}
+});
+
 /* ---- income mix & earning potential ---- */
 function renderMix(){
   const list=S.clients.filter(c=>c.status!=="ended"&&cfee(c)>0);if(!list.length)return;
@@ -1701,6 +1776,7 @@ let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>
   },()=>{});
   document.addEventListener("focusout",()=>setTimeout(()=>{if(pendingRemote&&!saveTimer){const d=pendingRemote;pendingRemote=null;const a=document.activeElement;if(a&&a.matches&&a.matches(".fin input,.fin select,.fin textarea")){pendingRemote=d;return}apply(d);update(true)}},50));
   db.collection("engagements").onSnapshot(snap=>{engagements=snap.docs.map(d=>Object.assign({id:d.id},(d.data()||{}).data||{}));update(true)},()=>{});
+  db.collection("patterns").onSnapshot(snap=>{patterns=snap.docs.map(d=>Object.assign({},d.data()||{},{id:d.id})).sort((a,b)=>(b.added||"").localeCompare(a.added||"")||(a.name||"").localeCompare(b.name||""));renderPatterns()},()=>{});
 })();
 })();
 </script>
