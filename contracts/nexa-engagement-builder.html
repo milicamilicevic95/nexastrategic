@@ -190,6 +190,49 @@ label.btn{display:inline-flex;align-items:center}
 .ptsrc summary{cursor:pointer;list-style:none}.ptsrc summary h3{display:inline;font-size:16px;text-transform:none;letter-spacing:0}.ptsrc ol{font-size:13px;line-height:1.6;margin:10px 0 0;padding-left:22px}
 .pttable td{vertical-align:top;font-size:12.5px;line-height:1.45;min-width:160px}.pttable td:first-child{min-width:130px;font-weight:600}
 @media (max-width:900px){.ptbar{grid-template-columns:1fr 1fr}.pbody{grid-template-columns:1fr}}
+.ptbar{grid-template-columns:2fr 1fr 1fr 1fr 1fr}
+.pthow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--panel);margin:14px 0}
+.pthow>div{padding:12px 16px;border-left:1px solid var(--line);min-width:0}.pthow>div:first-child{border-left:0}
+.pthow p{margin:4px 0 0;font-size:13px;color:var(--fg2);line-height:1.45}
+.ptk{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.ptfocus{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 20px;align-items:end;border:1px solid var(--accent);background:var(--panel);padding:16px 18px;margin:0 0 16px}
+.ptfocus .q{font-family:var(--display);font-size:clamp(19px,2.4vw,24px);line-height:1.2;letter-spacing:-.01em;margin:6px 0 4px;text-wrap:balance}
+.ptfocus .sub{font-size:13px}
+.ptread{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:20px;align-items:start}
+.ptnav{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--panel);max-height:78vh;overflow:auto;position:sticky;top:90px}
+.ptnav button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:11px 14px;border-top:1px solid var(--line)}
+.ptnav button:first-child{border-top:0}
+.ptnav button:focus-visible{outline:2px solid var(--pink);outline-offset:-2px}
+.ptnav button[aria-current="true"]{background:var(--field);box-shadow:inset 3px 0 0 var(--accent)}
+.ptnav b{font-weight:600;font-size:14px;line-height:1.3}
+.ptnav small{grid-column:2/4;font-size:12px;color:var(--fg2)}
+.sdot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--fg2)}
+.sdot.learning{background:var(--s2);border-color:var(--s2)}.sdot.used{background:var(--good);border-color:var(--good)}
+.ptdet{background:var(--panel);border:1px solid var(--line);min-width:0}
+.ptdh{padding:18px 20px 0;display:flex;flex-direction:column;gap:8px}
+.ptdh h3{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(24px,3vw,32px);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+.ptmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;color:var(--fg2)}
+.ptstat{display:flex;gap:4px;flex-wrap:wrap}.ptstat .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.pttabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 12px;margin-top:12px;overflow-x:auto}
+.pttabs button{all:unset;cursor:pointer;padding:10px 10px;font-size:13px;font-weight:600;color:var(--fg2);border-bottom:2px solid transparent;white-space:nowrap}
+.pttabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--pink)}
+.pttabs button:focus-visible{outline:2px solid var(--pink)}
+.ptpane{padding:18px 20px 22px;display:flex;flex-direction:column;gap:16px;font-size:14.5px;line-height:1.55;max-width:760px}
+.ptpane h4{margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.ptpane p{margin:0}
+.ptlead{font-family:var(--display);font-size:clamp(18px,2.2vw,21px);line-height:1.35;letter-spacing:-.005em}
+.ptask{border:1px solid var(--line);background:var(--field);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.ptask p{flex:1;font-family:var(--display);font-size:19px;line-height:1.3}
+.ptsig{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.pttry{border-left:3px solid var(--pink);padding-left:14px}
+.ptchan{display:flex;gap:4px;flex-wrap:wrap}.ptchan .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.ptslides{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.ptslide{aspect-ratio:4/5;max-width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--rule);padding:14px;display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.45;overflow:auto;min-width:0}
+.ptslide .sn{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wine)}
+.ptslide.cover p{font-family:var(--display);font-size:20px;line-height:1.15;letter-spacing:-.01em}
+.ptnote{font-size:12.5px;color:var(--fg2)}
+.ptempty{padding:30px 20px;color:var(--fg2)}
+@media (max-width:900px){.ptread{grid-template-columns:1fr}.ptnav{position:static;max-height:300px}.ptbar{grid-template-columns:1fr 1fr}.pthow{grid-template-columns:1fr}.pthow>div{border-left:0;border-top:1px solid var(--line)}.pthow>div:first-child{border-top:0}.ptfocus{grid-template-columns:1fr}}
 .mixt{display:flex;flex-direction:column;font-size:13px;margin-top:4px}
 .mixt>div{display:grid;grid-template-columns:12px minmax(0,1fr) 92px 64px 76px;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
 .mixt>div.h{color:var(--fg2);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-top:none;padding-top:0}
@@ -488,15 +531,21 @@ Sounding-board sessions with the founder</textarea></div>
 </section>
 
 <section id="view-patterns" class="fin" hidden aria-label="Pattern library">
-  <div class="phead"><div><h2>Pattern library<i>.</i></h2><p class="sub">Psychological, behavioural and strategic patterns: the proper name, where it came from and how good the evidence is. New entries arrive each morning.</p></div><div class="acts"><div class="seg" role="group" aria-label="Layout"><button class="btn small" type="button" data-ptv="cards" aria-pressed="true">Cards</button><button class="btn small" type="button" data-ptv="table" aria-pressed="false">Table</button></div></div></div>
-  <div class="kpis" id="ptKpis"></div>
+  <div class="phead"><div><h2>Pattern library<i>.</i></h2><p class="sub" id="ptLine">Psychological, behavioural and strategic patterns: the proper name, how to spot it, what to do about it and how to post about it.</p></div><div class="acts"><div class="seg" role="group" aria-label="Layout"><button class="btn small" type="button" data-ptv="cards" aria-pressed="true">Reader</button><button class="btn small" type="button" data-ptv="table" aria-pressed="false">Table</button></div></div></div>
+  <div class="pthow">
+    <div><span class="ptk">Learn</span><p>One pattern a day. Read the Learn tab, then use the name once in a real conversation.</p></div>
+    <div><span class="ptk">Spot</span><p>Carry this week's question into meetings. Mark a pattern Learning once you've seen it in the wild.</p></div>
+    <div><span class="ptk">Use</span><p>Apply tab for clients and Founders House. Content tab gives one six-slide carousel a week for each channel.</p></div>
+  </div>
+  <div id="ptFocus"></div>
   <div class="ptbar">
-    <div class="f"><label for="ptQ">Search</label><input id="ptQ" type="search" placeholder="Name, phrase or idea"></div>
+    <div class="f"><label for="ptQ">Search</label><input id="ptQ" type="search" placeholder="Name, phrase or situation"></div>
     <div class="f"><label for="ptCat">Category</label><select id="ptCat"></select></div>
     <div class="f"><label for="ptEv">Evidence</label><select id="ptEv"><option value="">Any</option><option>Robust</option><option>Contested</option><option>Anecdotal</option><option>Folk wisdom</option></select></div>
     <div class="f"><label for="ptUse">Use for</label><select id="ptUse"><option value="">Anything</option><option>Masterclass</option><option>Client work</option><option>LinkedIn</option></select></div>
+    <div class="f"><label for="ptSt">Status</label><select id="ptSt"><option value="">Any</option><option value="new">New</option><option value="learning">Learning</option><option value="used">Used</option></select></div>
   </div>
-  <div id="ptList" class="clist"></div>
+  <div id="ptList"></div>
   <details class="card ptsrc"><summary><h3>Every source</h3></summary><ol id="ptSrc"></ol></details>
 </section>
 
@@ -1128,7 +1177,8 @@ function clientCard(c){
     <div class="f"><label for="cl${i}e">Ends</label><input id="cl${i}e" type="month" data-c="${i}" data-k="end" value="${esc(c.end)}"><span class="hint">Leave empty if rolling.</span></div>
     <div class="f"><label for="cl${i}o">Contract</label><select id="cl${i}o" data-c="${i}" data-k="ref"><option value="">Not linked</option>${refs}</select></div>
     <div class="f"><label for="cl${i}b">Billed through</label><select id="cl${i}b" data-c="${i}" data-k="billing">${["GoCardless","QuickBooks","Bank transfer","Other"].map(o=>`<option${(c.billing||"Bank transfer")===o?" selected":""}>${o}</option>`).join("")}</select></div>
-    <div class="f"><label for="cl${i}u">Invoiced</label><select id="cl${i}u" data-c="${i}" data-k="timing"><option value="advance"${c.timing!=="arrears"?" selected":""}>In advance, 1st of the month</option><option value="arrears"${c.timing==="arrears"?" selected":""}>In arrears, end of the month</option></select></div>
+    <div class="f"><label for="cl${i}d">Invoice day of the month</label><input id="cl${i}d" type="number" min="1" max="28" data-c="${i}" data-k="invDay" value="${esc(String(c.invDay||1))}"></div>
+    <div class="f"><label for="cl${i}u">Invoiced</label><select id="cl${i}u" data-c="${i}" data-k="timing"><option value="advance"${c.timing!=="arrears"?" selected":""}>In advance</option><option value="arrears"${c.timing==="arrears"?" selected":""}>In arrears, end of the month</option></select></div>
     <div class="f"><label for="cl${i}w">Planned hours a month</label><input id="cl${i}w" type="number" min="0" step="1" data-c="${i}" data-k="hours" value="${c.hours==null?"":c.hours}"></div>
     <div class="f"><label for="cl${i}y">Next step</label><input id="cl${i}y" data-c="${i}" data-k="nextStep" value="${esc(c.nextStep)}" placeholder="e.g. Send to sign"></div>
     <div class="f"><label for="cl${i}d">By</label><input id="cl${i}d" type="date" data-c="${i}" data-k="nextDate" value="${esc(c.nextDate)}"></div>
@@ -1516,47 +1566,79 @@ $("view-outreach").addEventListener("click",e=>{
 });
 
 /* ---- pattern library ---- */
-let patterns=[],ptView="cards";
+let patterns=[],ptView="cards",ptSel="",ptTab="learn",ptChan="linkedin";
 const PTCATS=["Cognitive bias","Social psychology","Organisational behaviour","Behavioural economics","Military and strategic doctrine","Sports and performance culture","Negotiation and influence","History and anthropology","Systems thinking"];
+const PTTYPE={"well-known":"Well known","niche":"Niche","story":"Story"};
+const PTCH={linkedin:{label:"My LinkedIn",close:"Try it on one decision this week."},pda:{label:"Pro Devil's Advocate",close:"What are you accepting here without interrogating it?"},concentric:{label:"Concentric",close:"Where have you seen this at work?"}};
 const host=u=>{try{return new URL(u).hostname.replace(/^www\./,"")}catch(_){return u}};
 const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
+let ptStatus={};try{ptStatus=JSON.parse(localStorage.getItem("ptStatus")||"{}")||{}}catch(_){ptStatus={}}
+let ptPin="";try{ptPin=localStorage.getItem("ptPin")||""}catch(_){}
+const stOf=p=>ptStatus[p.id]||"new";
+function saveSt(){try{localStorage.setItem("ptStatus",JSON.stringify(ptStatus));localStorage.setItem("ptPin",ptPin)}catch(_){}}
+const evc=p=>esc((p.evidence||"").split(" ")[0]);
+function copyText(btn,text){const done=()=>{const o=btn.textContent;btn.textContent="Copied";setTimeout(()=>btn.textContent=o,1500)};
+  try{navigator.clipboard.writeText(text).then(done,()=>selectNext(btn))}catch(_){selectNext(btn)}}
+function selectNext(btn){const t=btn.closest("[data-copyhost]")?.querySelector("[data-copysrc]");if(!t)return;const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+function slidesFor(p,ch){
+  const name=p.plain||((p.name||"")+". "+(p.definition||""));
+  return [["Cover",(p.hooks&&p.hooks[ch])||p.linkedin||p.name,"cover"],["1 · The moment",p.moment||p.founder],["2 · The name",name],["3 · The consequence",p.consequence||""],["4 · The exercise",p.exercise||""],["5 · The implementation",p.implement||""],["6 · The evidence",(p.evidenceShort||p.evidenceNote||"")+" "+PTCH[ch].close]].filter(s=>s[1]);
+}
+function paneHTML(p){
+  const links=(p.sources||[]).map(safeUrl).filter(Boolean).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(host(u))}</a>`).join("");
+  if(ptTab==="learn")return `${p.aka?`<p class="paka">“${esc(p.aka)}”</p>`:""}${p.plain?`<p class="ptlead">${esc(p.plain)}</p>`:""}<div><h4>In full</h4><p>${esc(p.definition)}</p></div><div><h4>Where it comes from</h4><p>${esc(p.origin)}</p></div>${p.verdict?`<div class="pttry"><h4>Proven right or wrong?</h4><p>${esc(p.verdict)}</p></div>`:""}`;
+  if(ptTab==="spot")return `${p.ask?`<div><h4>Ask in the room</h4><div class="ptask" data-copyhost><p data-copysrc>${esc(p.ask)}</p><button class="btn small" type="button" data-ptcp="ask">Copy</button></div></div>`:""}${(p.spot||[]).length?`<div><h4>Signs you're looking at it</h4><ul class="ptsig">${p.spot.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>`:""}<div><h4>What it sounds like</h4><p>“${esc(p.aka||"")}”</p></div>${!p.ask&&!(p.spot||[]).length?`<p class="ptnote">No spotting notes on this entry yet.</p>`:""}`;
+  if(ptTab==="apply")return `<div><h4>In a founder-led company</h4><p>${esc(p.founder)}</p></div>${p.consequence?`<div><h4>What it costs</h4><p>${esc(p.consequence)}</p></div>`:""}${p.exercise?`<div class="pttry"><h4>Try this</h4><p>${esc(p.exercise)}</p></div>`:""}${p.implement?`<div><h4>When to use it and what to change</h4><p>${esc(p.implement)}</p></div>`:""}<div><h4>Good for</h4><p>${esc(p.useFor||"")}</p></div>`;
+  if(ptTab==="content"){const S=slidesFor(p,ptChan);
+    return `<div class="ptchan" role="group" aria-label="Channel">${Object.entries(PTCH).map(([k,v])=>`<button class="btn small" type="button" data-ptch="${k}" aria-pressed="${k===ptChan}">${v.label}</button>`).join("")}</div>
+    <div class="ptslides">${S.map(s=>`<div class="ptslide${s[2]?" cover":""}"><span class="sn">${esc(s[0])}</span><p>${esc(s[1])}</p></div>`).join("")}</div>
+    <div class="ptask" data-copyhost><p data-copysrc style="font-family:var(--sans);font-size:13px">${S.map(s=>esc(s[0])+": "+esc(s[1])).join("<br>")}</p><button class="btn small" type="button" data-ptcp="slides">Copy slides</button></div>
+    ${ptChan==="linkedin"&&p.linkedin?`<div><h4>Text post opener</h4><div class="ptask" data-copyhost><p data-copysrc>${esc(p.linkedin)}</p><button class="btn small" type="button" data-ptcp="li">Copy</button></div></div>`:""}
+    <p class="ptnote">Draft copy for you to edit. Slide 6 carries the source and its limits, so keep it in.</p>`}
+  return `${p.verdict?`<div class="pttry"><h4>Proven right or wrong?</h4><p>${esc(p.verdict)}</p></div>`:""}<div><h4>Rating</h4><p><span class="ev ${evc(p)}">${esc(p.evidence)}</span></p></div><div><h4>Why</h4><p>${esc(p.evidenceNote)}</p></div>${p.corrections?`<div class="pcor"><h4>Common mistakes and corrections</h4><p>${esc(p.corrections)}</p></div>`:""}<div><h4>Sources</h4><div class="psrc">${links||"None listed"}</div></div>`;
+}
 function renderPatterns(){
   const sel=$("ptCat"),cur=sel.value,cats=[...new Set(PTCATS.concat(patterns.map(p=>p.category).filter(Boolean)))];
   sel.innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option${c===cur?" selected":""}>${esc(c)}</option>`).join("");
-  const q=$("ptQ").value.trim().toLowerCase(),cat=sel.value,ev=$("ptEv").value,use=$("ptUse").value;
-  const L=patterns.filter(p=>(!cat||p.category===cat)&&(!ev||p.evidence===ev)&&(!use||(p.useFor||"").includes(use))&&(!q||[p.name,p.aka,p.definition,p.origin,p.founder].join(" ").toLowerCase().includes(q)));
-  const n=k=>patterns.filter(p=>p.evidence===k).length;
-  $("ptKpis").innerHTML=[["Patterns",String(patterns.length)],["Robust",String(n("Robust"))],["Contested",String(n("Contested"))],["Anecdotal or folk",String(n("Anecdotal")+n("Folk wisdom"))],["Categories",String(new Set(patterns.map(p=>p.category)).size)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
-  const links=p=>(p.sources||[]).map(safeUrl).filter(Boolean).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(host(u))}</a>`).join("");
+  const q=$("ptQ").value.trim().toLowerCase(),cat=sel.value,ev=$("ptEv").value,use=$("ptUse").value,st=$("ptSt").value;
+  const L=patterns.filter(p=>(!cat||p.category===cat)&&(!ev||p.evidence===ev)&&(!use||(p.useFor||"").includes(use))&&(!st||stOf(p)===st)&&(!q||[p.name,p.aka,p.definition,p.origin,p.founder,p.moment,p.plain].join(" ").toLowerCase().includes(q)));
+  const n=k=>patterns.filter(p=>p.evidence===k).length,learnt=patterns.filter(p=>stOf(p)!=="new").length;
+  $("ptLine").textContent=patterns.length?`${patterns.length} patterns across ${new Set(patterns.map(p=>p.category)).size} categories · ${n("Robust")} with robust evidence · ${learnt} you've started learning or used.`:"Psychological, behavioural and strategic patterns: the proper name, how to spot it, what to do about it and how to post about it.";
+  const focus=patterns.find(p=>p.id===ptPin)||patterns.find(p=>stOf(p)==="new"&&p.ask)||patterns[0];
+  $("ptFocus").innerHTML=focus&&focus.ask?`<div class="ptfocus"><div><span class="ptk">This week's question · ${esc(focus.name)}</span><p class="q">${esc(focus.ask)}</p><p class="sub">${esc(focus.exercise||"")}</p></div><div class="acts"><button class="btn small primary" type="button" data-ptopen="${esc(focus.id)}">Open pattern</button></div></div>`:"";
   if(!patterns.length){$("ptList").innerHTML='<p class="empty">The library is empty. New patterns are added each morning.</p>'}
   else if(!L.length){$("ptList").innerHTML='<p class="empty">Nothing matches. Clear a filter to see more.</p>'}
   else if(ptView==="table"){
     const H=["Name","Also known as","Category","Definition","Origin","Evidence","Evidence note","In founder-led companies","Use for","LinkedIn angle","Sources"];
-    $("ptList").innerHTML='<div class="card"><div class="scroll"><table class="pttable"><thead><tr>'+H.map(h=>`<th>${h}</th>`).join("")+'</tr></thead><tbody>'+L.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.aka)}</td><td>${esc(p.category)}</td><td>${esc(p.definition)}</td><td>${esc(p.origin)}</td><td><span class="ev ${esc((p.evidence||"").split(" ")[0])}">${esc(p.evidence)}</span></td><td>${esc(p.evidenceNote)}</td><td>${esc(p.founder)}</td><td>${esc(p.useFor)}</td><td>${esc(p.linkedin)}</td><td><div class="psrc">${links(p)}</div></td></tr>`).join("")+'</tbody></table></div></div>';
+    const links=p=>(p.sources||[]).map(safeUrl).filter(Boolean).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(host(u))}</a>`).join("");
+    $("ptList").innerHTML='<div class="card"><div class="scroll"><table class="pttable"><thead><tr>'+H.map(h=>`<th>${h}</th>`).join("")+'</tr></thead><tbody>'+L.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.aka)}</td><td>${esc(p.category)}</td><td>${esc(p.definition)}</td><td>${esc(p.origin)}</td><td><span class="ev ${evc(p)}">${esc(p.evidence)}</span></td><td>${esc(p.evidenceNote)}</td><td>${esc(p.founder)}</td><td>${esc(p.useFor)}</td><td>${esc(p.linkedin)}</td><td><div class="psrc">${links(p)}</div></td></tr>`).join("")+'</tbody></table></div></div>';
   } else {
-    $("ptList").innerHTML=L.map(p=>`<article class="ccard pcard"><div class="chead"><b>${esc(p.name)}</b><span class="ev ${esc((p.evidence||"").split(" ")[0])}">${esc(p.evidence)}</span><span class="ptag">${esc(p.category)}${p.type?" · "+esc(p.type):""}</span></div>
-    <div class="pbody">
-      ${p.aka?`<p class="w paka">“${esc(p.aka)}”</p>`:""}
-      <div class="w"><p>${esc(p.definition)}</p></div>
-      <div><h4>Origin</h4><p>${esc(p.origin)}</p></div>
-      <div><h4>Evidence</h4><p>${esc(p.evidenceNote)}</p></div>
-      ${p.corrections?`<div class="w pcor"><h4>Correction</h4><p>${esc(p.corrections)}</p></div>`:""}
-      <div class="w"><h4>In founder-led companies</h4><p>${esc(p.founder)}</p></div>
-      <div class="w"><h4>LinkedIn angle</h4><div class="pline"><p>${esc(p.linkedin)}</p><button class="btn small" type="button" data-ptcopy="${esc(p.id)}">Copy</button></div></div>
-      <div><h4>Use for</h4><p>${esc(p.useFor)}</p></div>
-      <div><h4>Sources</h4><div class="psrc">${links(p)}</div></div>
-    </div></article>`).join("");
+    if(!L.some(p=>p.id===ptSel))ptSel=L[0].id;
+    const p=L.find(x=>x.id===ptSel),s=stOf(p);
+    const tabs=[["learn","Learn"],["spot","Spot it"],["apply","Apply"],["content","Content"],["evidence","Evidence"]];
+    $("ptList").innerHTML=`<div class="ptread"><nav class="ptnav" aria-label="Patterns">${L.map(x=>`<button type="button" data-ptsel="${esc(x.id)}" aria-current="${x.id===ptSel}"><span class="sdot ${stOf(x)}" title="${esc(stOf(x))}"></span><b>${esc(x.name)}</b><span class="ev ${evc(x)}">${esc((x.evidence||"").split(" ")[0])}</span><small>${esc(x.category)}${x.type?" · "+esc(PTTYPE[x.type]||x.type):""}</small></button>`).join("")}</nav>
+    <article class="ptdet" id="ptDet"><div class="ptdh"><div class="ptmeta"><span class="ev ${evc(p)}">${esc(p.evidence)}</span><span>${esc(p.category)}${p.type?" · "+esc(PTTYPE[p.type]||p.type):""}</span><span>Added ${esc(p.added||"")}</span></div><h3>${esc(p.name)}</h3>
+    <div class="ptstat" role="group" aria-label="Your progress">${[["new","New"],["learning","Learning"],["used","Used"]].map(([k,l])=>`<button class="btn small" type="button" data-ptst="${k}" aria-pressed="${k===s}">${l}</button>`).join("")}<button class="btn small" type="button" data-ptpin aria-pressed="${ptPin===p.id}">${ptPin===p.id?"This week's focus":"Make this week's focus"}</button></div></div>
+    <div class="pttabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-pttab="${k}" aria-selected="${k===ptTab}">${l}</button>`).join("")}</div>
+    <div class="ptpane" role="tabpanel">${paneHTML(p)}</div></article></div>`;
   }
   const all=[...new Set(patterns.flatMap(p=>(p.sources||[]).map(safeUrl).filter(Boolean)))];
   $("ptSrc").innerHTML=all.map(u=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`).join("")||"<li>No sources yet.</li>";
   $("doorPatterns").textContent=patterns.length?patterns.length+" patterns · "+n("Robust")+" with robust evidence":"New entries each morning";
 }
-["ptQ","ptCat","ptEv","ptUse"].forEach(id=>$(id).addEventListener("input",renderPatterns));renderPatterns();
+["ptQ","ptCat","ptEv","ptUse","ptSt"].forEach(id=>$(id).addEventListener("input",renderPatterns));renderPatterns();
 document.addEventListener("click",e=>{
   const v=e.target.closest("[data-ptv]");if(v){ptView=v.dataset.ptv;document.querySelectorAll("[data-ptv]").forEach(b=>b.setAttribute("aria-pressed",String(b===v)));renderPatterns();return}
-  const c=e.target.closest("[data-ptcopy]");if(c){const p=patterns.find(x=>x.id===c.dataset.ptcopy);if(!p)return;const done=()=>{c.textContent="Copied";setTimeout(()=>c.textContent="Copy",1500)};
-    try{navigator.clipboard.writeText(p.linkedin).then(done,()=>{const r=document.createRange();r.selectNodeContents(c.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r)})}catch(_){}}
+  const sp=e.target.closest("[data-ptsel]");if(sp){ptSel=sp.dataset.ptsel;renderPatterns();if(matchMedia("(max-width:900px)").matches)$("ptDet")?.scrollIntoView({block:"start"});return}
+  const op=e.target.closest("[data-ptopen]");if(op){ptSel=op.dataset.ptopen;ptTab="spot";ptView="cards";["ptQ","ptCat","ptEv","ptUse","ptSt"].forEach(id=>$(id).value="");document.querySelectorAll("[data-ptv]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.ptv==="cards")));renderPatterns();$("ptDet")?.scrollIntoView({block:"start"});return}
+  const tb=e.target.closest("[data-pttab]");if(tb){ptTab=tb.dataset.pttab;renderPatterns();return}
+  const ch=e.target.closest("[data-ptch]");if(ch){ptChan=ch.dataset.ptch;renderPatterns();return}
+  const st=e.target.closest("[data-ptst]");if(st){ptStatus[ptSel]=st.dataset.ptst;saveSt();renderPatterns();return}
+  const pn=e.target.closest("[data-ptpin]");if(pn){ptPin=ptPin===ptSel?"":ptSel;saveSt();renderPatterns();return}
+  const cp=e.target.closest("[data-ptcp]");if(cp){const p=patterns.find(x=>x.id===ptSel);if(!p)return;const k=cp.dataset.ptcp;
+    const t=k==="ask"?p.ask:k==="li"?p.linkedin:slidesFor(p,ptChan).map(s=>s[0]+": "+s[1]).join("\n\n");copyText(cp,t||"")}
 });
+
 
 /* ---- income mix & earning potential ---- */
 function renderMix(){
@@ -1675,8 +1757,8 @@ function invoiceRows(M){
     S.clients.filter(c=>c.status==="active"||(c.status==="pipeline"&&c.start&&c.start<=key)).forEach(c=>{
       if(c.start&&key<c.start)return;if(c.end&&key>c.end)return;
       const ex=cfee(c);if(!ex)return;const reg=vatFrom&&key>=vatFrom;const vat=reg?(c.vat==="incl"?ex-ex/1.2:ex*.2):0;const net=c.vat==="incl"&&reg?ex/1.2:ex;
-      const issue=c.timing==="arrears"?new Date(d.getFullYear(),d.getMonth()+1,0):d;
-      out.push({k:c.id+"|"+key,c,key,month:MONTHS_FULL[d.getMonth()]+" "+d.getFullYear(),net,vat,total:net+vat,issue:issue.toISOString().slice(0,10),status:S.inv[c.id+"|"+key]||"To send",pipe:c.status==="pipeline"});
+      const issue=c.timing==="arrears"?new Date(d.getFullYear(),d.getMonth()+1,0):new Date(d.getFullYear(),d.getMonth(),Math.min(28,Math.max(1,+c.invDay||1)));
+      out.push({k:c.id+"|"+key,c,key,month:MONTHS_FULL[d.getMonth()]+" "+d.getFullYear(),net,vat,total:net+vat,issue:ymKey(issue.getFullYear(),issue.getMonth())+"-"+String(issue.getDate()).padStart(2,"0"),status:S.inv[c.id+"|"+key]||"To send",pipe:c.status==="pipeline"});
     });});
   return out;
 }
@@ -1686,7 +1768,7 @@ function autoTodos(M,C){
   S.leads.filter(l=>!["Won","Lost"].includes(l.status)).forEach(l=>{if(l.status==="New")T.push({key:"l|"+l.id+"|new",text:"Reply to "+(l.name||"new lead")+(l.company?" ("+l.company+")":""),due:l.created,tag:"Lead",go:"outreach"});else if(l.nextDate)T.push({key:"l|"+l.id+"|"+l.nextDate,text:"Follow up "+(l.name||"lead")+(l.company?" ("+l.company+")":""),due:l.nextDate,tag:"Lead",go:"outreach"})});
   invoiceRows(M).filter(r=>r.status==="To send"&&!r.pipe&&r.issue<=in14).forEach(r=>T.push({key:"i|"+r.k,text:"Send "+(r.c.billing==="GoCardless"?"GoCardless collection":"invoice")+" to "+(r.c.name||"client")+": "+fm2(r.total)+(r.vat?" incl. VAT":""),due:r.issue,tag:"Invoice",go:"home"}));
   {const n=new Date(),mon=new Date(n);mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));const fri=new Date(mon);fri.setDate(fri.getDate()+4);
-   T.push({key:"w|"+mon.toISOString().slice(0,10),text:"Weekly update: log this week's hours and any new results",due:fri.toISOString().slice(0,10),tag:"Weekly",go:"capacity"});
+   T.push({key:"w|"+mon.toISOString().slice(0,10),text:"Weekly update: add any new results and check your average hours",due:fri.toISOString().slice(0,10),tag:"Weekly",go:"capacity"});
    const first=new Date(n.getFullYear(),n.getMonth(),1);T.push({key:"m|"+ymKey(n.getFullYear(),n.getMonth()),text:"Monthly portfolio check-in: add this month's key results",due:first.toISOString().slice(0,10),tag:"Monthly",go:"portfolio"});}
   C.filter(([d])=>d.toISOString().slice(0,10)<=in14).forEach(([d,txt])=>{if(/^(Contact lead|Send contract|Renewal review|Contract ends)/.test(txt))return;T.push({key:"d|"+txt+"|"+d.toISOString().slice(0,10),text:txt,due:d.toISOString().slice(0,10),tag:"Deadline",go:"forecast"})});
   return T;
