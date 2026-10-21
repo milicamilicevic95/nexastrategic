@@ -319,10 +319,81 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
 @media (max-width:1000px){.cfs{grid-template-columns:1fr 1fr}.welcome{grid-template-columns:1fr}}
 @media (max-width:1000px){.cfs .wide{grid-column:1/-1}}
 @media (max-width:560px){.doors,.cfs,.lead{grid-template-columns:1fr}}
+/* Operations Academy (working name) */
+.acad{max-width:1360px;margin:0 auto;padding-block:24px 80px;display:flex;flex-direction:column;gap:20px}
+.acad .empty{font-size:13px;color:var(--fg2)}
+.acad .scroll{position:relative}
+.acsub{display:flex;gap:4px;border:1px solid var(--line);padding:3px;background:var(--panel);overflow-x:auto;scrollbar-width:none;max-width:100%}
+.acsub::-webkit-scrollbar{display:none}
+.acsub button{border:0;background:transparent;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--fg2);white-space:nowrap;flex:none}
+.acsub button[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
+.acsub button:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.acnote{border-left:3px solid var(--pink);padding:10px 14px;background:var(--panel);font-size:13px;color:var(--fg2);line-height:1.5}
+.acnote b{color:var(--fg)}
+.stg,.dbadge,.demo{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;white-space:nowrap;display:inline-block}
+.stg{border:1px solid currentColor}
+.stg.s-Idea,.stg.s-Outline{color:var(--fg2)}.stg.s-Draft{color:var(--s2)}.stg.s-Review{color:var(--s3)}.stg.s-Approved{color:var(--good)}.stg.s-Recorded{color:var(--s5)}.stg.s-Published{color:var(--accent)}.stg.s-Archived{color:var(--fg2);opacity:.75}
+.dbadge{background:rgba(217,76,134,.14);color:var(--accent)}
+.demo{background:var(--s2);color:#191716}
+.acwarn{color:var(--warn);font-size:12.5px;font-weight:600}
+.acgrid{display:grid;grid-template-columns:minmax(0,330px) minmax(0,1fr);gap:20px;align-items:start}
+.actree{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--panel);max-height:80vh;overflow:auto;position:sticky;top:90px}
+.actree .grp{margin:0;padding:12px 12px 6px;border-top:1px solid var(--line)}.actree .grp:first-child{border-top:0}
+.actree button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;align-items:center;padding:8px 12px;border-top:1px solid var(--line);font-size:13.5px;line-height:1.3}
+.actree button:focus-visible{outline:2px solid var(--pink);outline-offset:-2px}
+.actree button[aria-current="true"]{background:var(--field);box-shadow:inset 3px 0 0 var(--accent)}
+.actree small{grid-column:1/-1;font-size:11.5px;color:var(--fg2)}
+.actree .d1{padding-left:26px}.actree .d2{padding-left:42px}.actree .d3{padding-left:58px}
+.actree .tw{display:flex;gap:6px;align-items:center;min-width:0}.actree .tw span{overflow:hidden;text-overflow:ellipsis}
+.actree .car{color:var(--fg2);width:10px;flex:none}
+.acx .ptpane{max-width:none}
+.axtitle{font-family:var(--display);font-weight:400;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;border:0;border-bottom:1px solid var(--line);background:transparent;padding:4px 0;font-variation-settings:"SOFT" 100}
+.axmeta{grid-template-columns:repeat(4,minmax(0,1fr));padding:4px 0 0}
+.axf{display:flex;flex-direction:column;gap:5px;min-width:0}
+.axf textarea{font-family:var(--sans);font-size:14px;line-height:1.5}
+.axf textarea.script{font-size:15px;line-height:1.6}
+.acrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.acrow.end{justify-content:flex-end}
+.md{font-size:14.5px;line-height:1.55;min-width:0;overflow-wrap:anywhere}
+.md h3,.md h4,.md h5,.md h6{margin:14px 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2)}
+.md p{margin:0 0 10px}.md ul,.md ol{margin:0 0 10px;padding-left:22px}.md li{margin:2px 0}
+.md .tw{overflow-x:auto;margin:0 0 12px}.md table{border-collapse:collapse;width:100%;font-size:13px}
+.md td,.md th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;min-width:90px}.md th{background:var(--field)}
+.md .cue{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--accent);margin:14px 0 6px}
+.md code{font-size:12.5px;background:var(--field);padding:1px 4px}
+.md a{color:var(--accent)}
+.pipe{display:flex;flex-wrap:wrap;gap:4px}
+.pipe span{font-size:11.5px;padding:4px 9px;border:1px solid var(--line);color:var(--fg2)}
+.pipe span.done{color:var(--fg)}.pipe span.on{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.acbox{border:1px solid var(--line);background:var(--field);padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.acbox h4{margin:0;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.actable{border-collapse:collapse;width:100%;font-size:13px}
+.actable th,.actable td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.actable th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2);font-weight:700;white-space:nowrap}
+.actable td input,.actable td select{padding:5px 7px;font-size:13px;min-width:110px}
+.acad .lnk{all:unset;cursor:pointer;color:var(--accent);font-weight:600;overflow-wrap:anywhere}.acad .lnk:hover{text-decoration:underline}.acad .lnk:focus-visible{outline:2px solid var(--pink)}
+.acad textarea{min-height:44px}
+.acchecks{display:flex;flex-wrap:wrap;gap:6px}
+.acchecks .chip{font-size:13px;padding:6px 9px}
+.crit{border-top:1px solid var(--line);padding:14px 0;display:flex;flex-direction:column;gap:8px}
+.crit h4{margin:0;font-size:15px;font-weight:700}
+.levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.levels label{border:1px solid var(--line);padding:8px 10px;font-size:12.5px;font-weight:400;color:var(--fg);cursor:pointer;display:flex;flex-direction:column;gap:4px;background:var(--panel);line-height:1.4}
+.levels label:has(input:checked){border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.levels label b{font-size:12px}.levels input{width:auto;margin:0}
+.acsplit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:start}
+.accard{background:var(--panel);border:1px solid var(--line)}
+.accard>summary{text-transform:none;letter-spacing:0;font-size:15px;align-items:center;flex-wrap:wrap}
+.accard>summary b{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:-.01em;flex:1 1 260px;min-width:0}
+.accard .fs{padding-top:6px}
+.prg{display:grid;grid-template-columns:minmax(0,1fr) 150px 120px;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+@media (max-width:1000px){.axmeta{grid-template-columns:1fr 1fr}.acsplit{grid-template-columns:1fr}}
+@media (max-width:900px){.acgrid{grid-template-columns:1fr}.actree{position:static;max-height:340px}.levels{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.levels,.axmeta{grid-template-columns:1fr}.prg{grid-template-columns:1fr 1fr}.prg span:first-child{grid-column:1/-1}}
 </style>
 
 <div class="top">
-  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
+  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="academy" aria-selected="false">Academy</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
   <div class="acts" id="contractActs"><span id="refLabel" class="lab2">NX-2026-001</span>
     <span class="status" id="status" role="status"></span>
     <button class="btn" id="newBtn" type="button">New</button>
@@ -474,6 +545,7 @@ Sounding-board sessions with the founder</textarea></div>
     <button class="door" type="button" data-go="capacity"><b>Capacity</b><span id="doorCapacity"></span></button>
     <button class="door" type="button" data-go="portfolio"><b>Portfolio</b><span id="doorPortfolio"></span></button>
     <button class="door" type="button" data-go="patterns"><b>Pattern library</b><span id="doorPatterns"></span></button>
+    <button class="door" type="button" data-go="academy"><b>Operations Academy</b><span id="doorAcademy"></span></button>
     <button class="door" type="button" data-go="legal"><b>Legal</b><span id="doorLegal"></span></button>
     <button class="door" type="button" data-go="forecast"><b>Finance forecast</b><span id="doorForecast"></span></button>
     <button class="door" type="button" data-go="pension"><b>Pension</b><span id="doorPension"></span></button>
@@ -642,6 +714,22 @@ Sounding-board sessions with the founder</textarea></div>
   <div class="card"><h3>Good to know</h3><div class="flags" id="penNotes"></div></div>
 </div>
 </div>
+</section>
+
+<section id="view-academy" class="acad" hidden aria-label="Operations Academy">
+  <div class="phead"><div><h2>Operations Academy<i>.</i></h2><p class="sub">Working name. Curriculum, production, masterclasses, assessment and the pilot, in one place. Private to you.</p></div><div class="acts"><span class="status" id="acSaved" role="status"></span></div></div>
+  <nav class="acsub" role="tablist" aria-label="Academy sections" id="acSub">
+    <button type="button" role="tab" data-acsub="overview" aria-selected="true">Overview</button>
+    <button type="button" role="tab" data-acsub="curriculum" aria-selected="false">Curriculum</button>
+    <button type="button" role="tab" data-acsub="production" aria-selected="false">Production</button>
+    <button type="button" role="tab" data-acsub="masterclasses" aria-selected="false">Masterclasses</button>
+    <button type="button" role="tab" data-acsub="assessments" aria-selected="false">Assessments</button>
+    <button type="button" role="tab" data-acsub="pilot" aria-selected="false">Pilot</button>
+    <button type="button" role="tab" data-acsub="decisions" aria-selected="false">Decisions</button>
+    <button type="button" role="tab" data-acsub="sources" aria-selected="false">Sources</button>
+    <button type="button" role="tab" data-acsub="export" aria-selected="false">Export</button>
+  </nav>
+  <div id="acMain"></div>
 </section>
 
 <script>
@@ -1049,6 +1137,7 @@ function zip(files){
 }
 function buildDocx(){return zip([["[Content_Types].xml",CT],["_rels/.rels",RELS],["word/document.xml",docXML()],["word/_rels/document.xml.rels",DRELS],["word/styles.xml",STYLES],["word/footer1.xml",footerXML()],["docProps/core.xml",coreXML()]])}
 window.__nexaBuildDocx=buildDocx;
+window.__nexaZip=zip;
 
 /* ---------- persistence ---------- */
 function say(t){$("status").textContent=t}
@@ -1143,7 +1232,7 @@ function ageNow(){const v=$("fin_dob").value;if(!v)return 0;const d=new Date(v);
 function taxYearRange(ty){const y=+ty.slice(0,4);return [y+"-04-06",(y+1)+"-04-05"]}
 
 /* ---- views ---- */
-const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",patterns:"view-patterns",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension"};
+const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",patterns:"view-patterns",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension",academy:"view-academy"};
 function show(v){
   if(!VIEWS[v])v="home";
   Object.entries(VIEWS).forEach(([k,id])=>{$(id).hidden=k!==v});
@@ -1151,6 +1240,7 @@ function show(v){
   $("contractActs").hidden=v!=="legal";
   try{localStorage.setItem("nexa-view",v)}catch(_){}
   update();window.scrollTo(0,0);
+  document.dispatchEvent(new CustomEvent("nexa:view",{detail:v}));
 }
 document.addEventListener("click",e=>{const t=e.target.closest(".tab,[data-go]");if(t)show(t.dataset.view||t.dataset.go)});
 
@@ -1869,3 +1959,863 @@ let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>
 })();
 </script>
 
+<script>
+/* ---------- Operations Academy (working name) ---------- */
+(function(){
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid=p=>(p||"x")+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const now=()=>new Date().toISOString();
+const todayISO=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const fmtD=s=>{if(!s)return "";const d=new Date(String(s).length<=10?s+"T00:00:00":s);return isNaN(d)?esc(s):d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})};
+const clone=o=>JSON.parse(JSON.stringify(o==null?null:o));
+const safeUrl=u=>/^https?:\/\//i.test(String(u||"").trim())?String(u).trim():"";
+
+/* ---- model ---- */
+const COL={items:"acad_items",revs:"acad_revs",tasks:"acad_tasks",mc:"acad_mc",learners:"acad_learners",enrol:"acad_enrol",rubrics:"acad_rubrics",subs:"acad_subs",fb:"acad_feedback",dec:"acad_dec",src:"acad_src"};
+const D={};Object.keys(COL).forEach(k=>D[k]={});
+const STATUSES=["Idea","Outline","Draft","Review","Approved","Archived"];
+const STAGES=["Idea","Outline","Draft","Review","Approved","Recorded","Published","Archived"];
+const TYPES={programme:"Programme",pillar:"Pillar",course:"Course",module:"Module",lesson:"Lesson",outcome:"Learning outcome",exercise:"Exercise",resource:"Resource",assessment:"Assessment"};
+const FIELDS={
+  programme:[["statement","Programme outcome",2],["question","Guiding question",2],["outcomes","Programme learning outcomes",8],["architecture","Pillars and how they relate",12],["test","How the pillars were chosen",12],["scope","What the programme does and does not do",8],["sequence","Proposed learning sequence",10]],
+  pillar:[["definition","Definition",3],["test","Removal test: why it is a pillar",3],["includes","What sits under it",6],["signals","Founder-bottleneck signals",4],["limits","Limits and judgement",3],["relations","Relationship to other pillars",3]],
+  course:[["purpose","Purpose",5],["audience","Audience",3],["subjects","Subjects covered",3],["prereqText","Prerequisites",2],["time","Estimated learning time",6],["structure","Structure and rationale",10],["notIncluded","Not covered here",3],["completion","Completion and evidence",5]],
+  module:[["problem","Learner problem",4],["prereqText","Prerequisites",2],["outline","Lesson outline",6],["example","Worked example",12],["misconceptions","Common misconceptions",8],["time","Estimated learning time",2],["production","Production notes",2]],
+  lesson:[["summary","What this lesson covers",2],["minutes","Estimated length",1],["script","Recording script",26],["slides","Slide and visual notes",3]],
+  outcome:[["statement","Observable outcome",3],["evidence","How it is evidenced",2]],
+  exercise:[["instructions","Instructions",12],["output","What the learner produces",2],["time","Estimated time",1]],
+  resource:[["purpose","Decision or task it supports",2],["body","Resource content",22],["how","How to use it",2]],
+  assessment:[["scenario","Scenario",8],["context","Business context",10],["facts","Relevant facts and constraints",12],["missing","Deliberately incomplete information (assessor reference, not shown to learners)",10],["instructions","Learner instructions",14],["format","Submission format",6],["effort","Effort estimate",2],["guidance","Assessor guidance",16],["prompts","Feedback prompts",8],["resubmission","Resubmission process",8],["evidenceNote","What this does and does not show",3]]
+};
+const LEARNER_CASE=["scenario","context","facts","instructions","format","effort","resubmission","evidenceNote"];
+const CHILD={programme:["pillar"],course:["module","outcome","assessment"],module:["lesson","outcome","exercise","resource"]};
+const SUB_ST=["Not started","Submitted","In review","Revision requested","Completed"];
+const MC_ST=["Proposal","Planned","Scheduled","Delivered","Cancelled"];
+const DEC_ST=["Open","Proposed","Agreed","Declined","Superseded"];
+const SRC_ST=["Verified","Needs research","Needs professional review","Not used"];
+const FB_ST=["New","Reviewing","Accepted","Declined","Done"];
+const PROG=["Not started","Studied","Exercise done"];
+
+/* hash: must match academy/tools/build-seed.mjs */
+const stable=v=>Array.isArray(v)?"["+v.map(stable).join(",")+"]":v&&typeof v==="object"?"{"+Object.keys(v).sort().filter(k=>v[k]!==undefined&&v[k]!=="").map(k=>JSON.stringify(k)+":"+stable(v[k])).join(",")+"}":JSON.stringify(v);
+const fnv=s=>{let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0}return h.toString(16).padStart(8,"0")};
+const hashOf=it=>fnv(stable({title:it.title,f:it.f||{},links:it.links||{}}));
+
+const isApproved=it=>!!(it&&it.approved&&it.approved.hash===hashOf(it));
+function stage(it){
+  if(!it)return "Draft";
+  if(it.status==="Archived")return "Archived";
+  if(it.published)return "Published";
+  if(it.recording&&it.recording.rev)return "Recorded";
+  return it.status||"Draft";
+}
+const draftLabel=it=>isApproved(it)||it.published?"":'<span class="dbadge" title="Draft content: not approved">Draft, not approved</span>';
+function flagsOf(it){
+  const f=[];
+  if(it.approved&&!isApproved(it))f.push("Changed since approved version r"+it.approved.rev);
+  if(it.recording&&it.recording.hash&&it.recording.hash!==hashOf(it))f.push("Script changed since recording (r"+it.recording.rev+")");
+  if(it.published&&it.published.hash!==hashOf(it))f.push("Draft differs from published r"+it.published.rev);
+  return f;
+}
+function nextAction(it){
+  const s=stage(it);
+  if(s==="Archived")return "";
+  if(it.published)return it.published.hash!==hashOf(it)?"Approve and republish, or revert":"";
+  if(it.approved&&!isApproved(it))return "Re-approve the changed content";
+  if(it.status==="Approved"){if(it.type==="lesson")return it.recording?"Publish":"Record";return "Publish"}
+  return {Idea:"Outline it",Outline:"Write the draft",Draft:"Review it",Review:"Approve or revise"}[it.status]||"Review it";
+}
+const PRODUCED=["course","module","lesson","exercise","resource","assessment"];
+
+/* ---- state ---- */
+let db=null,downloads=null,live=false,sub="overview",sel=null,tab="content",preview=false,showDemo=false,deferred=false;
+let expanded=new Set(["c-of"]),revs={},revView=null,rubDraft=null,openSub=null,openMc=null,expOut="",expName="",contacts=null,engList=null,loaded={},prodF={type:"",stage:"",course:""};
+try{const s=JSON.parse(localStorage.getItem("acad-ui")||"{}");if(s.sub)sub=s.sub;if(s.sel)sel=s.sel;if(s.tab)tab=s.tab}catch(_){}
+const saveUI=()=>{try{localStorage.setItem("acad-ui",JSON.stringify({sub,sel,tab}))}catch(_){}};
+
+/* ---- persistence: one write at a time per document ---- */
+const chains={},pend={};
+function mark(t){const e=$("acSaved");if(e)e.textContent=t}
+function errMsg(e){const c=e&&e.code;return c==="quota_exceeded"?"Storage is full. Delete old records, then try again.":c==="invalid_argument"?"Couldn't save: this view can't write here.":"Couldn't save. Check you're signed in to claude.ai."}
+function write(col,id,data){
+  D[col][id]=data;
+  if(!db){mark("Not saved: open this in claude.ai while signed in");return Promise.resolve()}
+  mark("Saving…");const k=col+"/"+id;
+  const p=(chains[k]||Promise.resolve()).then(()=>db.doc(COL[col]+"/"+id).set(clone(data))).then(()=>{if(!Object.keys(pend).length)mark("Saved")},e=>{mark(errMsg(e));throw e});
+  chains[k]=p.catch(()=>{});return p;
+}
+function save(col,id,delay){
+  const o=D[col][id];if(!o)return Promise.resolve();o.updated=now();
+  clearTimeout(pend[col+id]);delete pend[col+id];
+  if(!delay)return write(col,id,o);
+  mark("Saving…");pend[col+id]=setTimeout(()=>{delete pend[col+id];write(col,id,D[col][id])},delay);
+  return Promise.resolve();
+}
+function create(col,data,id){id=id||uid(col.slice(0,2));data.created=data.created||now();data.updated=now();return write(col,id,data).then(()=>id)}
+function remove(col,id){delete D[col][id];if(!db)return Promise.resolve();return db.doc(COL[col]+"/"+id).delete().then(()=>mark("Saved"),e=>mark(errMsg(e)))}
+function setPath(o,path,v){const ks=path.split(".");let x=o;for(let i=0;i<ks.length-1;i++){if(!x[ks[i]]||typeof x[ks[i]]!=="object")x[ks[i]]={};x=x[ks[i]]}x[ks[ks.length-1]]=v}
+function getPath(o,path){return path.split(".").reduce((x,k)=>x==null?x:x[k],o)}
+function logIt(it,what){it.log=(it.log||[]).concat({at:now(),what}).slice(-60)}
+
+/* ---- selectors ---- */
+const items=()=>Object.entries(D.items).map(([id,v])=>Object.assign({id},v));
+const kids=(pid,type)=>items().filter(v=>(v.parent||"")===pid&&(!type||v.type===type)).sort((a,b)=>(a.order||0)-(b.order||0)||String(a.title).localeCompare(b.title));
+const it=id=>id&&D.items[id]?Object.assign({id},D.items[id]):null;
+const titleOf=id=>{const x=D.items[id];return x?x.title:"(removed)"};
+const courseOf=id=>{let x=it(id),g=0;while(x&&x.type!=="course"&&x.parent&&g++<6)x=it(x.parent);return x&&x.type==="course"?x.id:""};
+const outcomesIn=cid=>items().filter(v=>v.type==="outcome"&&courseOf(v.id)===cid).sort((a,b)=>a.title.localeCompare(b.title,undefined,{numeric:true}));
+const courses=()=>kids("","course");
+const vis=o=>showDemo||!o.demo;
+const L=col=>Object.entries(D[col]).map(([id,v])=>Object.assign({id},v));
+const learnerName=id=>{const l=D.learners[id];return l?(l.name||"Unnamed learner"):"(removed learner)"};
+const rubricsFor=aid=>L("rubrics").filter(r=>r.assessment===aid).sort((a,b)=>a.version-b.version);
+const latestRubric=aid=>{const r=rubricsFor(aid);return r[r.length-1]||null};
+
+/* ---- markdown (safe subset) ---- */
+function inl(s){return s.replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g,"$1<i>$2</i>").replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>').replace(/\[ \]/g,"☐").replace(/\[x\]/gi,"☑")}
+function md(src){
+  const Ls=String(src||"").replace(/\r/g,"").split("\n");let o="",i=0;
+  const isList=l=>/^\s*([-*]|\d+\.)\s+/.test(l);
+  while(i<Ls.length){
+    const l=Ls[i];if(!l.trim()){i++;continue}
+    let m;
+    if((m=l.match(/^(#{1,4})\s+(.*)/))){const n=Math.min(6,m[1].length+2);o+=`<h${n}>${inl(esc(m[2]))}</h${n}>`;i++;continue}
+    if(/^\[ON SCREEN/i.test(l.trim())){o+=`<p class="cue">${esc(l.trim())}</p>`;i++;continue}
+    if(/^\|/.test(l.trim())){const rows=[];while(i<Ls.length&&/^\|/.test(Ls[i].trim()))rows.push(Ls[i++].trim());
+      const sep=r=>/^\|[\s|:-]+\|?$/.test(r),cells=r=>r.replace(/^\|/,"").replace(/\|$/,"").split("|").map(c=>c.trim());const head=rows.length>1&&sep(rows[1]);
+      o+='<div class="tw"><table>'+rows.filter(r=>!sep(r)).map((r,k)=>{const t=head&&k===0?"th":"td";return "<tr>"+cells(r).map(c=>`<${t}>${inl(esc(c))}</${t}>`).join("")+"</tr>"}).join("")+"</table></div>";continue}
+    if(isList(l)){
+      const ord=/^\s*\d+\./.test(l);const top=[];let cur=null;
+      while(i<Ls.length&&(isList(Ls[i])||(cur&&/^\s{2,}\S/.test(Ls[i])))){
+        const x=Ls[i],ind=x.match(/^\s*/)[0].length,txt=x.replace(/^\s*([-*]|\d+\.)\s+/,"");
+        if(isList(x)&&ind<2){cur={t:txt,sub:[],subOrd:false};top.push(cur)}
+        else if(isList(x)&&cur){cur.sub.push(txt);cur.subOrd=/^\s*\d+\./.test(x)}
+        else if(cur){cur.t+=" "+x.trim()}
+        i++}
+      const tg=ord?"ol":"ul";o+=`<${tg}>`+top.map(x=>"<li>"+inl(esc(x.t))+(x.sub.length?`<${x.subOrd?"ol":"ul"}>`+x.sub.map(s=>"<li>"+inl(esc(s))+"</li>").join("")+`</${x.subOrd?"ol":"ul"}>`:"")+"</li>").join("")+`</${tg}>`;continue}
+    const p=[];while(i<Ls.length&&Ls[i].trim()&&!isList(Ls[i])&&!/^(#{1,4})\s/.test(Ls[i])&&!/^\|/.test(Ls[i].trim())&&!/^\[ON SCREEN/i.test(Ls[i].trim()))p.push(Ls[i++].trim());
+    o+="<p>"+inl(esc(p.join(" ")))+"</p>";
+  }
+  return o;
+}
+
+/* ---- UI helpers ---- */
+const stg=s=>`<span class="stg s-${esc(s)}">${esc(s)}</span>`;
+const opt=(list,v)=>list.map(x=>Array.isArray(x)?`<option value="${esc(x[0])}"${x[0]===v?" selected":""}>${esc(x[1])}</option>`:`<option${x===v?" selected":""}>${esc(x)}</option>`).join("");
+const kv=(a,b)=>`<div class="kv"><span>${a}</span><b>${b}</b></div>`;
+const demoB=o=>o&&o.demo?' <span class="demo">Demo</span>':"";
+const goItem=(id,text)=>`<button class="lnk" type="button" data-act="open" data-id="${esc(id)}">${esc(text||titleOf(id))}</button>`;
+const card=(t,body,extra)=>`<div class="card"${extra||""}><h3>${t}</h3>${body}</div>`;
+const fld=(label,inner,cls)=>`<div class="f${cls?" "+cls:""}"><label>${label}</label>${inner}</div>`;
+const bindIn=(col,id,path,v,type,attrs)=>`<input${type?` type="${type}"`:""} data-bind="${col}|${esc(id)}|${path}" value="${esc(v==null?"":v)}"${attrs||""}>`;
+const bindTa=(col,id,path,v,rows,cls)=>`<textarea${cls?` class="${cls}"`:""} rows="${rows||3}" data-bind="${col}|${esc(id)}|${path}">${esc(v||"")}</textarea>`;
+const bindSel=(col,id,path,list,v)=>`<select data-bind="${col}|${esc(id)}|${path}">${opt(list,v)}</select>`;
+const ids=()=>"a"+Math.random().toString(36).slice(2,8);
+function labelled(label,html){const k=ids();return `<div class="f"><label for="${k}">${label}</label>${html.replace(/^<(input|textarea|select)/,`<$1 id="${k}"`)}</div>`}
+
+/* ---- overview ---- */
+function counts(){
+  const t=todayISO(),I=items().filter(v=>v.status!=="Archived");
+  const prod=I.filter(v=>PRODUCED.includes(v.type));
+  const next=prod.map(v=>({v,a:nextAction(v)})).filter(x=>x.a);
+  const tasks=L("tasks").filter(x=>!x.done);
+  const upcoming=L("mc").filter(m=>m.date&&m.date>=t&&m.status!=="Cancelled"&&m.status!=="Delivered").sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  const awaiting=L("subs").filter(s=>vis(s)&&(s.status==="Submitted"||s.status==="In review"));
+  const overdue=[].concat(
+    tasks.filter(x=>x.due&&x.due<t).map(x=>({what:x.title,due:x.due,kind:"Task",go:"production"})),
+    prod.filter(v=>v.due&&v.due<t&&stage(v)!=="Published").map(v=>({what:nextAction(v)+": "+v.title,due:v.due,kind:TYPES[v.type],id:v.id})),
+    L("mc").filter(m=>m.date&&m.date<t&&["Planned","Scheduled"].includes(m.status)).map(m=>({what:"Mark delivered or cancelled: "+m.title,due:m.date,kind:"Masterclass",go:"masterclasses"}))
+  ).sort((a,b)=>a.due.localeCompare(b.due));
+  const decisions=L("dec").filter(d=>d.status==="Open"||d.status==="Proposed");
+  const fb=L("fb").filter(f=>vis(f)&&(f.status==="New"||f.status==="Reviewing"));
+  const claims=L("src").filter(s=>s.status!=="Verified"&&s.status!=="Not used");
+  return {I,prod,next,tasks,upcoming,awaiting,overdue,decisions,fb,claims};
+}
+function rOverview(){
+  const C=counts(),mods=C.I.filter(v=>v.type==="module"),les=C.I.filter(v=>v.type==="lesson");
+  if(!C.I.length&&!L("mc").length&&!L("dec").length)return `<div class="acnote">${live?"Nothing here yet. Start in <b>Curriculum</b> by adding the programme outcome or a course.":"Sign in to claude.ai to load the Academy. Nothing is stored in this browser."}</div>`;
+  const kp=[["Courses",String(C.I.filter(v=>v.type==="course").length),C.I.filter(v=>v.type==="course"&&v.status!=="Idea").length+" beyond idea stage"],
+    ["Modules approved",mods.filter(isApproved).length+" of "+mods.length,mods.filter(v=>stage(v)==="Published").length+" published"],
+    ["Lessons recorded",les.filter(v=>v.recording&&v.recording.rev).length+" of "+les.length,les.filter(v=>stage(v)==="Published").length+" published"],
+    ["Production next steps",String(C.next.length+C.tasks.length),C.tasks.length+" open tasks"],
+    ["Awaiting assessment",String(C.awaiting.length),C.awaiting.length?"Submitted or in review":"Nothing to review"],
+    ["Overdue",String(C.overdue.length),C.overdue.length?"See below":"Nothing overdue"],
+    ["Decisions open",String(C.decisions.length),"Awaiting agreement"],
+    ["Feedback to act on",String(C.fb.length),"New or being reviewed"],
+    ["Claims to verify",String(C.claims.length),"In the Sources register"]];
+  const types=[["course","Courses"],["module","Modules"],["lesson","Lessons"],["exercise","Exercises"],["resource","Resources"],["assessment","Assessments"]];
+  const all=items();
+  const byStage=`<div class="scroll"><table class="actable"><thead><tr><th></th>${STAGES.map(s=>`<th>${s}</th>`).join("")}</tr></thead><tbody>${types.map(([k,l])=>`<tr><td><b>${l}</b></td>${STAGES.map(s=>{const n=all.filter(v=>v.type===k&&stage(v)===s).length;return `<td>${n?`<button class="lnk" type="button" data-act="prodfilter" data-type="${k}" data-stage="${s}">${n}</button>`:'<span class="sub">0</span>'}</td>`}).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const nextList=C.next.sort((a,b)=>(a.v.due||"9999").localeCompare(b.v.due||"9999")||STAGES.indexOf(b.v.status)-STAGES.indexOf(a.v.status)).slice(0,8).map(x=>kv(`${goItem(x.v.id)} <span class="sub">· ${TYPES[x.v.type]}</span>`,esc(x.a)+(x.v.due?` · ${fmtD(x.v.due)}`:""))).join("")
+    +C.tasks.sort((a,b)=>(a.due||"9999").localeCompare(b.due||"9999")).slice(0,5).map(x=>kv(esc(x.title)+' <span class="sub">· Task</span>',x.due?fmtD(x.due):"No date")).join("");
+  const mcNote=L("mc").filter(m=>!m.date&&m.status!=="Cancelled").length;
+  return `<div class="kpis">${kp.map(([l,v,s])=>`<div class="kpi"><span>${l}</span><b>${v}</b><em>${esc(s)}</em></div>`).join("")}</div>
+  <div class="acrow"><label class="chip small"><input type="checkbox" data-act="demo"${showDemo?" checked":""}> Include demo records in counts</label><span class="hint">Counts are worked out from the records, every time this page draws.</span></div>
+  ${card("Content by stage",byStage+'<p class="hint">Approval, recording and publication are tracked separately. An item only shows as Published once an approved version has been published.</p>')}
+  <div class="two">
+    ${card("Next production steps",nextList||'<p class="empty">Nothing waiting. Everything is published or archived.</p>')}
+    ${card("Upcoming masterclasses",(C.upcoming.map(m=>kv(`<button class="lnk" type="button" data-act="mcopen" data-id="${esc(m.id)}">${esc(m.title)}</button>`,fmtD(m.date)+(m.time?" · "+esc(m.time)+" "+esc(m.tz||""):"")+" · "+esc(m.status))).join("")||'<p class="empty">No masterclass has a date yet.</p>')+(mcNote?`<p class="hint">${mcNote} proposal${mcNote===1?"":"s"} without a date.</p>`:""))}
+  </div>
+  <div class="two">
+    ${card("Assessments awaiting review",C.awaiting.map(s=>kv(`<button class="lnk" type="button" data-act="subopen" data-id="${esc(s.id)}">${esc(learnerName(s.learner))}</button>${demoB(s)} <span class="sub">· attempt ${s.attempt||1}</span>`,esc(s.status)+(s.submitted?" · "+fmtD(s.submitted):""))).join("")||'<p class="empty">No submissions waiting.</p>')}
+    ${card("Overdue",C.overdue.map(o=>kv((o.id?goItem(o.id,o.what):`<button class="lnk" type="button" data-acsub="${o.go}">${esc(o.what)}</button>`)+` <span class="sub">· ${esc(o.kind)}</span>`,'<span class="acwarn">'+fmtD(o.due)+"</span>")).join("")||'<p class="empty">Nothing overdue.</p>')}
+  </div>
+  <div class="two">
+    ${card("Decisions awaiting agreement",C.decisions.map(d=>kv(`<button class="lnk" type="button" data-act="decopen" data-id="${esc(d.id)}">${esc(d.title)}</button>`,esc(d.status))).join("")||'<p class="empty">No open decisions.</p>')}
+    ${card("Pilot feedback needing attention",C.fb.map(f=>kv(esc((f.comment||f.change||"Feedback").slice(0,90))+demoB(f)+(f.item?` <span class="sub">· ${esc(titleOf(f.item))}</span>`:""),esc(f.status))).join("")||'<p class="empty">No feedback waiting.</p>')}
+  </div>`;
+}
+
+/* ---- curriculum ---- */
+const TORD={pillar:0,outcome:0,module:1,lesson:1,exercise:2,resource:3,assessment:5};
+const kidsSorted=pid=>kids(pid).sort((a,b)=>(TORD[a.type]||0)-(TORD[b.type]||0)||(a.order||0)-(b.order||0));
+function treeHTML(){
+  const node=(v,d)=>{const ks=kidsSorted(v.id),open=expanded.has(v.id);
+    return `<button type="button" class="d${d}" data-act="sel" data-id="${esc(v.id)}" aria-current="${sel===v.id}"><span class="tw">${ks.length?`<span class="car" aria-hidden="true">${open?"▾":"▸"}</span>`:'<span class="car"></span>'}<span data-tt="${esc(v.id)}">${esc(v.title||"Untitled")}</span></span>${stg(stage(v))}<small>${TYPES[v.type]}${flagsOf(v).length?' · <span class="acwarn">changed since approval or publication</span>':""}</small></button>`+(open?ks.map(k=>node(k,Math.min(3,d+1))).join(""):"")};
+  const progs=kids("","programme");
+  return `<nav class="actree" aria-label="Curriculum tree"><p class="grp">Programme</p>${progs.map(p=>node(p,0)).join("")||'<p class="empty" style="padding:4px 12px 10px">No programme outcome yet.</p>'}<p class="grp">Courses</p>${courses().map(c=>node(c,0)).join("")||'<p class="empty" style="padding:4px 12px 10px">No courses yet.</p>'}</nav>`;
+}
+function rCurriculum(){
+  const v=it(sel);
+  const add=`<div class="acrow">${kids("","programme").length?"":'<button class="btn small" type="button" data-act="additem" data-type="programme" data-parent="">Add programme outcome</button>'}<button class="btn small" type="button" data-act="additem" data-type="course" data-parent="">Add course</button><span class="hint">Everything here is draft until you approve it. Approval, recording and publication are separate steps in the Production tab of each item.</span></div>`;
+  return add+`<div class="acgrid">${treeHTML()}${v?editorHTML(v):`<div class="card"><p class="empty">${items().length?"Choose an item on the left to review or edit it.":(live?"No curriculum yet. Add the programme outcome or a course.":"Sign in to claude.ai to load the curriculum.")}</p></div>`}</div>`;
+}
+function editorHTML(v){
+  const par=v.parent?it(v.parent):null,flags=flagsOf(v),s=stage(v);
+  const stOpts=STATUSES.filter(x=>x!=="Approved"||v.status==="Approved");
+  const kidBtns=(CHILD[v.type]||[]).map(t=>`<button class="btn small" type="button" data-act="additem" data-type="${t}" data-parent="${esc(v.id)}">Add ${TYPES[t].toLowerCase()}</button>`).join("");
+  const tabs=[["content","Content"],["links","Links"],["production","Production"],["history","History"]];
+  let pane="";
+  if(tab==="links")pane=linksPane(v);else if(tab==="production")pane=prodPane(v);else if(tab==="history")pane=histPane(v);else pane=contentPane(v);
+  return `<article class="ptdet acx" aria-label="Editor"><div class="ptdh">
+    <div class="ptmeta"><span class="ev">${TYPES[v.type]}</span>${stg(s)}${draftLabel(v)}${par?`<span>In ${goItem(par.id)}</span>`:""}${v.rev?`<span>Latest revision r${v.rev}</span>`:"<span>No saved revision yet</span>"}</div>
+    <label class="vh" for="axTitle">Title</label><input class="axtitle" id="axTitle" data-bind="items|${esc(v.id)}|title" value="${esc(v.title)}">
+    ${flags.map(f=>`<span class="acwarn">${esc(f)}</span>`).join("")}
+    <div class="fs axmeta">
+      ${labelled("Editorial status",`<select data-bind="items|${esc(v.id)}|status">${opt(stOpts,v.status)}</select>`)}
+      ${labelled("Owner",bindIn("items",v.id,"owner",v.owner))}
+      ${labelled("Due",bindIn("items",v.id,"due",v.due,"date"))}
+      <div class="f"><span class="lab">Order</span><div class="acrow"><button class="btn small" type="button" data-act="move" data-dir="-1" aria-label="Move up">↑</button><button class="btn small" type="button" data-act="move" data-dir="1" aria-label="Move down">↓</button></div></div>
+    </div>
+    ${kidBtns?`<div class="acrow">${kidBtns}</div>`:""}
+  </div>
+  <div class="pttabs" role="tablist">${tabs.map(([k,l])=>`<button type="button" role="tab" data-act="tab" data-tab="${k}" aria-selected="${k===tab}">${l}</button>`).join("")}</div>
+  <div class="ptpane" role="tabpanel">${pane}</div></article>`;
+}
+function contentPane(v){
+  const F=FIELDS[v.type]||[];
+  const head=`<div class="acrow"><div class="seg" role="group" aria-label="Mode"><button class="btn small" type="button" data-act="pv" data-v="0" aria-pressed="${!preview}">Edit</button><button class="btn small" type="button" data-act="pv" data-v="1" aria-pressed="${preview}">Preview</button></div><span class="hint">Edits save automatically as the working draft. Use History to keep a named revision. Markdown is supported: **bold**, lists, tables and ### headings.</span></div>`;
+  if(preview)return head+F.map(([k,l])=>(v.f||{})[k]?`<div><h4>${esc(l)}</h4><div class="md">${md(v.f[k])}</div></div>`:"").join("")+(F.some(([k])=>(v.f||{})[k])?"":'<p class="empty">Nothing written yet.</p>');
+  return head+F.map(([k,l,rows])=>{const fid="axf_"+k;return `<div class="axf"><label for="${fid}">${esc(l)}</label><textarea id="${fid}" class="${k==="script"||k==="body"?"script":""}" rows="${rows||6}" data-bind="items|${esc(v.id)}|f.${k}">${esc((v.f||{})[k]||"")}</textarea></div>`}).join("")
+    +`<div class="acrow" style="justify-content:space-between;border-top:1px solid var(--line);padding-top:12px"><span class="hint">Created ${fmtD(v.created)} · last edited ${fmtD(v.updated)}</span><span class="acrow"><button class="btn small" type="button" data-act="archive">${v.status==="Archived"?"Restore from archive":"Archive"}</button>${!v.published&&!kids(v.id).length?'<button class="btn small" type="button" data-act="delitem">Delete</button>':""}</span></div>`;
+}
+function checks(path,v,list,emptyText){
+  const cur=getPath(v,path)||[];
+  return list.length?`<div class="acchecks">${list.map(o=>`<label class="chip"><input type="checkbox" data-arr="items|${esc(v.id)}|${path}" value="${esc(o.id)}"${cur.includes(o.id)?" checked":""}> ${esc(o.title)}</label>`).join("")}</div>`:`<p class="empty">${emptyText}</p>`;
+}
+function linksPane(v){
+  const cid=courseOf(v.id)||(v.type==="course"?v.id:"");let h="";
+  if(["course","module"].includes(v.type))h+=`<div><h4>Pillars</h4>${checks("links.pillars",v,kids("","programme").flatMap(p=>kids(p.id,"pillar")),"No pillars defined yet.")}</div>`;
+  if(["lesson","exercise","resource","assessment"].includes(v.type))h+=`<div><h4>Learning outcomes it serves</h4>${checks("links.outcomes",v,cid?outcomesIn(cid):[],"No learning outcomes in this course yet.")}</div>`;
+  if(v.type==="module")h+=`<div><h4>Prerequisite modules</h4>${checks("links.prereqs",v,kids(v.parent,"module").filter(m=>m.id!==v.id),"No other modules.")}</div>`;
+  if(v.type==="course")h+=`<div><h4>Prerequisite courses</h4>${checks("links.prereqs",v,courses().filter(c=>c.id!==v.id),"No other courses.")}</div>`;
+  const from=items().filter(x=>x.id!==v.id&&Object.values(x.links||{}).some(a=>Array.isArray(a)&&a.includes(v.id)));
+  const mcs=L("mc").filter(m=>(m.outcomes||[]).includes(v.id)||(m.modules||[]).includes(v.id));
+  const crit=[];L("rubrics").forEach(r=>{if(latestRubric(r.assessment)&&latestRubric(r.assessment).id!==r.id)return;(r.criteria||[]).forEach(c=>{if((c.outcomes||[]).includes(v.id))crit.push(c.name+" (rubric v"+r.version+")")})});
+  h+=`<div><h4>Linked from</h4>${from.map(x=>kv(goItem(x.id),TYPES[x.type])).join("")}${mcs.map(m=>kv(`<button class="lnk" type="button" data-act="mcopen" data-id="${esc(m.id)}">${esc(m.title)}</button>`,"Masterclass")).join("")}${crit.map(c=>kv(esc(c),"Rubric criterion")).join("")}${from.length||mcs.length||crit.length?"":'<p class="empty">Nothing links here yet.</p>'}</div>`;
+  const ks=kidsSorted(v.id);
+  if(ks.length)h+=`<div><h4>Contains</h4>${ks.map(k=>kv(goItem(k.id),TYPES[k.type]+" · "+stage(k))).join("")}</div>`;
+  return h;
+}
+function prodPane(v){
+  const s=stage(v),idx=STAGES.indexOf(s),ok=isApproved(v);
+  let h=`<div><h4>Where it is</h4><div class="pipe">${STAGES.filter(x=>x!=="Archived"&&(v.type==="lesson"||x!=="Recorded")).map(x=>`<span class="${x===s?"on":STAGES.indexOf(x)<idx?"done":""}">${x}</span>`).join("")}</div><p class="hint">Next step: <b>${esc(nextAction(v)||"None")}</b></p></div>`;
+  h+=`<div class="acbox"><h4>Approval</h4>${v.approved?`<p>${ok?"Approved":"<span class=\"acwarn\">Approval out of date.</span> Previously approved"}: revision r${v.approved.rev}, ${fmtD(v.approved.at)}.</p>`:"<p>Not approved. Approving saves the current draft as a revision and marks that exact version as approved.</p>"}<div class="acrow"><button class="btn small primary" type="button" data-act="approve"${ok?" disabled":""}>Approve this version</button></div></div>`;
+  if(v.type==="lesson")h+=`<div class="acbox"><h4>Recording</h4><p class="hint">Link to the hosted recording. Video files are not stored here.</p>${labelled("Recording link",bindIn("items",v.id,"recUrl",v.recUrl,"url",' placeholder="https://"'))}${v.recording?`<p>Recorded from revision r${v.recording.rev} on ${fmtD(v.recording.at)}${safeUrl(v.recording.url)?` · <a href="${esc(safeUrl(v.recording.url))}" target="_blank" rel="noopener">open recording</a>`:""}.</p>`:""}<div class="acrow"><button class="btn small" type="button" data-act="record">${v.recording?"Update recording":"Mark recorded"}</button>${v.recording?'<button class="btn small" type="button" data-act="unrecord">Clear recording</button>':""}</div></div>`;
+  h+=`<div class="acbox"><h4>Publication</h4>${v.published?`<p>Published: revision r${v.published.rev}, ${fmtD(v.published.at)}.${v.published.hash!==hashOf(v)?' <span class="acwarn">The working draft has changed since. Learners would still see r'+v.published.rev+".</span>":""}</p>`:"<p>Not published. Only an approved version can be published.</p>"}<div class="acrow"><button class="btn small primary" type="button" data-act="publish"${ok?"":" disabled"}>Publish approved version</button>${v.published?'<button class="btn small" type="button" data-act="unpublish">Unpublish</button>':""}</div></div>`;
+  h+=`<div class="acbox"><h4>Files and links</h4>${labelled("Slides, worksheet or file link (optional)",bindIn("items",v.id,"resUrl",v.resUrl,"url",' placeholder="https://"'))}${safeUrl(v.resUrl)?`<a href="${esc(safeUrl(v.resUrl))}" target="_blank" rel="noopener">Open link</a>`:""}</div>`;
+  const notes=v.notes||[];
+  h+=`<div class="acbox"><h4>Review notes</h4>${notes.map((n,i)=>`<div class="todo${n.done?" done":""}"><input type="checkbox" data-note="${i}"${n.done?" checked":""} aria-label="Resolved"><span class="tt">${esc(n.text)}</span><span class="due">${fmtD(n.at)}</span><button class="x" type="button" data-act="delnote" data-i="${i}" aria-label="Delete note">×</button></div>`).join("")||'<p class="empty">No review notes.</p>'}<form class="todoadd" data-form="note" onsubmit="return false"><label class="vh" for="axNote">New review note</label><input id="axNote" placeholder="Add a review note"><span></span><button class="btn small" type="submit">Add</button></form></div>`;
+  h+=`<div><h4>Activity</h4>${(v.log||[]).slice(-10).reverse().map(l=>kv(esc(l.what),fmtD(l.at))).join("")||'<p class="empty">No activity yet.</p>'}</div>`;
+  return h;
+}
+function histPane(v){
+  if(revs[v.id]===undefined)loadRevs(v.id);
+  const list=revs[v.id];
+  let h=`<div class="acbox"><h4>Save a revision</h4><p class="hint">A revision is a fixed copy of this item. Approval, recording and publication always point at a revision, so later edits never change what was approved or published.</p><form class="todoadd" data-form="rev" onsubmit="return false"><label class="vh" for="axRevNote">Revision note</label><input id="axRevNote" placeholder="What changed? (optional)"><span></span><button class="btn small primary" type="submit"${v.rev&&v.revHash===hashOf(v)?" disabled":""}>Save revision</button></form>${v.rev&&v.revHash===hashOf(v)?`<p class="hint">The draft matches r${v.rev}. Nothing new to save.</p>`:""}</div>`;
+  if(list===null)return h+'<p class="empty">Loading revisions…</p>';
+  if(!list||!list.length)return h+'<p class="empty">No saved revisions yet.</p>';
+  h+=`<div class="scroll"><table class="actable"><thead><tr><th>Revision</th><th>Saved</th><th>Note</th><th>Status then</th><th></th></tr></thead><tbody>${list.slice().reverse().map(r=>{const tags=[v.approved&&v.approved.rev===r.n?"Approved":"",v.recording&&v.recording.rev===r.n?"Recorded":"",v.published&&v.published.rev===r.n?"Published":""].filter(Boolean);return `<tr><td><b>r${r.n}</b> ${tags.map(t=>stg(t)).join(" ")}</td><td>${fmtD(r.at)}</td><td>${esc(r.note||"")}</td><td>${esc(r.status||"")}</td><td><button class="btn small" type="button" data-act="revview" data-n="${r.n}">${revView===r.n?"Hide":"View"}</button></td></tr>`}).join("")}</tbody></table></div>`;
+  const r=list.find(x=>x.n===revView);
+  if(r){const F=FIELDS[v.type]||[],diff=F.filter(([k])=>((r.f||{})[k]||"")!==((v.f||{})[k]||"")).map(x=>x[1]).concat(r.title!==v.title?["Title"]:[]).concat(stable(r.links||{})!==stable(v.links||{})?["Links"]:[]);
+    h+=`<div class="acbox"><h4>Revision r${r.n}: ${esc(r.title)}</h4><p class="hint">${diff.length?"Different from the current draft: "+esc(diff.join(", ")):"Identical to the current draft."}</p>${F.map(([k,l])=>(r.f||{})[k]?`<div><h4>${esc(l)}</h4><div class="md">${md(r.f[k])}</div></div>`:"").join("")}<div class="acrow"><button class="btn small" type="button" data-act="restore" data-n="${r.n}"${diff.length?"":" disabled"}>Restore r${r.n} into the draft</button><span class="hint">Restoring changes the working draft only. History is kept.</span></div></div>`}
+  return h;
+}
+
+/* ---- revisions and production actions ---- */
+function loadRevs(id){
+  if(!db){revs[id]=revs[id]||[];return}
+  revs[id]=null;
+  db.collection(COL.revs).where("item","==",id).get().then(s=>{revs[id]=s.docs.map(d=>Object.assign({id:d.id},clone(d.data()))).sort((a,b)=>a.n-b.n);render()},()=>{revs[id]=[];mark("Couldn't load revisions.");render()});
+}
+async function saveRevision(id,note){
+  const v=D.items[id];if(!v)return 0;const h=hashOf(v);
+  if(v.rev&&v.revHash===h)return v.rev;
+  const n=(v.rev||0)+1,r={item:id,n,at:now(),note:note||"",title:v.title,f:clone(v.f||{}),links:clone(v.links||{}),status:v.status,hash:h};
+  if(db)await db.doc(COL.revs+"/"+id+"--r"+n).set(r);
+  if(Array.isArray(revs[id]))revs[id].push(Object.assign({id:id+"--r"+n},r));
+  const x=D.items[id];if(!x)return n;x.rev=n;x.revHash=h;logIt(x,"Saved revision r"+n+(note?": "+note:""));await save("items",id);
+  return n;
+}
+async function getRev(id,n){
+  const hit=(revs[id]||[]).find(r=>r.n===n);if(hit)return hit;
+  const k=id+"--r"+n;if(revCache[k]!==undefined)return revCache[k];
+  revCache[k]=null;if(!db)return null;
+  try{const s=await db.doc(COL.revs+"/"+k).get();revCache[k]=s.exists?clone(s.data()):false}catch(_){revCache[k]=false}
+  render();return revCache[k];
+}
+const revCache={};
+function onItemEdited(id){
+  const v=D.items[id];if(!v)return;
+  if(v.status==="Approved"&&v.approved&&v.approved.hash!==hashOf(v)){v.status="Draft";logIt(v,"Edited after approval. Status returned to Draft; approved version r"+v.approved.rev+" is kept in History.");setTimeout(render,0)}
+}
+async function act(a,el){
+  const v=it(sel);
+  if(a==="approve"&&v){if(!["Review","Approved"].includes(v.status)&&!confirm("This item is at "+v.status+", not Review. Approve this version anyway?"))return;
+    const n=await saveRevision(v.id,"Approved");const x=D.items[v.id];x.approved={rev:n,hash:x.revHash,at:now(),by:"Mila"};x.status="Approved";logIt(x,"Approved r"+n);await save("items",v.id);render();return}
+  if(a==="record"&&v){if(!safeUrl(D.items[v.id].recUrl)){alert("Add a link to the hosted recording first (starting https://).");return}
+    if(!isApproved(D.items[v.id])&&!confirm("This version isn't approved. Mark it recorded anyway?"))return;
+    const n=await saveRevision(v.id,"Recorded"),x=D.items[v.id];x.recording={url:safeUrl(x.recUrl),rev:n,hash:x.revHash,at:now()};logIt(x,"Recorded from r"+n);await save("items",v.id);render();return}
+  if(a==="unrecord"&&v){if(!confirm("Clear the recording record for this lesson?"))return;const x=D.items[v.id];logIt(x,"Recording cleared (was r"+(x.recording&&x.recording.rev)+")");x.recording=null;await save("items",v.id);render();return}
+  if(a==="publish"&&v){const x=D.items[v.id];if(!isApproved(x))return;x.published={rev:x.approved.rev,hash:x.approved.hash,at:now()};logIt(x,"Published r"+x.approved.rev);await save("items",v.id);render();return}
+  if(a==="unpublish"&&v){if(!confirm("Unpublish this item? The revision stays in History."))return;const x=D.items[v.id];logIt(x,"Unpublished r"+x.published.rev);x.published=null;await save("items",v.id);render();return}
+  if(a==="archive"&&v){const x=D.items[v.id];x.status=x.status==="Archived"?"Draft":"Archived";logIt(x,x.status==="Archived"?"Archived":"Restored from archive");await save("items",v.id);render();return}
+  if(a==="delitem"&&v){if(!confirm("Delete \""+v.title+"\"? Saved revisions are kept but the item disappears from the curriculum."))return;sel=v.parent||null;await remove("items",v.id);render();return}
+  if(a==="move"&&v){const sib=kids(v.parent||"",v.type),i=sib.findIndex(x=>x.id===v.id),j=i+(+el.dataset.dir);if(j<0||j>=sib.length)return;
+    sib.forEach((x,k)=>{D.items[x.id].order=k+1});const A=D.items[sib[i].id],B=D.items[sib[j].id];[A.order,B.order]=[B.order,A.order];
+    await Promise.all(sib.map(x=>save("items",x.id)));render();return}
+  if(a==="restore"&&v){const n=+el.dataset.n,r=(revs[v.id]||[]).find(x=>x.n===n);if(!r)return;const x=D.items[v.id];x.title=r.title;x.f=clone(r.f||{});x.links=Object.assign({pillars:[],outcomes:[],prereqs:[]},clone(r.links||{}));logIt(x,"Restored r"+n+" into the draft");onItemEdited(v.id);await save("items",v.id);render();return}
+  if(a==="delnote"&&v){const x=D.items[v.id];x.notes.splice(+el.dataset.i,1);await save("items",v.id);render();return}
+}
+async function addItem(type,parent){
+  const sib=kids(parent,type),order=sib.length?Math.max(...sib.map(s=>s.order||0))+1:1;
+  const data={type,title:"New "+TYPES[type].toLowerCase(),parent,order,status:type==="course"?"Idea":"Draft",owner:"Mila",due:"",f:{},links:{pillars:[],outcomes:[],prereqs:[]},notes:[],log:[{at:now(),what:"Created"}],rev:0,revHash:"",approved:null,recording:null,published:null};
+  const id=await create("items",data,uid(type.slice(0,3)+"-"));
+  sel=id;tab="content";preview=false;if(parent)expanded.add(parent);sub="curriculum";saveUI();render();
+  const t=$("axTitle");if(t){t.focus();t.select()}
+}
+
+/* ---- production ---- */
+let showDone=false;
+function rProduction(){
+  const all=items().filter(v=>PRODUCED.includes(v.type)).filter(v=>(!prodF.type||v.type===prodF.type)&&(!prodF.stage||stage(v)===prodF.stage)&&(!prodF.course||courseOf(v.id)===prodF.course||v.id===prodF.course));
+  const order=v=>{const c=courseOf(v.id)||v.id;const cv=D.items[c];const p=v.parent&&D.items[v.parent];return [(cv&&cv.order)||0,v.type==="course"?0:((p&&p.type==="module"?p.order:v.order)||0),TORD[v.type]||0,v.order||0]};
+  all.sort((a,b)=>{const x=order(a),y=order(b);for(let i=0;i<4;i++)if(x[i]!==y[i])return x[i]-y[i];return 0});
+  const sel3=(k,list,lab)=>`<div class="f"><label for="pf_${k}">${lab}</label><select id="pf_${k}" data-pf="${k}"><option value="">All</option>${list.map(x=>Array.isArray(x)?`<option value="${esc(x[0])}"${prodF[k]===x[0]?" selected":""}>${esc(x[1])}</option>`:`<option${prodF[k]===x?" selected":""}>${esc(x)}</option>`).join("")}</select></div>`;
+  const filt=`<div class="fs" style="grid-template-columns:repeat(auto-fit,minmax(160px,220px));padding:0">${sel3("type",PRODUCED.map(t=>[t,TYPES[t]]),"Type")}${sel3("stage",STAGES,"Stage")}${sel3("course",courses().map(c=>[c.id,c.title]),"Course")}</div>`;
+  const rows=all.map(v=>{const p=v.parent&&D.items[v.parent];const fl=flagsOf(v);const rec=v.recording&&safeUrl(v.recording.url);
+    return `<tr><td>${goItem(v.id)}${fl.length?`<br><span class="acwarn">${esc(fl[0])}</span>`:""}</td><td>${TYPES[v.type]}</td><td>${p?esc(p.title):""}</td><td>${stg(stage(v))}</td><td>${esc(nextAction(v))}</td><td><label class="vh" for="po_${esc(v.id)}">Owner</label><input id="po_${esc(v.id)}" data-bind="items|${esc(v.id)}|owner" value="${esc(v.owner||"")}"></td><td><label class="vh" for="pd_${esc(v.id)}">Due</label><input id="pd_${esc(v.id)}" type="date" data-bind="items|${esc(v.id)}|due" value="${esc(v.due||"")}"></td><td>${rec?`<a href="${esc(rec)}" target="_blank" rel="noopener">Recording</a>`:""}${safeUrl(v.resUrl)?` <a href="${esc(safeUrl(v.resUrl))}" target="_blank" rel="noopener">File</a>`:""}</td></tr>`}).join("");
+  const T=L("tasks").filter(t=>showDone||!t.done).sort((a,b)=>(a.done-b.done)||(a.due||"9999").localeCompare(b.due||"9999")||(a.order||0)-(b.order||0));
+  const itemOpts=[["",""]].concat(items().filter(v=>PRODUCED.includes(v.type)||v.type==="programme").sort((a,b)=>a.title.localeCompare(b.title,undefined,{numeric:true})).map(v=>[v.id,TYPES[v.type]+": "+v.title]));
+  const t=todayISO();
+  const tasks=`<form class="fs" data-form="task" onsubmit="return false" style="grid-template-columns:2fr 1fr 1.4fr 1fr auto;padding:0;align-items:end">
+      <div class="f"><label for="tk_t">New task</label><input id="tk_t" placeholder="What needs doing?"></div>
+      <div class="f"><label for="tk_k">Kind</label><select id="tk_k">${opt(["Write","Review","Record","Publish","Prepare","Research","Admin","Other"],"Write")}</select></div>
+      <div class="f"><label for="tk_i">Linked item</label><select id="tk_i">${opt(itemOpts,"")}</select></div>
+      <div class="f"><label for="tk_d">Due</label><input id="tk_d" type="date"></div>
+      <button class="btn primary" type="submit">Add</button></form>
+    <label class="chip small" style="align-self:flex-start"><input type="checkbox" data-act="showdone"${showDone?" checked":""}> Show done</label>
+    <div class="todos">${T.map(x=>`<div class="todo${x.done?" done":""}"><input type="checkbox" data-bind="tasks|${esc(x.id)}|done"${x.done?" checked":""} aria-label="Done: ${esc(x.title)}"><span class="tt">${esc(x.title)} <span class="tag">${esc(x.kind||"Task")}</span>${x.item&&D.items[x.item]?" "+goItem(x.item):""}${x.mc&&D.mc[x.mc]?` <span class="tag">Masterclass: ${esc(D.mc[x.mc].title)}</span>`:""}</span><span class="due${x.due&&x.due<t&&!x.done?" late":""}">${x.due?fmtD(x.due):""}</span><button class="x" type="button" data-act="deltask" data-id="${esc(x.id)}" aria-label="Delete task">×</button></div>`).join("")||'<p class="empty">No tasks.</p>'}</div>`;
+  return `<div class="acnote">Next steps come straight from each item's stage, so you don't need a separate task for every script. Use tasks for everything else: research, calibration, admin and masterclass preparation.</div>
+  ${card("Content in production",filt+`<div class="scroll"><table class="actable"><thead><tr><th>Item</th><th>Type</th><th>Part of</th><th>Stage</th><th>Next step</th><th>Owner</th><th>Due</th><th>Links</th></tr></thead><tbody>${rows||'<tr><td colspan="8"><span class="empty">Nothing matches these filters.</span></td></tr>'}</tbody></table></div>`)}
+  ${card("Tasks",tasks)}`;
+}
+
+/* ---- masterclasses ---- */
+const openSet=new Set();
+const TZS=["Europe/London","UTC","Europe/Paris","America/New_York","America/Chicago","America/Los_Angeles"];
+function arrChecks(col,id,path,list,cur){return list.length?`<div class="acchecks">${list.map(o=>`<label class="chip"><input type="checkbox" data-arr="${col}|${esc(id)}|${path}" value="${esc(o.id)}"${(cur||[]).includes(o.id)?" checked":""}> ${esc(o.title)}</label>`).join("")}</div>`:'<p class="empty">None available.</p>'}
+function rMasterclasses(){
+  const d1=D.dec.d01;
+  const note=d1&&d1.status!=="Agreed"?`<div class="acnote"><b>Frequency not agreed.</b> ${esc(d1.question||"")} See <button class="lnk" type="button" data-act="decopen" data-id="d01">${esc(d1.title)}</button>.</div>`:d1&&d1.agreed?`<div class="acnote"><b>Agreed frequency:</b> ${esc(d1.agreed)}</div>`:"";
+  const M=L("mc").sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")||(a.order||0)-(b.order||0));
+  const allOut=items().filter(v=>v.type==="outcome").sort((a,b)=>a.title.localeCompare(b.title,undefined,{numeric:true})),allMods=items().filter(v=>v.type==="module").sort((a,b)=>(a.order||0)-(b.order||0));
+  const learners=L("learners").filter(vis);
+  const t=todayISO();
+  const cards=M.map(m=>{const k="mc:"+m.id,prep=L("tasks").filter(x=>x.mc===m.id);
+    return `<details class="accard" data-key="${esc(k)}"${openSet.has(k)?" open":""}><summary><span class="pill" style="padding:3px 8px">${esc(m.status)}</span><b>${esc(m.title)}</b><span class="sub">${m.date?fmtD(m.date)+(m.time?" · "+esc(m.time)+" "+esc(m.tz||""):""):"No date"}${m.status==="Proposal"?" · proposal":""}</span></summary>
+    <div class="fs">
+      ${labelled("Topic",bindIn("mc",m.id,"title",m.title)).replace('class="f"','class="f full"')}
+      ${labelled("Status",bindSel("mc",m.id,"status",MC_ST,m.status))}
+      ${labelled("Presenter",bindIn("mc",m.id,"presenter",m.presenter))}
+      ${labelled("Date",bindIn("mc",m.id,"date",m.date,"date"))}
+      ${labelled("Time",bindIn("mc",m.id,"time",m.time,"time"))}
+      ${labelled("Timezone",`<select data-bind="mc|${esc(m.id)}|tz">${opt(TZS.includes(m.tz)||!m.tz?TZS:TZS.concat(m.tz),m.tz||"Europe/London")}</select>`)}
+      ${labelled("Guest status",bindSel("mc",m.id,"guestStatus",["Not needed","Would add value","Invited","Confirmed","Declined"],m.guestStatus))}
+      ${labelled("Purpose",bindTa("mc",m.id,"purpose",m.purpose,3)).replace('class="f"','class="f full"')}
+      ${labelled("Learning objective",bindTa("mc",m.id,"objective",m.objective,2)).replace('class="f"','class="f full"')}
+      <div class="f full"><span class="lab">Course outcomes it applies</span>${arrChecks("mc",m.id,"outcomes",allOut,m.outcomes)}</div>
+      <div class="f full"><span class="lab">Linked modules</span>${arrChecks("mc",m.id,"modules",allMods,m.modules)}</div>
+      ${labelled("Suggested format",bindTa("mc",m.id,"format",m.format,3)).replace('class="f"','class="f full"')}
+      ${labelled("Practical takeaway",bindTa("mc",m.id,"takeaway",m.takeaway,2)).replace('class="f"','class="f full"')}
+      ${labelled("Specialist guest: would one add value?",bindTa("mc",m.id,"guest",m.guest,2)).replace('class="f"','class="f full"')}
+      ${labelled("Recording link",bindIn("mc",m.id,"recordingUrl",m.recordingUrl,"url",' placeholder="https://"'))}
+      ${labelled("Headcount, if known",bindIn("mc",m.id,"attendCount",m.attendCount,"number",' min="0"'))}
+      ${labelled("Resources and links",bindTa("mc",m.id,"resources",m.resources,2)).replace('class="f"','class="f full"')}
+      <div class="f full"><span class="lab">Pilot learners who attended</span>${arrChecks("mc",m.id,"attendance",learners.map(l=>({id:l.id,title:(l.name||"Unnamed")+(l.demo?" (demo)":"")})),m.attendance)}</div>
+      ${labelled("Feedback, where supplied",bindTa("mc",m.id,"feedbackNotes",m.feedbackNotes,3)).replace('class="f"','class="f full"')}
+      <div class="f full"><span class="lab">Preparation tasks</span><div class="todos">${prep.map(x=>`<div class="todo${x.done?" done":""}"><input type="checkbox" data-bind="tasks|${esc(x.id)}|done"${x.done?" checked":""} aria-label="Done: ${esc(x.title)}"><span class="tt">${esc(x.title)}</span><span class="due${x.due&&x.due<t&&!x.done?" late":""}">${x.due?fmtD(x.due):""}</span><button class="x" type="button" data-act="deltask" data-id="${esc(x.id)}" aria-label="Delete task">×</button></div>`).join("")||'<p class="empty">No preparation tasks.</p>'}</div>
+        <form class="todoadd" data-form="prep" data-id="${esc(m.id)}" onsubmit="return false"><label class="vh" for="pp_${esc(m.id)}">Preparation task</label><input id="pp_${esc(m.id)}" placeholder="Add a preparation task"><label class="vh" for="ppd_${esc(m.id)}">Due</label><input id="ppd_${esc(m.id)}" type="date"><button class="btn small" type="submit">Add</button></form></div>
+      <div class="f full"><div class="acrow end"><button class="btn small" type="button" data-act="delmc" data-id="${esc(m.id)}">Delete masterclass</button></div></div>
+    </div></details>`}).join("");
+  return `${note}<div class="acnote">Masterclasses apply and extend the course. Learners can complete the course without attending any of them. Topics marked <b>Proposal</b> have no agreed date or guest.</div>
+  <div class="acrow"><button class="btn primary" type="button" data-act="addmc">Add masterclass</button></div>
+  <div class="clist">${cards||'<p class="empty">No masterclasses yet.</p>'}</div>`;
+}
+
+/* ---- assessments ---- */
+function standardCheck(rub,scores){
+  const crit=(rub&&rub.criteria)||[],sc=scores||{};const missing=crit.filter(c=>!(sc[c.id]&&sc[c.id].level>=0));
+  const zero=crit.filter(c=>sc[c.id]&&sc[c.id].level===0),low=crit.filter(c=>c.critical&&sc[c.id]&&sc[c.id].level>=0&&sc[c.id].level<2);
+  const meets=!missing.length&&!zero.length&&!low.length;
+  const why=[missing.length?missing.length+" criteria not scored":"",zero.length?"Not yet evident: "+zero.map(c=>c.name).join(", "):"",low.length?"Below Secure on a required criterion: "+low.map(c=>c.name).join(", "):""].filter(Boolean);
+  return {meets,why,complete:!missing.length};
+}
+function rubricTable(r){
+  return `<div class="scroll"><table class="actable"><thead><tr><th>Criterion</th>${(r.levels||[]).map(l=>`<th>${esc(l)}</th>`).join("")}</tr></thead><tbody>${(r.criteria||[]).map(c=>`<tr><td><b>${esc(c.name)}</b>${c.critical?' <span class="tag">Required at Secure</span>':""}<br><span class="sub">${(c.outcomes||[]).map(o=>esc(titleOf(o))).join("; ")}</span></td>${(c.desc||[]).map(d=>`<td>${esc(d)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><div class="md">${md(r.standard||"")}</div>`;
+}
+function rubDraftHTML(){
+  const r=rubDraft,outs=outcomesIn(courseOf(r.assessment));
+  return `<div class="acbox"><h4>New rubric version v${r.version} (draft, not saved)</h4><p class="hint">Saving creates a new version. Earlier versions, and every submission assessed against them, stay exactly as they were.</p>
+  ${r.criteria.map((c,i)=>`<div class="crit"><div class="fs" style="padding:0;grid-template-columns:2fr 1fr auto">
+    <div class="f"><label for="rc_n${i}">Criterion</label><input id="rc_n${i}" data-rub="${i}|name" value="${esc(c.name)}"></div>
+    <div class="f"><label class="chip" for="rc_c${i}"><input type="checkbox" id="rc_c${i}" data-rub="${i}|critical"${c.critical?" checked":""}> Required at Secure</label></div>
+    <button class="btn small" type="button" data-act="rubdel" data-i="${i}">Remove</button></div>
+    <span class="lab">Outcomes</span><div class="acchecks">${outs.map(o=>`<label class="chip"><input type="checkbox" data-rubout="${i}" value="${esc(o.id)}"${(c.outcomes||[]).includes(o.id)?" checked":""}> ${esc(o.title)}</label>`).join("")}</div>
+    <div class="levels">${r.levels.map((l,k)=>`<div class="f"><label for="rc_d${i}_${k}">${esc(l)}</label><textarea id="rc_d${i}_${k}" rows="4" data-rub="${i}|desc.${k}">${esc((c.desc||[])[k]||"")}</textarea></div>`).join("")}</div></div>`).join("")}
+  <div class="acrow"><button class="btn small" type="button" data-act="rubadd">Add criterion</button></div>
+  ${labelled("Standard (when the result is 'Meets the standard')",`<textarea rows="3" data-rub="-1|standard">${esc(r.standard||"")}</textarea>`)}
+  ${labelled("What changed in this version",`<input data-rub="-1|note" value="${esc(r.note||"")}">`)}
+  <div class="acrow"><button class="btn small primary" type="button" data-act="rubsave">Save as v${r.version}</button><button class="btn small" type="button" data-act="rubcancel">Cancel</button></div></div>`;
+}
+function rAssessments(){
+  const A=items().filter(v=>v.type==="assessment"&&v.status!=="Archived");
+  const S=L("subs").filter(vis);
+  const enrols=L("enrol").filter(vis);
+  const rub=A.map(a=>{const rs=rubricsFor(a.id),k="rub:"+a.id;
+    return `<div class="acbox"><h4>${goItem(a.id)} ${stg(stage(a))}</h4><p class="hint">Case brief: latest revision r${a.rev||0}${a.published?", published r"+a.published.rev:""}. Rubric versions: ${rs.map(r=>"v"+r.version+" ("+S.filter(s=>s.rubric===r.id).length+" submissions)").join(", ")||"none"}.</p>
+    <div class="acrow">${rs.map(r=>`<button class="btn small" type="button" data-act="rubview" data-id="${esc(r.id)}" aria-pressed="${openSet.has("rv:"+r.id)}">View v${r.version}</button>`).join("")}${rs.length?`<button class="btn small" type="button" data-act="rubnew" data-id="${esc(a.id)}">New version from v${rs[rs.length-1].version}</button>`:`<button class="btn small" type="button" data-act="rubnew" data-id="${esc(a.id)}">Create rubric v1</button>`}</div>
+    ${rs.filter(r=>openSet.has("rv:"+r.id)).map(r=>`<div><h4>Rubric v${r.version}${r.note?": "+esc(r.note):""}</h4>${rubricTable(r)}</div>`).join("")}
+    ${rubDraft&&rubDraft.assessment===a.id?rubDraftHTML():""}</div>`}).join("")||'<p class="empty">No assessments in the curriculum yet.</p>';
+  const notStarted=enrols.filter(e=>{const as=A.filter(a=>courseOf(a.id)===e.course);return as.length&&!S.some(s=>s.learner===e.learner&&as.some(a=>a.id===s.assessment))});
+  const learnerOpts=L("learners").filter(vis).map(l=>[l.id,(l.name||"Unnamed")+(l.demo?" (demo)":"")]);
+  const form=learnerOpts.length&&A.length?`<form class="fs" data-form="sub" onsubmit="return false" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));padding:0;align-items:end">
+    <div class="f"><label for="sb_l">Learner</label><select id="sb_l">${opt(learnerOpts,"")}</select></div>
+    <div class="f"><label for="sb_a">Assessment</label><select id="sb_a">${opt(A.map(a=>[a.id,a.title]),"")}</select></div>
+    <div class="f"><label for="sb_f">Format</label><select id="sb_f">${opt(["Written plan","Slides","Recorded presentation"],"Written plan")}</select></div>
+    <div class="f"><label for="sb_u">Link to submission</label><input id="sb_u" type="url" placeholder="https://"></div>
+    <div class="f"><label for="sb_d">Submitted on</label><input id="sb_d" type="date" value="${todayISO()}"></div>
+    <div class="f full"><label for="sb_t">Notes or pasted text (optional)</label><textarea id="sb_t" rows="2"></textarea></div>
+    <button class="btn primary" type="submit">Record submission</button></form>`:`<p class="empty">${learnerOpts.length?"Add an assessment to the curriculum first.":"Enrol a pilot learner first (Pilot tab)."}</p>`;
+  const rows=S.sort((a,b)=>(b.submitted||"").localeCompare(a.submitted||"")).map(s=>{const r=D.rubrics[s.rubric];return `<tr><td><button class="lnk" type="button" data-act="subopen" data-id="${esc(s.id)}">${esc(learnerName(s.learner))}</button>${demoB(s)}</td><td>${esc(titleOf(s.assessment))}</td><td>${s.attempt||1}</td><td>${esc(s.status)}</td><td>${fmtD(s.submitted)}</td><td>${esc(s.assessor||"")}</td><td>${r?"v"+r.version:"?"} · r${s.caseRev||"?"}</td><td>${esc(s.result||"")}</td></tr>`}).join("");
+  return `<div class="acnote"><b>Human assessment.</b> Results are set by the assessor; there is no AI grading in this version. A result shows reasoning about a hypothetical case. It is not evidence that the learner has implemented anything in their own business, and no certificate is issued.</div>
+  ${card("Cases and rubrics",rub)}
+  ${card("Record a submission",form)}
+  ${card("Submissions",`<div class="scroll"><table class="actable"><thead><tr><th>Learner</th><th>Assessment</th><th>Attempt</th><th>Status</th><th>Submitted</th><th>Assessor</th><th>Rubric · case</th><th>Result</th></tr></thead><tbody>${rows||'<tr><td colspan="8"><span class="empty">No submissions yet.</span></td></tr>'}${notStarted.map(e=>`<tr><td>${esc(learnerName(e.learner))}${demoB(e)}</td><td>${esc(titleOf(e.course))}</td><td></td><td>Not started</td><td colspan="4"></td></tr>`).join("")}</tbody></table></div>`)}
+  ${openSub&&D.subs[openSub]?reviewHTML(openSub):""}`;
+}
+function reviewHTML(id){
+  const s=Object.assign({id},D.subs[id]),r=D.rubrics[s.rubric],sc=s.scores||{},ed=s.status==="In review",chk=standardCheck(r,sc);
+  const caseRev=s.caseRev?((revs[s.assessment]||[]).find(x=>x.n===s.caseRev)||revCache[s.assessment+"--r"+s.caseRev]):null;
+  const prev=s.prev&&D.subs[s.prev],next=L("subs").find(x=>x.prev===id);
+  let h=`<div class="card" id="acReview"><div class="ch"><h3>Review: ${esc(learnerName(s.learner))}, attempt ${s.attempt||1}${demoB(s)}</h3><span class="pill" style="padding:3px 8px">${esc(s.status)}</span></div>
+  <p class="sub">${esc(titleOf(s.assessment))} · ${esc(s.format||"")} · submitted ${fmtD(s.submitted)}${safeUrl(s.link)?` · <a href="${esc(safeUrl(s.link))}" target="_blank" rel="noopener">open submission</a>`:""}${prev?` · follows <button class="lnk" type="button" data-act="subopen" data-id="${esc(s.prev)}">attempt ${prev.attempt||1}</button>`:""}${next?` · resubmitted as <button class="lnk" type="button" data-act="subopen" data-id="${esc(next.id)}">attempt ${next.attempt}</button>`:""}</p>
+  <div class="acnote">Assessed against <b>case brief r${esc(s.caseRev||"?")}</b> and <b>rubric v${r?r.version:"?"}</b>. These are fixed for this submission; later edits to the case or rubric do not change them. Evidence type: reasoning about a hypothetical case.</div>
+  ${s.text?`<div><h4>Submission notes</h4><div class="md">${md(s.text)}</div></div>`:""}${s.learnerNote?`<div><h4>Learner's note on what changed</h4><div class="md">${md(s.learnerNote)}</div></div>`:""}
+  <details class="acbox" data-key="case:${esc(id)}"${openSet.has("case:"+id)?" open":""}><summary style="padding:0">Case brief as submitted (r${esc(s.caseRev||"?")})</summary>${caseRev?LEARNER_CASE.map(k=>(caseRev.f||{})[k]?`<div><h4>${esc((FIELDS.assessment.find(x=>x[0]===k)||[k,k])[1])}</h4><div class="md">${md(caseRev.f[k])}</div></div>`:"").join(""):caseRev===false?'<p class="empty">That revision could not be found.</p>':'<p class="empty">Loading…</p>'}</details>`;
+  if(s.caseRev&&caseRev===undefined)getRev(s.assessment,s.caseRev);
+  h+=`<div class="fs" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(170px,240px))">${labelled("Assessor",bindIn("subs",id,"assessor",s.assessor))}${labelled("Assessment date",bindIn("subs",id,"assessedOn",s.assessedOn,"date"))}</div>`;
+  if(!r)h+='<p class="acwarn">The rubric version for this submission is missing.</p>';
+  else h+=(r.criteria||[]).map(c=>{const cur=sc[c.id]||{};return `<div class="crit"><h4>${esc(c.name)}${c.critical?' <span class="tag">Required at Secure</span>':""}</h4><div class="levels" role="radiogroup" aria-label="${esc(c.name)}">${r.levels.map((l,k)=>`<label><span><input type="radio" name="lv_${esc(id)}_${esc(c.id)}" data-score="${esc(c.id)}" value="${k}"${cur.level===k?" checked":""}${ed?"":" disabled"}> <b>${esc(l)}</b></span>${esc((c.desc||[])[k]||"")}</label>`).join("")}</div>
+    <label class="vh" for="cn_${esc(c.id)}">Feedback on ${esc(c.name)}</label><textarea id="cn_${esc(c.id)}" rows="2" data-scnote="${esc(c.id)}" placeholder="Criterion feedback"${ed?"":" readonly"}>${esc(cur.note||"")}</textarea></div>`}).join("");
+  h+=`<div class="axf"><label for="sb_overall">Overall feedback</label><textarea id="sb_overall" rows="4" data-bind="subs|${esc(id)}|overall"${ed?"":" readonly"}>${esc(s.overall||"")}</textarea></div>
+  <p class="${chk.meets?"":"acwarn"}">Against the rubric standard: <b>${chk.meets?"Meets the standard":"Not yet"}</b>${chk.why.length?" · "+esc(chk.why.join(" · ")):""}${s.result?` · Recorded result: <b>${esc(s.result)}</b>`:""}</p>
+  <div class="acrow">`+({Submitted:'<button class="btn primary" type="button" data-act="substart">Start review</button>',
+    "In review":`<button class="btn" type="button" data-act="subrevise">Request revision</button><button class="btn primary" type="button" data-act="subdone"${chk.complete?"":" disabled"}>Complete with result: ${chk.meets?"Meets the standard":"Not yet"}</button>`,
+    "Revision requested":(next?"":'<button class="btn primary" type="button" data-act="subresub">Record resubmission</button>'),
+    Completed:'<button class="btn" type="button" data-act="subreopen">Reopen review</button>'}[s.status]||"")+`<button class="btn small" type="button" data-act="subclose">Close</button></div>`;
+  if(s.status==="Revision requested"&&!next&&openSet.has("resub:"+id))h+=`<form class="fs" data-form="resub" onsubmit="return false" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end">
+    <div class="f"><label for="rs_d">Resubmitted on</label><input id="rs_d" type="date" value="${todayISO()}"></div>
+    <div class="f"><label for="rs_f">Format</label><select id="rs_f">${opt(["Written plan","Slides","Recorded presentation"],s.format)}</select></div>
+    <div class="f"><label for="rs_u">Link</label><input id="rs_u" type="url" placeholder="https://"></div>
+    <div class="f full"><label for="rs_n">Learner's note on what changed</label><textarea id="rs_n" rows="2"></textarea></div>
+    <div class="f full"><label class="chip" for="rs_same"><input type="checkbox" id="rs_same" checked> Assess against the same rubric version (v${r?r.version:"?"}) and case revision</label></div>
+    <button class="btn primary" type="submit">Save resubmission as attempt ${(s.attempt||1)+1}</button></form>`;
+  h+=`<div><h4>Review history</h4>${(s.history||[]).slice().reverse().map(x=>kv(esc(x.what)+(x.result?" · "+esc(x.result):""),fmtD(x.at))).join("")||'<p class="empty">No history yet.</p>'}</div></div>`;
+  return h;
+}
+async function subAction(a){
+  const id=openSub,s=D.subs[id];if(!s)return;const r=D.rubrics[s.rubric];
+  const snap=what=>({at:now(),what,status:s.status,result:s.result||"",scores:clone(s.scores||{}),overall:s.overall||""});
+  if(a==="substart"){s.status="In review";s.assessor=s.assessor||"Mila";s.history=(s.history||[]).concat(snap("Review started"))}
+  if(a==="subrevise"){if(!(s.overall||"").trim()&&!Object.values(s.scores||{}).some(x=>(x.note||"").trim())){alert("Add some feedback before requesting a revision.");return}
+    s.status="Revision requested";s.result="Not yet";s.assessedOn=s.assessedOn||todayISO();s.history=(s.history||[]).concat(snap("Revision requested"))}
+  if(a==="subdone"){const c=standardCheck(r,s.scores);if(!c.complete)return;s.result=c.meets?"Meets the standard":"Not yet";
+    if(!confirm("Complete this review with the result \""+s.result+"\"?"))return;s.status="Completed";s.assessedOn=s.assessedOn||todayISO();s.history=(s.history||[]).concat(snap("Completed"))}
+  if(a==="subreopen"){if(!confirm("Reopen this review? The earlier result stays in the history."))return;s.status="In review";s.history=(s.history||[]).concat(snap("Reopened"))}
+  if(a==="subresub"){openSet.add("resub:"+id);render();return}
+  await save("subs",id);render();
+}
+async function recordSubmission(f){
+  const learner=f.querySelector("#sb_l").value,aid=f.querySelector("#sb_a").value;if(!learner||!aid)return;
+  const rub=latestRubric(aid);if(!rub){alert("This assessment has no rubric yet. Create rubric v1 first.");return}
+  const caseRev=await saveRevision(aid,"Saved automatically when a submission was recorded");
+  const e=L("enrol").find(x=>x.learner===learner&&x.course===courseOf(aid));
+  const demo=!!(D.learners[learner]&&D.learners[learner].demo);
+  const id=await create("subs",{learner,enrol:e?e.id:"",assessment:aid,attempt:1,prev:"",caseRev,caseHash:D.items[aid].revHash,rubric:rub.id,format:f.querySelector("#sb_f").value,link:safeUrl(f.querySelector("#sb_u").value),text:f.querySelector("#sb_t").value,learnerNote:"",submitted:f.querySelector("#sb_d").value||todayISO(),assessor:"",assessedOn:"",status:"Submitted",scores:{},overall:"",result:"",history:[{at:now(),what:"Submission recorded"}],demo});
+  openSub=id;render();const el=$("acReview");if(el)el.scrollIntoView({block:"start"});
+}
+async function recordResub(f){
+  const s=D.subs[openSub];if(!s)return;const same=f.querySelector("#rs_same").checked;let rub=s.rubric,caseRev=s.caseRev,caseHash=s.caseHash;
+  if(!same){const lr=latestRubric(s.assessment);rub=lr?lr.id:rub;caseRev=await saveRevision(s.assessment,"Saved automatically for a resubmission");caseHash=D.items[s.assessment].revHash}
+  const id=await create("subs",{learner:s.learner,enrol:s.enrol,assessment:s.assessment,attempt:(s.attempt||1)+1,prev:openSub,caseRev,caseHash,rubric:rub,format:f.querySelector("#rs_f").value,link:safeUrl(f.querySelector("#rs_u").value),text:"",learnerNote:f.querySelector("#rs_n").value,submitted:f.querySelector("#rs_d").value||todayISO(),assessor:s.assessor||"",assessedOn:"",status:"Submitted",scores:{},overall:"",result:"",history:[{at:now(),what:"Resubmission recorded"+(same?" (same rubric and case revision)":" (latest rubric and case revision, by agreement)")}],demo:!!s.demo});
+  s.history=(s.history||[]).concat({at:now(),what:"Resubmitted as attempt "+((s.attempt||1)+1)});await save("subs",openSub);
+  openSet.delete("resub:"+openSub);openSub=id;render();
+}
+
+/* ---- pilot ---- */
+function loadContacts(){
+  if(contacts)return;if(!db){contacts={clients:[],leads:[]};return}contacts={clients:[],leads:[]};
+  db.doc("finance/model").get().then(s=>{const d=s.exists?s.data():{};contacts={clients:(d.clients||[]).map(c=>({id:c.id,name:c.name||"Unnamed client"})),leads:(d.leads||[]).map(l=>({id:l.id,name:(l.name||"Unnamed lead")+(l.company?" ("+l.company+")":"")}))};render()},()=>{contacts={clients:[],leads:[]};render()});
+}
+function contactName(c){if(!c||!c.id||!contacts)return "";const l=(c.src==="client"?contacts.clients:contacts.leads).find(x=>x.id===c.id);return l?(c.src==="client"?"Client: ":"Lead: ")+l.name:"(contact not found)"}
+function contactOpts(cur){if(!contacts)return [["","Loading contacts…"]];const v=cur&&cur.id?cur.src+":"+cur.id:"";return [["","Not linked"]].concat(contacts.clients.map(c=>["client:"+c.id,"Client: "+c.name]),contacts.leads.map(l=>["lead:"+l.id,"Lead: "+l.name]))}
+function rPilot(){
+  loadContacts();
+  const Ls=L("learners").filter(vis).sort((a,b)=>(a.name||"").localeCompare(b.name||""));
+  const S=L("subs");
+  const add=`<form class="fs" data-form="learner" onsubmit="return false" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));padding:0;align-items:end">
+    <div class="f"><label for="ln_n">Name</label><input id="ln_n" placeholder="As they'd like to be named"></div>
+    <div class="f"><label for="ln_o">Organisation (optional)</label><input id="ln_o"></div>
+    <div class="f"><label for="ln_c">Existing Nexa contact (optional)</label><select id="ln_c">${opt(contactOpts(),"")}</select></div>
+    <div class="f"><label for="ln_g">Cohort</label><input id="ln_g" value="Pilot 1"></div>
+    <div class="f"><label class="chip" for="ln_d"><input type="checkbox" id="ln_d"> Demo record</label></div>
+    <button class="btn primary" type="submit">Add learner</button></form><p class="hint">Keep personal information to the minimum: a name, and an organisation only if useful. Don't record confidential business details here.</p>`;
+  const cards=Ls.map(l=>{const k="ln:"+l.id,E=L("enrol").filter(e=>e.learner===l.id),cv=l.contact&&l.contact.id?l.contact.src+":"+l.contact.id:"";
+    return `<details class="accard" data-key="${esc(k)}"${openSet.has(k)?" open":""}><summary><b>${esc(l.name||"Unnamed learner")}</b>${demoB(l)}<span class="sub">${esc(l.cohort||"")}${l.contact&&l.contact.id?" · "+esc(contactName(l.contact)):""} · ${E.length?E.map(e=>esc(titleOf(e.course))+" ("+esc(e.status)+")").join(", "):"Not enrolled"}</span></summary>
+    <div class="fs">
+      ${labelled("Name",bindIn("learners",l.id,"name",l.name))}${labelled("Organisation",bindIn("learners",l.id,"org",l.org))}
+      ${labelled("Existing Nexa contact",`<select data-contact="${esc(l.id)}">${opt(contactOpts(l.contact),cv)}</select>`)}${labelled("Cohort",bindIn("learners",l.id,"cohort",l.cohort))}
+      ${labelled("Notes",bindTa("learners",l.id,"notes",l.notes,2)).replace('class="f"','class="f full"')}
+      ${E.map(e=>{const mods=kids(e.course,"module"),as=items().filter(a=>a.type==="assessment"&&courseOf(a.id)===e.course),ss=S.filter(s=>s.learner===l.id&&as.some(a=>a.id===s.assessment)).sort((a,b)=>(b.attempt||1)-(a.attempt||1));
+        const last=ss[0],ast=last?last.status+(last.result?" · "+last.result:"")+" (attempt "+(last.attempt||1)+")":"Not started";
+        return `<div class="f full acbox"><h4>${esc(titleOf(e.course))}</h4>
+        <div class="fs" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(160px,220px))">${labelled("Enrolment status",bindSel("enrol",e.id,"status",["Invited","Enrolled","Active","Completed","Withdrawn"],e.status))}${labelled("Enrolled on",bindIn("enrol",e.id,"enrolled",e.enrolled,"date"))}<div class="f"><span class="lab">Assessment</span><span>${last?`<button class="lnk" type="button" data-act="subopen" data-id="${esc(last.id)}">${esc(ast)}</button>`:esc(ast)}</span></div></div>
+        <span class="lab">Progress, recorded by hand</span>${mods.map(m=>{const p=(e.progress||{})[m.id]||{};return `<div class="prg"><span>${esc(m.title)}</span><select aria-label="Progress: ${esc(m.title)}" data-prog="${esc(e.id)}|${esc(m.id)}">${opt(PROG,p.state||"Not started")}</select><span class="sub">${p.at?fmtD(p.at):""}</span></div>`}).join("")||'<p class="empty">This course has no modules.</p>'}
+        ${labelled("Self-reported implementation in their own business (not assessed)",bindTa("enrol",e.id,"implementation",e.implementation,2))}
+        <div class="acrow end"><button class="btn small" type="button" data-act="delenrol" data-id="${esc(e.id)}">Remove enrolment</button></div></div>`}).join("")}
+      <div class="f full"><div class="acrow"><label class="vh" for="en_${esc(l.id)}">Enrol in</label><select id="en_${esc(l.id)}">${opt(courses().map(c=>[c.id,c.title]),"c-of")}</select><button class="btn small" type="button" data-act="enrol" data-id="${esc(l.id)}">Enrol</button><span style="flex:1"></span><button class="btn small" type="button" data-act="dellearner" data-id="${esc(l.id)}">Remove learner</button></div></div>
+    </div></details>`}).join("");
+  const F=L("fb").filter(vis).sort((a,b)=>(FB_ST.indexOf(a.status)-FB_ST.indexOf(b.status))||(b.created||"").localeCompare(a.created||""));
+  const about=[["","General"]].concat(items().filter(v=>["course","module","lesson","resource","exercise","assessment"].includes(v.type)).map(v=>[v.id,TYPES[v.type]+": "+v.title]),L("mc").map(m=>["mc:"+m.id,"Masterclass: "+m.title]));
+  const aboutName=x=>!x?"General":x.startsWith("mc:")?"Masterclass: "+((D.mc[x.slice(3)]||{}).title||"(removed)"):titleOf(x);
+  const fbForm=`<form class="fs" data-form="fb" onsubmit="return false" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));padding:0;align-items:end">
+    <div class="f"><label for="fb_l">From</label><select id="fb_l">${opt([["","Not recorded"]].concat(Ls.map(l=>[l.id,(l.name||"Unnamed")+(l.demo?" (demo)":"")])),"")}</select></div>
+    <div class="f"><label for="fb_i">About</label><select id="fb_i">${opt(about,"")}</select></div>
+    <div class="f"><label for="fb_c">Clarity (1 to 5)</label><select id="fb_c">${opt(["","1","2","3","4","5"],"")}</select></div>
+    <div class="f"><label for="fb_r">Relevance (1 to 5)</label><select id="fb_r">${opt(["","1","2","3","4","5"],"")}</select></div>
+    <div class="f"><label for="fb_d">Difficulty</label><select id="fb_d">${opt(["","Too easy","About right","Too hard"],"")}</select></div>
+    <div class="f full"><label for="fb_t">What they said</label><textarea id="fb_t" rows="2"></textarea></div>
+    <div class="f full"><label for="fb_s">Suggested curriculum change</label><textarea id="fb_s" rows="2"></textarea></div>
+    <button class="btn primary" type="submit">Add feedback</button></form>`;
+  const fbList=F.map(f=>`<div class="acbox"><div class="acrow" style="justify-content:space-between"><span><b>${esc(aboutName(f.item))}</b>${demoB(f)} <span class="sub">${f.learner?esc(learnerName(f.learner))+" · ":""}${fmtD(f.created)}${f.clarity?" · clarity "+esc(f.clarity):""}${f.relevance?" · relevance "+esc(f.relevance):""}${f.difficulty?" · "+esc(f.difficulty):""}</span></span>${labelled("Status",bindSel("fb",f.id,"status",FB_ST,f.status))}</div>
+    ${f.comment?`<p>${esc(f.comment)}</p>`:""}${f.change?`<p><b>Suggested change:</b> ${esc(f.change)}</p>`:""}
+    ${labelled("Response or decision",bindTa("fb",f.id,"response",f.response,2))}
+    <div class="acrow">${f.task&&D.tasks[f.task]?'<span class="tag">Task created</span>':`<button class="btn small" type="button" data-act="fbtask" data-id="${esc(f.id)}">Create a task from this</button>`}<button class="btn small" type="button" data-act="delfb" data-id="${esc(f.id)}">Delete</button></div></div>`).join("");
+  const nDemo=["learners","enrol","subs","fb"].reduce((a,c)=>a+L(c).filter(x=>x.demo).length,0);
+  return `<div class="acnote"><b>Progress is recorded by hand.</b> "Studied" means the learner has worked through a module. It does not mean they are competent. Evidence of applied judgement comes only from assessed submissions, and real-world implementation is self-reported and kept separate.</div>
+  <div class="acrow"><label class="chip small"><input type="checkbox" data-act="demo"${showDemo?" checked":""}> Show demo records</label><button class="btn small" type="button" data-act="mkdemo">Create practice records (labelled Demo)</button>${nDemo?`<button class="btn small" type="button" data-act="rmdemo">Remove ${nDemo} demo record${nDemo===1?"":"s"}</button>`:""}</div>
+  ${card("Pilot learners",add+`<div class="clist">${cards||'<p class="empty">No pilot learners yet.</p>'}</div>`)}
+  ${card("Feedback",fbForm+(fbList||'<p class="empty">No feedback recorded yet.</p>'))}`;
+}
+
+/* ---- decisions ---- */
+let decF="open";const decKeep=new Set();
+const DEC_KINDS=["Scope","Deliverable","Responsibilities","Recording","Effort","Content ownership","Data and consent","Programme design","Pilot","Assessment","Access","Other"];
+function loadEng(){if(engList)return;engList=[];if(!db)return;db.collection("engagements").get().then(s=>{engList=s.docs.map(d=>({id:d.id,name:((d.data()||{}).data||{}).cl_name||""}));render()},()=>{})}
+function rDecisions(){
+  loadEng();
+  const all=L("dec").sort((a,b)=>a.id.localeCompare(b.id,undefined,{numeric:true}));
+  const list=all.filter(d=>decF==="all"||decKeep.has(d.id)||(decF==="open"?["Open","Proposed"].includes(d.status):!["Open","Proposed"].includes(d.status)));
+  const dels=all.filter(d=>d.kind==="Deliverable");
+  const engOpts=[["","Not linked"]].concat((engList||[]).map(e=>[e.id,e.id+(e.name?" · "+e.name:"")]));
+  const cards=list.map(d=>{const k="dec:"+d.id,u=safeUrl(d.docLink);
+    return `<details class="accard" data-key="${esc(k)}"${openSet.has(k)?" open":""}><summary><span class="pill" style="padding:3px 8px">${esc(d.status)}</span><b>${esc(d.title)}</b><span class="sub">${esc(d.kind||"")}</span></summary>
+    <div class="fs">
+      ${labelled("Decision",bindIn("dec",d.id,"title",d.title)).replace('class="f"','class="f full"')}
+      ${labelled("Kind",bindSel("dec",d.id,"kind",DEC_KINDS,d.kind))}${labelled("Status",bindSel("dec",d.id,"status",DEC_ST,d.status))}
+      ${labelled("Context and question",bindTa("dec",d.id,"question",d.question,3)).replace('class="f"','class="f full"')}
+      ${labelled("What we propose",bindTa("dec",d.id,"proposal",d.proposal,2)).replace('class="f"','class="f full"')}
+      ${labelled("What was actually agreed (exact wording)",bindTa("dec",d.id,"agreed",d.agreed,2)).replace('class="f"','class="f full"')}
+      ${labelled("Agreed on",bindIn("dec",d.id,"agreedOn",d.agreedOn,"date"))}${labelled("Agreed by",bindIn("dec",d.id,"agreedBy",d.agreedBy))}
+      ${labelled("Commercial document link",bindIn("dec",d.id,"docLink",d.docLink,"url"))}
+      ${labelled("Saved engagement in Legal",`<select data-bind="dec|${esc(d.id)}|engagementRef">${opt(engOpts,d.engagementRef||"")}</select>`)}
+      ${labelled("Notes",bindTa("dec",d.id,"notes",d.notes,2)).replace('class="f"','class="f full"')}
+      <div class="f full"><div class="acrow" style="justify-content:space-between">${u?`<a href="${esc(u)}" target="_blank" rel="noopener">Open linked document</a>`:"<span></span>"}${d.status==="Agreed"&&(!d.agreed||!d.agreedOn)?'<span class="acwarn">Record the agreed wording and date.</span>':""}<button class="btn small" type="button" data-act="deldec" data-id="${esc(d.id)}">Delete</button></div></div>
+    </div></details>`}).join("");
+  return `<div class="acnote">Course development is not part of an advisory service just because it relates to operations. Record only what has actually been agreed, with the wording and the date.</div>
+  ${card("Deliverables: proposed and agreed",dels.length?`<div class="scroll"><table class="actable"><thead><tr><th>Deliverable</th><th>Status</th><th>Agreed wording</th></tr></thead><tbody>${dels.map(d=>`<tr><td><button class="lnk" type="button" data-act="decopen" data-id="${esc(d.id)}">${esc(d.title.replace(/^Deliverable:\s*/,""))}</button></td><td>${esc(d.status)}</td><td>${esc(d.agreed||"Not agreed")}</td></tr>`).join("")}</tbody></table></div>`:'<p class="empty">No deliverables recorded.</p>')}
+  <div class="acrow"><div class="seg" role="group" aria-label="Show">${[["open","Awaiting agreement"],["settled","Settled"],["all","All"]].map(([k,l])=>`<button class="btn small" type="button" data-act="decf" data-v="${k}" aria-pressed="${decF===k}">${l}</button>`).join("")}</div><button class="btn primary" type="button" data-act="adddec">Add decision</button></div>
+  <div class="clist">${cards||'<p class="empty">Nothing here.</p>'}</div>`;
+}
+
+/* ---- sources ---- */
+function rSources(){
+  const S=L("src").sort((a,b)=>a.id.localeCompare(b.id,undefined,{numeric:true}));
+  const itemOpts=[["","Programme-wide"]].concat(items().sort((a,b)=>a.title.localeCompare(b.title,undefined,{numeric:true})).map(v=>[v.id,TYPES[v.type]+": "+v.title]));
+  return `<div class="acnote">Every specific legal, regulatory or software claim in the teaching material belongs here, with its source, jurisdiction and review date. If it can't be verified, mark it for research or professional review rather than teaching it as fact.</div>
+  <div class="acrow"><button class="btn primary" type="button" data-act="addsrc">Add claim</button></div>
+  <div class="clist">${S.map(s=>`<div class="acbox"><div class="fs" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+    ${labelled("Claim",bindTa("src",s.id,"claim",s.claim,2)).replace('class="f"','class="f full"')}
+    ${labelled("Used in",`<select data-bind="src|${esc(s.id)}|item">${opt(itemOpts,s.item||"")}</select>`)}${labelled("Status",bindSel("src",s.id,"status",SRC_ST,s.status))}
+    ${labelled("Jurisdiction",bindIn("src",s.id,"jurisdiction",s.jurisdiction))}${labelled("Reviewed on",bindIn("src",s.id,"reviewed",s.reviewed,"date"))}
+    ${labelled("Source",bindTa("src",s.id,"source",s.source,2)).replace('class="f"','class="f full"')}
+    ${labelled("Source link",bindIn("src",s.id,"url",s.url,"url"))}
+    ${labelled("Notes",bindTa("src",s.id,"notes",s.notes,2)).replace('class="f"','class="f full"')}
+    <div class="f full"><div class="acrow end"><button class="btn small" type="button" data-act="delsrc" data-id="${esc(s.id)}">Delete</button></div></div></div></div>`).join("")||'<p class="empty">No claims recorded.</p>'}</div>`;
+}
+
+/* ---- export (portable Markdown) ---- */
+let expScope="draft",expCourse="c-of",allRevs=null;
+const dPlain=s=>s?new Date(String(s).length<=10?s+"T00:00:00":s).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}):"";
+async function ensureRevs(){if(expScope!=="draft"&&db){const s=await db.collection(COL.revs).get();allRevs={};s.docs.forEach(d=>{allRevs[d.id]=d.data()})}}
+function snap(v){
+  if(!v)return null;
+  if(expScope==="draft")return {title:v.title,f:v.f||{},links:v.links||{},label:isApproved(v)?"Approved version r"+v.approved.rev:stage(v)+" (not approved)"};
+  if(!v.published)return null;const r=allRevs&&allRevs[v.id+"--r"+v.published.rev];if(!r)return null;
+  return {title:r.title,f:r.f||{},links:r.links||{},label:"Published version r"+v.published.rev+", "+dPlain(v.published.at)};
+}
+const mH=(n,t)=>"#".repeat(n)+" "+t+"\n\n",mS=(label,text)=>text&&String(text).trim()?`**${label}**\n\n${String(text).trim()}\n\n`:"",mSt=s=>`> Status: ${s.label}\n\n`;
+const tline=ids=>(ids||[]).map(titleOf).join("; ")||"None";
+function mHead(title){return `# ${title}\n\n_Operations Academy (working name). Exported from Nexa OS on ${dPlain(todayISO())}. ${expScope==="draft"?"Current drafts: nothing is approved unless its status says so.":"Published versions only."}_\n\n`}
+let skipped=[];
+const fieldsOf=(v,s,keys)=>(FIELDS[v.type]||[]).filter(([k])=>!keys||keys.includes(k)).map(([k,l])=>mS(l,s.f[k])).join("");
+function exProgramme(){
+  let o=mHead("Programme architecture");
+  kids("","programme").forEach(p=>{const s=snap(p);if(!s){skipped.push(p.title);return}o+=mH(2,s.title)+mSt(s)+fieldsOf(p,s);
+    o+=mH(2,"Pillars");kids(p.id,"pillar").forEach(x=>{const t=snap(x);if(!t){skipped.push(x.title);return}o+=mH(3,t.title)+mSt(t)+fieldsOf(x,t)})});
+  o+=mH(2,"Course map");
+  courses().forEach(c=>{const s=snap(c);if(!s){skipped.push(c.title);return}o+=mH(3,s.title)+mSt(s)+`**Pillars:** ${tline(s.links.pillars)}\n\n**Prerequisite courses:** ${tline(s.links.prereqs)}\n\n`+fieldsOf(c,s,["purpose","subjects","prereqText","time","notIncluded"])});
+  return o;
+}
+function exOutline(cid){
+  const c=it(cid),s=snap(c);let o=mHead("Course outline: "+(c?c.title:""));if(!s){skipped.push(c?c.title:cid);return o}
+  o+=mSt(s)+`**Pillars:** ${tline(s.links.pillars)}\n\n`+fieldsOf(c,s);
+  kids(cid,"module").forEach((m,i)=>{const t=snap(m);if(!t){skipped.push(m.title);return}
+    o+=mH(2,"Module "+(i+1)+": "+t.title)+mSt(t)+mS("Learner problem",t.f.problem)+`**Pillars:** ${tline(t.links.pillars)}\n\n**Prerequisite modules:** ${tline(t.links.prereqs)}\n\n`;
+    const outs=kids(m.id,"outcome").map(x=>snap(x)).filter(Boolean);if(outs.length)o+="**Learning outcomes**\n\n"+outs.map(x=>"- "+(x.f.statement||x.title)).join("\n")+"\n\n";
+    const les=kids(m.id,"lesson").map(x=>snap(x)).filter(Boolean);if(les.length)o+="**Lessons**\n\n"+les.map(x=>`- ${x.title} (${x.f.minutes||"length not set"}). ${x.f.summary||""}`).join("\n")+"\n\n";
+    const ex=kids(m.id,"exercise").concat(kids(m.id,"resource")).map(x=>({x,t:snap(x)})).filter(y=>y.t);if(ex.length)o+="**Exercises and resources**\n\n"+ex.map(y=>"- "+TYPES[y.x.type]+": "+y.t.title).join("\n")+"\n\n";
+    o+=fieldsOf(m,t,["outline","example","misconceptions","time"])});
+  kids(cid,"assessment").forEach(a=>{const t=snap(a);if(t)o+=mH(2,"Assessment: "+t.title)+mSt(t)+"See the case brief export for the learner version and the rubric export for the assessor version.\n\n"});
+  return o;
+}
+function exScripts(cid){
+  const c=it(cid);let o=mHead("Lesson scripts: "+(c?c.title:""));
+  kids(cid,"module").forEach((m,i)=>{o+=mH(2,"Module "+(i+1)+": "+m.title);kids(m.id,"lesson").forEach(l=>{const t=snap(l);if(!t){skipped.push(l.title);return}o+=mH(3,t.title)+mSt(t)+fieldsOf(l,t,["summary","minutes"])+mS("Recording script",t.f.script)+mS("Slide and visual notes",t.f.slides)})});
+  return o;
+}
+function exExercises(cid){
+  const c=it(cid);let o=mHead("Exercises and resources: "+(c?c.title:""));
+  kids(cid,"module").forEach((m,i)=>{const list=kids(m.id,"exercise").concat(kids(m.id,"resource"));if(!list.length)return;o+=mH(2,"Module "+(i+1)+": "+m.title);
+    list.forEach(x=>{const t=snap(x);if(!t){skipped.push(x.title);return}o+=mH(3,t.title)+mSt(t)+`**Serves outcomes:** ${tline(t.links.outcomes)}\n\n`+fieldsOf(x,t)})});
+  return o;
+}
+function exCases(){
+  let o=mHead("Case briefs (learner version)");
+  items().filter(v=>v.type==="assessment"&&v.status!=="Archived").forEach(a=>{const t=snap(a);if(!t){skipped.push(a.title);return}o+=mH(2,t.title)+mSt(t)+fieldsOf(a,t,LEARNER_CASE)});
+  return o+"_Fictional case. No real company information is used. Assessor guidance and the list of deliberately withheld information are in the rubric export._\n";
+}
+const cell=s=>String(s||"").replace(/\|/g,"/").replace(/\n+/g," ");
+function exRubrics(){
+  let o=mHead("Rubrics and assessor guide");
+  items().filter(v=>v.type==="assessment"&&v.status!=="Archived").forEach(a=>{const t=snap(a);o+=mH(2,a.title);
+    rubricsFor(a.id).slice().reverse().forEach((r,k)=>{o+=mH(3,"Rubric v"+r.version+(k===0?" (current)":"")+(r.note?": "+r.note:""))+`| Criterion | Required at Secure | Outcomes | ${(r.levels||[]).map(cell).join(" | ")} |\n|${"---|".repeat(3+(r.levels||[]).length)}\n`+(r.criteria||[]).map(c=>`| ${cell(c.name)} | ${c.critical?"Yes":"No"} | ${cell(tline(c.outcomes))} | ${(c.desc||[]).map(cell).join(" | ")} |`).join("\n")+"\n\n"+mS("Standard",r.standard)});
+    if(t)o+=mSt(t)+fieldsOf(a,t,["guidance","missing","prompts","resubmission","evidenceNote"]);else skipped.push(a.title+" (assessor guidance)")});
+  return o;
+}
+function exMasterclasses(){
+  let o=mHead("Masterclass proposals");o+="_Proposals only. No date or guest is agreed unless stated._\n\n";
+  L("mc").sort((a,b)=>(a.order||0)-(b.order||0)).forEach(m=>{o+=mH(2,m.title)+`> Status: ${m.status}${m.date?" · "+dPlain(m.date)+(m.time?" "+m.time+" "+(m.tz||""):""):" · no date agreed"}\n\n`+mS("Purpose",m.purpose)+mS("Learning objective",m.objective)+`**Course outcomes:** ${tline(m.outcomes)}\n\n**Linked modules:** ${tline(m.modules)}\n\n`+mS("Suggested format",m.format)+mS("Practical takeaway",m.takeaway)+mS("Specialist guest",(m.guest||"")+(m.guestStatus?" ("+m.guestStatus+")":""))});
+  return o;
+}
+const slug=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,50);
+async function buildExport(k){
+  skipped=[];await ensureRevs();const c=it(expCourse),cs=c?slug(c.title):"course";
+  const one={programme:["programme-architecture.md",exProgramme],outline:["course-outline-"+cs+".md",()=>exOutline(expCourse)],scripts:["lesson-scripts-"+cs+".md",()=>exScripts(expCourse)],exercises:["exercises-and-resources-"+cs+".md",()=>exExercises(expCourse)],cases:["case-briefs.md",exCases],rubrics:["rubrics-and-assessor-guide.md",exRubrics],mc:["masterclass-proposals.md",exMasterclasses]}[k];
+  if(one){let text=one[1]();if(skipped.length)text+="\n---\n\n**Not included (not published yet):** "+skipped.join("; ")+"\n";expOut=text;expName=(expScope==="draft"?"":"published-")+one[0];return}
+  if(k==="all"){
+    const files=[["01-programme-architecture.md",exProgramme()]];
+    courses().filter(x=>kids(x.id,"module").length).forEach(x=>{const s=slug(x.title);files.push(["02-course-outline-"+s+".md",exOutline(x.id)],["03-lesson-scripts-"+s+".md",exScripts(x.id)],["04-exercises-and-resources-"+s+".md",exExercises(x.id)])});
+    files.push(["05-case-briefs.md",exCases()],["06-rubrics-and-assessor-guide.md",exRubrics()],["07-masterclass-proposals.md",exMasterclasses()]);
+    files.unshift(["README.md",mHead("Export contents")+files.map(f=>"- "+f[0]).join("\n")+"\n\n"+(skipped.length?"**Not included (not published yet):** "+[...new Set(skipped)].join("; ")+"\n":"")]);
+    expOut=files.map(f=>"<!-- "+f[0]+" -->\n"+f[1]).join("\n\n");expName=(expScope==="draft"?"":"published-")+"operations-academy-export.zip";expFiles=files;return}
+}
+let expFiles=null;
+function rExport(){
+  return `<div class="acnote">Exports are plain Markdown, so they work in Google Docs, Notion, Word, slide tools or any editor. Draft exports label every item with its status. "Published versions only" uses the exact revision that was published, and leaves out anything not yet published.</div>
+  <div class="card"><h3>Export teaching material</h3>
+    <div class="acrow"><div class="seg" role="group" aria-label="Scope">${[["draft","Current drafts"],["published","Published versions only"]].map(([k,l])=>`<button class="btn small" type="button" data-act="expscope" data-v="${k}" aria-pressed="${expScope===k}">${l}</button>`).join("")}</div>
+    <label class="vh" for="exC">Course</label><select id="exC" data-act="expcourse" style="width:auto">${opt(courses().map(c=>[c.id,c.title]),expCourse)}</select></div>
+    <div class="acrow">${[["programme","Programme architecture"],["outline","Course outline"],["scripts","Lesson scripts"],["exercises","Exercises and resources"],["cases","Case briefs (learner version)"],["rubrics","Rubrics and assessor guide"],["mc","Masterclass proposals"],["all","Everything (.zip)"]].map(([k,l])=>`<button class="btn small${k==="all"?" primary":""}" type="button" data-act="exp" data-k="${k}">${l}</button>`).join("")}</div>
+    ${expOut?`<div class="acrow" style="justify-content:space-between"><b>${esc(expName)}</b><span class="acrow"><button class="btn small primary" type="button" data-act="expdl"${downloads?"":" disabled"}>Download</button><button class="btn small" type="button" data-act="expcopy">Copy text</button></span></div>${downloads?"":'<p class="hint">Downloads aren\'t available in this view. Copy the text instead, or open Nexa OS in claude.ai.</p>'}<label class="vh" for="exOut">Export preview</label><textarea id="exOut" rows="22" readonly style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px">${esc(expOut)}</textarea>`:'<p class="empty">Choose what to export. A preview appears here before you download.</p>'}
+  </div>`;
+}
+
+/* ---- events ---- */
+const view=$("view-academy");
+function applyBind(t){const [col,id,path]=t.dataset.bind.split("|");const o=D[col][id];if(!o)return null;const v=t.type==="checkbox"?t.checked:t.type==="number"?(t.value===""?"":+t.value):t.value;setPath(o,path,v);if(col==="items")onItemEdited(id);return [col,id,path,o]}
+view.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.scnote){const s=D.subs[openSub];if(!s)return;s.scores=s.scores||{};s.scores[t.dataset.scnote]=Object.assign({},s.scores[t.dataset.scnote],{note:t.value});save("subs",openSub,700);return}
+  if(t.dataset.rub&&rubDraft&&t.type!=="checkbox"){const [i,path]=t.dataset.rub.split("|");if(i==="-1")rubDraft[path]=t.value;else{const c=rubDraft.criteria[+i];if(path.startsWith("desc.")){c.desc=c.desc||[];c.desc[+path.slice(5)]=t.value}else c[path]=t.value}return}
+  if(!t.dataset.bind||t.tagName==="SELECT"||["checkbox","radio","date","time"].includes(t.type))return;
+  const r=applyBind(t);if(!r)return;save(r[0],r[1],700);
+  if(r[0]==="items"&&r[2]==="title")document.querySelectorAll(`[data-tt="${CSS.escape(r[1])}"]`).forEach(x=>x.textContent=t.value||"Untitled");
+});
+view.addEventListener("change",e=>{
+  const t=e.target,a=t.dataset.act;
+  if(a==="demo"){showDemo=t.checked;render();return}
+  if(a==="showdone"){showDone=t.checked;render();return}
+  if(a==="expcourse"){expCourse=t.value;expOut="";render();return}
+  if(t.dataset.pf!==undefined){prodF[t.dataset.pf]=t.value;render();return}
+  if(t.dataset.arr){const [col,id,path]=t.dataset.arr.split("|"),o=D[col][id];if(!o)return;const cur=(getPath(o,path)||[]).slice(),i=cur.indexOf(t.value);if(t.checked&&i<0)cur.push(t.value);if(!t.checked&&i>=0)cur.splice(i,1);setPath(o,path,cur);if(col==="items")onItemEdited(id);save(col,id);render();return}
+  if(t.dataset.score!==undefined){const s=D.subs[openSub];if(!s||s.status!=="In review")return;s.scores=s.scores||{};s.scores[t.dataset.score]=Object.assign({},s.scores[t.dataset.score],{level:+t.value});save("subs",openSub);render();return}
+  if(t.dataset.prog){const [eid,mid]=t.dataset.prog.split("|"),en=D.enrol[eid];if(!en)return;en.progress=Object.assign({},en.progress,{[mid]:{state:t.value,at:todayISO()}});if(en.status==="Enrolled"&&t.value!=="Not started")en.status="Active";save("enrol",eid);render();return}
+  if(t.dataset.contact){const l=D.learners[t.dataset.contact];if(!l)return;const i=t.value.indexOf(":");l.contact=t.value?{src:t.value.slice(0,i),id:t.value.slice(i+1)}:null;save("learners",t.dataset.contact);render();return}
+  if(t.dataset.note!==undefined){const v=D.items[sel];if(!v)return;v.notes[+t.dataset.note].done=t.checked;save("items",sel);render();return}
+  if(t.dataset.rubout!==undefined&&rubDraft){const c=rubDraft.criteria[+t.dataset.rubout];c.outcomes=(c.outcomes||[]).filter(x=>x!==t.value).concat(t.checked?[t.value]:[]);return}
+  if(t.dataset.rub&&t.type==="checkbox"&&rubDraft){rubDraft.criteria[+t.dataset.rub.split("|")[0]].critical=t.checked;return}
+  if(!t.dataset.bind)return;
+  if(t.tagName==="TEXTAREA"||["text","url","number","search"].includes(t.type)){const [col,id]=t.dataset.bind.split("|");if(pend[col+id])save(col,id);return}
+  const prevStatus=(()=>{const [col,id]=t.dataset.bind.split("|");return D[col][id]&&D[col][id].status})();
+  const r=applyBind(t);if(!r)return;const [col,id,path,o]=r;
+  if(col==="tasks"&&path==="done")o.doneAt=o.done?todayISO():"";
+  if(col==="dec")decKeep.add(id);
+  if(col==="items"&&path==="status")logIt(o,"Status changed from "+prevStatus+" to "+o.status);
+  save(col,id);render();
+});
+view.addEventListener("submit",async e=>{
+  const f=e.target.closest("form[data-form]");if(!f)return;e.preventDefault();const k=f.dataset.form,q=s=>f.querySelector(s);
+  if(k==="note"){const x=q("input").value.trim(),v=D.items[sel];if(!x||!v)return;v.notes=(v.notes||[]).concat({at:now(),text:x,done:false});await save("items",sel);render();const n=$("axNote");if(n)n.focus();return}
+  if(k==="rev"){await saveRevision(sel,q("input").value.trim());render();return}
+  if(k==="task"){const title=q("#tk_t").value.trim();if(!title)return;await create("tasks",{title,kind:q("#tk_k").value,item:q("#tk_i").value,owner:"Mila",due:q("#tk_d").value,done:false,doneAt:"",notes:"",mc:"",order:Date.now()});render();const n=$("tk_t");if(n)n.focus();return}
+  if(k==="prep"){const id=f.dataset.id,title=q("input").value.trim();if(!title)return;await create("tasks",{title,kind:"Prepare",item:"",owner:"Mila",due:q('input[type="date"]').value,done:false,doneAt:"",notes:"",mc:id,order:Date.now()});render();return}
+  if(k==="sub"){await recordSubmission(f);return}
+  if(k==="resub"){await recordResub(f);return}
+  if(k==="learner"){const name=q("#ln_n").value.trim();if(!name){q("#ln_n").focus();return}const c=q("#ln_c").value,i=c.indexOf(":");
+    const id=await create("learners",{name,org:q("#ln_o").value.trim(),contact:c?{src:c.slice(0,i),id:c.slice(i+1)}:null,cohort:q("#ln_g").value.trim(),notes:"",demo:q("#ln_d").checked});openSet.add("ln:"+id);if(q("#ln_d").checked)showDemo=true;render();return}
+  if(k==="fb"){const comment=q("#fb_t").value.trim(),change=q("#fb_s").value.trim();if(!comment&&!change){q("#fb_t").focus();return}const lid=q("#fb_l").value;
+    await create("fb",{learner:lid,item:q("#fb_i").value,clarity:q("#fb_c").value,relevance:q("#fb_r").value,difficulty:q("#fb_d").value,comment,change,status:"New",response:"",task:"",demo:!!(lid&&D.learners[lid]&&D.learners[lid].demo)});render();return}
+});
+view.addEventListener("toggle",e=>{const d=e.target;if(d&&d.dataset&&d.dataset.key){d.open?openSet.add(d.dataset.key):openSet.delete(d.dataset.key)}},true);
+function reveal(sel2){setTimeout(()=>{const el=document.querySelector(sel2);if(el)el.scrollIntoView({block:"start"})},30)}
+view.addEventListener("click",async e=>{
+  const s=e.target.closest("[data-acsub]");if(s&&!s.closest("form")){sub=s.dataset.acsub;saveUI();render();window.scrollTo(0,0);return}
+  const b=e.target.closest("[data-act]");if(!b||b.tagName==="INPUT"||b.tagName==="SELECT")return;const a=b.dataset.act,id=b.dataset.id;
+  if(a==="sel"){if(sel===id&&expanded.has(id))expanded.delete(id);else expanded.add(id);if(sel!==id){revView=null;preview=false}sel=id;saveUI();render();if(matchMedia("(max-width:900px)").matches)reveal(".acx");return}
+  if(a==="open"){sub="curriculum";sel=id;tab="content";revView=null;let p=D.items[id];let g=0;while(p&&p.parent&&g++<6){expanded.add(p.parent);p=D.items[p.parent]}expanded.add(id);saveUI();render();window.scrollTo(0,0);return}
+  if(a==="tab"){tab=b.dataset.tab;revView=null;saveUI();render();return}
+  if(a==="pv"){preview=b.dataset.v==="1";render();return}
+  if(a==="additem"){await addItem(b.dataset.type,b.dataset.parent||"");return}
+  if(["approve","record","unrecord","publish","unpublish","archive","delitem","move","restore","delnote"].includes(a)){await act(a,b);return}
+  if(a==="revview"){const n=+b.dataset.n;revView=revView===n?null:n;render();return}
+  if(a==="prodfilter"){sub="production";prodF={type:b.dataset.type||"",stage:b.dataset.stage||"",course:""};saveUI();render();window.scrollTo(0,0);return}
+  if(a==="mcopen"){sub="masterclasses";openSet.add("mc:"+id);saveUI();render();reveal(`[data-key="mc:${CSS.escape(id)}"]`);return}
+  if(a==="addmc"){const n=L("mc").length+1;const nid=await create("mc",{title:"New masterclass",order:n,status:"Proposal",purpose:"",objective:"",outcomes:[],modules:[],format:"",takeaway:"",guest:"",guestStatus:"Not needed",presenter:"Mila",date:"",time:"",tz:"Europe/London",recordingUrl:"",resources:"",attendance:[],attendCount:"",feedbackNotes:""});openSet.add("mc:"+nid);render();return}
+  if(a==="delmc"){if(!confirm("Delete this masterclass and its preparation tasks?"))return;await Promise.all(L("tasks").filter(x=>x.mc===id).map(x=>remove("tasks",x.id)));await remove("mc",id);render();return}
+  if(a==="deltask"){await remove("tasks",id);render();return}
+  if(a==="decopen"){sub="decisions";decF="all";openSet.add("dec:"+id);saveUI();render();reveal(`[data-key="dec:${CSS.escape(id)}"]`);return}
+  if(a==="decf"){decF=b.dataset.v;decKeep.clear();render();return}
+  if(a==="adddec"){const nid=await create("dec",{title:"New decision",kind:"Other",question:"",proposal:"",status:"Open",agreed:"",agreedOn:"",agreedBy:"",docLink:"",engagementRef:"",notes:""});decF="open";openSet.add("dec:"+nid);render();return}
+  if(a==="deldec"){if(!confirm("Delete this decision record?"))return;await remove("dec",id);render();return}
+  if(a==="addsrc"){await create("src",{item:"",claim:"",source:"",url:"",jurisdiction:"",reviewed:todayISO(),status:"Needs research",notes:""});render();return}
+  if(a==="delsrc"){if(!confirm("Delete this claim?"))return;await remove("src",id);render();return}
+  if(a==="subopen"){sub="assessments";openSub=id;saveUI();render();reveal("#acReview");return}
+  if(a==="subclose"){openSub=null;render();return}
+  if(["substart","subrevise","subdone","subreopen","subresub"].includes(a)){await subAction(a);return}
+  if(a==="rubview"){const k="rv:"+id;openSet.has(k)?openSet.delete(k):openSet.add(k);render();return}
+  if(a==="rubnew"){const base=latestRubric(id);rubDraft={assessment:id,version:(base?base.version:0)+1,levels:base?clone(base.levels):["Not yet evident","Developing","Secure","Strong"],criteria:base?clone(base.criteria):[],standard:base?base.standard:"",note:""};render();return}
+  if(a==="rubadd"){rubDraft.criteria.push({id:uid("c"),name:"New criterion",critical:false,outcomes:[],desc:["","","",""]});render();return}
+  if(a==="rubdel"){rubDraft.criteria.splice(+b.dataset.i,1);render();return}
+  if(a==="rubcancel"){rubDraft=null;render();return}
+  if(a==="rubsave"){const r=rubDraft,rid=r.assessment+"--v"+r.version;if(!r.criteria.length||r.criteria.some(c=>!String(c.name).trim())){alert("Every criterion needs a name.");return}if(D.rubrics[rid]){alert("Version "+r.version+" already exists.");return}
+    await create("rubrics",{assessment:r.assessment,version:r.version,levels:r.levels,criteria:r.criteria,standard:r.standard,note:r.note},rid);rubDraft=null;openSet.add("rv:"+rid);render();return}
+  if(a==="enrol"){const c=$("en_"+id)&&$("en_"+id).value;if(!c)return;if(L("enrol").some(x=>x.learner===id&&x.course===c)){alert("Already enrolled in that course.");return}
+    await create("enrol",{learner:id,course:c,status:"Enrolled",enrolled:todayISO(),progress:{},implementation:"",demo:!!(D.learners[id]&&D.learners[id].demo)});render();return}
+  if(a==="delenrol"){if(!confirm("Remove this enrolment and its progress record? Submissions are kept."))return;await remove("enrol",id);render();return}
+  if(a==="dellearner"){if(!confirm("Remove this learner and their enrolments? Submissions and feedback are kept."))return;await Promise.all(L("enrol").filter(x=>x.learner===id).map(x=>remove("enrol",x.id)));await remove("learners",id);render();return}
+  if(a==="fbtask"){const f=D.fb[id];if(!f)return;const isMc=(f.item||"").startsWith("mc:");
+    const tid=await create("tasks",{title:"Consider feedback: "+(f.change||f.comment).slice(0,90),kind:"Review",item:isMc?"":f.item||"",owner:"Mila",due:"",done:false,doneAt:"",notes:(f.comment||"")+(f.change?"\nSuggested change: "+f.change:""),mc:isMc?f.item.slice(3):"",order:Date.now()});
+    f.task=tid;if(f.status==="New")f.status="Reviewing";await save("fb",id);render();return}
+  if(a==="delfb"){if(!confirm("Delete this feedback?"))return;await remove("fb",id);render();return}
+  if(a==="mkdemo"){await makeDemo();return}
+  if(a==="rmdemo"){if(!confirm("Delete every record marked Demo (learners, enrolments, submissions and feedback)?"))return;await Promise.all(["learners","enrol","subs","fb"].flatMap(c=>L(c).filter(x=>x.demo).map(x=>remove(c,x.id))));if(openSub&&!D.subs[openSub])openSub=null;render();return}
+  if(a==="expscope"){expScope=b.dataset.v;expOut="";render();return}
+  if(a==="exp"){b.disabled=true;try{await buildExport(b.dataset.k)}catch(err){expOut="Export failed: "+(err&&err.message||err);expName=""}render();return}
+  if(a==="expcopy"){const t=$("exOut");if(!t)return;try{await navigator.clipboard.writeText(expOut);b.textContent="Copied"}catch(_){t.select()}return}
+  if(a==="expdl"){if(!downloads)return;const zipped=/\.zip$/.test(expName)&&expFiles&&window.__nexaZip;
+    let name=expName,data;if(zipped)data=window.__nexaZip(expFiles);else{if(/\.zip$/.test(name))name=name.replace(/\.zip$/,".md");data=new Blob([expOut],{type:"text/markdown"})}
+    try{await downloads.save({filename:name,data});mark("Downloaded "+name)}catch(err){mark(err&&err.code==="declined"?"Download cancelled.":"Couldn't download: "+((err&&err.message)||"unavailable here"))}return}
+});
+async function makeDemo(){
+  const aid=(items().find(v=>v.type==="assessment"&&latestRubric(v.id))||{}).id,course=aid?courseOf(aid):((courses()[0]||{}).id||"");
+  const lid=await create("learners",{name:"Practice learner (demo)",org:"Fictional",contact:null,cohort:"Demo",notes:"Demo record for trying the workflow. Not a real person.",demo:true});
+  const eid=course?await create("enrol",{learner:lid,course,status:"Active",enrolled:todayISO(),progress:{},implementation:"",demo:true}):"";
+  if(aid){const caseRev=await saveRevision(aid,"Saved automatically when a submission was recorded");
+    await create("subs",{learner:lid,enrol:eid,assessment:aid,attempt:1,prev:"",caseRev,caseHash:D.items[aid].revHash,rubric:latestRubric(aid).id,format:"Written plan",link:"",text:"DEMO practice submission. This is not a real learner's work. Use it to try the review, feedback and resubmission screens, then remove it.",learnerNote:"",submitted:todayISO(),assessor:"",assessedOn:"",status:"Submitted",scores:{},overall:"",result:"",history:[{at:now(),what:"Demo submission created"}],demo:true})}
+  showDemo=true;render();
+}
+
+/* ---- render ---- */
+function renderDoor(){
+  const d=$("doorAcademy");if(!d)return;
+  if(!live){d.textContent=window.claude&&window.claude.use?"Loading…":"Sign in to claude.ai to load";return}
+  const C=counts(),m=C.I.filter(v=>v.type==="module");
+  d.textContent=m.length?m.filter(v=>!isApproved(v)).length+" of "+m.length+" modules to approve · "+C.awaiting.length+" to assess · "+C.decisions.length+" decisions open":"Curriculum, production and the pilot";
+}
+function render(){
+  renderDoor();
+  const v=$("view-academy");if(!v||v.hidden)return;deferred=false;
+  document.querySelectorAll("#acSub [data-acsub]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.acsub===sub)));
+  const a=document.activeElement,keep=a&&v.contains(a)&&a.id?a.id:null;
+  const fn={overview:rOverview,curriculum:rCurriculum,production:rProduction,masterclasses:rMasterclasses,assessments:rAssessments,pilot:rPilot,decisions:rDecisions,sources:rSources,export:rExport}[sub]||rOverview;
+  let html;try{html=fn()}catch(err){console.error(err);html=`<div class="acnote">Something went wrong drawing this section: ${esc(err&&err.message)}</div>`}
+  $("acMain").innerHTML=html;
+  if(keep){const el=$(keep);if(el)try{el.focus({preventScroll:true})}catch(_){}}
+}
+let rt;
+function schedule(){clearTimeout(rt);rt=setTimeout(()=>{renderDoor();const v=$("view-academy");if(!v||v.hidden)return;const a=document.activeElement;if(a&&v.contains(a)&&a.matches("input,textarea,select")){deferred=true;return}render()},80)}
+document.addEventListener("focusout",()=>{if(!deferred)return;setTimeout(()=>{if(!deferred)return;const v=$("view-academy"),a=document.activeElement;if(a&&v&&v.contains(a)&&a.matches("input,textarea,select"))return;render()},250)});
+function subscribe(){
+  Object.keys(COL).forEach(k=>{if(k==="revs")return;
+    db.collection(COL[k]).onSnapshot(snap=>{
+      let changed=!loaded[k];const m={};
+      snap.docs.forEach(d=>{const local=D[k][d.id];if(pend[k+d.id]&&local){m[d.id]=local;return}const data=clone(d.data());if(local&&stable(local)===stable(data)){m[d.id]=local;return}changed=true;m[d.id]=data});
+      Object.keys(D[k]).forEach(id=>{if(!m[id]){if(pend[k+id])m[id]=D[k][id];else changed=true}});
+      D[k]=m;loaded[k]=true;if(changed)schedule();
+    },()=>mark("Couldn't load part of the Academy. Try reloading."));
+  });
+}
+document.addEventListener("nexa:view",e=>{if(e.detail==="academy")render()});
+render();
+(async()=>{
+  if(!window.claude||!window.claude.use){renderDoor();return}
+  try{downloads=await window.claude.use("downloads")}catch(_){downloads=null}
+  db=await window.claude.use("db");
+  if(!db){renderDoor();render();return}
+  live=true;subscribe();render();
+})();
+})();
+</script>
