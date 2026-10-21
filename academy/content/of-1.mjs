@@ -17,8 +17,9 @@ The course answers one question: **how do you remove yourself as the bottleneck 
 |---|---|
 | Six modules, recordings | about 75 to 90 minutes in total |
 | Six modules, exercises and resources | about 3 to 3.5 hours in total |
-| Capstone case | 3 to 5 hours |
-| **Total** | **about 7.5 to 10 hours**, spread over two to four weeks |`,
+| Capstone case (OF190) | 3 to 5 hours |
+| POSI: Proof of Skill Implementation (OF195) | 6 to 10 hours, over four to eight weeks |
+| **Total** | **about 13.5 to 20 hours**, over roughly two to three months |`,
       structure: `**Why six modules, not five.** The brief suggested about five. Topic 4 (foundational practices for ownership, documentation, delivery, visibility and responsible decision-making) is too large for one short module, and SOPs and documentation are the questions founders have already raised. It is split into Module 4 (ownership and responsible decisions) and Module 5 (documentation and SOPs). Visibility moves into Module 6, where it is needed to judge whether a first improvement has worked. Each module stays short enough for one sitting.
 
 | Module | Brief topic |
@@ -30,7 +31,13 @@ The course answers one question: **how do you remove yourself as the bottleneck 
 | 5. Documentation and SOPs that people use | 4 (documentation, delivery) |
 | 6. Seeing what is happening and choosing a first improvement | 4 (visibility) and 5 |`,
       notIncluded: "Detailed finance, project management, governance, compliance and legal content. These have their own courses. Software training. The course mentions tools only to show how to judge whether one fits.",
-      completion: `A learner completes the course by working through the six modules and submitting the capstone case. The capstone shows **reasoning about a hypothetical business**. It does not show that the learner has changed their own business, and it is not described as doing so. No certificate or accreditation is attached.
+      completion: `A learner completes the course in three parts, like a university module:
+
+1. **Lectures:** the six recorded modules (OF101 to OF106), each built as a principle, a method and tactics.
+2. **Coursework:** the capstone case (OF190), which shows **reasoning about a hypothetical business**.
+3. **Practical:** the POSI, Proof of Skill Implementation (OF195), which shows **one real improvement in the learner's own business** where the founder has stepped out.
+
+The capstone and the POSI are kept separate on purpose: one shows judgement, the other shows implementation. Neither proves business results. No certificate or accreditation is attached. Whether the POSI is required for completion is an open decision.
 
 The fortnightly or monthly masterclasses (frequency to be agreed) are optional. Everything needed to complete the course is in the recordings, exercises and resources.`
     }

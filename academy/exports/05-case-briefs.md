@@ -1,4 +1,4 @@
-# Case briefs (learner version)
+# Case and POSI briefs (learner version)
 
 _Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
 
@@ -92,5 +92,60 @@ Estimate: 3 to 5 hours, including re-reading the case and checking your plan aga
 **What this does and does not show**
 
 This assessment shows applied reasoning about a hypothetical business. It does not show that the learner has implemented changes in their own business or that any change worked. No certificate or accreditation is attached to completion.
+
+## POSI: Proof of Skill Implementation
+
+> Status: Draft (not approved)
+
+**Purpose**
+
+The applied side of the course. The capstone shows a learner can reason about a fictional business. The POSI shows they have done it in their own: one real improvement that takes something off the founder's plate, with evidence that it happened and held.
+
+It answers the programme question directly: **where have you stopped being the bottleneck, and how do you know?**
+
+**What the learner does**
+
+Over four to eight weeks, choose one recurring situation where work, decisions or information wait for you. Then:
+
+1. **Diagnose it** using the course methods: map the work, name the bottleneck type, gather evidence.
+2. **Choose one change** and say why this one, not another.
+3. **Hand it over properly:** a named owner, their decision rights and limits, and an escalation route.
+4. **Put in what is needed to make it stick:** for example a checklist or SOP with an owner and review date, a decision rights table, or a visibility signal. Use only what the change actually needs.
+5. **Measure it:** a baseline before, the same measure after, and something you watched so the change didn't break anything else.
+6. **Step back:** for at least two weeks, stop doing, deciding or checking the thing you handed over, except through the agreed escalation route.
+7. **Reflect:** what worked, what didn't, and what you would do next.
+
+**What to submit**
+
+Submit a short pack (written, slides or a recorded walkthrough of 10 to 15 minutes):
+
+- The problem and your evidence (for example a workflow map or wait times)
+- The change, the owner and their decision rights
+- The artefacts you put in place (redacted where needed)
+- Baseline and result for your measure, and the "also watch" signal
+- What you no longer do, decide or check, and how long that has held
+- A short reflection (up to 300 words)
+
+A short statement from the new owner confirming the change is welcome but optional.
+
+**Confidentiality**
+
+You choose what to share. Remove client names, personal data, pricing and anything confidential. Describe evidence instead of attaching it where needed. Anonymised examples are fine. Assessors judge whether the evidence is credible and the reasoning sound, not the size of the business or the result.
+
+**Timeframe**
+
+Four to eight weeks after finishing the six modules. Learners can start planning during Module 6.
+
+**Effort estimate**
+
+Estimate: 6 to 10 hours of the learner's time across the period, plus the time of whoever takes ownership. To be checked in the pilot.
+
+**Resubmission process**
+
+If the change hasn't had time to hold, or ownership hasn't really moved, the result is **In progress** with specific prompts. The learner can add evidence and resubmit within eight weeks (estimate; to be agreed). Earlier submissions and feedback are kept.
+
+**What this does and does not show**
+
+POSI is evidence of implementation in the learner's own business, self-selected and possibly anonymised. It is assessed for credibility and judgement. It does not prove business outcomes, and no certificate or accreditation is attached.
 
 _Fictional case. No real company information is used. Assessor guidance and the list of deliberately withheld information are in the rubric export._

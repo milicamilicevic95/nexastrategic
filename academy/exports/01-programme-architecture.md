@@ -14,6 +14,33 @@ A business that delivers reliably without the founder having to direct every mov
 
 How do you remove yourself as the bottleneck in productivity?
 
+**How learning works**
+
+**The goal of the whole programme:** how do you stop being your own bottleneck?
+
+**How learning works** (a university model, adapted)
+
+| Element | Like | What it is for | Required? |
+|---|---|---|---|
+| Core course | Lectures | Short recorded lessons, exercises and resources. The structured curriculum. | Yes |
+| Masterclass | After-school expert lecture | Live worked cases, discussion and specialist perspectives that apply the course. Never repeats it. | No |
+| Capstone case | Coursework | Reasoning about a fictional business. Shows judgement. | Proposed: yes |
+| POSI: Proof of Skill Implementation | Practical placement | One real improvement in the learner's own business, with evidence that it happened and that the founder stepped out of it. | Proposed: yes (to be agreed) |
+
+**Teaching voice.** The programme helps founders find their own answer. Every module ends with coaching questions: "Have you thought about…?", "Consider…". The course gives concepts and methods; the founder decides what fits their business.
+
+**Principle, method, tactic**
+
+Every module is built in three layers, following David's design approach.
+
+| Layer | What it is | How often it changes |
+|---|---|---|
+| **Principle** | The idea that stays true across businesses and over time | Rarely. These should be solid. |
+| **Method** | How you apply the principle | Occasionally, as we learn from the pilot |
+| **Tactic** | The concrete steps, templates and tools | Often. Tactics can be updated without rewriting the course. |
+
+This keeps the course stable while letting the practical material improve. Software and templates sit at tactic level, so a change in tools never changes what is taught.
+
 **Programme learning outcomes**
 
 By the end of the full programme, a learner can:
@@ -285,8 +312,9 @@ Estimates only, to be checked in the pilot.
 |---|---|
 | Six modules, recordings | about 75 to 90 minutes in total |
 | Six modules, exercises and resources | about 3 to 3.5 hours in total |
-| Capstone case | 3 to 5 hours |
-| **Total** | **about 7.5 to 10 hours**, spread over two to four weeks |
+| Capstone case (OF190) | 3 to 5 hours |
+| POSI: Proof of Skill Implementation (OF195) | 6 to 10 hours, over four to eight weeks |
+| **Total** | **about 13.5 to 20 hours**, over roughly two to three months |
 
 **Not covered here**
 

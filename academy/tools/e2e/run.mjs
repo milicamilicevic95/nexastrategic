@@ -45,7 +45,7 @@ const openItem = async id => { await page.evaluate(id => { const b = document.cr
 await go("#academy");
 ok(await page.isVisible("#view-academy"), "Academy tab opens from #academy");
 ok((await kpi("Modules approved")) === "0 of 6", "Overview: modules approved derived from records (0 of 6)");
-ok((await kpi("Decisions open")) === "14", "Overview: 14 decisions awaiting agreement");
+ok((await kpi("Decisions open")) === "17", "Overview: 17 decisions awaiting agreement");
 ok((await kpi("Claims to verify")) === "4", "Overview: 4 claims to verify (one verified)");
 ok((await kpi("Awaiting assessment")) === "0", "Overview: no assessments awaiting review");
 ok(await page.locator("text=No masterclass has a date yet.").count() === 1, "Overview: empty state for undated masterclasses");
@@ -223,6 +223,19 @@ ok(st["acad_subs/" + s1id].result === "Not yet" && st["acad_subs/" + s1id].statu
 await go("#academy"); await sub("overview");
 ok((await kpi("Awaiting assessment")) === "0", "After completion nothing awaits assessment (reloaded)");
 
+// 11b. POSI is assessed with its own rubric and wording
+await sub("assessments");
+await page.selectOption("#sb_l", lid); await page.selectOption("#sb_a", "a-posi"); await page.click('form[data-form="sub"] button'); await W(600);
+st = await store();
+const p1 = Object.entries(st).find(([k, v]) => k.startsWith("acad_subs/") && v.assessment === "a-posi");
+ok(p1 && p1[1].rubric === "a-posi--v1", "POSI submission pinned to the POSI rubric");
+await page.click('[data-act="substart"]'); await W(300);
+for (const c of ["diag", "choice", "own", "made", "step", "meas", "risk"]) await page.check(`input[name="lv_${p1[0].split("/")[1]}_${c}"][value="2"]`);
+await W(300); await page.click('[data-act="subdone"]'); await W(400);
+st = await store();
+ok(st[p1[0]].result === "Evidenced", "POSI completes with the result 'Evidenced'");
+ok((await page.textContent("#acReview")).includes("implementation in the learner's own business"), "POSI review labels the evidence as implementation, not proof of results");
+
 // 12. decisions
 await sub("decisions");
 await page.click('details[data-key="dec:d01"] > summary'); await W(150);
@@ -233,14 +246,15 @@ await page.click('details[data-key="dec:d01"] > summary').catch(() => {}); await
 if (!(await page.isVisible('textarea[data-bind="dec|d01|agreed"]'))) await page.click('details[data-key="dec:d01"] > summary');
 await page.fill('textarea[data-bind="dec|d01|agreed"]', "One masterclass a month (test)."); await page.fill('input[data-bind="dec|d01|agreedOn"]', "2026-10-21"); await page.dispatchEvent('input[data-bind="dec|d01|agreedOn"]', "change"); await W(1000);
 await sub("overview");
-ok((await kpi("Decisions open")) === "13", "Agreeing a decision updates the open count (13)");
+ok((await kpi("Decisions open")) === "16", "Agreeing a decision updates the open count (16)");
 
 // 13. exports and downloads
 await sub("export");
-for (const k of ["programme", "outline", "scripts", "exercises", "cases", "rubrics", "mc"]) {
+for (const k of ["programme", "handbook", "outline", "scripts", "exercises", "cases", "rubrics", "mc"]) {
   await page.click(`[data-act="exp"][data-k="${k}"]`); await W(300);
   const t = await page.inputValue("#exOut"); ok(t.length > 800 && t.startsWith("# "), "Export '" + k + "' produced Markdown (" + t.length + " chars)");
-  if (k === "cases") ok(!t.includes("Assessor reference") && !t.includes("Common weaknesses") && t.includes("Kestrel Signs"), "Case brief export is learner-facing only");
+  if (k === "cases") ok(!t.includes("Assessor reference") && !t.includes("Common weaknesses") && !t.includes("Accept small, real changes") && t.includes("Kestrel Signs") && t.includes("Proof of Skill Implementation"), "Case brief export is learner-facing only");
+  if (k === "handbook") ok(t.includes("| OF101 |") && t.includes("| OF195 |") && t.includes("**Principle**") && t.includes("Have you thought about"), "Module handbook has the course table, principles and coaching questions");
   if (k === "rubrics") ok(t.includes("| Criterion |") && t.includes("Rubric v2 (current)") && t.includes("Assessor reference"), "Rubric export includes versions, table and assessor guidance");
 }
 await page.click('[data-act="exp"][data-k="outline"]'); await W(300); await page.click('[data-act="expdl"]'); await W(400);

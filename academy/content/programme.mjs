@@ -6,7 +6,7 @@ export const programme = [
     id: "prog", type: "programme", title: "Operations programme for founders (working title)", status: "Draft",
     f: {
       statement: "A business that delivers reliably without the founder having to direct every move.",
-      question: "How do you remove yourself as the bottleneck in productivity?",
+      question: "How to not be your own bottleneck?",
       outcomes: `By the end of the full programme, a learner can:
 
 1. Diagnose where and why work depends on them, using evidence rather than impression.

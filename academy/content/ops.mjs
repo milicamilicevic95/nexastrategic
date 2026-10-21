@@ -86,6 +86,15 @@ export const decisions = [
   { id: "d13", kind: "Effort", title: "Preparation and review effort against the 12-hour monthly cap",
     question: "Estimated per masterclass: 90 minutes delivery, 3 to 4 hours preparation, 1 to 2 hours for the practical resource. Plus intake reviews and the coordination call. Course writing, recording and assessment are additional.",
     proposal: "Record actual time for the first two months, then confirm whether the cap and scope fit." },
+  { id: "d15", kind: "Programme design", title: "POSI: name, and whether it is required to complete the course",
+    question: "David's notes describe POSI as proof of skill implementation, the applied side of the programme. The draft adds it as OF195 after the capstone. Confirm the name and spelling, whether it is required for completion or optional, who assesses it, and whether David's team sees results.",
+    proposal: "Keep the name POSI. Make it required for completion of the pilot, assessed by Mila using rubric v1, with results private to the learner and Mila unless the learner agrees otherwise." },
+  { id: "d16", kind: "Programme design", title: "Keep both the capstone case and the POSI?",
+    question: "The capstone case tests reasoning on a fictional business; the POSI tests implementation in the learner's own. Together they add 9 to 15 hours to the six modules.",
+    proposal: "Keep both for the pilot and use pilot feedback to decide whether the capstone becomes optional for founders who complete the POSI well." },
+  { id: "d17", kind: "Programme design", title: "Principle, method, tactic: confirm the six module principles with David",
+    question: "Each module now has a principle (stable), a method (how) and tactics (steps that can change). The principles are the part that should not move once agreed.",
+    proposal: "Review the six principles together in one coordination call and record any wording changes as a new revision." },
   { id: "d14", kind: "Access", title: "Learner and David access to this dashboard",
     question: "The MVP is private to Mila. Should David, guests or learners ever see any part of it?",
     proposal: "No access in the MVP. Revisit after the pilot." }
@@ -119,5 +128,6 @@ export const tasks = [
   { id: "t07", title: "Choose where lesson recordings will be hosted (d06)", kind: "Admin", item: "" },
   { id: "t08", title: "Draft the pilot invitation and what pilot learners commit to (d11)", kind: "Write", item: "c-of" },
   { id: "t09", title: "Read all six modules end to end for consistency and British English before approving any", kind: "Review", item: "c-of" },
+  { id: "t11", title: "Rewrite lesson scripts to close with the coaching questions (Have you thought about…? Consider…)", kind: "Write", item: "c-of" },
   { id: "t10", title: "Decide whether Capability becomes a sixth pillar (d09)", kind: "Review", item: "prog" }
 ];

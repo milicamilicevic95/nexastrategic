@@ -11,6 +11,7 @@ import { of2 } from "../content/of-2.mjs";
 import { of3 } from "../content/of-3.mjs";
 import { capstone, rubricV1 } from "../content/capstone.mjs";
 import { masterclasses, decisions, sources, tasks } from "../content/ops.mjs";
+import { pmt, programmeAdditions, posi, posiRubric } from "../content/pmt.mjs";
 
 const out = process.argv[2];
 if (!out) { console.error("Usage: node build-seed.mjs <outDir>"); process.exit(1); }
@@ -26,7 +27,8 @@ const normLinks = l => ({ pillars: [], outcomes: [], prereqs: [], ...(l || {}) }
 const docs = {};
 const put = (col, id, data) => { (docs[col] ||= {})[id] = data; };
 
-for (const s of [...programme, ...of1, ...of2, ...of3, ...capstone]) {
+for (const s0 of [...programme, ...of1, ...of2, ...of3, ...capstone, posi]) {
+  const s = { ...s0, f: { ...(s0.f || {}), ...(pmt[s0.id] || {}), ...(s0.id === "prog" ? programmeAdditions : {}) } };
   const it = { type: s.type, title: s.title, parent: s.parent || "", order: s.order || 0, status: s.status || "Draft",
     owner: "Mila", due: "", f: s.f || {}, links: normLinks(s.links), notes: [], log: [{ at: AT, what: "Seeded as draft content" }],
     rev: 1, approved: null, recording: null, published: null, created: AT, updated: AT, seed: true };
@@ -34,7 +36,7 @@ for (const s of [...programme, ...of1, ...of2, ...of3, ...capstone]) {
   put("acad_items", s.id, it);
   put("acad_revs", s.id + "--r1", { item: s.id, n: 1, at: AT, note: "Initial draft (seeded)", title: it.title, f: it.f, links: it.links, status: it.status, hash: it.revHash });
 }
-put("acad_rubrics", rubricV1.id, { ...rubricV1, id: undefined, created: AT });
+for (const r of [rubricV1, posiRubric]) put("acad_rubrics", r.id, { ...r, id: undefined, created: AT });
 masterclasses.forEach(m => put("acad_mc", m.id, { ...m, id: undefined, status: "Proposal", presenter: "Mila (proposed)", date: "", time: "", tz: "Europe/London",
   recordingUrl: "", resources: "", attendance: [], attendCount: "", feedbackNotes: "", created: AT, updated: AT }));
 decisions.forEach(d => put("acad_dec", d.id, { ...d, id: undefined, status: ["d03", "d04"].includes(d.id) ? "Proposed" : "Open", agreed: "", agreedOn: "", agreedBy: "",

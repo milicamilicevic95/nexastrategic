@@ -95,3 +95,51 @@ Use two or three of these per criterion, adapted to the submission.
 
 This assessment shows applied reasoning about a hypothetical business. It does not show that the learner has implemented changes in their own business or that any change worked. No certificate or accreditation is attached to completion.
 
+## POSI: Proof of Skill Implementation
+
+### Rubric v1 (current): First draft POSI rubric for review and calibration in the pilot.
+
+| Criterion | Required at Secure | Outcomes | Not yet evident | Partly evidenced | Evidenced | Strong |
+|---|---|---|---|---|---|---|
+| Diagnosis grounded in evidence | No | M2.1 Map a workflow; M3.1 Diagnose bottleneck types with evidence | No evidence of the problem, or the problem is assumed. | Some evidence, but it doesn't clearly show where work waited or why. | Credible evidence of where work waited and which bottleneck type it was. | As Evidenced, and the learner tested their first explanation and revised it. |
+| Choice of change | No | M6.2 Prioritise a first improvement | No reason given for this change. | A reason, but no comparison with alternatives. | Justified by impact, frequency, risk and effort, with alternatives considered. | As Evidenced, and the learner explains what they deliberately left for later and why. |
+| Ownership moved | Yes | M4.1 Specify owner, decision rights, threshold and escalation; M6.3 Define owner, measure, review and stop rule | Ownership stayed with the founder, or is unclear. | A person is named but their decision rights or limits are unclear. | A named owner with clear decision rights, a threshold and an escalation route. | As Evidenced, and the learner checked the owner had the capability, information and time. |
+| What was put in place | No | M5.1 Decide whether and how to document | Nothing put in place, or only a plan. | Something put in place, but it doesn't match what the change needed. | Proportionate artefacts (for example a checklist, SOP, threshold table or signal) with an owner and review date. | As Evidenced, and the artefacts were tested with the person using them and improved. |
+| Founder stepped out | Yes | M4.1 Specify owner, decision rights, threshold and escalation | No evidence the founder stopped doing, deciding or checking anything. | Stepped back briefly, or only partly. | Stopped for at least two weeks, except through the agreed escalation route. | As Evidenced, and the learner describes what they did when tempted to step back in. |
+| Measurement and judgement | Yes | M6.1 Identify a minimum visibility set; M6.3 Define owner, measure, review and stop rule | No measure, or no baseline. | A measure with a baseline, but no result or no 'also watch' signal. | Baseline and result for the measure, an 'also watch' signal, and an honest view of what it shows. | As Evidenced, and the learner considers other explanations for the change. |
+| Risk and specialist matters | No | M4.2 Identify consequences of a commitment; M4.3 Recognise when specialist advice is needed | Obvious legal, safety, financial or regulatory issues ignored. | Issues mentioned but not acted on. | Relevant issues recognised and appropriate input sought, or a reasoned note that none applied. | As Evidenced, and the learner recorded the decision and who made it. |
+
+**Standard**
+
+**Evidenced** when Ownership moved, Founder stepped out and Measurement are each at least Evidenced, and no criterion is Not yet evident. Otherwise the result is **In progress** and the learner is invited to add evidence.
+
+> Status: Draft (not approved)
+
+**Assessor guidance**
+
+**What you are assessing.** That a real change happened, that ownership and decision rights genuinely moved away from the founder, and that the learner can judge whether it worked. Not the scale of the result.
+
+**Accept small, real changes.** Moving refund approvals under £200 to a team lead, with a weekly list for the founder, is a good POSI. A grand redesign that never left the planning stage is not.
+
+**Credibility, not proof.** You can't verify everything. Look for consistency between the problem, the artefacts, the measure and the reflection. Ask questions where it doesn't add up.
+
+**Specialist matters.** If the change touched legal, safety, financial or regulatory obligations, look for evidence the learner recognised it and got appropriate input. Do not assess whether they met any specific requirement.
+
+**What a pass means.** "Evidenced" means the assessor has seen credible evidence of one implemented change and the learner's judgement about it. It is not a guarantee of business results, and no certificate or accreditation is attached.
+
+**Feedback prompts**
+
+- "Who owns this now, and what can they decide without you?"
+- "What did you stop doing, and what happened the first time you didn't step in?"
+- "Your baseline was ___. What else could explain the change you saw?"
+- "What would make you take this back? Has that happened?"
+- "Consider what you'd hand over next, and what you'd do differently."
+
+**Resubmission process**
+
+If the change hasn't had time to hold, or ownership hasn't really moved, the result is **In progress** with specific prompts. The learner can add evidence and resubmit within eight weeks (estimate; to be agreed). Earlier submissions and feedback are kept.
+
+**What this does and does not show**
+
+POSI is evidence of implementation in the learner's own business, self-selected and possibly anonymised. It is assessed for credibility and judgement. It does not prove business outcomes, and no certificate or accreditation is attached.
+

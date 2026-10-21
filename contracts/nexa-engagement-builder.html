@@ -1976,20 +1976,23 @@ const COL={items:"acad_items",revs:"acad_revs",tasks:"acad_tasks",mc:"acad_mc",l
 const D={};Object.keys(COL).forEach(k=>D[k]={});
 const STATUSES=["Idea","Outline","Draft","Review","Approved","Archived"];
 const STAGES=["Idea","Outline","Draft","Review","Approved","Recorded","Published","Archived"];
-const TYPES={programme:"Programme",pillar:"Pillar",course:"Course",module:"Module",lesson:"Lesson",outcome:"Learning outcome",exercise:"Exercise",resource:"Resource",assessment:"Assessment"};
+const TYPES={programme:"Programme",pillar:"Pillar",course:"Course",module:"Module",lesson:"Lesson",outcome:"Learning outcome",exercise:"Exercise",resource:"Resource",assessment:"Assessment",practical:"Practical (POSI)"};
+const ASSESSED=["assessment","practical"];
 const FIELDS={
-  programme:[["statement","Programme outcome",2],["question","Guiding question",2],["outcomes","Programme learning outcomes",8],["architecture","Pillars and how they relate",12],["test","How the pillars were chosen",12],["scope","What the programme does and does not do",8],["sequence","Proposed learning sequence",10]],
+  programme:[["statement","Programme outcome",2],["question","Guiding question",2],["model","How learning works",12],["pmt","Principle, method, tactic",10],["outcomes","Programme learning outcomes",8],["architecture","Pillars and how they relate",12],["test","How the pillars were chosen",12],["scope","What the programme does and does not do",8],["sequence","Proposed learning sequence",10]],
   pillar:[["definition","Definition",3],["test","Removal test: why it is a pillar",3],["includes","What sits under it",6],["signals","Founder-bottleneck signals",4],["limits","Limits and judgement",3],["relations","Relationship to other pillars",3]],
   course:[["purpose","Purpose",5],["audience","Audience",3],["subjects","Subjects covered",3],["prereqText","Prerequisites",2],["time","Estimated learning time",6],["structure","Structure and rationale",10],["notIncluded","Not covered here",3],["completion","Completion and evidence",5]],
-  module:[["problem","Learner problem",4],["prereqText","Prerequisites",2],["outline","Lesson outline",6],["example","Worked example",12],["misconceptions","Common misconceptions",8],["time","Estimated learning time",2],["production","Production notes",2]],
+  module:[["code","Module code",1],["problem","Learner problem",4],["principle","Principle (stable)",2],["method","Method (how)",3],["tactic","Tactics (steps that can change)",6],["coaching","Coaching questions: Have you thought about…? Consider…",4],["prereqText","Prerequisites",2],["outline","Lesson outline",6],["example","Worked example",12],["misconceptions","Common misconceptions",8],["time","Estimated learning time",2],["production","Production notes",2]],
   lesson:[["summary","What this lesson covers",2],["minutes","Estimated length",1],["script","Recording script",26],["slides","Slide and visual notes",3]],
   outcome:[["statement","Observable outcome",3],["evidence","How it is evidenced",2]],
   exercise:[["instructions","Instructions",12],["output","What the learner produces",2],["time","Estimated time",1]],
   resource:[["purpose","Decision or task it supports",2],["body","Resource content",22],["how","How to use it",2]],
+  practical:[["purpose","Purpose",5],["brief","What the learner does",12],["evidence","What to submit",8],["confidentiality","Confidentiality",3],["timeframe","Timeframe",2],["effort","Effort estimate",2],["guidance","Assessor guidance",12],["prompts","Feedback prompts",6],["resubmission","Resubmission process",4],["evidenceNote","What this does and does not show",3]],
   assessment:[["scenario","Scenario",8],["context","Business context",10],["facts","Relevant facts and constraints",12],["missing","Deliberately incomplete information (assessor reference, not shown to learners)",10],["instructions","Learner instructions",14],["format","Submission format",6],["effort","Effort estimate",2],["guidance","Assessor guidance",16],["prompts","Feedback prompts",8],["resubmission","Resubmission process",8],["evidenceNote","What this does and does not show",3]]
 };
 const LEARNER_CASE=["scenario","context","facts","instructions","format","effort","resubmission","evidenceNote"];
-const CHILD={programme:["pillar"],course:["module","outcome","assessment"],module:["lesson","outcome","exercise","resource"]};
+const LEARNER_F={assessment:LEARNER_CASE,practical:["purpose","brief","evidence","confidentiality","timeframe","effort","resubmission","evidenceNote"]};
+const CHILD={programme:["pillar"],course:["module","outcome","assessment","practical"],module:["lesson","outcome","exercise","resource"]};
 const SUB_ST=["Not started","Submitted","In review","Revision requested","Completed"];
 const MC_ST=["Proposal","Planned","Scheduled","Delivered","Cancelled"];
 const DEC_ST=["Open","Proposed","Agreed","Declined","Superseded"];
@@ -2026,7 +2029,7 @@ function nextAction(it){
   if(it.status==="Approved"){if(it.type==="lesson")return it.recording?"Publish":"Record";return "Publish"}
   return {Idea:"Outline it",Outline:"Write the draft",Draft:"Review it",Review:"Approve or revise"}[it.status]||"Review it";
 }
-const PRODUCED=["course","module","lesson","exercise","resource","assessment"];
+const PRODUCED=["course","module","lesson","exercise","resource","assessment","practical"];
 
 /* ---- state ---- */
 let db=null,downloads=null,live=false,sub="overview",sel=null,tab="content",preview=false,showDemo=false,deferred=false;
@@ -2144,7 +2147,7 @@ function rOverview(){
     ["Decisions open",String(C.decisions.length),"Awaiting agreement"],
     ["Feedback to act on",String(C.fb.length),"New or being reviewed"],
     ["Claims to verify",String(C.claims.length),"In the Sources register"]];
-  const types=[["course","Courses"],["module","Modules"],["lesson","Lessons"],["exercise","Exercises"],["resource","Resources"],["assessment","Assessments"]];
+  const types=[["course","Courses"],["module","Modules"],["lesson","Lessons"],["exercise","Exercises"],["resource","Resources"],["assessment","Assessments"],["practical","Practicals (POSI)"]];
   const all=items();
   const byStage=`<div class="scroll"><table class="actable"><thead><tr><th></th>${STAGES.map(s=>`<th>${s}</th>`).join("")}</tr></thead><tbody>${types.map(([k,l])=>`<tr><td><b>${l}</b></td>${STAGES.map(s=>{const n=all.filter(v=>v.type===k&&stage(v)===s).length;return `<td>${n?`<button class="lnk" type="button" data-act="prodfilter" data-type="${k}" data-stage="${s}">${n}</button>`:'<span class="sub">0</span>'}</td>`}).join("")}</tr>`).join("")}</tbody></table></div>`;
   const nextList=C.next.sort((a,b)=>(a.v.due||"9999").localeCompare(b.v.due||"9999")||STAGES.indexOf(b.v.status)-STAGES.indexOf(a.v.status)).slice(0,8).map(x=>kv(`${goItem(x.v.id)} <span class="sub">· ${TYPES[x.v.type]}</span>`,esc(x.a)+(x.v.due?` · ${fmtD(x.v.due)}`:""))).join("")
@@ -2168,11 +2171,11 @@ function rOverview(){
 }
 
 /* ---- curriculum ---- */
-const TORD={pillar:0,outcome:0,module:1,lesson:1,exercise:2,resource:3,assessment:5};
+const TORD={pillar:0,outcome:0,module:1,lesson:1,exercise:2,resource:3,assessment:5,practical:6};
 const kidsSorted=pid=>kids(pid).sort((a,b)=>(TORD[a.type]||0)-(TORD[b.type]||0)||(a.order||0)-(b.order||0));
 function treeHTML(){
   const node=(v,d)=>{const ks=kidsSorted(v.id),open=expanded.has(v.id);
-    return `<button type="button" class="d${d}" data-act="sel" data-id="${esc(v.id)}" aria-current="${sel===v.id}"><span class="tw">${ks.length?`<span class="car" aria-hidden="true">${open?"▾":"▸"}</span>`:'<span class="car"></span>'}<span data-tt="${esc(v.id)}">${esc(v.title||"Untitled")}</span></span>${stg(stage(v))}<small>${TYPES[v.type]}${flagsOf(v).length?' · <span class="acwarn">changed since approval or publication</span>':""}</small></button>`+(open?ks.map(k=>node(k,Math.min(3,d+1))).join(""):"")};
+    return `<button type="button" class="d${d}" data-act="sel" data-id="${esc(v.id)}" aria-current="${sel===v.id}"><span class="tw">${ks.length?`<span class="car" aria-hidden="true">${open?"▾":"▸"}</span>`:'<span class="car"></span>'}<span data-tt="${esc(v.id)}">${esc(v.title||"Untitled")}</span></span>${stg(stage(v))}<small>${TYPES[v.type]}${v.f&&v.f.code?" · "+esc(v.f.code):""}${flagsOf(v).length?' · <span class="acwarn">changed since approval or publication</span>':""}</small></button>`+(open?ks.map(k=>node(k,Math.min(3,d+1))).join(""):"")};
   const progs=kids("","programme");
   return `<nav class="actree" aria-label="Curriculum tree"><p class="grp">Programme</p>${progs.map(p=>node(p,0)).join("")||'<p class="empty" style="padding:4px 12px 10px">No programme outcome yet.</p>'}<p class="grp">Courses</p>${courses().map(c=>node(c,0)).join("")||'<p class="empty" style="padding:4px 12px 10px">No courses yet.</p>'}</nav>`;
 }
@@ -2217,7 +2220,7 @@ function checks(path,v,list,emptyText){
 function linksPane(v){
   const cid=courseOf(v.id)||(v.type==="course"?v.id:"");let h="";
   if(["course","module"].includes(v.type))h+=`<div><h4>Pillars</h4>${checks("links.pillars",v,kids("","programme").flatMap(p=>kids(p.id,"pillar")),"No pillars defined yet.")}</div>`;
-  if(["lesson","exercise","resource","assessment"].includes(v.type))h+=`<div><h4>Learning outcomes it serves</h4>${checks("links.outcomes",v,cid?outcomesIn(cid):[],"No learning outcomes in this course yet.")}</div>`;
+  if(["lesson","exercise","resource","assessment","practical"].includes(v.type))h+=`<div><h4>Learning outcomes it serves</h4>${checks("links.outcomes",v,cid?outcomesIn(cid):[],"No learning outcomes in this course yet.")}</div>`;
   if(v.type==="module")h+=`<div><h4>Prerequisite modules</h4>${checks("links.prereqs",v,kids(v.parent,"module").filter(m=>m.id!==v.id),"No other modules.")}</div>`;
   if(v.type==="course")h+=`<div><h4>Prerequisite courses</h4>${checks("links.prereqs",v,courses().filter(c=>c.id!==v.id),"No other courses.")}</div>`;
   const from=items().filter(x=>x.id!==v.id&&Object.values(x.links||{}).some(a=>Array.isArray(a)&&a.includes(v.id)));
@@ -2400,7 +2403,7 @@ function rubDraftHTML(){
   <div class="acrow"><button class="btn small primary" type="button" data-act="rubsave">Save as v${r.version}</button><button class="btn small" type="button" data-act="rubcancel">Cancel</button></div></div>`;
 }
 function rAssessments(){
-  const A=items().filter(v=>v.type==="assessment"&&v.status!=="Archived");
+  const A=items().filter(v=>ASSESSED.includes(v.type)&&v.status!=="Archived");
   const S=L("subs").filter(vis);
   const enrols=L("enrol").filter(vis);
   const rub=A.map(a=>{const rs=rubricsFor(a.id),k="rub:"+a.id;
@@ -2419,7 +2422,7 @@ function rAssessments(){
     <div class="f full"><label for="sb_t">Notes or pasted text (optional)</label><textarea id="sb_t" rows="2"></textarea></div>
     <button class="btn primary" type="submit">Record submission</button></form>`:`<p class="empty">${learnerOpts.length?"Add an assessment to the curriculum first.":"Enrol a pilot learner first (Pilot tab)."}</p>`;
   const rows=S.sort((a,b)=>(b.submitted||"").localeCompare(a.submitted||"")).map(s=>{const r=D.rubrics[s.rubric];return `<tr><td><button class="lnk" type="button" data-act="subopen" data-id="${esc(s.id)}">${esc(learnerName(s.learner))}</button>${demoB(s)}</td><td>${esc(titleOf(s.assessment))}</td><td>${s.attempt||1}</td><td>${esc(s.status)}</td><td>${fmtD(s.submitted)}</td><td>${esc(s.assessor||"")}</td><td>${r?"v"+r.version:"?"} · r${s.caseRev||"?"}</td><td>${esc(s.result||"")}</td></tr>`}).join("");
-  return `<div class="acnote"><b>Human assessment.</b> Results are set by the assessor; there is no AI grading in this version. A result shows reasoning about a hypothetical case. It is not evidence that the learner has implemented anything in their own business, and no certificate is issued.</div>
+  return `<div class="acnote"><b>Human assessment.</b> Results are set by the assessor; there is no AI grading in this version. A capstone result shows reasoning about a hypothetical case. A POSI result shows credible evidence of one change in the learner's own business. Neither proves business results, and no certificate is issued.</div>
   ${card("Cases and rubrics",rub)}
   ${card("Record a submission",form)}
   ${card("Submissions",`<div class="scroll"><table class="actable"><thead><tr><th>Learner</th><th>Assessment</th><th>Attempt</th><th>Status</th><th>Submitted</th><th>Assessor</th><th>Rubric · case</th><th>Result</th></tr></thead><tbody>${rows||'<tr><td colspan="8"><span class="empty">No submissions yet.</span></td></tr>'}${notStarted.map(e=>`<tr><td>${esc(learnerName(e.learner))}${demoB(e)}</td><td>${esc(titleOf(e.course))}</td><td></td><td>Not started</td><td colspan="4"></td></tr>`).join("")}</tbody></table></div>`)}
@@ -2431,9 +2434,9 @@ function reviewHTML(id){
   const prev=s.prev&&D.subs[s.prev],next=L("subs").find(x=>x.prev===id);
   let h=`<div class="card" id="acReview"><div class="ch"><h3>Review: ${esc(learnerName(s.learner))}, attempt ${s.attempt||1}${demoB(s)}</h3><span class="pill" style="padding:3px 8px">${esc(s.status)}</span></div>
   <p class="sub">${esc(titleOf(s.assessment))} · ${esc(s.format||"")} · submitted ${fmtD(s.submitted)}${safeUrl(s.link)?` · <a href="${esc(safeUrl(s.link))}" target="_blank" rel="noopener">open submission</a>`:""}${prev?` · follows <button class="lnk" type="button" data-act="subopen" data-id="${esc(s.prev)}">attempt ${prev.attempt||1}</button>`:""}${next?` · resubmitted as <button class="lnk" type="button" data-act="subopen" data-id="${esc(next.id)}">attempt ${next.attempt}</button>`:""}</p>
-  <div class="acnote">Assessed against <b>case brief r${esc(s.caseRev||"?")}</b> and <b>rubric v${r?r.version:"?"}</b>. These are fixed for this submission; later edits to the case or rubric do not change them. Evidence type: reasoning about a hypothetical case.</div>
+  <div class="acnote">Assessed against <b>case brief r${esc(s.caseRev||"?")}</b> and <b>rubric v${r?r.version:"?"}</b>. These are fixed for this submission; later edits to the case or rubric do not change them. Evidence type: ${(D.items[s.assessment]||{}).type==="practical"?"implementation in the learner's own business (self-selected, may be anonymised), judged for credibility, not proof of results":"reasoning about a hypothetical case"}.</div>
   ${s.text?`<div><h4>Submission notes</h4><div class="md">${md(s.text)}</div></div>`:""}${s.learnerNote?`<div><h4>Learner's note on what changed</h4><div class="md">${md(s.learnerNote)}</div></div>`:""}
-  <details class="acbox" data-key="case:${esc(id)}"${openSet.has("case:"+id)?" open":""}><summary style="padding:0">Case brief as submitted (r${esc(s.caseRev||"?")})</summary>${caseRev?LEARNER_CASE.map(k=>(caseRev.f||{})[k]?`<div><h4>${esc((FIELDS.assessment.find(x=>x[0]===k)||[k,k])[1])}</h4><div class="md">${md(caseRev.f[k])}</div></div>`:"").join(""):caseRev===false?'<p class="empty">That revision could not be found.</p>':'<p class="empty">Loading…</p>'}</details>`;
+  <details class="acbox" data-key="case:${esc(id)}"${openSet.has("case:"+id)?" open":""}><summary style="padding:0">Brief as submitted (r${esc(s.caseRev||"?")})</summary>${caseRev?(LEARNER_F[(D.items[s.assessment]||{}).type]||LEARNER_CASE).map(k=>(caseRev.f||{})[k]?`<div><h4>${esc(((FIELDS[(D.items[s.assessment]||{}).type]||FIELDS.assessment).find(x=>x[0]===k)||[k,k])[1])}</h4><div class="md">${md(caseRev.f[k])}</div></div>`:"").join(""):caseRev===false?'<p class="empty">That revision could not be found.</p>':'<p class="empty">Loading…</p>'}</details>`;
   if(s.caseRev&&caseRev===undefined)getRev(s.assessment,s.caseRev);
   h+=`<div class="fs" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(170px,240px))">${labelled("Assessor",bindIn("subs",id,"assessor",s.assessor))}${labelled("Assessment date",bindIn("subs",id,"assessedOn",s.assessedOn,"date"))}</div>`;
   if(!r)h+='<p class="acwarn">The rubric version for this submission is missing.</p>';
@@ -2442,7 +2445,7 @@ function reviewHTML(id){
   h+=`<div class="axf"><label for="sb_overall">Overall feedback</label><textarea id="sb_overall" rows="4" data-bind="subs|${esc(id)}|overall"${ed?"":" readonly"}>${esc(s.overall||"")}</textarea></div>
   <p class="${chk.meets?"":"acwarn"}">Against the rubric standard: <b>${chk.meets?"Meets the standard":"Not yet"}</b>${chk.why.length?" · "+esc(chk.why.join(" · ")):""}${s.result?` · Recorded result: <b>${esc(s.result)}</b>`:""}</p>
   <div class="acrow">`+({Submitted:'<button class="btn primary" type="button" data-act="substart">Start review</button>',
-    "In review":`<button class="btn" type="button" data-act="subrevise">Request revision</button><button class="btn primary" type="button" data-act="subdone"${chk.complete?"":" disabled"}>Complete with result: ${chk.meets?"Meets the standard":"Not yet"}</button>`,
+    "In review":`<button class="btn" type="button" data-act="subrevise">Request revision</button><button class="btn primary" type="button" data-act="subdone"${chk.complete?"":" disabled"}>Complete with result: ${(D.items[s.assessment]||{}).type==="practical"?(chk.meets?"Evidenced":"In progress"):(chk.meets?"Meets the standard":"Not yet")}</button>`,
     "Revision requested":(next?"":'<button class="btn primary" type="button" data-act="subresub">Record resubmission</button>'),
     Completed:'<button class="btn" type="button" data-act="subreopen">Reopen review</button>'}[s.status]||"")+`<button class="btn small" type="button" data-act="subclose">Close</button></div>`;
   if(s.status==="Revision requested"&&!next&&openSet.has("resub:"+id))h+=`<form class="fs" data-form="resub" onsubmit="return false" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end">
@@ -2461,7 +2464,7 @@ async function subAction(a){
   if(a==="substart"){s.status="In review";s.assessor=s.assessor||"Mila";s.history=(s.history||[]).concat(snap("Review started"))}
   if(a==="subrevise"){if(!(s.overall||"").trim()&&!Object.values(s.scores||{}).some(x=>(x.note||"").trim())){alert("Add some feedback before requesting a revision.");return}
     s.status="Revision requested";s.result="Not yet";s.assessedOn=s.assessedOn||todayISO();s.history=(s.history||[]).concat(snap("Revision requested"))}
-  if(a==="subdone"){const c=standardCheck(r,s.scores);if(!c.complete)return;s.result=c.meets?"Meets the standard":"Not yet";
+  if(a==="subdone"){const c=standardCheck(r,s.scores);if(!c.complete)return;const pr=(D.items[s.assessment]||{}).type==="practical";s.result=c.meets?(pr?"Evidenced":"Meets the standard"):(pr?"In progress":"Not yet");
     if(!confirm("Complete this review with the result \""+s.result+"\"?"))return;s.status="Completed";s.assessedOn=s.assessedOn||todayISO();s.history=(s.history||[]).concat(snap("Completed"))}
   if(a==="subreopen"){if(!confirm("Reopen this review? The earlier result stays in the history."))return;s.status="In review";s.history=(s.history||[]).concat(snap("Reopened"))}
   if(a==="subresub"){openSet.add("resub:"+id);render();return}
@@ -2508,7 +2511,7 @@ function rPilot(){
       ${labelled("Name",bindIn("learners",l.id,"name",l.name))}${labelled("Organisation",bindIn("learners",l.id,"org",l.org))}
       ${labelled("Existing Nexa contact",`<select data-contact="${esc(l.id)}">${opt(contactOpts(l.contact),cv)}</select>`)}${labelled("Cohort",bindIn("learners",l.id,"cohort",l.cohort))}
       ${labelled("Notes",bindTa("learners",l.id,"notes",l.notes,2)).replace('class="f"','class="f full"')}
-      ${E.map(e=>{const mods=kids(e.course,"module"),as=items().filter(a=>a.type==="assessment"&&courseOf(a.id)===e.course),ss=S.filter(s=>s.learner===l.id&&as.some(a=>a.id===s.assessment)).sort((a,b)=>(b.attempt||1)-(a.attempt||1));
+      ${E.map(e=>{const mods=kids(e.course,"module"),as=items().filter(a=>ASSESSED.includes(a.type)&&courseOf(a.id)===e.course),ss=S.filter(s=>s.learner===l.id&&as.some(a=>a.id===s.assessment)).sort((a,b)=>(b.attempt||1)-(a.attempt||1));
         const last=ss[0],ast=last?last.status+(last.result?" · "+last.result:"")+" (attempt "+(last.attempt||1)+")":"Not started";
         return `<div class="f full acbox"><h4>${esc(titleOf(e.course))}</h4>
         <div class="fs" style="padding:0;grid-template-columns:repeat(auto-fit,minmax(160px,220px))">${labelled("Enrolment status",bindSel("enrol",e.id,"status",["Invited","Enrolled","Active","Completed","Withdrawn"],e.status))}${labelled("Enrolled on",bindIn("enrol",e.id,"enrolled",e.enrolled,"date"))}<div class="f"><span class="lab">Assessment</span><span>${last?`<button class="lnk" type="button" data-act="subopen" data-id="${esc(last.id)}">${esc(ast)}</button>`:esc(ast)}</span></div></div>
@@ -2621,6 +2624,19 @@ function exOutline(cid){
   kids(cid,"assessment").forEach(a=>{const t=snap(a);if(t)o+=mH(2,"Assessment: "+t.title)+mSt(t)+"See the case brief export for the learner version and the rubric export for the assessor version.\n\n"});
   return o;
 }
+function exHandbook(cid){
+  const c=it(cid),s=snap(c);let o=mHead("Module handbook: "+(c?c.title:""));if(!s){skipped.push(c?c.title:cid);return o}
+  o+=mSt(s)+mS("Aim",s.f.purpose)+mS("Audience",s.f.audience)+"_Hours are estimates of notional learning time. No credits or accreditation are attached._\n\n";
+  const rows=kids(cid).filter(x=>["module","assessment","practical"].includes(x.type)).sort((a,b)=>(TORD[a.type]||0)-(TORD[b.type]||0)||(a.order||0)-(b.order||0)).map(x=>({x,t:snap(x)})).filter(y=>y.t);
+  o+="| Code | Unit | Principle | Learning outcomes | Lectures | Total time (est.) | Assessed by | Pillars | Prerequisites |\n|---|---|---|---|---|---|---|---|---|\n";
+  rows.forEach(({x,t})=>{const outs=x.type==="module"?kids(x.id,"outcome").map(k=>(snap(k)||{}).title).filter(Boolean).map(z=>z.split(" ")[0]).join(", "):tline(t.links.outcomes).split("; ").map(z=>z.split(" ")[0]).join(", ");
+    const mins=x.type==="module"?kids(x.id,"lesson").reduce((a,l)=>a+(parseInt(((snap(l)||{f:{}}).f.minutes||"").replace(/\D+/g," ").trim())||0),0):0;
+    const code=t.f.code||(x.type==="assessment"?"OF190":x.type==="practical"?"OF195":"");
+    o+=`| ${cell(code)} | ${cell(t.title)} | ${cell(t.f.principle||(x.type==="practical"?"Show it in your own business.":"Show your reasoning on a case."))} | ${cell(outs)} | ${mins?"~"+mins+" min":"–"} | ${cell((t.f.time||t.f.effort||"").replace(/^Estimate:\s*/,"").split(/[.(,]/)[0].trim())} | ${x.type==="module"?"Exercise; capstone; POSI":x.type==="assessment"?"Human review, rubric":"Human review, rubric"} | ${cell(tline(t.links.pillars))} | ${cell(x.type==="module"?((t.links.prereqs||[]).map(id=>((D.items[id]||{}).f||{}).code||titleOf(id)).join(", ")||"None"):"OF101 to OF106")} |\n`});
+  o+="\n";rows.filter(r=>r.x.type==="module").forEach(({x,t})=>{o+=mH(2,(t.f.code?t.f.code+" ":"")+t.title)+mS("Principle",t.f.principle)+mS("Method",t.f.method)+mS("Tactics",t.f.tactic)+mS("Coaching questions",t.f.coaching);
+    const outs=kids(x.id,"outcome").map(k=>snap(k)).filter(Boolean);if(outs.length)o+="**Learning outcomes**\n\n"+outs.map(z=>"- "+z.title.split(" ")[0]+": "+(z.f.statement||z.title)).join("\n")+"\n\n"});
+  return o;
+}
 function exScripts(cid){
   const c=it(cid);let o=mHead("Lesson scripts: "+(c?c.title:""));
   kids(cid,"module").forEach((m,i)=>{o+=mH(2,"Module "+(i+1)+": "+m.title);kids(m.id,"lesson").forEach(l=>{const t=snap(l);if(!t){skipped.push(l.title);return}o+=mH(3,t.title)+mSt(t)+fieldsOf(l,t,["summary","minutes"])+mS("Recording script",t.f.script)+mS("Slide and visual notes",t.f.slides)})});
@@ -2633,14 +2649,14 @@ function exExercises(cid){
   return o;
 }
 function exCases(){
-  let o=mHead("Case briefs (learner version)");
-  items().filter(v=>v.type==="assessment"&&v.status!=="Archived").forEach(a=>{const t=snap(a);if(!t){skipped.push(a.title);return}o+=mH(2,t.title)+mSt(t)+fieldsOf(a,t,LEARNER_CASE)});
+  let o=mHead("Case and POSI briefs (learner version)");
+  items().filter(v=>ASSESSED.includes(v.type)&&v.status!=="Archived").forEach(a=>{const t=snap(a);if(!t){skipped.push(a.title);return}o+=mH(2,t.title)+mSt(t)+fieldsOf(a,t,LEARNER_F[a.type]||LEARNER_CASE)});
   return o+"_Fictional case. No real company information is used. Assessor guidance and the list of deliberately withheld information are in the rubric export._\n";
 }
 const cell=s=>String(s||"").replace(/\|/g,"/").replace(/\n+/g," ");
 function exRubrics(){
   let o=mHead("Rubrics and assessor guide");
-  items().filter(v=>v.type==="assessment"&&v.status!=="Archived").forEach(a=>{const t=snap(a);o+=mH(2,a.title);
+  items().filter(v=>ASSESSED.includes(v.type)&&v.status!=="Archived").forEach(a=>{const t=snap(a);o+=mH(2,a.title);
     rubricsFor(a.id).slice().reverse().forEach((r,k)=>{o+=mH(3,"Rubric v"+r.version+(k===0?" (current)":"")+(r.note?": "+r.note:""))+`| Criterion | Required at Secure | Outcomes | ${(r.levels||[]).map(cell).join(" | ")} |\n|${"---|".repeat(3+(r.levels||[]).length)}\n`+(r.criteria||[]).map(c=>`| ${cell(c.name)} | ${c.critical?"Yes":"No"} | ${cell(tline(c.outcomes))} | ${(c.desc||[]).map(cell).join(" | ")} |`).join("\n")+"\n\n"+mS("Standard",r.standard)});
     if(t)o+=mSt(t)+fieldsOf(a,t,["guidance","missing","prompts","resubmission","evidenceNote"]);else skipped.push(a.title+" (assessor guidance)")});
   return o;
@@ -2653,11 +2669,11 @@ function exMasterclasses(){
 const slug=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,50);
 async function buildExport(k){
   skipped=[];await ensureRevs();const c=it(expCourse),cs=c?slug(c.title):"course";
-  const one={programme:["programme-architecture.md",exProgramme],outline:["course-outline-"+cs+".md",()=>exOutline(expCourse)],scripts:["lesson-scripts-"+cs+".md",()=>exScripts(expCourse)],exercises:["exercises-and-resources-"+cs+".md",()=>exExercises(expCourse)],cases:["case-briefs.md",exCases],rubrics:["rubrics-and-assessor-guide.md",exRubrics],mc:["masterclass-proposals.md",exMasterclasses]}[k];
+  const one={programme:["programme-architecture.md",exProgramme],handbook:["module-handbook-"+cs+".md",()=>exHandbook(expCourse)],outline:["course-outline-"+cs+".md",()=>exOutline(expCourse)],scripts:["lesson-scripts-"+cs+".md",()=>exScripts(expCourse)],exercises:["exercises-and-resources-"+cs+".md",()=>exExercises(expCourse)],cases:["case-briefs.md",exCases],rubrics:["rubrics-and-assessor-guide.md",exRubrics],mc:["masterclass-proposals.md",exMasterclasses]}[k];
   if(one){let text=one[1]();if(skipped.length)text+="\n---\n\n**Not included (not published yet):** "+skipped.join("; ")+"\n";expOut=text;expName=(expScope==="draft"?"":"published-")+one[0];return}
   if(k==="all"){
     const files=[["01-programme-architecture.md",exProgramme()]];
-    courses().filter(x=>kids(x.id,"module").length).forEach(x=>{const s=slug(x.title);files.push(["02-course-outline-"+s+".md",exOutline(x.id)],["03-lesson-scripts-"+s+".md",exScripts(x.id)],["04-exercises-and-resources-"+s+".md",exExercises(x.id)])});
+    courses().filter(x=>kids(x.id,"module").length).forEach(x=>{const s=slug(x.title);files.push(["02-module-handbook-"+s+".md",exHandbook(x.id)],["02-course-outline-"+s+".md",exOutline(x.id)],["03-lesson-scripts-"+s+".md",exScripts(x.id)],["04-exercises-and-resources-"+s+".md",exExercises(x.id)])});
     files.push(["05-case-briefs.md",exCases()],["06-rubrics-and-assessor-guide.md",exRubrics()],["07-masterclass-proposals.md",exMasterclasses()]);
     files.unshift(["README.md",mHead("Export contents")+files.map(f=>"- "+f[0]).join("\n")+"\n\n"+(skipped.length?"**Not included (not published yet):** "+[...new Set(skipped)].join("; ")+"\n":"")]);
     expOut=files.map(f=>"<!-- "+f[0]+" -->\n"+f[1]).join("\n\n");expName=(expScope==="draft"?"":"published-")+"operations-academy-export.zip";expFiles=files;return}
@@ -2668,7 +2684,7 @@ function rExport(){
   <div class="card"><h3>Export teaching material</h3>
     <div class="acrow"><div class="seg" role="group" aria-label="Scope">${[["draft","Current drafts"],["published","Published versions only"]].map(([k,l])=>`<button class="btn small" type="button" data-act="expscope" data-v="${k}" aria-pressed="${expScope===k}">${l}</button>`).join("")}</div>
     <label class="vh" for="exC">Course</label><select id="exC" data-act="expcourse" style="width:auto">${opt(courses().map(c=>[c.id,c.title]),expCourse)}</select></div>
-    <div class="acrow">${[["programme","Programme architecture"],["outline","Course outline"],["scripts","Lesson scripts"],["exercises","Exercises and resources"],["cases","Case briefs (learner version)"],["rubrics","Rubrics and assessor guide"],["mc","Masterclass proposals"],["all","Everything (.zip)"]].map(([k,l])=>`<button class="btn small${k==="all"?" primary":""}" type="button" data-act="exp" data-k="${k}">${l}</button>`).join("")}</div>
+    <div class="acrow">${[["programme","Programme architecture"],["handbook","Module handbook"],["outline","Course outline"],["scripts","Lesson scripts"],["exercises","Exercises and resources"],["cases","Case and POSI briefs (learner version)"],["rubrics","Rubrics and assessor guide"],["mc","Masterclass proposals"],["all","Everything (.zip)"]].map(([k,l])=>`<button class="btn small${k==="all"?" primary":""}" type="button" data-act="exp" data-k="${k}">${l}</button>`).join("")}</div>
     ${expOut?`<div class="acrow" style="justify-content:space-between"><b>${esc(expName)}</b><span class="acrow"><button class="btn small primary" type="button" data-act="expdl"${downloads?"":" disabled"}>Download</button><button class="btn small" type="button" data-act="expcopy">Copy text</button></span></div>${downloads?"":'<p class="hint">Downloads aren\'t available in this view. Copy the text instead, or open Nexa OS in claude.ai.</p>'}<label class="vh" for="exOut">Export preview</label><textarea id="exOut" rows="22" readonly style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px">${esc(expOut)}</textarea>`:'<p class="empty">Choose what to export. A preview appears here before you download.</p>'}
   </div>`;
 }
@@ -2770,7 +2786,7 @@ view.addEventListener("click",async e=>{
     try{await downloads.save({filename:name,data});mark("Downloaded "+name)}catch(err){mark(err&&err.code==="declined"?"Download cancelled.":"Couldn't download: "+((err&&err.message)||"unavailable here"))}return}
 });
 async function makeDemo(){
-  const aid=(items().find(v=>v.type==="assessment"&&latestRubric(v.id))||{}).id,course=aid?courseOf(aid):((courses()[0]||{}).id||"");
+  const aid=(items().find(v=>ASSESSED.includes(v.type)&&latestRubric(v.id))||{}).id,course=aid?courseOf(aid):((courses()[0]||{}).id||"");
   const lid=await create("learners",{name:"Practice learner (demo)",org:"Fictional",contact:null,cohort:"Demo",notes:"Demo record for trying the workflow. Not a real person.",demo:true});
   const eid=course?await create("enrol",{learner:lid,course,status:"Active",enrolled:todayISO(),progress:{},implementation:"",demo:true}):"";
   if(aid){const caseRev=await saveRevision(aid,"Saved automatically when a submission was recorded");
