@@ -18,18 +18,18 @@ The programme goal is unchanged: **how to not be your own bottleneck.** This cou
 
 Operations is everything that makes the business work, behind what the customer sees. It is not split into legal ops, finance ops, rev ops and people ops. Splitting it divides responsibility, accountability and knowledge: each team sees only its own colour of the ball, and nobody sees the other side or the whole.
 
-Operations is a beach ball. Eight panels, one ball:
+Operations is a beach ball. Eight panels, one ball. To keep the load manageable for founders starting from zero, the panels are taught in four pairs: **work, money, rules, control**.
 
-| Panel | In one line |
-|---|---|
-| **Process** | How the work gets done, step by step, and the tools it runs on |
-| **People** | Who does the work: hiring, contracts, onboarding, leave, leavers, roles |
-| **Commercial** | What you sell, at what price, on what terms |
-| **Finance and revenue** | Money in and money out, records, tax and cash |
-| **Legal** | What the business has agreed to and stands on: structure, contracts, ownership of work |
-| **Compliance** | The rules you have to follow, and being able to show you do |
-| **Governance** | Who decides, who's accountable, and how you check |
-| **Risk** | What could go wrong, how likely and how bad, and what you'll do about it |
+| Pair | Panel | In one line |
+|---|---|---|
+| **The work** | Process | How the work gets done, step by step, and the tools it runs on |
+| | People | Who does the work: hiring, contracts, onboarding, leave, leavers, roles |
+| **The money** | Commercial | What you sell, at what price, on what terms |
+| | Finance and revenue | Money in and money out, records, tax and cash |
+| **The rules** | Legal | What the business has agreed to and stands on: structure, contracts, ownership of work |
+| | Compliance | The rules you have to follow, and being able to show you do |
+| **Control** | Governance | Who decides, who's accountable, and how you check |
+| | Risk | What could go wrong, how likely and how bad, and what you'll do about it |
 
 Every module teaches its panels in depth and closes with **turn the ball**: how that panel touches the other seven.
 

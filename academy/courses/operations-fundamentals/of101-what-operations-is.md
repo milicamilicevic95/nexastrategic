@@ -18,7 +18,7 @@ When businesses do start to name it, they often cut it up: legal ops, finance op
 
 By the end of this module, the founder can:
 
-- **OF101.1** Name the eight panels of operations and say in a sentence what each covers.
+- **OF101.1** Name the eight panels of operations in their four pairs, and say in a sentence what each covers.
 - **OF101.2** Trace one real decision across all eight panels, and say who in their business sees the whole.
 
 Evidence: the panel map and the "turn the ball" exercise.
@@ -67,9 +67,18 @@ And you have it already. Even if it's just you. The day you agreed your first pr
 
 [ON SCREEN: the eight panels]
 
-Operations has eight parts. I call them panels, and you'll see why in the next lesson. Learn these eight words, because the whole course is built on them.
+Operations has eight parts. I call them panels, and you'll see why in the next lesson. Eight is a lot to hold, so they come in four pairs.
 
-[ON SCREEN: Process, People, Commercial, Finance and revenue]
+[ON SCREEN: four pairs]
+
+**The work:** process and people. How the work gets done, and by whom.
+**The money:** commercial, and finance and revenue. What you charge, and what comes in and goes out.
+**The rules:** legal and compliance. What you've agreed to, and what you have to follow.
+**Control:** governance and risk. Who decides, and what could go wrong.
+
+Work, money, rules, control. Learn those four, and the eight panels follow. Let's take each pair in turn.
+
+[ON SCREEN: The work and the money]
 
 **Process.** How the work gets done, step by step, and the tools it runs on.
 
@@ -79,7 +88,7 @@ Operations has eight parts. I call them panels, and you'll see why in the next l
 
 **Finance and revenue.** Money in and money out. Invoicing and getting paid. Paying suppliers and staff. Keeping records. Tax. And knowing how much cash you actually have, which isn't the same as profit.
 
-[ON SCREEN: Legal, Compliance, Governance, Risk]
+[ON SCREEN: The rules and control]
 
 **Legal.** What the business has agreed to, and what it stands on. How the company is set up. Contracts with customers, suppliers and staff. Who owns the work you create.
 
@@ -101,7 +110,7 @@ And it's not something you sort out once you're bigger. The habits you set with 
 
 Before the next lesson, take a minute. Think of one decision you made last month. A new client, a hire, a price, a supplier. Hold on to it. We'll turn it around in the next lesson.
 
-**Slides:** definition; eight panels; panels in two halves; two things it isn't; prompt.
+**Slides:** definition; eight panels in four pairs; the work and the money; the rules and control; two things it isn't; prompt.
 
 ## Lesson 1.2 · One ball (about 7 minutes)
 
@@ -169,7 +178,7 @@ None of this means Priya should say no. It means she should say yes knowingly, a
 
 [ON SCREEN: recap]
 
-To recap. Operations is everything that makes the business work behind what the customer sees. It has eight panels: process, people, commercial, finance and revenue, legal, compliance, governance and risk. It only works as one ball. And the question at every stage is: who sees the whole of it?
+To recap. Operations is everything that makes the business work behind what the customer sees. It has eight panels in four pairs: the work (process and people), the money (commercial, and finance and revenue), the rules (legal and compliance) and control (governance and risk). It only works as one ball. And the question at every stage is: who sees the whole of it?
 
 The exercise for this module asks you to map your eight panels and turn one of your own decisions. It takes about 30 minutes. You don't need to share it with anyone.
 
@@ -206,7 +215,7 @@ The lesson isn't "say no". It's "say yes knowingly", and negotiate what can be c
 Do it for your own business, or a business you know well if you'd rather not.
 
 **Part A · Panel map (15 minutes).** Use the template below.
-1. For each of the eight panels, note the main work you know happens.
+1. For each of the eight panels, note the main work you know happens. The template gives prompts for each one; cross out anything that doesn't apply and add what's missing.
 2. Note who looks after it now, including people outside the business.
 3. Note where it lives: an app, a folder, an inbox, or someone's head.
 4. Mark it: **owned** (someone other than you could explain it), **only me**, or **unsure**.
@@ -220,7 +229,22 @@ You don't need to share this. You'll use it in every module that follows.
 
 ## Resource · Panel map
 
-| Panel | The main work | Who looks after it | Where it lives | Owned / Only me / Unsure |
+Use the prompts to work out what belongs in each panel. Cross out anything that doesn't apply.
+
+| Pair | Panel | Prompts: what this panel includes |
+|---|---|---|
+| **The work** | Process | How a customer order or project goes from start to finish · the tools you run on · where files live · passwords and access · anything written down about how things are done |
+| | People | Hiring paperwork · contracts · getting people started · holidays, sickness and leave · people leaving · who does what |
+| **The money** | Commercial | Prices · quotes and proposals · discounts · payment terms · customer contracts · who can agree non-standard terms |
+| | Finance and revenue | Sending invoices · chasing payment · paying suppliers · payroll · bookkeeping · setting tax aside · knowing your cash |
+| **The rules** | Legal | How the company is set up · contracts with customers, suppliers and staff · who owns the work you create · contract renewals |
+| | Compliance | Filings and registrations · personal data · health and safety · insurance · licences · being able to show you follow the rules |
+| **Control** | Governance | Who signs contracts · who can approve spending · who decides on hires and prices · who gets told · how often you check how things are going |
+| | Risk | What would hurt most if it went wrong · depending on one client, supplier or person · backups · what you'd do if it happened |
+
+Then map your own:
+
+| Panel | The main work in my business | Who looks after it | Where it lives | Owned / Only me / Unsure |
 |---|---|---|---|---|
 | Process | | | | |
 | People | | | | |
@@ -249,3 +273,5 @@ You don't need to share this. You'll use it in every module that follows.
 - Keep OF101 plain. "Operations is the heart of the business" stays with the masterclass.
 - No specific legal or regulatory requirements are stated, so nothing needs verifying before recording. Priya's contract and data points are framed as illustrations.
 - The three-stage pattern is presented as typical, not as research. No statistics.
+- Eight panels are taught as four pairs (work, money, rules, control) to keep the load manageable for founders starting from zero.
+- **Pilot check.** A week after OF101, ask pilot founders to name the eight panels without looking, and whether they turned the ball on a real decision. If they can't name them, the load is too high; if they didn't use turn the ball, simplify the tool.
