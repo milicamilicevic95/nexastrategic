@@ -767,7 +767,7 @@ function buildDoc(){
   const oaFee=e.oa_rate&&e.oa_hours?Number(e.oa_rate)*Number(e.oa_hours):null;
   const inv=e.invoicing==="arrears"?"arrears":"advance";
   const pages=[]; let cur;
-  const page=()=>{cur=[];pages.push(cur)};
+  const page=soft=>{cur=[];if(soft)cur.soft=true;pages.push(cur)};
   const P=(...runs)=>cur.push({k:"p",runs});
   const H=t=>cur.push({k:"h3",runs:[t]});
   const C=(no,...runs)=>cur.push({k:"cl",no,runs});
@@ -882,8 +882,8 @@ function buildDoc(){
     ["Governing law","The law of England and Wales; the courts of England and Wales have exclusive jurisdiction"]
   ]);
 
-  /* Page 2: operative clauses */
-  page();
+  /* Page 2: operative clauses (flows on from the key terms in the Word file) */
+  page(true);
   H("2. The Agreement");
   C("2.1","This Engagement Order, the Service Schedule attached to it and the NexaStrategic Terms of Business ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
   C("2.2","If there is any conflict, this Engagement Order takes priority over the Service Schedule, and the Service Schedule takes priority over the Terms.");
@@ -958,7 +958,7 @@ function buildDoc(){
       H("B1. Scope"); L("B1.1",lines(e.b_scope).length?lines(e.b_scope):[F("")]);
       H("B2. Authority");
       C("B2.1","This service is advisory and supportive. The Key Person has no authority to bind the Client, approve expenditure or make employment decisions, and all decisions stay with the Client's board, in line with clause 6 of the Terms.");
-      C("B2.2","Working on the Client's premises does not make the Key Person part of the Client's workforce. Nexa decides how the Services are carried out, and the Key Person is not subject to the Client's line management.");
+      C("B2.2","Working in the Client's online workspaces, at its events or on its premises does not make the Key Person part of the Client's workforce. Nexa decides how the Services are carried out, and the Key Person is not subject to the Client's line management.");
       H("B3. Rhythm"); C("B3.1",F(e.b_rhythm),".");
       H("B4. Out of scope"); C("B4.1","Legal, tax or regulated financial advice; statutory director duties; and payroll processing.");
     }
@@ -1076,7 +1076,7 @@ function docXML(){
   let body="";
   pages.forEach((pg,pi)=>{
     let first=true;
-    const pb=()=>{const v=first&&pi>0;first=false;return v};
+    const pb=()=>{const v=first&&pi>0&&!pg.soft;first=false;return v};
     if(pi===0){body+=px(wr("Nexa",{sz:36,color:"191716"})+wr(".",{sz:36,color:PINK})+wr("\t"+DOCS[docType()].label+" · "+ref,{sz:15,b:true,caps:true,sp:20}),{border:true,after:360,tabs:true});first=false}
     pg.forEach(b=>{
       if(b.k==="kick")body+=px(runsX(b.runs,{sz:16,b:true,caps:true,color:WINE,sp:20}),{pb:pb(),after:80,keep:true});
