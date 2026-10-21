@@ -4,9 +4,9 @@
 
 ## What this course is
 
-The back office, from zero. Written for founders who have never run operations and were never taught what it covers. By the end they know what the back office is, what each part involves, what "good enough" looks like at their size, and who should own it.
+Operations, from zero, taught as one whole. Written for founders who have never run operations and were never taught what it covers. By the end they know what each part of operations involves, how the parts connect, what "good enough" looks like at their size, and who should own it.
 
-The programme goal is unchanged: **how to not be your own bottleneck.** This course gives founders the map. Course 2 gets them off it.
+The programme goal is unchanged: **how to not be your own bottleneck.** This course gives founders the whole picture. Course 2 gets them out of the middle of it.
 
 **Who it's for:** founders of early-stage and growing businesses, typically from just the founder up to about 50 people, with no operations background.
 
@@ -14,38 +14,47 @@ The programme goal is unchanged: **how to not be your own bottleneck.** This cou
 
 **UK first.** Where something differs in the US, the module says so and points to the right kind of adviser. Specific legal, tax and regulatory requirements are checked against official sources before recording, and anything not yet checked is marked *[verify]*.
 
-## The four areas
+## The approach: one ball, eight panels
 
-Every business has a back office from day one, whether anyone runs it or not. It has four areas:
+Operations is everything that makes the business work, behind what the customer sees. It is not split into legal ops, finance ops, rev ops and people ops. Splitting it divides responsibility, accountability and knowledge: each team sees only its own colour of the ball, and nobody sees the other side or the whole.
 
-| Area | What it keeps the business | Examples of the work |
-|---|---|---|
-| **Money** | Paid | Sending invoices, chasing payment, paying suppliers, recording every transaction, running payroll, setting money aside for tax, knowing your cash |
-| **People** | Staffed | Hiring paperwork, contracts, paying people, onboarding, leave and absence, leavers, keeping records |
-| **Company** | Legal | Company records and filings, tax registrations, insurance, contracts and renewals, data protection, licences |
-| **Systems** | Organised | Email and domain, files, passwords and access, the tools you run on, writing down how things are done |
+Operations is a beach ball. Eight panels, one ball:
+
+| Panel | In one line |
+|---|---|
+| **Process** | How the work gets done, step by step, and the tools it runs on |
+| **People** | Who does the work: hiring, contracts, onboarding, leave, leavers, roles |
+| **Commercial** | What you sell, at what price, on what terms |
+| **Finance and revenue** | Money in and money out, records, tax and cash |
+| **Legal** | What the business has agreed to and stands on: structure, contracts, ownership of work |
+| **Compliance** | The rules you have to follow, and being able to show you do |
+| **Governance** | Who decides, who's accountable, and how you check |
+| **Risk** | What could go wrong, how likely and how bad, and what you'll do about it |
+
+Every module teaches its panels in depth and closes with **turn the ball**: how that panel touches the other seven.
 
 ## Modules
 
 | Code | Module | What a founder learns | Est. time |
 |---|---|---|---|
-| OF101 | What the back office is | The four areas, how the back office grows with the business, and a map of who does what in yours today | 40 min |
-| OF102 | Money in, money out | Invoicing and getting paid, paying suppliers, bookkeeping, payroll basics, the difference between profit and cash, what your accountant does and doesn't do | 60 min |
-| OF103 | People admin | Hiring paperwork, employment contracts, paying people, onboarding, leave and absence, leavers, records and the first policies | 60 min |
-| OF104 | Company admin and obligations | Company records and filings, registrations, insurance, contracts and renewals, data protection, licences, and the obligations calendar | 60 min |
-| OF105 | Systems and information | The minimum tool stack, accounts and access, where files live, security basics, and writing down how things are done | 60 min |
-| OF106 | Owning it | Who owns each area, a weekly and monthly back-office rhythm, what to hand over first, and when to hire or outsource | 50 min |
+| OF101 | What operations is | The eight panels, why they only work as one ball, who holds the ball as a business grows, and turning a decision across all eight | 45 min |
+| OF102 | Process | How work actually gets done, mapping a process, the minimum tools and where things live, and writing down how things are done | 60 min |
+| OF103 | People | Hiring paperwork, contracts, paying people, onboarding, leave and absence, leavers, roles and the first policies | 60 min |
+| OF104 | Money: commercial, finance and revenue | Pricing and terms, invoicing and getting paid, paying suppliers, bookkeeping, payroll basics, tax, profit versus cash, what your accountant does | 60 min |
+| OF105 | Legal and compliance | Company set-up and records, contracts and who owns the work, filings and registrations, data protection, insurance, licences, and an obligations calendar | 60 min |
+| OF106 | Governance and risk | Who decides what, simple decision rights, reporting, a basic risk register, and when to get qualified advice | 50 min |
+| OF107 | Holding the ball | Who owns each panel, who holds the whole, a weekly and monthly operating rhythm, and when to hire or outsource | 50 min |
 
-Prerequisites: OF101 first; OF102 to OF105 in any order; OF106 last.
+Prerequisites: OF101 first; OF102 to OF106 in any order; OF107 last.
 
 Each module is built as **principle** (stays true), **method** (how to apply it) and **tactic** (steps and templates, which can be updated), and closes with coaching questions rather than instructions.
 
 ## Course 2 (working title: Not your own bottleneck)
 
-Moves here from the earlier draft: how work moves through a business, why founders become the bottleneck, decision rights and when to get advice, seeing what's happening without checking, the capstone case and the POSI.
+Moves here from the earlier draft: how work moves through a business, why founders become the bottleneck, decision rights in depth, seeing what's happening without checking, the capstone case and the POSI.
 
 ## Masterclass: working idea
 
 *Not part of the course. To develop over the next couple of weeks.*
 
-Operations is the heart of the business: it connects the brain (the founder) to everything else and makes it work. When operations isn't set, the rest is a mess. The course teaches the parts plainly; the masterclass takes the bigger, more intelligent view of why they matter. OF101 deliberately leaves this idea to the masterclass.
+Operations is the heart of the business: it connects the brain (the founder) to everything else and makes it work. When operations isn't set, the rest is a mess. The course teaches the panels plainly; the masterclass takes the bigger, more intelligent view of why the whole ball matters.
