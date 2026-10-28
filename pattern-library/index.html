@@ -80,6 +80,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #6d01
 .src{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}.src a{color:#6d0101}
 .pnav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:0 36px 28px}
 .pnav button{min-height:44px;padding:0 16px;border:1px solid #e6d6cf;border-radius:4px;background:#fff;font:600 14px 'Hanken Grotesk',Arial,sans-serif;color:#2b1212;cursor:pointer}.pnav button:hover{border-color:#6d0101}
+.onshelf{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin:16px 0 0;padding:12px 16px;background:#fcf4f0;border-radius:6px;font-size:15px}.onshelf span{font-family:'Brygada 1918',Georgia,serif;font-style:italic;color:#6d0101;font-size:17px;margin-right:4px}.onshelf a{color:#2b1212;font-weight:600}.onshelf em{color:#7a5450;font-style:normal}.onshelf b{color:#b9a7a1;font-weight:400}
 .none{padding:40px;background:#fff;border:1px dashed #b9a7a1;border-radius:12px}
 @media (max-width:900px){.reader{grid-template-columns:1fr}.idx{position:static;max-height:300px}.pdh,.tp{padding-left:22px;padding-right:22px}.tabs{padding:0 16px}.pnav{padding:0 22px 22px}.tabs button{padding:0 9px;font-size:14px}.seg{padding:0 8px;font-size:13px}}
 @media (max-width:760px){.plx{padding:0 16px}}
@@ -897,6 +898,22 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #6d01
   const start = location.hash.slice(1);
   if (arts[start]) show(start, true);
   else { const wk = Math.floor(Date.now() / 6048e5); show(items[wk % items.length].dataset.id); }
+})();
+</script>
+<script>
+(() => {
+  if (!window.fetch) return;
+  const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  fetch('/api/shelf').then(r => r.ok ? r.json() : { books: [] }).then(({ books }) => {
+    const by = {};
+    (books || []).forEach(b => b.patterns.forEach(p => (by[p.id] = by[p.id] || []).push(b)));
+    Object.entries(by).forEach(([id, L]) => {
+      const a = document.getElementById(id); if (!a) return;
+      const box = document.createElement('p'); box.className = 'onshelf';
+      box.innerHTML = '<span>On the Shelf</span>' + L.map(b => '<a href="/writing/#' + esc(b.id) + '">' + esc(b.title) + '</a> <em>' + esc(b.author) + '</em>').join('<b aria-hidden="true">·</b>');
+      a.querySelector('.pdh').appendChild(box);
+    });
+  }).catch(() => {});
 })();
 </script>
 </body>

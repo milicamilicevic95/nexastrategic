@@ -38,6 +38,7 @@ a{color:inherit}
 .sh-by{margin:4px 0 0;font-size:15px;color:#7a5450}
 .sh-v{margin:0;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:21px;line-height:1.45;color:#2b1212}
 .sh-tags{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}
+.sh-row{scroll-margin-top:120px;transition:background 1.2s}.sh-row:focus{outline:none}
 .sh-tags span{color:#7a5450}.sh-tags a{color:#6d0101;font-weight:600}
 .sh-stars{color:#f86c2f;letter-spacing:2px;font-size:16px;font-style:normal}
 .sh-now{padding:22px 24px;background:#c0d6ff;border-radius:12px}.sh-now h3{margin:0;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:24px;line-height:1.1;color:#2b1212}.sh-now p{margin:6px 0 0;font-size:15px;color:#2b1212}
@@ -131,9 +132,9 @@ a{color:inherit}
 (() => {
   const sec = document.getElementById('shelf'); if (!sec || !window.fetch) return;
   const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const tags = b => '<div class="sh-tags">' + (b.shelf ? '<span>' + esc(b.shelf) + '</span>' : '') + b.patterns.map(p => '<a href="/pattern-library/#' + esc(p.id) + '">' + esc(p.name) + '</a>').join('') + '</div>';
+  const tags = b => '<div class="sh-tags">' + (b.shelf ? '<span>' + esc(b.shelf) + '</span>' : '') + b.patterns.map(p => '<a href="/pattern-library/#' + esc(p.id) + '">Pattern: ' + esc(p.name.replace(/\s*\(.*\)$/, '')) + ' →</a>').join('') + '</div>';
   const stars = n => n ? '<span class="sh-stars" role="img" aria-label="' + n + ' out of 5">' + '★'.repeat(n) + '</span>' : '';
-  const row = b => '<article class="sh-row"><div><h3>' + esc(b.title) + '</h3><p class="sh-by">' + esc(b.author) + '</p></div><div>' + stars(b.rating) + (b.verdict ? '<p class="sh-v">' + esc(b.verdict) + '</p>' : '') + tags(b) + '</div></article>';
+  const row = b => '<article class="sh-row" id="' + esc(b.id) + '" tabindex="-1"><div><h3>' + esc(b.title) + '</h3><p class="sh-by">' + esc(b.author) + '</p></div><div>' + stars(b.rating) + (b.verdict ? '<p class="sh-v">' + esc(b.verdict) + '</p>' : '') + tags(b) + '</div></article>';
   const card = (b, lab, bg, fg) => '<div class="sh-card" style="background:' + bg + ';color:' + fg + '"><span class="lab">' + lab + '</span><h3 style="margin:0;font-family:Gloock,Georgia,serif;font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.05">' + esc(b.title) + '</h3><p style="margin:0;font-size:16px">' + esc(b.author) + '</p>' + (b.verdict ? '<p style="grid-column:1/-1;margin:6px 0 0;font-family:\'Brygada 1918\',Georgia,serif;font-style:italic;font-size:22px;line-height:1.4">' + esc(b.verdict) + '</p>' : '') + '</div>';
   fetch('/api/shelf').then(r => r.ok ? r.json() : { books: [] }).then(({ books }) => {
     if (!books || !books.length) return;
@@ -156,6 +157,7 @@ a{color:inherit}
     if (now.length) document.getElementById('shelf-now-lab').hidden = false;
     if (!books.some(b => b.verdict)) document.getElementById('shelf-intro').textContent = 'What I’m reading now, and how I rated what I’ve finished. Where a book shows a pattern at work, it links to the Pattern Library.';
     paint(); sec.hidden = false;
+    const h = location.hash.slice(1); if (h.startsWith('book-')) { cur = ''; paint(); const el = document.getElementById(h); if (el) { el.scrollIntoView({ block: 'center' }); el.focus({ preventScroll: true }); el.style.background = '#fcf4f0'; } }
   }).catch(() => {});
 })();
 </script>

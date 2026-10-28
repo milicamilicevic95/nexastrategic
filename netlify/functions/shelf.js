@@ -91,6 +91,7 @@ const PATTERNS = {
 const respond = (statusCode, body, cache) => ({ statusCode, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': cache || 'no-store' }, body: JSON.stringify(body) });
 const text = (v, max) => String(v || '').trim().slice(0, max);
 const choice = v => (v && typeof v === 'object' ? v.name : v) || '';
+const slug = t => 'book-' + String(t).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 exports.handler = async event => {
   if (event.httpMethod !== 'GET') return respond(405, { error: 'Method not allowed' });
@@ -118,6 +119,7 @@ exports.handler = async event => {
       .map(r => r.fields || {})
       .filter(f => f[F.published] && text(f[F.title], 1))
       .map(f => ({
+        id: slug(text(f[F.title], 200)),
         title: text(f[F.title], 200),
         author: text(f[F.author], 200),
         verdict: text(f[F.verdict], 600),
