@@ -17,9 +17,52 @@
   force = true
 
 [[redirects]]
-  from = "/api/tool-waitlist"
-  to = "/.netlify/functions/tool-waitlist"
+  from = "/api/waitlist"
+  to = "/.netlify/functions/client-waitlist"
   status = 200
+  force = true
+
+# Pages retired in the 2026 redesign
+[[redirects]]
+  from = "/thinking/"
+  to = "/writing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tools/*"
+  to = "/pattern-library/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tools"
+  to = "/pattern-library/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tool-terms/"
+  to = "/terms/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/enquire/"
+  to = "/contact/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/enquiry-sent/"
+  to = "/contact/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/enquiry-sent.html"
+  to = "/contact/"
+  status = 301
   force = true
 
 [[redirects]]

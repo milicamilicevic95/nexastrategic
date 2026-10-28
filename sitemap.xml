@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://nexastrategic.com/</loc></url>
+  <url><loc>https://nexastrategic.com/services/</loc></url>
+  <url><loc>https://nexastrategic.com/work/</loc></url>
+  <url><loc>https://nexastrategic.com/pattern-library/</loc></url>
+  <url><loc>https://nexastrategic.com/writing/</loc></url>
+  <url><loc>https://nexastrategic.com/about/</loc></url>
+  <url><loc>https://nexastrategic.com/contact/</loc></url>
+  <url><loc>https://nexastrategic.com/professional-terms/</loc></url>
+  <url><loc>https://nexastrategic.com/professional-terms/v1-0/</loc></url>
+  <url><loc>https://nexastrategic.com/privacy/</loc></url>
+  <url><loc>https://nexastrategic.com/terms/</loc></url>
   <url><loc>https://nexastrategic.com/concentric/</loc></url>
   <url><loc>https://nexastrategic.com/concentric/council/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/edition-one/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/evidence-base/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/research-report/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/apply/</loc></url>
   <url><loc>https://nexastrategic.com/concentric/journal/</loc></url>
   <url><loc>https://nexastrategic.com/concentric/about/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/apply/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/research-report/</loc></url>
   <url><loc>https://nexastrategic.com/concentric/legal/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/journal/open-inquiry/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/journal/why-six/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/journal/the-neutral-zone/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/journal/several-selves/</loc></url>
-  <url><loc>https://nexastrategic.com/concentric/journal/the-room-full-of-women/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/journal/the-value-of-five-other-women/</loc></url>
   <url><loc>https://nexastrategic.com/concentric/journal/the-inconvenience-test/</loc></url>
-<url><loc>https://nexastrategic.com/concentric/journal/the-value-of-five-other-women/</loc></url><url><loc>https://nexastrategic.com/work/</loc></url><url><loc>https://nexastrategic.com/thinking/</loc></url><url><loc>https://nexastrategic.com/tools/</loc></url><url><loc>https://nexastrategic.com/tools/decision-tool/</loc></url><url><loc>https://nexastrategic.com/privacy/</loc></url><url><loc>https://nexastrategic.com/terms/</loc></url><url><loc>https://nexastrategic.com/tool-terms/</loc></url></urlset>
+  <url><loc>https://nexastrategic.com/concentric/journal/the-room-full-of-women/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/journal/several-selves/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/journal/the-neutral-zone/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/journal/why-six/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/journal/open-inquiry/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/edition-one/</loc></url>
+  <url><loc>https://nexastrategic.com/concentric/evidence-base/</loc></url>
+</urlset>

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600;700&display=swap");
 :root{
   --olive:#333A22;
   --cream:#F2EDE1;
@@ -8,13 +9,10 @@
   --paper:#F8F4EA;
   --nav-h:78px;
   --shell:min(1240px,calc(100vw - 64px));
-  --serif:"Recoleta", "Iowan Old Style", "Baskerville", Georgia, serif;
-  --sans:"Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+  --serif:"Young Serif", "Iowan Old Style", Georgia, serif;
+  --sans:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
   --ease:cubic-bezier(.22,.8,.22,1);
 }
-@font-face{font-family:Recoleta;src:url('/concentric/assets/fonts/Recoleta-RegularDEMO.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Neue Montreal";src:url('/concentric/assets/fonts/NeueMontreal-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Neue Montreal";src:url('/concentric/assets/fonts/neuemontreal-bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--cream)}
 body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
