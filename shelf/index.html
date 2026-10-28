@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Shelf | Mila Milićević</title>
+<meta name="description" content="What Mila Milićević is reading, how she rated it, and the Pattern Library entry each book shows at work.">
+<link rel="canonical" href="https://nexastrategic.com/shelf/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexastrategic.com/shelf/">
+<meta property="og:title" content="The Shelf | Mila Milićević">
+<meta property="og:description" content="What Mila Milićević is reading, how she rated it, and the Pattern Library entry each book shows at work.">
+<meta property="og:image" content="https://nexastrategic.com/assets/mila-milicevic-og.jpg">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/assets/ns-icon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/ns-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Brygada+1918:ital,wght@0,400;1,400;1,500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#c0d6ff}
+a{color:inherit}
+.rise{opacity:0;transform:translateY(24px);animation:rise .9s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.row{transition:padding .3s cubic-bezier(.16,1,.3,1)}.row:hover{padding-left:14px}
+.lift{transition:transform .4s cubic-bezier(.16,1,.3,1)}.lift:hover{transform:translateY(-6px)}
+.arrow{display:inline-block;transition:transform .3s cubic-bezier(.16,1,.3,1)}a:hover .arrow{transform:translateX(6px)}
+.press{transition:transform .15s cubic-bezier(.16,1,.3,1)}.press:active{transform:scale(.97)}
+@media (prefers-reduced-motion: reduce){.rise{animation:none;opacity:1;transform:none}.row:hover{padding-left:0}.lift:hover{transform:none}}
+.skip{position:absolute;left:-9999px;top:8px;z-index:20;padding:12px 16px;background:#2b1212;color:#fcf4f0}.skip:focus{left:12px}
+@media (max-width: 760px){h1{margin-right:0!important;font-size:clamp(44px,12.5vw,64px)!important}header>nav{display:none!important;width:100%;flex-direction:column;align-items:flex-start!important;gap:0!important;padding-top:8px}header>nav.open{display:flex!important}header>nav>a:not(.press){padding:12px 0!important;font-size:17px}header>nav>a.press{margin-top:8px}.menu-btn{display:inline-flex!important}}
+.menu-btn{display:none;align-items:center;min-height:44px;padding:0 16px;border:1px solid currentColor;background:transparent;border-radius:4px;font:600 15px 'Hanken Grotesk',Arial,sans-serif;color:inherit;cursor:pointer}
+</style>
+
+<style id="shelf-css">
+.sh-row{display:grid;grid-template-columns:minmax(220px,1.1fr) 2fr;gap:6px 40px;padding:24px 0;border-top:1px solid #e6d6cf}
+.sh-row h3{margin:0;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:26px;line-height:1.1;color:#2b1212}
+.sh-by{margin:4px 0 0;font-size:15px;color:#7a5450}
+.sh-v{margin:0;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:21px;line-height:1.45;color:#2b1212}
+.sh-tags{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}
+.sh-row{scroll-margin-top:120px;transition:background 1.2s}.sh-row:focus{outline:none}
+.sh-tags span{color:#7a5450}.sh-tags a{color:#6d0101;font-weight:600}
+.sh-stars{color:#f86c2f;letter-spacing:2px;font-size:16px;font-style:normal}
+.sh-now{padding:22px 24px;background:#c0d6ff;border-radius:12px}.sh-now h3{margin:0;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:24px;line-height:1.1;color:#2b1212}.sh-now p{margin:6px 0 0;font-size:15px;color:#2b1212}
+.sh-season{margin:32px 0 0;font-weight:400;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:20px;color:#6d0101}
+.sh-chip{min-height:44px;padding:0 16px;border:1px solid #6d0101;border-radius:4px;background:transparent;color:#6d0101;font:600 14px 'Hanken Grotesk',Arial,sans-serif;cursor:pointer}
+.sh-chip[aria-pressed=true]{background:#6d0101;color:#fcf4f0}
+.sh-card{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:baseline;padding:28px 32px;margin-bottom:16px;border-radius:12px}
+.sh-card .lab{grid-column:1/-1;font-size:14px;font-weight:600}
+@media (max-width:760px){.sh-row{grid-template-columns:1fr}.sh-card{grid-template-columns:1fr;padding:22px}#shelf>div{padding-left:16px!important;padding-right:16px!important}}
+</style>
+</head>
+<body>
+<script type="application/json" id="shelf-data">{"books":[{"id":"book-when-mckinsey-comes-to-town","title":"When McKinsey Comes to Town","author":"Walt Bogdanich and Michael Forsythe","verdict":"","reading":true,"season":"","finished":"","shelf":"Operations and business","pick":false,"rating":0,"patterns":[]},{"id":"book-apple-in-china","title":"Apple in China","author":"Patrick McGee","verdict":"","reading":true,"season":"","finished":"","shelf":"Operations and business","pick":false,"rating":0,"patterns":[]},{"id":"book-the-trial","title":"The Trial","author":"Franz Kafka","verdict":"","reading":true,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":0,"patterns":[]},{"id":"book-the-laws-of-human-nature","title":"The Laws of Human Nature","author":"Robert Greene","verdict":"","reading":true,"season":"","finished":"","shelf":"Psychology and behaviour","pick":false,"rating":0,"patterns":[]},{"id":"book-small-boat","title":"Small Boat","author":"Vincent Delecroix","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":5,"patterns":[{"name":"Bystander effect (diffusion of responsibility)","id":"bystander-effect-diffusion-of-responsibility"}]},{"id":"book-animal-farm","title":"Animal Farm","author":"George Orwell","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":5,"patterns":[{"name":"The performative shift (Yurchak's late Soviet 'loyalty theatre')","id":"performative-shift"}]},{"id":"book-the-trees","title":"The Trees","author":"Percival Everett","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":5,"patterns":[{"name":"Taboo trade-offs and sacred values","id":"taboo-trade-offs-and-sacred-values"}]},{"id":"book-the-wretched-of-the-earth","title":"The Wretched of the Earth","author":"Frantz Fanon","verdict":"","reading":false,"season":"","finished":"","shelf":"Politics and power","pick":false,"rating":4,"patterns":[{"name":"Schismogenesis","id":"schismogenesis"}]},{"id":"book-yellowface","title":"Yellowface","author":"R.F. Kuang","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":4,"patterns":[{"name":"Normalisation of deviance","id":"normalisation-of-deviance"}]},{"id":"book-this-house-of-grief","title":"This House of Grief","author":"Helen Garner","verdict":"","reading":false,"season":"","finished":"","shelf":"Law","pick":false,"rating":4,"patterns":[{"name":"Hindsight bias (creeping determinism)","id":"hindsight-bias-creeping-determinism"}]},{"id":"book-unmasking-the-face","title":"Unmasking the Face","author":"Paul Ekman","verdict":"Evidence check: Ekman’s universal emotions are contested.","reading":false,"season":"","finished":"","shelf":"Psychology and behaviour","pick":false,"rating":4,"patterns":[]},{"id":"book-the-criminal-mind","title":"The Criminal Mind","author":"Duncan Harding","verdict":"","reading":false,"season":"","finished":"","shelf":"Psychology and behaviour","pick":false,"rating":4,"patterns":[{"name":"Fundamental attribution error (correspondence bias)","id":"fundamental-attribution-error-correspondence-bias"}]},{"id":"book-a-dolls-house","title":"A Doll’s House","author":"Henrik Ibsen","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":4,"patterns":[{"name":"Status quo bias","id":"status-quo-bias"}]},{"id":"book-the-handmaids-tale","title":"The Handmaid’s Tale","author":"Margaret Atwood","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":4,"patterns":[{"name":"The performative shift (Yurchak's late Soviet 'loyalty theatre')","id":"performative-shift"}]},{"id":"book-fahrenheit-451","title":"Fahrenheit 451","author":"Ray Bradbury","verdict":"","reading":false,"season":"","finished":"","shelf":"Fiction","pick":false,"rating":4,"patterns":[{"name":"The Semmelweis reflex","id":"the-semmelweis-reflex"}]}]}</script>
+<a class="skip" href="#main">Skip to content</a>
+<div style="background: #fcf4f0; color: #2b1212; font-family: 'Hanken Grotesk', Arial, sans-serif; font-size: 17px; line-height: 1.6">
+
+<div style="background: #c0d6ff">
+<header id="top" style="max-width: 1360px; margin: 0 auto; padding: 22px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px">
+<a href="/" style="font-family: 'Gloock', Georgia, serif; font-size: 28px; line-height: 1; color: #6d0101; text-decoration: none">NexaStrategic</a>
+<nav aria-label="Main navigation" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 26px; font-size: 15px; font-weight: 500">
+<a href="/services/" style="text-decoration: none; padding: 12px 0">Services</a>
+<a href="/work/" style="text-decoration: none; padding: 12px 0">Work</a>
+<a href="/pattern-library/" style="text-decoration: none; padding: 12px 0">Pattern Library</a>
+<a href="/writing/" style="text-decoration: none; padding: 12px 0">Writing</a>
+<a href="/shelf/" aria-current="page" style="text-decoration: none; padding: 12px 0; color: #6d0101; border-bottom: 2px solid #6d0101">Shelf</a>
+<a href="/about/" style="text-decoration: none; padding: 12px 0">About</a>
+<a href="/contact/" class="press" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border: 1px solid #6d0101; color: #6d0101; text-decoration: none; border-radius: 4px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #6d0101"></span>At capacity · Join the waitlist</a>
+</nav>
+</header>
+<section id="main" style="max-width: 1360px; margin: 0 auto; padding: 56px 40px 72px; display: flex; flex-wrap: wrap; gap: 24px 80px; align-items: flex-end">
+<div style="flex: 999 1 560px">
+<p class="rise" style="margin: 0 0 14px; font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 23px; color: #6d0101">What I’m reading</p>
+<h1 class="rise" style="margin: 0; font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: clamp(48px, min(7.6vw, 10.3vh), 116px); line-height: 0.95; letter-spacing: -0.02em; color: #6d0101; animation-delay: .1s">The Shelf.</h1>
+</div>
+<p class="rise" id="shelf-intro" style="flex: 1 1 340px; max-width: 460px; margin: 0; font-size: 19px; animation-delay: .2s">What I’m reading now, and how I rated what I’ve finished. Each book links to the pattern it shows at work in the Pattern Library.</p>
+</section>
+</div>
+
+
+
+
+
+<section id="shelf" aria-label="Books" style="background: #ffffff; border-top: 1px solid #e6d6cf">
+<div style="max-width: 1360px; margin: 0 auto; padding: 56px 40px 96px">
+<p id="shelf-now-lab" hidden style="margin: 0 0 12px; font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 20px; color: #6d0101">Reading now</p>
+<div id="shelf-now" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 16px"></div>
+<div id="shelf-pick"></div>
+<div id="shelf-chips" role="group" aria-label="Filter by shelf" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 24px"></div>
+<div id="shelf-list"></div>
+</div>
+</section>
+
+
+<footer style="max-width: 1360px; margin: 0 auto; padding: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; font-size: 14px; color: #7a5450">
+<span>NexaStrategic Ltd · Company no. 15536373 · 7 Bell Yard, London WC2A 2JR</span>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 22px"><a href="/privacy/" style="text-decoration: none; padding: 10px 0">Privacy</a><a href="/terms/" style="text-decoration: none; padding: 10px 0">Website Terms</a><a href="/professional-terms/" style="text-decoration: none; padding: 10px 0">Professional Services Terms</a><a href="/professional-terms/v1-0/" style="text-decoration: none; padding: 10px 0">Professional Services Terms (v1.0 archive)</a><a href="/contact/" style="text-decoration: none; padding: 10px 0">Contact</a></div>
+</footer>
+</div>
+<script>
+(() => {
+  const nav = document.querySelector('header>nav'); if (!nav) return;
+  nav.id = nav.id || 'site-nav';
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'menu-btn'; btn.textContent = 'Menu';
+  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', nav.id);
+  btn.addEventListener('click', () => { const open = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', open); btn.textContent = open ? 'Close' : 'Menu'; });
+  nav.before(btn);
+})();
+</script>
+
+<script>
+(() => {
+  const sec = document.getElementById('shelf'); if (!sec) return;
+  const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const tags = b => '<div class="sh-tags">' + (b.shelf ? '<span>' + esc(b.shelf) + '</span>' : '') + b.patterns.map(p => '<a href="/pattern-library/#' + esc(p.id) + '">Pattern: ' + esc(p.name.replace(/\s*\(.*\)$/, '')) + ' →</a>').join('') + '</div>';
+  const stars = n => n ? '<span class="sh-stars" role="img" aria-label="' + n + ' out of 5">' + '★'.repeat(n) + '</span>' : '';
+  const row = b => '<article class="sh-row" id="' + esc(b.id) + '" tabindex="-1"><div><h3>' + esc(b.title) + '</h3><p class="sh-by">' + esc(b.author) + '</p></div><div>' + stars(b.rating) + (b.verdict ? '<p class="sh-v">' + esc(b.verdict) + '</p>' : '') + tags(b) + '</div></article>';
+  const card = (b, lab, bg, fg) => '<div class="sh-card" style="background:' + bg + ';color:' + fg + '"><span class="lab">' + lab + '</span><h3 style="margin:0;font-family:Gloock,Georgia,serif;font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.05">' + esc(b.title) + '</h3><p style="margin:0;font-size:16px">' + esc(b.author) + '</p>' + (b.verdict ? '<p style="grid-column:1/-1;margin:6px 0 0;font-family:\'Brygada 1918\',Georgia,serif;font-style:italic;font-size:22px;line-height:1.4">' + esc(b.verdict) + '</p>' : '') + '</div>';
+  const render = books => {
+    if (!books || !books.length) return; document.getElementById('shelf-chips').innerHTML = '';
+    const now = books.filter(b => b.reading), pick = books.find(b => b.pick && !b.reading), done = books.filter(b => !b.reading);
+    document.getElementById('shelf-now').innerHTML = now.map(b => '<div class="sh-now"><h3>' + esc(b.title) + '</h3><p>' + esc(b.author) + '</p></div>').join('');
+    if (pick) document.getElementById('shelf-pick').innerHTML = card(pick, 'If you read one this year', '#6d0101', '#fcf4f0');
+    const shelves = [...new Set(done.map(b => b.shelf).filter(Boolean))];
+    const list = document.getElementById('shelf-list'), chips = document.getElementById('shelf-chips');
+    let cur = '';
+    const paint = () => {
+      const L = done.filter(b => !cur || b.shelf === cur); let out = '', last = null;
+      L.forEach(b => { const s = b.season || (b.rating ? ['', 'One star', 'Two stars', 'Three stars', 'Four stars', 'Five stars'][b.rating] : ''); if (s !== last) { if (s) out += '<h3 class="sh-season">' + esc(s) + '</h3>'; last = s; } out += row(b); });
+      list.innerHTML = out;
+      chips.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.s === cur));
+    };
+    if (shelves.length > 1) {
+      chips.innerHTML = ['', ...shelves].map(s => '<button type="button" class="sh-chip" data-s="' + esc(s) + '">' + (s ? esc(s) : 'Everything') + '</button>').join('');
+      chips.onclick = (e => { const b = e.target.closest('button'); if (b) { cur = b.dataset.s; paint(); } });
+    }
+    if (now.length) document.getElementById('shelf-now-lab').hidden = false;
+    paint(); sec.hidden = false;
+    const h = location.hash.slice(1); if (h.startsWith('book-') && !render.done) { render.done = true; cur = ''; paint(); const el = document.getElementById(h); if (el) { el.scrollIntoView({ block: 'center' }); el.focus({ preventScroll: true }); el.style.background = '#fcf4f0'; } }
+  };
+  let snap = []; try { snap = JSON.parse(document.getElementById('shelf-data').textContent).books || []; } catch (_) {}
+  if (snap.length) render(snap);
+  if (window.fetch) fetch('/api/shelf').then(r => r.ok ? r.json() : null).then(d => { if (d && d.books && d.books.length) render(d.books); }).catch(() => {});
+})();
+</script>
+</body>
+</html>

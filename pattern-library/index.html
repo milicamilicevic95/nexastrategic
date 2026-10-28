@@ -97,6 +97,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #6d01
 <a href="/work/" style="text-decoration: none; padding: 12px 0">Work</a>
 <a href="/pattern-library/" aria-current="page" style="text-decoration: none; padding: 12px 0; color: #6d0101; border-bottom: 2px solid #6d0101">Pattern Library</a>
 <a href="/writing/" style="text-decoration: none; padding: 12px 0">Writing</a>
+<a href="/shelf/" style="text-decoration: none; padding: 12px 0">Shelf</a>
 <a href="/about/" style="text-decoration: none; padding: 12px 0">About</a>
 <a href="/contact/" class="press" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border: 1px solid #6d0101; color: #6d0101; text-decoration: none; border-radius: 4px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #6d0101"></span>At capacity · Join the waitlist</a>
 </nav>
@@ -823,7 +824,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #6d01
 <section style="background: #6d0101; color: #fcf4f0">
 <div class="plx" style="padding-top: 64px; padding-bottom: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px 48px">
 <p style="margin: 0; max-width: 720px; font-family: 'Gloock', Georgia, serif; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08">New patterns go out first in Professional Devil’s Advocate, on LinkedIn.</p>
-<a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7521195209796292608" target="_blank" rel="noopener" class="press" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; background: #fcf4f0; color: #6d0101; text-decoration: none; font-weight: 600; border-radius: 4px">Subscribe on LinkedIn&nbsp;→</a>
+<a href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7521195209796292608" target="_blank" rel="noopener" class="press" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 28px; background: #fcf4f0; color: #6d0101; text-decoration: none; font-weight: 600; border-radius: 4px">Subscribe on LinkedIn ↗</a>
 </div>
 </section>
 <footer style="max-width: 1360px; margin: 0 auto; padding: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; font-size: 14px; color: #7a5450">
@@ -840,6 +841,22 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #6d01
   btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', nav.id);
   btn.addEventListener('click', () => { const open = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', open); btn.textContent = open ? 'Close' : 'Menu'; });
   nav.before(btn);
+})();
+</script>
+<script>
+(() => {
+  if (!window.fetch) return;
+  const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  fetch('/api/shelf').then(r => r.ok ? r.json() : { books: [] }).then(({ books }) => {
+    const by = {};
+    (books || []).forEach(b => b.patterns.forEach(p => (by[p.id] = by[p.id] || []).push(b)));
+    Object.entries(by).forEach(([id, L]) => {
+      const a = document.getElementById(id); if (!a) return;
+      const box = document.createElement('p'); box.className = 'onshelf';
+      box.innerHTML = '<span>On the Shelf</span>' + L.map(b => '<a href="/writing/#' + esc(b.id) + '">' + esc(b.title) + '</a> <em>' + esc(b.author) + '</em>').join('<b aria-hidden="true">·</b>');
+      a.querySelector('.pdh').appendChild(box);
+    });
+  }).catch(() => {});
 })();
 </script>
 <script>
@@ -904,13 +921,14 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #6d01
 (() => {
   if (!window.fetch) return;
   const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  fetch('/api/shelf').then(r => r.ok ? r.json() : { books: [] }).then(({ books }) => {
+  const get = u => fetch(u).then(r => r.ok ? r.json() : null).catch(() => null);
+  get('/api/shelf').then(d => d && d.books && d.books.length ? d : get('/shelf/books.json')).then(d => { const books = (d && d.books) || [];
     const by = {};
     (books || []).forEach(b => b.patterns.forEach(p => (by[p.id] = by[p.id] || []).push(b)));
     Object.entries(by).forEach(([id, L]) => {
       const a = document.getElementById(id); if (!a) return;
       const box = document.createElement('p'); box.className = 'onshelf';
-      box.innerHTML = '<span>On the Shelf</span>' + L.map(b => '<a href="/writing/#' + esc(b.id) + '">' + esc(b.title) + '</a> <em>' + esc(b.author) + '</em>').join('<b aria-hidden="true">·</b>');
+      box.innerHTML = '<span>On the Shelf</span>' + L.map(b => '<a href="/shelf/#' + esc(b.id) + '">' + esc(b.title) + '</a> <em>' + esc(b.author) + '</em>').join('<b aria-hidden="true">·</b>');
       a.querySelector('.pdh').appendChild(box);
     });
   }).catch(() => {});
