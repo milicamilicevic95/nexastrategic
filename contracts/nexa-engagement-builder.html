@@ -194,7 +194,11 @@ label.btn{display:inline-flex;align-items:center}
 .aqnote{border-top:1px solid var(--line);padding-top:8px}.aqnote p{margin:2px 0 0;white-space:pre-wrap;font-size:14px}.aqnote small{color:var(--fg2)}
 .aqprop{border:1px solid var(--accent);padding:12px 14px;display:flex;flex-direction:column;gap:8px}.aqpi p{margin:2px 0 0;font-size:13px}
 .aqleft{justify-content:flex-start;align-items:center;gap:10px}
-@media (max-width:900px){.aqgrid,.aqrow,.aqrow2,.aqadd{grid-template-columns:1fr}}
+.aqck{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line);font-size:14px;font-weight:400;color:var(--fg);cursor:pointer}.aqck input{width:18px;height:18px;margin:1px 0 0;flex:none}.aqck.done span{color:var(--fg2);text-decoration:line-through}
+.aqdef{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12.5px;color:var(--fg2)}.aqdef b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.aqsmp{display:grid;grid-template-columns:1fr 2fr 130px 2fr auto;gap:8px;align-items:end;padding:6px 0;border-top:1px solid var(--line)}
+.aqphases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.aqphases>div{min-width:0}
+@media (max-width:900px){.aqgrid,.aqrow,.aqrow2,.aqadd,.aqdef,.aqphases,.aqsmp{grid-template-columns:1fr}}
 .seg{display:flex;gap:4px}.seg .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
 .ptbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin:0 0 14px}
 .pcard .chead{flex-wrap:wrap;row-gap:6px}
@@ -416,7 +420,7 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
 </style>
 
 <div class="top">
-  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="acq" aria-selected="false">Acquisitions</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="academy" aria-selected="false">Academy</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
+  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="acq" aria-selected="false">Due diligence</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="academy" aria-selected="false">Academy</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
   <div class="acts" id="contractActs"><span id="refLabel" class="lab2">NX-2026-001</span>
     <span class="status" id="status" role="status"></span>
     <button class="btn" id="newBtn" type="button">New</button>
@@ -460,7 +464,7 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
   </div></details>
 
   <details open id="d-eng" data-doc="EO"><summary>Engagement <span class="n" data-sec="eng"></span></summary><div class="fs">
-    <div class="f full"><label for="svc">Service</label><select id="svc"><option value="FCOO">Fractional COO</option><option value="ROA">Resident Operations Adviser</option><option value="OA">Operations Adviser</option></select></div>
+    <div class="f full"><label for="svc">Service</label><select id="svc"><option value="FCOO">Fractional COO</option><option value="ROA">Operations Adviser in Residence</option><option value="OA">Operations Adviser</option></select></div>
     <div class="f"><label for="order_date">Order date</label><input id="order_date" type="date"></div>
     <div class="f"><label for="start">Start date</label><input id="start" type="date"></div>
     <div class="f"><label for="init_term">Initial term (months)</label><input id="init_term" type="number" min="1" value="6" placeholder="None: rolling from the start"></div>
@@ -497,7 +501,7 @@ Delivery, supplier and operational risk management</textarea></div>
     <div class="f full"><label for="a_rhythm">Rhythm</label><input id="a_rhythm" value="Weekly founder session and a monthly operating review pack"></div>
   </div></details>
 
-  <details id="d-B"><summary>Schedule · Resident Operations Adviser <span class="n" data-sec="B"></span></summary><div class="fs">
+  <details id="d-B"><summary>Schedule · Operations Adviser in Residence <span class="n" data-sec="B"></span></summary><div class="fs">
     <div class="f full"><label for="b_scope">Scope, one item per line</label><textarea id="b_scope">Embedded operations support to the founder and leadership team
 Process design, documentation and operating cadence
 People operations, onboarding and hiring support
@@ -567,7 +571,7 @@ Sounding-board sessions with the founder</textarea></div>
     <button class="door" type="button" data-go="outreach"><b>Outreach</b><span id="doorOutreach"></span></button>
     <button class="door" type="button" data-go="capacity"><b>Capacity</b><span id="doorCapacity"></span></button>
     <button class="door" type="button" data-go="portfolio"><b>Portfolio</b><span id="doorPortfolio"></span></button>
-    <button class="door" type="button" data-go="acq"><b>Acquisition portfolio</b><span id="doorAcq">Due diligence workbooks</span></button>
+    <button class="door" type="button" data-go="acq"><b>Operational due diligence</b><span id="doorAcq">Portfolio company workbooks</span></button>
     <button class="door" type="button" data-go="patterns"><b>Pattern library</b><span id="doorPatterns"></span></button>
     <button class="door" type="button" data-go="academy"><b>Operations Academy</b><span id="doorAcademy"></span></button>
     <button class="door" type="button" data-go="legal"><b>Legal</b><span id="doorLegal"></span></button>
@@ -628,9 +632,9 @@ Sounding-board sessions with the founder</textarea></div>
   <div id="pfList" class="clist"></div>
 </section>
 
-<section id="view-acq" class="fin" hidden aria-label="Acquisition portfolio">
+<section id="view-acq" class="fin" hidden aria-label="Operational due diligence">
   <div id="aqHome">
-    <div class="phead"><div><h2>Acquisition portfolio<i>.</i></h2><p class="sub">One operational review workbook per company: scope, data request, interviews and site visit, findings rated by risk, then a 100-day plan.</p></div><div class="acts"><span class="status" id="aqSaved" role="status"></span></div></div>
+    <div class="phead"><div><h2>Operational due diligence<i>.</i></h2><p class="sub">Portfolio Operations Advisory. One workbook per company: plan the visit, test on site, then rate each finding by what it means for the deal and build the report.</p></div><div class="acts"><span class="status" id="aqSaved" role="status"></span></div></div>
     <div class="kpis" id="aqKpis"></div>
     <div class="aqadd"><div class="f"><label for="aqNew">Add a company</label><input id="aqNew" placeholder="Company name"></div><button class="btn primary" type="button" id="aqAdd" data-aqadd disabled>Add company</button></div>
     <div class="card"><div id="aqList"></div></div>
@@ -779,7 +783,7 @@ const ENG_KEYS=["inv_day","roa_review_m","cl_name","cl_number","cl_juris","cl_of
 ENG_KEYS.unshift("doctype");ENG_KEYS.push("roa_cap","term_mode","renew_month","commit_mode","roa_unit","roa_def","roa_track","prorate","cn_order","cn_effective","cn_changes","cn_fee","cn_commit","nda_purpose","nda_years");
 const DOCS={EO:{label:"Engagement Order",prefix:"NX"},CN:{label:"Change Note",prefix:"CN"},NDA:{label:"Mutual NDA",prefix:"NDA"}};
 const docType=()=>DOCS[val("doctype")]?val("doctype"):"EO";
-const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Resident Operations Adviser"},OA:{letter:"C",name:"Operations Adviser"}};
+const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Operations Adviser in Residence"},OA:{letter:"C",name:"Operations Adviser"}};
 let ref=null, saved=[], db=null, downloads=null, dirty=false;
 
 function val(k){const e=$(k);return e.type==="checkbox"?e.checked:e.value.trim()}
@@ -1261,7 +1265,7 @@ const MONTHS_FULL=["January","February","March","April","May","June","July","Aug
 const num=id=>{const v=parseFloat($(id).value);return isNaN(v)?0:v};
 const ymKey=(y,m)=>y+"-"+String(m+1).padStart(2,"0");
 const fmtDate=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
-const SVC={FCOO:"Fractional COO",ROA:"Resident Operations Adviser",OA:"Operations Adviser",Other:"Other"};
+const SVC={FCOO:"Fractional COO",ROA:"Operations Adviser in Residence",POA:"Portfolio Operations Advisory",OA:"Operations Adviser",Other:"Other"};
 const uid=()=>"c"+Math.random().toString(36).slice(2,9);
 const cHeads=c=>(c.heads===""||c.heads==null)?(+c.planHeads||0):+c.heads;
 const cfee=c=>c.pricing==="perhead"?(+c.rate||0)*Math.min(cHeads(c),c.cap?+c.cap:Infinity):(+c.fee||0);
@@ -2874,7 +2878,7 @@ render();
 })();
 </script>
 <script>
-/* ---- Acquisition portfolio: due diligence workbook ---- */
+/* ---- Operational due diligence workbook (Portfolio Operations Advisory) ---- */
 (()=>{
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -2942,6 +2946,44 @@ const WB=[
 const ALL=WB.flatMap(s=>s.items.map(([id,q,ev])=>({id,q,ev,s:s.k})));
 const STAT=[["","Not reviewed"],["green","Green"],["amber","Amber"],["red","Red"],["na","N/A"]];
 const EVID=["","Requested","Received","Not available"];
+const GRADE=[["","Not graded"],["verified","Seen and verified"],["seen","Seen, not tested"],["told","Told only"],["none","Not available"]];
+const DEAL=[["","Not set"],["price","Price adjustment"],["spa","Protection in the purchase agreement"],["cp","Condition before completion"],["d100","100-day plan"],["later","Longer term"],["none","No deal action"]];
+const MAT=["Not assessed","Ad hoc","Repeatable","Defined","Managed"];
+const NSRC=["Interview","Walkthrough","Document","Observation","Call"];
+const RAGDEF=[["red","Red","Affects price, deal structure or whether to proceed."],["amber","Amber","Must be fixed within 100 days; the cost can be estimated."],["green","Green","Adequate for a business of this size."]];
+/* The three phases of a buy-side operational due diligence */
+const PHASES=[
+ {k:"before",t:"Before the visit",items:[
+  ["b.thesis","Deal thesis agreed with the acquirer: why they are buying, what they plan to change, what would stop the deal"],
+  ["b.scope","Scope and materiality agreed in writing: workstreams covered and the size of issue that matters"],
+  ["b.terms","Engagement terms signed, including who may rely on the report and the liability cap"],
+  ["b.nda","Confidentiality agreed with the company"],
+  ["b.irl","Information request list sent, two to three weeks before the visit"],
+  ["b.review","Documents received reviewed and logged against each check"],
+  ["b.hyp","Hypotheses written: what you expect to be weak and how you will test it"],
+  ["b.plan","Visit plan agreed: interviews, walkthroughs, jobs to sample, sites to see"]]},
+ {k:"site",t:"On site",items:[
+  ["s.mgmt","Structured management interviews: owner, operations, sales, finance"],
+  ["s.walk","Process walkthrough: one real job from lead to handover"],
+  ["s.sample","Sample test of 5 to 10 completed jobs against the paperwork"],
+  ["s.staff","Conversations with staff below management: installers and office"],
+  ["s.observe","Observation: site safety, vans, stock and systems in use"],
+  ["s.debrief","Findings logged the same day, with the evidence behind each"],
+  ["s.gaps","Outstanding requests listed before leaving"]]},
+ {k:"after",t:"After the visit",items:[
+  ["a.follow","Follow-up requests sent and chased"],
+  ["a.redflag","Red-flag summary sent to the acquirer"],
+  ["a.cost","Cost estimated for every red and amber finding"],
+  ["a.deal","Deal treatment set for every red finding"],
+  ["a.draft","Draft report written"],
+  ["a.fact","Factual accuracy check by management: facts only, not conclusions"],
+  ["a.final","Final report issued"],
+  ["a.plan","100-day plan agreed with the owner and the acquirer"]]}];
+const PH_ALL=PHASES.flatMap(p=>p.items);
+const optL=(list,v)=>list.map(([k,l])=>`<option value="${k}"${(v||"")===k?" selected":""}>${l}</option>`).join("");
+const gradeL=k=>(GRADE.find(x=>x[0]===k)||["",""])[1],dealL=k=>(DEAL.find(x=>x[0]===k)||["",""])[1];
+const gbpA=n=>n===""||n==null||isNaN(+n)?"":"£"+Math.round(+n).toLocaleString("en-GB");
+const ragDefHTML=()=>`<div class="aqdef">${RAGDEF.map(([k,l,d])=>`<div><b class="aqrag ${k}" style="display:inline-block;margin-bottom:4px">${l}</b>${d}</div>`).join("")}</div>`;
 const STAGES=["Onboarding","Data requested","Fieldwork","Report sent","Monitoring","Exited"];
 
 let db=null,downloads=null,sample=null,cos=[],sel="",tab="",saveT={},editing=false;const pend=new Set();
@@ -2962,9 +3004,13 @@ function itemHTML(c,x){const v=itemsOf(c)[x.id]||{};const ix=esc(x.id);
   <div class="aqbody">
     <p class="aqreq"><b>Ask for:</b> ${esc(x.ev)}</p>
     <div class="aqrow"><div class="f"><label for="aq-${ix}-s">Rating</label><select id="aq-${ix}-s" data-aqi="${ix}" data-k="status">${STAT.map(([k,l])=>`<option value="${k}"${(v.status||"")===k?" selected":""}>${l}</option>`).join("")}</select></div>
-    <div class="f"><label for="aq-${ix}-e">Evidence</label><select id="aq-${ix}-e" data-aqi="${ix}" data-k="evidence">${EVID.map(o=>`<option${(v.evidence||"")===o?" selected":""} value="${o}">${o||"Not requested"}</option>`).join("")}</select></div>
+    <div class="f"><label for="aq-${ix}-e">Request status</label><select id="aq-${ix}-e" data-aqi="${ix}" data-k="evidence">${EVID.map(o=>`<option${(v.evidence||"")===o?" selected":""} value="${o}">${o||"Not requested"}</option>`).join("")}</select></div>
     <div class="f"><label for="aq-${ix}-o">Owner</label><input id="aq-${ix}-o" data-aqi="${ix}" data-k="owner" value="${esc(v.owner)}"></div>
     <div class="f"><label for="aq-${ix}-d">Fix by</label><input id="aq-${ix}-d" type="date" data-aqi="${ix}" data-k="due" value="${esc(v.due)}"></div></div>
+    <div class="aqrow"><div class="f"><label for="aq-${ix}-g">Evidence grade</label><select id="aq-${ix}-g" data-aqi="${ix}" data-k="grade">${optL(GRADE,v.grade)}</select></div>
+    <div class="f"><label for="aq-${ix}-t">How to handle it in the deal</label><select id="aq-${ix}-t" data-aqi="${ix}" data-k="deal">${optL(DEAL,v.deal)}</select></div>
+    <div class="f"><label for="aq-${ix}-c1">One-off cost to fix, £</label><input id="aq-${ix}-c1" type="number" min="0" step="100" data-aqi="${ix}" data-k="oneoff" value="${esc(v.oneoff)}"></div>
+    <div class="f"><label for="aq-${ix}-c2">Ongoing cost, £ a year</label><input id="aq-${ix}-c2" type="number" min="0" step="100" data-aqi="${ix}" data-k="ongoing" value="${esc(v.ongoing)}"></div></div>
     <div class="f"><label for="aq-${ix}-n">Notes from the review</label><textarea id="aq-${ix}-n" data-aqi="${ix}" data-k="notes" rows="2">${esc(v.notes)}</textarea></div>
     <div class="aqrow2"><div class="f"><label for="aq-${ix}-fd">Finding</label><textarea id="aq-${ix}-fd" data-aqi="${ix}" data-k="finding" rows="2">${esc(v.finding)}</textarea></div>
     <div class="f"><label for="aq-${ix}-r">Recommendation</label><textarea id="aq-${ix}-r" data-aqi="${ix}" data-k="rec" rows="2">${esc(v.rec)}</textarea></div></div>
@@ -2976,12 +3022,14 @@ function renderWB(){
   if(!tab)tab="overview";
   const s=scoreOf(c);
   const secs=WB.map(w=>{const it=itemsOf(c);const done=w.items.filter(([id])=>(it[id]||{}).status).length,red=w.items.filter(([id])=>(it[id]||{}).status==="red").length;return {w,done,red}});
-  $("aqHead").innerHTML=`<div><button class="btn small" type="button" data-aqback>← All companies</button><h3 class="aqname">${esc(c.name||"Unnamed")}</h3><p class="sub">${pill(s.rag)} ${s.done} of ${ALL.length} checks reviewed · ${s.r} red · ${s.a} amber</p></div><div class="acts"><button class="btn small" type="button" data-aqirl>Download data request list</button><button class="btn small primary" type="button" data-aqrep>Download report</button></div>`;
-  $("aqTabs").innerHTML=[["overview","Overview"],["notes","Field notes"]].concat(secs.map(x=>[x.w.k,x.w.t+` (${x.done}/${x.w.items.length})`])).map(([k,l])=>`<button type="button" role="tab" data-aqtab="${k}" aria-selected="${k===tab}">${esc(l)}</button>`).join("");
+  $("aqHead").innerHTML=`<div><button class="btn small" type="button" data-aqback>← All companies</button><h3 class="aqname">${esc(c.name||"Unnamed")}</h3><p class="sub">${pill(s.rag)} ${s.done} of ${ALL.length} checks reviewed · ${s.r} red · ${s.a} amber</p></div><div class="acts"><button class="btn small" type="button" data-aqirl>Information request list</button><button class="btn small" type="button" data-aqrf>Red-flag summary</button><button class="btn small primary" type="button" data-aqrep>Full report</button></div>`;
+  const phDone=PH_ALL.filter(([id])=>(c.phase||{})[id]).length;
+  $("aqTabs").innerHTML=[["overview","Overview"],["method","Plan and phases ("+phDone+"/"+PH_ALL.length+")"],["notes","Field notes"]].concat(secs.map(x=>[x.w.k,x.w.t+` (${x.done}/${x.w.items.length})`])).map(([k,l])=>`<button type="button" role="tab" data-aqtab="${k}" aria-selected="${k===tab}">${esc(l)}</button>`).join("");
   let h="";
   if(tab==="overview"){
     h=`<div class="aqgrid">
      <div class="f"><label for="aqf-name">Company name</label><input id="aqf-name" data-aqc="name" value="${esc(c.name)}"></div>
+     <div class="f"><label for="aqf-client">Prepared for (the acquirer)</label><input id="aqf-client" data-aqc="client" value="${esc(c.client)}" placeholder="Only this party may rely on the report"></div>
      <div class="f"><label for="aqf-contact">Main contact</label><input id="aqf-contact" data-aqc="contact" value="${esc(c.contact)}" placeholder="Name, role, email"></div>
      <div class="f"><label for="aqf-stage">Stage</label><select id="aqf-stage" data-aqc="stage">${STAGES.map(x=>`<option${(c.stage||"Onboarding")===x?" selected":""}>${x}</option>`).join("")}</select></div>
      <div class="f"><label for="aqf-start">Joined portfolio</label><input id="aqf-start" type="date" data-aqc="start" value="${esc(c.start)}"></div>
@@ -2992,19 +3040,31 @@ function renderWB(){
      <div class="f"><label for="aqf-nd">By</label><input id="aqf-nd" type="date" data-aqc="nextDate" value="${esc(c.nextDate)}"></div>
     </div>
     <div class="f"><label for="aqf-sum">Executive summary</label><textarea id="aqf-sum" data-aqc="summary" rows="4" placeholder="Three or four sentences: overall view, the biggest risks, what to do first.">${esc(c.summary)}</textarea></div>
+    <h4 class="aqh">How findings are rated</h4>${ragDefHTML()}
     <h4 class="aqh">By workstream</h4>
-    <div class="aqsecs">${secs.map(x=>`<button type="button" class="aqsec" data-aqtab="${x.w.k}"><b>${esc(x.w.t)}</b><div class="aqbar"><i style="width:${Math.round(x.done/x.w.items.length*100)}%"></i></div><small>${x.done}/${x.w.items.length} reviewed${x.red?` · <span class="aqredt">${x.red} red</span>`:""}</small></button>`).join("")}</div>
+    <div class="aqsecs">${secs.map(x=>`<button type="button" class="aqsec" data-aqtab="${x.w.k}"><b>${esc(x.w.t)}</b><div class="aqbar"><i style="width:${Math.round(x.done/x.w.items.length*100)}%"></i></div><small>${x.done}/${x.w.items.length} reviewed${x.red?` · <span class="aqredt">${x.red} red</span>`:""} · ${MAT[+(c.maturity||{})[x.w.k]||0]}</small></button>`).join("")}</div>
     <p class="hint">An operational review, not legal, tax or financial advice. Legal touchpoints are flagged for the company's own lawyers.</p>
     <div class="acts"><button class="btn small" type="button" data-aqdel>Remove company</button></div>`;
+  }else if(tab==="method"){
+    const ph=c.phase||{},S=c.samples||[];
+    h=`<p class="sub">Work through the three phases in order. The deal thesis and hypotheses steer what you test on site.</p>
+    <div class="aqrow2"><div class="f"><label for="aqf-thesis">Deal thesis</label><textarea id="aqf-thesis" data-aqc="thesis" rows="4" placeholder="Why the acquirer is buying, what they plan to change, what would stop the deal.">${esc(c.thesis)}</textarea></div>
+    <div class="f"><label for="aqf-hyp">Hypotheses to test</label><textarea id="aqf-hyp" data-aqc="hyp" rows="4" placeholder="One per line: what you expect to be weak, and how you will test it on site.">${esc(c.hyp)}</textarea></div></div>
+    <div class="f"><label for="aqf-vp">Visit plan</label><textarea id="aqf-vp" data-aqc="visitPlan" rows="3" placeholder="Who you will interview, which process you will walk through, which jobs you will sample.">${esc(c.visitPlan)}</textarea></div>
+    <div class="aqphases">${PHASES.map(p=>`<div><h4 class="aqh">${esc(p.t)} · ${p.items.filter(([id])=>ph[id]).length}/${p.items.length}</h4>${p.items.map(([id,t])=>`<label class="aqck${ph[id]?" done":""}"><input type="checkbox" data-aqph="${id}"${ph[id]?" checked":""}><span>${esc(t)}</span></label>`).join("")}</div>`).join("")}</div>
+    <h4 class="aqh">Sample testing</h4><p class="sub">Pick 5 to 10 completed jobs and check the paperwork exists for each: contract, survey, MCS certificate, grid notification, handover pack, deposit handling.</p>
+    ${S.map((r,i)=>`<div class="aqsmp"><div class="f"><label for="aqs${i}r">Job reference</label><input id="aqs${i}r" data-aqs="${i}" data-k="ref" value="${esc(r.ref)}"></div><div class="f"><label for="aqs${i}c">What you checked</label><input id="aqs${i}c" data-aqs="${i}" data-k="checked" value="${esc(r.checked)}"></div><div class="f"><label for="aqs${i}o">Result</label><select id="aqs${i}o" data-aqs="${i}" data-k="result">${optL([["","Not tested"],["pass","Pass"],["exception","Exception"]],r.result)}</select></div><div class="f"><label for="aqs${i}n">Note</label><input id="aqs${i}n" data-aqs="${i}" data-k="note" value="${esc(r.note)}"></div><button class="btn small" type="button" data-aqsdel="${i}">Remove</button></div>`).join("")||'<p class="empty">No jobs sampled yet.</p>'}
+    <div class="acts aqleft"><button class="btn small" type="button" data-aqsadd>Add a sampled job</button></div>`;
   }else if(tab==="notes"){
     const N=(c.fieldnotes||[]).slice().reverse();
     h=`<p class="sub">Type or paste notes from interviews and the site visit as you go. Fill the workbook from notes reads them and proposes ratings, findings and recommendations for you to accept.</p>
+    <div class="f" style="max-width:220px"><label for="aqf-nsrc">Where it came from</label><select id="aqf-nsrc">${NSRC.map(x=>`<option>${x}</option>`).join("")}</select></div>
     <div class="f"><label for="aqf-note">New note</label><textarea id="aqf-note" rows="6" placeholder="e.g. Met ops lead. Two crews, 6-week lead time. No written QA checklist. MCS cert renewed March. Deposits taken by bank transfer, not protected."></textarea></div>
     <div class="acts aqleft"><button class="btn small" type="button" data-aqaddnote>Save note</button><button class="btn small primary" type="button" data-aqfill${sample?"":" disabled"}>Fill the workbook from notes</button><span class="status" id="aqFillSt" role="status"></span></div>
     <div id="aqProp"></div>
-    ${N.length?N.map(n=>`<div class="aqnote"><small>${esc(n.at)}</small><p>${esc(n.text)}</p></div>`).join(""):'<p class="empty">No notes yet.</p>'}`;
+    ${N.length?N.map(n=>`<div class="aqnote"><small>${esc(n.at)}${n.src?" · "+esc(n.src):""}</small><p>${esc(n.text)}</p></div>`).join(""):'<p class="empty">No notes yet.</p>'}`;
   }else{
-    const w=WB.find(x=>x.k===tab);h=`<p class="sub">${w.items.length} checks. Open a check to rate it and record what you found.</p>`+w.items.map(([id,q,ev])=>itemHTML(c,{id,q,ev})).join("");
+    const w=WB.find(x=>x.k===tab);h=`<div class="aqrow2"><p class="sub">${w.items.length} checks. Open a check to rate it, grade the evidence and say how the acquirer should handle it.</p><div class="f"><label for="aqf-mat">Maturity of this area</label><select id="aqf-mat" data-aqm="${w.k}">${MAT.map((m,i)=>`<option value="${i}"${+(c.maturity||{})[w.k]===i?" selected":""}>${m}</option>`).join("")}</select></div></div>${ragDefHTML()}`+w.items.map(([id,q,ev])=>itemHTML(c,{id,q,ev})).join("");
   }
   $("aqPane").innerHTML=h;
 }
@@ -3015,7 +3075,10 @@ const cur=()=>cos.find(x=>x.id===sel);
 
 document.addEventListener("input",e=>{const t=e.target;const c=cur();if(!c||!db)return;
   if(t.dataset.aqc){c[t.dataset.aqc]=t.value;queue(c)}
-  else if(t.dataset.aqi){c.items=c.items||{};const v=c.items[t.dataset.aqi]=c.items[t.dataset.aqi]||{};v[t.dataset.k]=t.value;queue(c)}});
+  else if(t.dataset.aqi){c.items=c.items||{};const v=c.items[t.dataset.aqi]=c.items[t.dataset.aqi]||{};v[t.dataset.k]=t.value;queue(c)}
+  else if(t.dataset.aqs){const r=(c.samples||[])[+t.dataset.aqs];if(r){r[t.dataset.k]=t.value;queue(c)}}
+  else if(t.dataset.aqm){c.maturity=c.maturity||{};c.maturity[t.dataset.aqm]=+t.value;queue(c)}
+  else if(t.dataset.aqph){c.phase=c.phase||{};c.phase[t.dataset.aqph]=t.checked;const l=t.closest(".aqck");if(l)l.classList.toggle("done",t.checked);queue(c)}});
 document.addEventListener("change",e=>{const t=e.target;if(!(t.dataset.aqi||t.dataset.aqc))return;
   if(t.dataset.k==="status"||t.dataset.k==="evidence"){const d=t.closest("details");if(d){d.className="aqitem "+(t.dataset.k==="status"?t.value:d.className.replace("aqitem","").trim());const sm=d.querySelector("summary");const c=cur(),v=((c&&c.items)||{})[t.dataset.aqi]||{};sm.innerHTML=`<span class="aqq">${esc(ALL.find(x=>x.id===t.dataset.aqi).q)}</span>${pill(v.status)}${v.evidence?`<span class="aqev">${esc(v.evidence)}</span>`:""}`}}
   if(t.dataset.aqc==="stage"||t.dataset.aqc==="name")renderList()});
@@ -3023,13 +3086,16 @@ document.addEventListener("focusin",e=>{if(e.target.closest&&e.target.closest("#
 document.addEventListener("focusout",e=>{if(e.target.closest&&e.target.closest("#view-acq"))setTimeout(()=>{if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("#view-acq")){editing=false;renderList()}},80)});
 
 document.addEventListener("click",async e=>{
-  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep]");if(!b||!db)return;
+  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep],[data-aqrf],[data-aqsadd],[data-aqsdel]");if(!b||!db)return;
+  if(b.hasAttribute("data-aqsadd")){const c=cur();if(!c)return;c.samples=(c.samples||[]).concat([{ref:"",checked:"",result:"",note:""}]);queue(c);editing=false;renderWB();const i=$("aqs"+(c.samples.length-1)+"r");if(i)i.focus();return}
+  if(b.dataset.aqsdel!==undefined){const c=cur();if(!c)return;c.samples.splice(+b.dataset.aqsdel,1);queue(c);editing=false;renderWB();return}
+  if(b.hasAttribute("data-aqrf")){await dl("redflag");return}
   if(b.dataset.aqopen){sel=b.dataset.aqopen;tab="overview";editing=false;render();$("view-acq").scrollIntoView({block:"start"});return}
   if(b.hasAttribute("data-aqback")){sel="";editing=false;render();return}
   if(b.dataset.aqtab){tab=b.dataset.aqtab;editing=false;renderWB();return}
   if(b.hasAttribute("data-aqadd")){const nm=$("aqNew").value.trim();if(!nm){$("aqNew").focus();return}const id=uidA();const c={id,name:nm,stage:"Onboarding",start:today(),items:{},fieldnotes:[]};cos.push(c);$("aqNew").value="";queue(c);sel=id;tab="overview";render();return}
   if(b.hasAttribute("data-aqdel")){const c=cur();if(!c)return;if(b.dataset.sure!=="1"){b.dataset.sure="1";b.textContent="Click again to remove "+(c.name||"this company");return}cos=cos.filter(x=>x!==c);db.doc("acq/"+c.id).delete();sel="";render();return}
-  if(b.hasAttribute("data-aqaddnote")){const c=cur(),t=$("aqf-note").value.trim();if(!c||!t)return;c.fieldnotes=(c.fieldnotes||[]).concat([{at:new Date().toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"}),text:t}]);queue(c);editing=false;renderWB();return}
+  if(b.hasAttribute("data-aqaddnote")){const c=cur(),t=$("aqf-note").value.trim();if(!c||!t)return;c.fieldnotes=(c.fieldnotes||[]).concat([{at:new Date().toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"}),src:$("aqf-nsrc").value,text:t}]);queue(c);editing=false;renderWB();return}
   if(b.hasAttribute("data-aqfill")){await fill(b);return}
   if(b.hasAttribute("data-aqapply")){applyProp();return}
   if(b.hasAttribute("data-aqirl")){await dl("irl");return}
@@ -3038,23 +3104,25 @@ document.addEventListener("click",async e=>{
 
 let prop=null;
 async function fill(btn){const c=cur();if(!c||!sample)return;
-  const typed=$("aqf-note").value.trim();const notes=(c.fieldnotes||[]).map(n=>n.text).concat(typed?[typed]:[]).join("\n\n");
+  const typed=$("aqf-note").value.trim();const notes=(c.fieldnotes||[]).map(n=>(n.src?"["+n.src+"] ":"")+n.text).concat(typed?["["+$("aqf-nsrc").value+"] "+typed]:[]).join("\n\n");
   if(!notes){$("aqFillSt").textContent="Add a note first.";return}
   btn.disabled=true;$("aqFillSt").textContent="Reading your notes…";
   const list=ALL.map(x=>({id:x.id,check:x.q,current:(itemsOf(c)[x.id]||{}).status||""}));
-  const prompt=`You are helping a UK fractional COO complete an operational due diligence workbook for a portfolio company (solar and home-energy installer). Read the field notes and map every fact to the checks it is evidence for. Only use what the notes say; never invent facts. For each check the notes cover, return status ("green" = adequate, "amber" = gaps to fix, "red" = material risk or non-compliance), notes (a short factual summary of what the notes say, in British English), finding (one sentence) and rec (one practical recommendation, or ""). Skip checks the notes do not mention. Legal points are flagged for the company's lawyers, not advised on. No em dashes.\n\nChecks:\n${JSON.stringify(list)}\n\nField notes:\n${notes}\n\nReturn JSON only: {"updates":[{"id":"...","status":"...","notes":"...","finding":"...","rec":"..."}],"summary":"two or three sentences for the executive summary based only on these notes"}`;
+  const prompt=`You are helping a UK fractional COO complete an operational due diligence workbook for a portfolio company (solar and home-energy installer). Read the field notes and map every fact to the checks it is evidence for. Only use what the notes say; never invent facts. For each check the notes cover, return status ("red" = affects price, deal structure or whether to proceed; "amber" = must be fixed within 100 days and the cost can be estimated; "green" = adequate), grade (how strong the evidence is: "verified" only if the notes say a document or record was seen and tested, "seen" if it was seen but not tested, "told" if someone only said so, "none" if it was asked for and not available), deal (for red and amber only: "price", "spa" for a warranty or indemnity in the purchase agreement, "cp" for a condition before completion, "d100" for the 100-day plan, "later", or ""), oneoff and ongoing (cost in pounds only if the notes give a figure, otherwise ""), notes (a short factual summary of what the notes say, in British English), finding (one sentence) and rec (one practical recommendation, or ""). Skip checks the notes do not mention. Legal points are flagged for the company's lawyers, not advised on. No em dashes.\n\nChecks:\n${JSON.stringify(list)}\n\nField notes:\n${notes}\n\nReturn JSON only: {"updates":[{"id":"...","status":"...","grade":"...","deal":"...","oneoff":"","ongoing":"","notes":"...","finding":"...","rec":"..."}],"summary":"two or three sentences for the executive summary based only on these notes"}`;
   try{const out=await sample.json(prompt,{modelTier:"default"});prop=out&&Array.isArray(out.updates)?out:{updates:[]};
     prop.updates=prop.updates.filter(u=>ALL.some(x=>x.id===u.id));
     $("aqFillSt").textContent=prop.updates.length?prop.updates.length+" checks to update":"Nothing in the notes matched a check.";
-    $("aqProp").innerHTML=prop.updates.length?`<div class="aqprop"><h4 class="aqh">Proposed updates</h4>${prop.updates.map(u=>{const x=ALL.find(y=>y.id===u.id);return `<div class="aqpi">${pill(u.status)} <b>${esc(x.q)}</b><p>${esc(u.finding||u.notes||"")}</p>${u.rec?`<p class="aqreq"><b>Recommendation:</b> ${esc(u.rec)}</p>`:""}</div>`}).join("")}${prop.summary?`<p class="aqreq"><b>Summary:</b> ${esc(prop.summary)}</p>`:""}<div class="acts aqleft"><button class="btn small primary" type="button" data-aqapply>Apply to the workbook</button></div><p class="hint">Applying fills empty fields and adds to notes already there. Check each rating before the report goes out.</p></div>`:"";
+    $("aqProp").innerHTML=prop.updates.length?`<div class="aqprop"><h4 class="aqh">Proposed updates</h4>${prop.updates.map(u=>{const x=ALL.find(y=>y.id===u.id);return `<div class="aqpi">${pill(u.status)} <b>${esc(x.q)}</b>${u.grade?` <span class="aqev">${esc(gradeL(u.grade))}</span>`:""}${u.deal?` <span class="aqev">${esc(dealL(u.deal))}</span>`:""}<p>${esc(u.finding||u.notes||"")}</p>${u.rec?`<p class="aqreq"><b>Recommendation:</b> ${esc(u.rec)}</p>`:""}</div>`}).join("")}${prop.summary?`<p class="aqreq"><b>Summary:</b> ${esc(prop.summary)}</p>`:""}<div class="acts aqleft"><button class="btn small primary" type="button" data-aqapply>Apply to the workbook</button></div><p class="hint">Applying fills empty fields and adds to notes already there. Check each rating before the report goes out.</p></div>`:"";
   }catch(err){$("aqFillSt").textContent=err&&err.code==="not_granted"?"Claude isn't available on this page.":err&&err.code==="rate_limited"?"Too many requests. Try again in a few minutes.":"That didn't work. Try again.";}
   btn.disabled=false;
 }
 function applyProp(){const c=cur();if(!c||!prop)return;c.items=c.items||{};
   prop.updates.forEach(u=>{const v=c.items[u.id]=c.items[u.id]||{};if(u.status&&["green","amber","red","na"].includes(u.status))v.status=u.status;
+    if(u.grade&&GRADE.some(g=>g[0]===u.grade)&&!v.grade)v.grade=u.grade;if(u.deal&&DEAL.some(g=>g[0]===u.deal)&&!v.deal)v.deal=u.deal;
+    ["oneoff","ongoing"].forEach(k=>{if(u[k]!==""&&u[k]!=null&&!isNaN(+u[k])&&(v[k]===""||v[k]==null))v[k]=String(+u[k])});
     ["notes","finding","rec"].forEach(k=>{if(u[k]){v[k]=v[k]?(v[k].includes(u[k])?v[k]:v[k]+"\n"+u[k]):u[k]}})});
   if(prop.summary&&!c.summary)c.summary=prop.summary;
-  const t=$("aqf-note").value.trim();if(t)c.fieldnotes=(c.fieldnotes||[]).concat([{at:new Date().toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"}),text:t}]);
+  const t=$("aqf-note").value.trim();if(t)c.fieldnotes=(c.fieldnotes||[]).concat([{at:new Date().toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"}),src:$("aqf-nsrc").value,text:t}]);
   prop=null;queue(c);editing=false;renderWB();$("aqFillSt")&&($("aqFillSt").textContent="Applied.")}
 
 function docHTML(title,body){return `<html><head><meta charset="utf-8"><title>${esc(title)}</title><style>body{font-family:Arial,sans-serif;font-size:11pt;color:#191716}h1{font-size:20pt;color:#5a202b}h2{font-size:14pt;color:#5a202b;border-bottom:1px solid #ddd;padding-bottom:3pt}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4pt 6pt;vertical-align:top;font-size:9.5pt;text-align:left}th{background:#f5efe7}.red{color:#a3341f;font-weight:bold}.amber{color:#9a6a10;font-weight:bold}.green{color:#2f7a4a;font-weight:bold}small{color:#6e6763}</style></head><body>${body}</body></html>`}
@@ -3062,14 +3130,34 @@ const lab=s=>({red:"Red",amber:"Amber",green:"Green",na:"N/A"}[s]||"Not reviewed
 async function dl(kind){const c=cur();if(!c)return;if(!downloads){alertSt("Downloads aren't available here. Open Nexa OS in claude.ai.");return}
   const it=itemsOf(c),nm=c.name||"Company";let html,fn;
   if(kind==="irl"){html=docHTML(nm+" data request list",`<h1>Information request: ${esc(nm)}</h1><p>NexaStrategic Ltd · ${esc(today())}</p><p>Please share what you have against each line. Partial answers are fine; mark anything that does not apply.</p>`+WB.map(w=>`<h2>${esc(w.t)}</h2><table><tr><th style="width:5%">#</th><th style="width:40%">Area</th><th style="width:40%">Please provide</th><th>Status</th></tr>${w.items.map(([id,q,ev],i)=>`<tr><td>${i+1}</td><td>${esc(q)}</td><td>${esc(ev)}</td><td>${esc((it[id]||{}).evidence||"")}</td></tr>`).join("")}</table>`).join(""));fn=nm+" - information request.doc"}
-  else{const s=scoreOf(c);const reds=ALL.filter(x=>(it[x.id]||{}).status==="red"),amb=ALL.filter(x=>(it[x.id]||{}).status==="amber");
-    const plan=ALL.filter(x=>(it[x.id]||{}).rec).sort((a,b)=>({red:0,amber:1}[(it[a.id]||{}).status]??2)-({red:0,amber:1}[(it[b.id]||{}).status]??2));
-    html=docHTML(nm+" operational review",`<h1>Operational review: ${esc(nm)}</h1><p>NexaStrategic Ltd · ${esc(today())} · Overall status: <span class="${s.rag}">${lab(s.rag)}</span> · ${s.done} of ${ALL.length} checks reviewed</p>
+  else{const s=scoreOf(c),V=id=>it[id]||{};const reds=ALL.filter(x=>V(x.id).status==="red"),amb=ALL.filter(x=>V(x.id).status==="amber");
+    const cost=k=>ALL.reduce((a,x)=>a+(+V(x.id)[k]||0),0),one=cost("oneoff"),ong=cost("ongoing");
+    const G=GRADE.filter(g=>g[0]).map(([k,l])=>[l,ALL.filter(x=>V(x.id).status&&V(x.id).grade===k).length]);
+    const S=(c.samples||[]).filter(r=>r.ref||r.checked),exc=S.filter(r=>r.result==="exception").length;
+    const head=`<p>NexaStrategic Ltd · ${esc(today())}${c.client?" · Prepared for "+esc(c.client):""} · Overall status: <span class="${s.rag}">${lab(s.rag)}</span> · ${s.done} of ${ALL.length} checks reviewed</p>`;
+    const fRow=x=>{const v=V(x.id);return `<tr><td>${esc(x.q)}</td><td>${esc(v.finding||v.notes||"")}</td><td>${esc(gradeL(v.grade)||"Not graded")}</td><td>${gbpA(v.oneoff)}${v.ongoing?(v.oneoff?" + ":"")+gbpA(v.ongoing)+" a year":""}</td><td>${esc(dealL(v.deal)||"Not set")}</td><td>${esc(v.rec||"")}</td></tr>`};
+    const fTab=L=>L.length?`<table><tr><th style="width:20%">Area</th><th>Finding</th><th style="width:11%">Evidence</th><th style="width:11%">Cost</th><th style="width:13%">In the deal</th><th>Recommendation</th></tr>${L.map(fRow).join("")}</table>`:"<p>None identified.</p>";
+    const defs=`<h2>How findings are rated</h2><table>${RAGDEF.map(([k,l,d])=>`<tr><td class="${k}" style="width:12%">${l}</td><td>${esc(d)}</td></tr>`).join("")}</table><p><small>Evidence grades: seen and verified (document or record tested), seen but not tested, told only (management said so; not evidenced), not available.</small></p>`;
+    const disc=`<p><small>This operational review was prepared by NexaStrategic Ltd${c.client?" for "+esc(c.client)+" only. No other party may rely on it":""}. It is based on the information provided and the work described above, and is not an audit. It is not legal, tax, financial or regulated advice. Points under legal touchpoints should be reviewed by the company's own lawyers and the acquirer's legal advisers.</small></p>`;
+    if(kind==="redflag"){
+      html=docHTML(nm+" red-flag summary",`<h1>Red-flag summary: ${esc(nm)}</h1>${head}<p>Early findings that may affect price, deal structure or whether to proceed. A full report follows.</p><h2>Red flags</h2>${fTab(reds)}<h2>Estimated cost to fix</h2><p>Red findings: ${gbpA(reds.reduce((a,x)=>a+(+V(x.id).oneoff||0),0))||"£0"} one-off, ${gbpA(reds.reduce((a,x)=>a+(+V(x.id).ongoing||0),0))||"£0"} a year.</p>${defs}${disc}`);fn=nm+" - red-flag summary.doc"}
+    else{
+    const plan=ALL.filter(x=>V(x.id).rec).sort((a,b)=>({red:0,amber:1}[V(a.id).status]??2)-({red:0,amber:1}[V(b.id).status]??2));
+    const dealSec=["price","spa","cp"].map(k=>{const L=ALL.filter(x=>V(x.id).deal===k);return L.length?`<h3>${esc(dealL(k))}</h3><ul>${L.map(x=>`<li><b>${esc(x.q)}:</b> ${esc(V(x.id).finding||V(x.id).notes||"")}${V(x.id).oneoff?" ("+gbpA(V(x.id).oneoff)+")":""}</li>`).join("")}</ul>`:""}).join("");
+    html=docHTML(nm+" operational review",`<h1>Operational due diligence: ${esc(nm)}</h1>${head}
     <h2>Executive summary</h2><p>${esc(c.summary||"[Summary to be written]").replace(/\n/g,"<br>")}</p>
-    <h2>Red flags</h2>${reds.length?`<table><tr><th>Area</th><th>Finding</th><th>Recommendation</th></tr>${reds.map(x=>`<tr><td>${esc(x.q)}</td><td>${esc((it[x.id]||{}).finding||"")}</td><td>${esc((it[x.id]||{}).rec||"")}</td></tr>`).join("")}</table>`:"<p>None identified.</p>"}
-    <h2>Areas to improve</h2>${amb.length?`<table><tr><th>Area</th><th>Finding</th><th>Recommendation</th></tr>${amb.map(x=>`<tr><td>${esc(x.q)}</td><td>${esc((it[x.id]||{}).finding||"")}</td><td>${esc((it[x.id]||{}).rec||"")}</td></tr>`).join("")}</table>`:"<p>None identified.</p>"}
-    <h2>100-day plan</h2>${plan.length?`<table><tr><th>Priority</th><th>Action</th><th>Owner</th><th>By</th></tr>${plan.map(x=>{const v=it[x.id]||{};return `<tr><td class="${v.status||""}">${lab(v.status)}</td><td>${esc(v.rec)}</td><td>${esc(v.owner||"")}</td><td>${esc(v.due||"")}</td></tr>`}).join("")}</table>`:"<p>No actions recorded yet.</p>"}
-    `+WB.map(w=>`<h2>${esc(w.t)}</h2><table><tr><th style="width:28%">Check</th><th style="width:9%">Rating</th><th>What we found</th><th>Recommendation</th></tr>${w.items.map(([id,q])=>{const v=it[id]||{};return `<tr><td>${esc(q)}</td><td class="${v.status||""}">${lab(v.status)}</td><td>${esc(v.finding||v.notes||"")}</td><td>${esc(v.rec||"")}</td></tr>`}).join("")}</table>`).join("")+`<p><small>This is an operational review prepared by NexaStrategic Ltd. It is not legal, tax, financial or regulated advice. Points marked under legal touchpoints should be reviewed by the company's own lawyers.</small></p>`);fn=nm+" - operational review.doc"}
+    ${c.thesis?`<h2>Deal thesis</h2><p>${esc(c.thesis).replace(/\n/g,"<br>")}</p>`:""}
+    <h2>Scope and approach</h2><p>Work completed: ${PHASES.map(p=>esc(p.t)+" "+p.items.filter(([id])=>(c.phase||{})[id]).length+"/"+p.items.length).join(" · ")}.${c.site?" Site visit on "+esc(c.site)+".":""} ${S.length?S.length+" completed job"+(S.length===1?"":"s")+" sample-tested, "+exc+" with exceptions.":"No jobs sample-tested."}</p>
+    <p>Basis of the findings rated: ${G.map(([l,n])=>esc(l)+" "+n).join(" · ")}.</p>
+    <h2>Red flags</h2>${fTab(reds)}
+    <h2>How to handle the findings in the deal</h2>${dealSec||"<p>No findings need deal protection.</p>"}
+    <h2>Estimated costs</h2><p>All rated findings: ${gbpA(one)||"£0"} one-off and ${gbpA(ong)||"£0"} a year. Estimates only, based on the information available.</p>
+    <h2>Areas to improve</h2>${fTab(amb)}
+    <h2>100-day plan</h2>${plan.length?`<table><tr><th>Priority</th><th>Action</th><th>Owner</th><th>By</th></tr>${plan.map(x=>{const v=V(x.id);return `<tr><td class="${v.status||""}">${lab(v.status)}</td><td>${esc(v.rec)}</td><td>${esc(v.owner||"")}</td><td>${esc(v.due||"")}</td></tr>`}).join("")}</table>`:"<p>No actions recorded yet.</p>"}
+    <h2>Maturity by workstream</h2><table><tr><th>Workstream</th><th>Maturity</th><th>Red</th><th>Amber</th></tr>${WB.map(w=>`<tr><td>${esc(w.t)}</td><td>${MAT[+(c.maturity||{})[w.k]||0]}</td><td>${w.items.filter(([id])=>V(id).status==="red").length}</td><td>${w.items.filter(([id])=>V(id).status==="amber").length}</td></tr>`).join("")}</table>
+    `+WB.map(w=>`<h2>${esc(w.t)}</h2><table><tr><th style="width:26%">Check</th><th style="width:9%">Rating</th><th style="width:12%">Evidence</th><th>What we found</th><th>Recommendation</th></tr>${w.items.map(([id,q])=>{const v=V(id);return `<tr><td>${esc(q)}</td><td class="${v.status||""}">${lab(v.status)}</td><td>${esc(gradeL(v.grade))}</td><td>${esc(v.finding||v.notes||"")}</td><td>${esc(v.rec||"")}</td></tr>`}).join("")}</table>`).join("")
+    +(S.length?`<h2>Sample testing</h2><table><tr><th>Job</th><th>What we checked</th><th>Result</th><th>Note</th></tr>${S.map(r=>`<tr><td>${esc(r.ref)}</td><td>${esc(r.checked)}</td><td class="${r.result==="exception"?"red":r.result==="pass"?"green":""}">${r.result==="exception"?"Exception":r.result==="pass"?"Pass":"Not tested"}</td><td>${esc(r.note)}</td></tr>`).join("")}</table>`:"")
+    +defs+disc);fn=nm+" - operational due diligence report.doc"}}
   try{await downloads.save({filename:fn,data:new Blob([html],{type:"application/msword"})})}catch(_){}
 }
 function alertSt(t){const s=$("aqSaved");if(s)s.textContent=t}
