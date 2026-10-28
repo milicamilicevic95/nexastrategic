@@ -237,3 +237,11 @@ html,body{max-width:100%;overflow-x:clip}
 @media(max-width:720px){.thinking{grid-template-columns:minmax(0,1fr)!important}.thinking-copy{grid-column:auto}.thinking-steps,.thinking-stage{min-width:0}.hero h1,.new-hero h1{font-size:clamp(2.3rem,9vw,3.3rem)}}
 
 .application-confirmation{padding:2rem 0;max-width:38rem}.application-confirmation h3{font-size:clamp(1.7rem,3vw,2.4rem);margin:0 0 .7rem}.application-confirmation p{line-height:1.65}.form-status[data-state="error"]{color:#9a3129;margin-top:1rem}
+
+/* Accessibility (Oct 2026): small gold labels on cream/paper failed WCAG AA at 2.3:1.
+   --gold-ink keeps the brand hue at 4.7:1 for small text on light grounds.
+   The brand gold (#C2963C) is unchanged for large numerals and on olive sections. */
+:root{--gold-ink:#86631F}
+.kicker,.eyebrow,.tag,.role,.period,.price-label,.research-meta,.evidence-meta,.stage-label,.structure-item .n,.edition-head .n,.edition-list .index,.journal-row .num,.founding-facts span,.founding-rows span,.founding-rows small,.join-rows span,.placement-flow span,.placement-step span,.new-mechanics span,.benefit-scroll article span,.steps .select-btn span,.think-step span,.lens-btn span,.finding-btn span,.try-card .try-step{color:var(--gold-ink)!important}
+:is(.home-proof,.home-try,.consensus,.evidence,.footer,.section.dark,.thinking-stage,.select-btn.active) :is(.kicker,.eyebrow,.tag,.role,.period,.price-label,.research-meta,.evidence-meta,.stage-label,.structure-item .n,.join-rows span,.placement-flow span,.placement-step span,.new-mechanics span,.steps .select-btn span,.think-step span,.lens-btn span,.finding-btn span),.select-btn.active span{color:var(--gold)!important}
+.footer .links a,.footer-links a{display:inline-block;padding:5px 0}

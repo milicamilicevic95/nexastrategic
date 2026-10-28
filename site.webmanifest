@@ -1,8 +1,12 @@
 {
   "name": "Mila Milićević | NexaStrategic",
-  "short_name": "Mila Milićević",
+  "short_name": "NexaStrategic",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f1ede3",
-  "theme_color": "#f1ede3"
+  "background_color": "#faf6ef",
+  "theme_color": "#faf6ef",
+  "icons": [
+    { "src": "/assets/ns-icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/ns-icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
 }

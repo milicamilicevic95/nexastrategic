@@ -161,3 +161,30 @@ body:has(.editorial-hero) .site-header{min-height:84px}
 
 /* Selected operating results timeframe */
 .editorial-results .results-timeframe{margin:.35rem 0 1.8rem;color:#66565a;font-size:.95rem;line-height:1.5;}
+
+/* October 2026 review: Concentric section, teaching and writing, legibility */
+:root{--c-olive:#333a22;--c-cream:#f2ede1;--c-gold:#c2963c}
+.signature small{font-size:10.5px;letter-spacing:.14em}
+.site-footer{font-size:12px}.footer-links{gap:4px 18px}.footer-links a{display:inline-block;padding:10px 0;margin:0}
+.concentric-band{background:var(--c-olive);color:var(--c-cream);margin-top:0}
+.concentric-inner{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(36px,7vw,110px);align-items:center;padding-top:clamp(64px,8vw,104px);padding-bottom:clamp(64px,8vw,104px)}
+.concentric-mark img{width:100%;max-width:340px;height:auto;aspect-ratio:1;border-radius:2px}
+.concentric-kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-gold);font-weight:500;margin:0 0 20px}
+.concentric-copy h2{color:var(--c-cream);font-size:clamp(38px,4.2vw,58px);max-width:640px;margin-bottom:22px}
+.concentric-copy p{max-width:600px;color:rgba(242,237,225,.86)}
+.concentric-copy .concentric-lead{font:400 clamp(22px,2vw,27px)/1.3 var(--serif);color:var(--c-cream);margin-bottom:18px}
+.concentric-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:34px 0 34px;padding:22px 0 0;border-top:1px solid rgba(242,237,225,.22);max-width:600px}
+.concentric-facts div{margin:0}.concentric-facts dt{font:400 clamp(40px,4vw,54px)/1 var(--serif);color:var(--c-gold);margin-bottom:8px}.concentric-facts dd{margin:0;font-size:13px;line-height:1.45;color:rgba(242,237,225,.8)}
+.concentric-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px}
+.concentric-button{display:inline-flex;align-items:center;min-height:48px;padding:13px 22px;background:var(--c-cream);color:var(--c-olive);border-radius:2px;font-weight:500;font-size:14px;transition:background .2s}
+.concentric-button:hover{background:#fff}.concentric-button::after,.concentric-link::after{content:"→";margin-left:10px}
+.concentric-link{font-size:14px;border-bottom:1px solid rgba(242,237,225,.5);padding:6px 0 4px}.concentric-link:hover{border-color:var(--c-cream)}
+.concentric-band a:focus-visible{outline-color:var(--c-gold)}
+.concentric-copy .concentric-note{font-size:13px;color:rgba(242,237,225,.72);margin:26px 0 0}
+.also-work{display:grid;grid-template-columns:1fr 1fr;gap:clamp(35px,6vw,90px);padding-top:clamp(56px,7vw,84px);padding-bottom:clamp(56px,7vw,84px)}
+.also-work article+article{border-left:1px solid var(--line);padding-left:clamp(30px,4vw,60px)}
+.also-work h2{font-size:clamp(32px,3.2vw,44px);margin-bottom:18px}.also-work p{max-width:480px}.also-work .text-link{margin-right:22px}
+@media(max-width:800px){.concentric-inner{grid-template-columns:1fr}.concentric-mark img{max-width:120px}.also-work{grid-template-columns:1fr}.also-work article+article{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:36px}}
+@media(max-width:600px){.signature small{font-size:10px}.site-footer{font-size:12px}.site-footer a{display:inline-block;margin-top:0}.concentric-facts{gap:14px}.concentric-facts dd{font-size:12px}}
+.site-footer{align-items:center}
+@media(max-width:800px){.concentric-inner{gap:8px}.concentric-mark img{max-width:96px;margin-left:-14px}}

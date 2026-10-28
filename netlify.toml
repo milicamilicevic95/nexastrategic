@@ -2,6 +2,20 @@
   publish = "."
   functions = "netlify/functions"
 
+# Internal release notes and the archived v4 build are kept in the repository
+# but must never be served publicly.
+[[redirects]]
+  from = "/_internal/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/nexa-v4-netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/api/tool-waitlist"
   to = "/.netlify/functions/tool-waitlist"
