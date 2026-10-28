@@ -13,6 +13,7 @@ const F = {
   shelf: 'fldGRG57Bqj4X7JqL',
   patterns: 'fldpfhNWhmGxPYIAS',
   pick: 'fld5hkw91JJvAm9Px',
+  rating: 'fld11HksPocROmYsh',
   published: 'fldxzx7m6i0ZBLDPZ'
 };
 // Pattern Library entry name -> its anchor on /pattern-library/.
@@ -125,9 +126,10 @@ exports.handler = async event => {
         finished: text(f[F.finished], 10),
         shelf: choice(f[F.shelf]),
         pick: !!f[F.pick],
+        rating: Math.max(0, Math.min(5, Number(f[F.rating]) || 0)),
         patterns: (f[F.patterns] || []).map(choice).filter(n => PATTERNS[n]).map(n => ({ name: n, id: PATTERNS[n] }))
       }))
-      .sort((a, b) => (b.reading - a.reading) || (b.finished || '').localeCompare(a.finished || '') || a.title.localeCompare(b.title));
+      .sort((a, b) => (b.reading - a.reading) || (b.rating - a.rating) || (b.finished || '').localeCompare(a.finished || ''));
     return respond(200, { books }, 'public, max-age=300, s-maxage=3600');
   } catch (err) {
     console.error('Shelf: request failed', err);

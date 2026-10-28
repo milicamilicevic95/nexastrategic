@@ -39,6 +39,8 @@ a{color:inherit}
 .sh-v{margin:0;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:21px;line-height:1.45;color:#2b1212}
 .sh-tags{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}
 .sh-tags span{color:#7a5450}.sh-tags a{color:#6d0101;font-weight:600}
+.sh-stars{color:#f86c2f;letter-spacing:2px;font-size:16px;font-style:normal}
+.sh-now{padding:22px 24px;background:#c0d6ff;border-radius:12px}.sh-now h3{margin:0;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:24px;line-height:1.1;color:#2b1212}.sh-now p{margin:6px 0 0;font-size:15px;color:#2b1212}
 .sh-season{margin:32px 0 0;font-weight:400;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:20px;color:#6d0101}
 .sh-chip{min-height:44px;padding:0 16px;border:1px solid #6d0101;border-radius:4px;background:transparent;color:#6d0101;font:600 14px 'Hanken Grotesk',Arial,sans-serif;cursor:pointer}
 .sh-chip[aria-pressed=true]{background:#6d0101;color:#fcf4f0}
@@ -88,9 +90,10 @@ a{color:inherit}
 <p style="margin: 0 0 12px; font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 22px; color: #6d0101">What I’m reading</p>
 <h2 id="shelf-title" style="margin: 0; font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: clamp(48px, 6vw, 88px); line-height: 0.95; letter-spacing: -0.02em; color: #6d0101">The Shelf.</h2>
 </div>
-<p style="flex: 0 1 420px; margin: 0; font-size: 17px">One line on each book: what it gets right, or where it overreaches. Where a book shows a pattern at work, it links to the Pattern Library.</p>
+<p id="shelf-intro" style="flex: 0 1 420px; margin: 0; font-size: 17px">One line on each book: what it gets right, or where it overreaches. Where a book shows a pattern at work, it links to the Pattern Library.</p>
 </div>
-<div id="shelf-now"></div>
+<p id="shelf-now-lab" hidden style="margin: 0 0 12px; font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 20px; color: #6d0101">Reading now</p>
+<div id="shelf-now" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 16px"></div>
 <div id="shelf-pick"></div>
 <div id="shelf-chips" role="group" aria-label="Filter by shelf" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 24px"></div>
 <div id="shelf-list"></div>
@@ -129,19 +132,20 @@ a{color:inherit}
   const sec = document.getElementById('shelf'); if (!sec || !window.fetch) return;
   const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const tags = b => '<div class="sh-tags">' + (b.shelf ? '<span>' + esc(b.shelf) + '</span>' : '') + b.patterns.map(p => '<a href="/pattern-library/#' + esc(p.id) + '">' + esc(p.name) + '</a>').join('') + '</div>';
-  const row = b => '<article class="sh-row"><div><h3>' + esc(b.title) + '</h3><p class="sh-by">' + esc(b.author) + '</p></div><div>' + (b.verdict ? '<p class="sh-v">' + esc(b.verdict) + '</p>' : '') + tags(b) + '</div></article>';
+  const stars = n => n ? '<span class="sh-stars" role="img" aria-label="' + n + ' out of 5">' + '★'.repeat(n) + '</span>' : '';
+  const row = b => '<article class="sh-row"><div><h3>' + esc(b.title) + '</h3><p class="sh-by">' + esc(b.author) + '</p></div><div>' + stars(b.rating) + (b.verdict ? '<p class="sh-v">' + esc(b.verdict) + '</p>' : '') + tags(b) + '</div></article>';
   const card = (b, lab, bg, fg) => '<div class="sh-card" style="background:' + bg + ';color:' + fg + '"><span class="lab">' + lab + '</span><h3 style="margin:0;font-family:Gloock,Georgia,serif;font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.05">' + esc(b.title) + '</h3><p style="margin:0;font-size:16px">' + esc(b.author) + '</p>' + (b.verdict ? '<p style="grid-column:1/-1;margin:6px 0 0;font-family:\'Brygada 1918\',Georgia,serif;font-style:italic;font-size:22px;line-height:1.4">' + esc(b.verdict) + '</p>' : '') + '</div>';
   fetch('/api/shelf').then(r => r.ok ? r.json() : { books: [] }).then(({ books }) => {
     if (!books || !books.length) return;
     const now = books.filter(b => b.reading), pick = books.find(b => b.pick && !b.reading), done = books.filter(b => !b.reading);
-    document.getElementById('shelf-now').innerHTML = now.map(b => card(b, 'Reading now', '#c0d6ff', '#2b1212')).join('');
+    document.getElementById('shelf-now').innerHTML = now.map(b => '<div class="sh-now"><h3>' + esc(b.title) + '</h3><p>' + esc(b.author) + '</p></div>').join('');
     if (pick) document.getElementById('shelf-pick').innerHTML = card(pick, 'If you read one this year', '#6d0101', '#fcf4f0');
     const shelves = [...new Set(done.map(b => b.shelf).filter(Boolean))];
     const list = document.getElementById('shelf-list'), chips = document.getElementById('shelf-chips');
     let cur = '';
     const paint = () => {
       const L = done.filter(b => !cur || b.shelf === cur); let out = '', last = null;
-      L.forEach(b => { const s = b.season || ''; if (s !== last) { if (s) out += '<h3 class="sh-season">' + esc(s) + '</h3>'; last = s; } out += row(b); });
+      L.forEach(b => { const s = b.season || (b.rating ? ['', 'One star', 'Two stars', 'Three stars', 'Four stars', 'Five stars'][b.rating] : ''); if (s !== last) { if (s) out += '<h3 class="sh-season">' + esc(s) + '</h3>'; last = s; } out += row(b); });
       list.innerHTML = out;
       chips.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.s === cur));
     };
@@ -149,6 +153,8 @@ a{color:inherit}
       chips.innerHTML = ['', ...shelves].map(s => '<button type="button" class="sh-chip" data-s="' + esc(s) + '">' + (s ? esc(s) : 'Everything') + '</button>').join('');
       chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { cur = b.dataset.s; paint(); } });
     }
+    if (now.length) document.getElementById('shelf-now-lab').hidden = false;
+    if (!books.some(b => b.verdict)) document.getElementById('shelf-intro').textContent = 'What I’m reading now, and how I rated what I’ve finished. Where a book shows a pattern at work, it links to the Pattern Library.';
     paint(); sec.hidden = false;
   }).catch(() => {});
 })();
