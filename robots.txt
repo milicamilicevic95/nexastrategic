@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /concentric/keel/
+Sitemap: https://nexastrategic.com/sitemap.xml

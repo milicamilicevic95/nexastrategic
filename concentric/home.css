@@ -1,0 +1,64 @@
+/* Homepage and pricing additions (Keel launch, October 2026). Uses tokens from styles.css. */
+.home-status{margin:26px 0 0;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.home-proof{background:var(--olive);color:var(--cream);padding:26px 0}
+.home-proof p{margin:0;text-align:center;font-family:var(--serif);font-size:clamp(19px,1.9vw,26px);line-height:1.35;letter-spacing:-.01em}
+.home-note{font-size:15px!important;color:var(--muted);margin-top:26px}
+.home-mech{justify-content:flex-start;margin:34px 0 0}.home-mech span:first-child{padding-left:0}
+
+/* Try it */
+.home-try{background:var(--olive);color:var(--cream);padding:clamp(80px,9vw,130px) 0}
+.home-try-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:72px;align-items:start}
+.home-try .kicker{color:var(--gold)}
+.home-try h2{font-size:clamp(40px,4.4vw,64px);line-height:1.04;margin:0 0 22px}
+.home-try-lede{font-size:clamp(18px,1.6vw,21px);color:#e3dfd4;max-width:440px}
+.try-card{background:var(--cream);color:var(--ink);padding:clamp(26px,3vw,40px)}
+.try-card .try-step{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+.try-card .try-q{font-family:var(--serif);font-size:clamp(21px,2vw,26px);line-height:1.3;margin:0 0 22px}
+.try-opts{display:grid;gap:10px}
+.try-opt{font:inherit;text-align:left;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:14px 18px;cursor:pointer;font-size:16px;line-height:1.4;transition:border-color .2s,background .2s}
+.try-opt:hover{border-color:var(--olive)}
+.try-opt:focus-visible,.try-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.try-conf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.try-conf .try-opt{text-align:center;font-size:14px;padding:12px 6px}
+.try-tally{font-size:13px;color:var(--muted);margin:0 0 8px}
+.try-result h3{font-family:var(--serif);font-size:clamp(24px,2.3vw,30px);line-height:1.2;margin:0 0 12px}
+.try-result p{font-size:16px;line-height:1.6;color:#414437}
+.try-why{border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
+.try-why p{font-size:14px;color:var(--muted)}
+.try-actions{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:22px}
+.try-btn{background:none;border:0;padding:0;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:5px;color:var(--ink)}
+
+/* Pricing */
+.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin:10px 0 34px}
+.price-card{border:1px solid var(--line);background:var(--paper);padding:34px 32px}
+.price-card:first-child{border-color:var(--olive)}
+.new-section .price-label,.price-label{font-size:11px!important;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+.new-section .price,.price{font-family:var(--serif);margin:0 0 6px;line-height:1}
+.price b{font-weight:400;font-size:clamp(52px,5.4vw,76px);letter-spacing:-.03em}
+.price span{font-family:var(--sans);font-size:17px;color:var(--muted)}
+.new-section .price-alt,.price-alt{font-size:16px!important;margin:12px 0 18px;color:var(--ink)}
+.new-section .price-note,.price-note{font-size:14px!important;line-height:1.55;color:var(--muted);margin:0}
+.price-includes{list-style:none;margin:0 0 34px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;max-width:900px}
+.price-includes li{border-top:1px solid var(--line);padding:16px 0 16px 26px;position:relative;font-size:17px}
+.price-includes li::before{content:"";position:absolute;left:0;top:25px;width:12px;height:1px;background:var(--gold)}
+.price-status{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between;border-top:1px solid var(--olive);padding-top:24px;max-width:900px}
+.new-section .price-status p{margin:0;font-size:17px}
+.new-section .price-status .textlink{text-decoration:none}
+
+@media(max-width:980px){.home-try-grid{grid-template-columns:1fr;gap:34px}}
+@media(max-width:720px){
+  .price-grid,.price-includes{grid-template-columns:1fr}
+  .price-card{padding:26px 22px}
+  .try-conf{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home-proof p{text-align:left}
+}
+
+.try-actions .btn{min-height:46px;padding:0 18px}
+
+.price-buy{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.new-section .price-buy .btn{margin-top:0;text-decoration:none;border:1px solid var(--olive)}
+.new-section .price-buy .btn.outline{background:transparent;color:var(--olive)}
+.new-section .price-buy .btn.outline:hover{background:var(--olive);color:var(--cream)}
+.new-section .price-fine,.price-fine{font-size:13px!important;line-height:1.5;color:var(--muted);margin:14px 0 0}
+.new-section .price-fine a{text-underline-offset:4px}
+@media (max-width:720px){.price-buy .btn{width:100%;text-align:center}}

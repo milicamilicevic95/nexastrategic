@@ -1,0 +1,114 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/tool-waitlist"
+  to = "/.netlify/functions/tool-waitlist"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/keel"
+  to = "/.netlify/functions/keel"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/apply"
+  to = "/.netlify/functions/apply"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/concentric/council.html"
+  to = "/concentric/council/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/edition-one.html"
+  to = "/concentric/edition-one/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/evidence-base.html"
+  to = "/concentric/evidence-base/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/research-report.html"
+  to = "/concentric/research-report/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal.html"
+  to = "/concentric/journal/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/about.html"
+  to = "/concentric/about/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/apply.html"
+  to = "/concentric/apply/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/legal.html"
+  to = "/concentric/legal/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal/open-inquiry.html"
+  to = "/concentric/journal/open-inquiry/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal/why-six.html"
+  to = "/concentric/journal/why-six/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal/the-neutral-zone.html"
+  to = "/concentric/journal/the-neutral-zone/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal/several-selves.html"
+  to = "/concentric/journal/several-selves/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal/the-room-full-of-women.html"
+  to = "/concentric/journal/the-room-full-of-women/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/concentric/journal/the-inconvenience-test.html"
+  to = "/concentric/journal/the-inconvenience-test/"
+  status = 301
+  force = true
+
+
+
+[[headers]]
+  for = "/concentric/keel/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-cache"

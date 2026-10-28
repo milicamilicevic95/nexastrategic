@@ -1,0 +1,6 @@
+(() => {
+ const form=document.getElementById('tool-waitlist-form');if(!form)return;
+ const status=document.getElementById('tool-waitlist-status'),button=form.querySelector('button[type="submit"]');
+ form.addEventListener('submit',async event=>{event.preventDefault();if(!form.reportValidity())return;const data=new FormData(form);button.disabled=true;status.textContent='Submitting…';
+ try{const response=await fetch('/api/tool-waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:data.get('name'),email:data.get('email'),tool:'a-or-b',newsletterOptIn:data.get('updates')==='yes',website:data.get('website')||''})});const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||'We could not save your request. Please try again.');form.reset();status.textContent='You’re on the A or B? waitlist. We’ll email you when it is available.';}catch(error){status.textContent=error.message||'Something went wrong. Please try again.';}finally{button.disabled=false;}});
+})();

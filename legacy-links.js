@@ -1,0 +1,1 @@
+(() => {const destinations={'#tools':'/tools/','#tool-waitlist':'/tools/#tool-waitlist','#work':'/work/','#proof':'/work/','#approach':'/work/'};const destination=destinations[window.location.hash];if(destination)window.location.replace(destination);})();

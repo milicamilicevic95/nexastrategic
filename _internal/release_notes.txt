@@ -1,0 +1,4 @@
+NexaStrategic clarity and search foundations update, 10 October 2026.
+Updated page titles, descriptions, canonical links, Open Graph, Person/Organisation/Service JSON-LD, work page FAQ and engagement process. Removed duplicate service cards, duplicate speaking enquiry and repeated Build Notes link on homepage. Preserved Netlify functions, Concentric and tool checkout files.
+Not verified: Search Console ownership, Google Analytics property, indexing, performance on real devices, payment completion, public permission for historical commercial numbers. Do not claim verified Google rankings or full legal compliance.
+Unapproved media kit is not included.

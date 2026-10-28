@@ -1,0 +1,11 @@
+NexaStrategic legal and form release (16 October 2026)
+
+1. Upload the FULL ZIP to the existing NexaStrategic Netlify site. Do not upload only the changed pages.
+2. Check https://nexastrategic.com/enquiry-sent.html and https://nexastrategic.com/enquiry-sent and /enquiry-sent/ all load (the latter two are handled by netlify.toml).
+3. In Netlify, ensure form detection is enabled; redeploy after enabling if needed. Check Forms for nexa-enquiry.
+4. Submit a genuine test enquiry and confirm a NEW submission is visible under nexa-enquiry. A confirmation page alone does not prove delivery.
+5. Set email notification to milica@nexastrategic.com and test notification. Until confirmed, use direct email contact.
+6. Check /professional-terms/ and its footer links.
+7. Before client use, specify the Supplier's exact legal entity/trading status and contact address in the Engagement Order, have a UK solicitor review these terms (particularly liability cap, UCTA, IP, IR35, privacy/DPA and termination), and ensure the order incorporates version 1.0 of these terms.
+
+Note: This package cannot change the currently published site until it is deployed. No live Netlify form receipt has been verified.
