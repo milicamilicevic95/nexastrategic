@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NexaStrategic Due Diligence Portal</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: the NexaStrategic site's paper, ink and wine, set as a working data room. A sticky section index on the left, one section at a time on the right, hairline rules instead of boxes. */
+:root{
+  --paper:#fcf4f0; --paper-2:#f6e9e2; --card:#ffffff; --ink:#2b1212; --wine:#6d0101; --blush:#fbd3c0; --pink:#f86c2f;
+  --line:rgba(43,18,18,.16); --line-strong:rgba(43,18,18,.5); --muted:#7a5450;
+  --ok:#2f6b47; --warn:#9a5b12; --bad:#a3262a;
+  --display:"Gloock",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.45}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{width:min(1220px,100%);margin:0 auto}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:rgba(252,244,240,.96)}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(252,244,240,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.navin{height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-weight:700;letter-spacing:-.02em}
+.navmeta{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap;justify-content:flex-end}
+.save{display:inline-flex;align-items:center;gap:6px}
+.save i{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block}
+.save.ok i{background:var(--ok)} .save.busy i{background:var(--warn)} .save.err i{background:var(--bad)}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.03em;text-wrap:balance;margin:0}
+header.hero{padding-block:44px 34px;border-bottom:1px solid var(--line)}
+.herogrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:40px;align-items:end}
+.hero h1{font-size:clamp(38px,5.4vw,72px);line-height:.95;margin:18px 0 14px}
+.hero .sub{font-size:clamp(17px,1.6vw,21px);max-width:620px;line-height:1.3}
+.meter{border-top:1px solid var(--ink);padding-top:16px;display:grid;gap:10px}
+.meter strong{font-family:var(--display);font-weight:400;font-size:clamp(44px,5vw,68px);line-height:1;letter-spacing:-.04em}
+.meter .bar{height:4px;background:var(--line);position:relative}
+.meter .bar i{position:absolute;inset:0 auto 0 0;background:var(--wine)}
+.dates{display:flex;gap:8px 22px;flex-wrap:wrap;font-size:13px}
+.dates b{font-weight:600}
+.demo{background:var(--ink);color:var(--paper);font-size:13px;padding-block:9px}
+.demo .wrap{display:flex;gap:10px;align-items:center}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:48px;padding-block:36px 90px}
+@media (max-width:900px){.layout{grid-template-columns:1fr;gap:24px}.herogrid{grid-template-columns:1fr}}
+aside.idx{position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px);align-self:start;max-height:calc(100vh - 100px);overflow:auto;border-top:1px solid var(--ink)}
+@media (max-width:900px){aside.idx{position:static;max-height:none}}
+.idx button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:8px;align-items:baseline;width:100%;padding:10px 4px;border-bottom:1px solid var(--line);font-size:14px}
+.idx button:hover .nm{color:var(--wine)}
+.idx button[aria-current="true"]{background:var(--paper-2)}
+.idx button[aria-current="true"] .nm{color:var(--wine);font-weight:600}
+.idx .no{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.idx .ct{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.idx .ct.done{color:var(--ok)}
+.idx button:focus-visible{outline:2px solid var(--pink)}
+@media (max-width:900px){.idx{display:flex;overflow-x:auto;border-top:0;border-bottom:1px solid var(--ink)}.idx button{grid-template-columns:auto auto;white-space:nowrap;border-bottom:0;padding:10px 12px;width:auto}.idx .ct{display:none}}
+main{min-width:0}
+.view{display:grid;gap:30px}
+.view h2{font-size:clamp(30px,3.6vw,48px);line-height:1}
+.lead{font-size:19px;max-width:680px;line-height:1.35;margin:0}
+.prose{max-width:700px;display:grid;gap:14px}
+.prose p{margin:0}
+.block{border-top:1px solid var(--ink);padding-top:18px;display:grid;gap:4px}
+.block>.eyebrow{margin-bottom:6px}
+table.key{border-collapse:collapse;width:100%;max-width:700px;font-size:15px}
+table.key td{border-bottom:1px solid var(--line);padding:9px 10px 9px 0;vertical-align:top}
+table.key td:first-child{font-weight:600;white-space:nowrap;width:150px}
+.row{border-bottom:1px solid var(--line);padding:18px 0;display:grid;gap:12px}
+.rhead{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:baseline}
+.rno{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rtext{font-size:16px;line-height:1.4}
+.tag{font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 7px;border:1px solid var(--wine);color:var(--wine);white-space:nowrap}
+.tag.p1{background:var(--wine);color:#fff}
+.rbody{margin-left:64px;display:grid;gap:12px}
+@media (max-width:600px){.rhead{grid-template-columns:44px minmax(0,1fr)}.rhead .tag{grid-column:2;justify-self:start}.rbody{margin-left:0}}
+.seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line-strong);width:max-content;max-width:100%}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;padding:7px 12px;font-size:13px;border-right:1px solid var(--line);white-space:nowrap}
+.seg label:last-child span{border-right:0}
+.seg input:checked+span{background:var(--ink);color:var(--paper)}
+.seg input:focus-visible+span{outline:2px solid var(--pink);outline-offset:-2px}
+.seg label:hover span{background:var(--paper-2)}
+.seg input:checked+span:hover{background:var(--ink)}
+.detail{display:grid;gap:8px}
+.fl{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+textarea,input[type=text],input[type=email],input[type=date],select{width:100%;border:1px solid var(--line-strong);background:var(--card);padding:9px 11px;border-radius:0}
+textarea{min-height:76px;resize:vertical;line-height:1.4}
+input[type=date]{max-width:220px}
+.drop{border:1px dashed var(--line-strong);background:var(--card);padding:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:14px}
+.drop.over{border-color:var(--wine);background:var(--paper-2)}
+.btn{border:1px solid var(--ink);background:transparent;padding:10px 16px;font-size:13px;cursor:pointer;display:inline-flex;gap:10px;align-items:center}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.files{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;border:1px solid var(--line-strong);padding:4px 8px;display:inline-flex;gap:6px;align-items:center;max-width:100%}
+.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
+.chip.up{border-style:dashed;color:var(--muted)} .chip.err{border-color:var(--bad);color:var(--bad)}
+.chip .ok{color:var(--ok)}
+.hint{font-size:13px;color:var(--muted)}
+.err{color:var(--bad);font-size:13px}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-top:18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px 24px;max-width:760px}
+.field{display:grid;gap:6px}
+.field.wide{grid-column:1/-1}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-top:1px solid var(--ink)}
+.stat{padding:18px 18px 0 0}
+.stat strong{display:block;font-family:var(--display);font-weight:400;font-size:clamp(32px,3.4vw,46px);line-height:1}
+.stat span{display:block;margin-top:8px;font-size:13px;max-width:180px}
+ul.out{list-style:none;margin:0;padding:0;display:grid;max-width:760px}
+ul.out li{border-bottom:1px solid var(--line);padding:9px 0;display:grid;grid-template-columns:60px minmax(0,1fr);gap:10px;font-size:15px}
+ul.out button{all:unset;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.attest{background:var(--ink);color:var(--paper);padding:26px;display:grid;gap:14px;max-width:760px}
+.attest input[type=text]{background:transparent;border-color:rgba(252,244,240,.5);color:var(--paper)}
+.attest .btn{border-color:var(--paper);color:var(--paper)}
+.attest .btn.primary{background:var(--paper);color:var(--ink)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.check input{margin-top:4px;accent-color:var(--pink)}
+.done{border-top:1px solid var(--ink);padding-top:18px;display:grid;gap:10px;max-width:700px}
+footer{border-top:1px solid var(--line);padding-block:26px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.gate{min-height:60vh;display:grid;place-content:center;gap:14px;text-align:center;max-width:560px;margin:0 auto;padding-block:60px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:hover{transform:none}}
+.notice{border:1px solid var(--wine);background:#fff;padding:18px 20px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.notice p{margin:0}.rel{color:#6b625d;font-size:.9em}
+</style>
+</head>
+<body>
+<nav class="top gut"><div class="wrap navin">
+  <span class="brand">NexaStrategic</span>
+  <span class="navmeta"><span id="confid">Strictly confidential</span><span class="save" id="save" aria-live="polite"><i></i><span>Loading</span></span></span>
+</div></nav>
+<div class="demo gut" id="demo" hidden><div class="wrap"><b>Preview</b><span>Example data for a fictional company. Nothing you enter here is saved.</span></div></div>
+
+<div id="app">
+  <header class="hero gut"><div class="wrap herogrid">
+    <div><span class="eyebrow">Due diligence</span><h1>Operational, Governance and Compliance Review</h1><p class="sub">Loading your review.</p></div>
+  </div></header>
+</div>
+
+<footer class="gut"><div class="wrap"><span>NexaStrategic Ltd · Operational, Governance and Compliance Due Diligence</span><span>Questions: milica@nexastrategic.com</span></div></footer>
+
+<script id="pack" type="application/json">{"title":"Operational, Governance and Compliance Due Diligence","answers":["Yes","Partly","No","Not sure","Not applicable"],"statuses":["Provided","To follow","Not available","Not applicable"],"suggestedScore":{"Yes":2,"Partly":1,"No":0,"Not sure":0},"sections":[{"no":"1","name":"Corporate and governance","intro":"Who owns the Company, how it is governed, and how decisions are made and recorded.","requests":[["1.1","Group structure chart: every entity, ownership percentages and jurisdiction","P1"],["1.2","Certificate of incorporation, current articles of association and any amendments","P1"],["1.3","Register of members and fully diluted cap table (including options, warrants and convertible instruments)","P1"],["1.4","Shareholders' agreement and any side letters, voting or investment agreements","P1"],["1.5","Companies House filing history and confirmation that officer and PSC details are current, with allotment and share transfer records and copies of all charge instruments","P1"],["1.6","Board and shareholder minutes and written resolutions for the last three years","P2"],["1.7","Delegation of authority or approval matrix, and any board or committee terms of reference","P2"],["1.8","The most recent management or board pack, as presented to leadership","P1"],["1.9","Schedule of related-party arrangements, director loans and declared conflicts","P1"],["1.10","Powers of attorney granted by the Company","P2"]],"questions":[["Q1.1","Is the cap table complete and consistent with Companies House filings and the register of members?"],["Q1.2","Are the register of members and all Companies House filings up to date, including confirmation statements, PSC information, the registered email address and an appropriate registered office address?"],["Q1.3","Do the articles and shareholders' agreement reflect how the Company is run today?"],["Q1.4","Does the board or leadership team meet on a set cycle, with minutes and a record of decisions and actions?"],["Q1.5","Is there a written delegation of authority for spend, hiring, contracts, pricing and borrowing?"],["Q1.6","Are related-party arrangements and director conflicts declared, documented and approved?"],["Q1.7","Does leadership receive monthly management information covering finance, operations and people?"],["Q1.8","Have all directors and PSCs completed Companies House identity verification?"]],"open":"Describe how a significant decision, such as a senior hire or a new major supplier, is made and approved today."},{"no":"2","name":"Commercial contracts","intro":"The agreements the business depends on and how they are managed.","requests":[["2.1","The 10 largest customers by revenue (last full year and year to date), with the governing contract for each","P1"],["2.2","The 10 largest suppliers by spend, with the governing contract for each","P1"],["2.3","Standard terms of business and templates used with customers and suppliers (MSA, SOW, terms and conditions)","P1"],["2.4","Contract register, or a note of where signed contracts are held and who owns them","P2"],["2.5","Contracts with change of control, assignment restrictions, exclusivity, non-compete, most favoured customer or termination for convenience terms","P1"],["2.6","Agreements with agents, introducers, resellers or other intermediaries, with commission arrangements","P2"],["2.7","Guarantees, indemnities or warranties given outside standard terms","P2"],["2.8","Agreements outside the ordinary course of business (joint ventures, partnerships, acquisitions or disposals)","P2"],["2.9","Loan, overdraft, invoice finance and security documents","P1"],["2.10","Any material contract under dispute, renegotiation or notice of termination","P1"],["2.11","Any contacts or arrangements with competitors on pricing, tendering or territories, and trade association memberships","P2"]],"questions":[["Q2.1","Are all material customer contracts signed, current and held centrally?"],["Q2.2","Are standard customer and supplier terms used, and have they been reviewed in the last two years?"],["Q2.3","Have key contracts been reviewed for change of control, exclusivity and termination rights?"],["Q2.4","Are contract renewal and notice dates tracked, with a named owner?"],["Q2.5","Is there a defined process for contract review, approval, signature and storage?"],["Q2.6","Is the Company free of material contract disputes or notices of termination?"]],"open":"Which three contracts would cause the most damage if they ended, and why?"},{"no":"3","name":"Intellectual property and technology","intro":"What the Company owns, the systems it runs on, and who controls them.","requests":[["3.1","Schedule of registered IP (trade marks, designs, patents) with registered owner and renewal dates","P1"],["3.2","IP assignment and confidentiality agreements from founders, employees and contractors","P2"],["3.3","Inbound licences for material software and content, including SaaS subscriptions, with annual cost","P2"],["3.4","Licences the Company grants to customers or third parties","P2"],["3.5","Systems inventory: each system's purpose, business owner, admin account holder and renewal date","P1"],["3.6","Details of any proprietary software, its use of open-source components, and who holds the source code","P2"],["3.7","Domain names, website hosting and social media accounts, with the registered account holder for each","P1"],["3.8","Any IP claims made by or against the Company","P1"]],"questions":[["Q3.1","Does the Company own the IP it relies on, with written assignments from founders, employees and contractors?"],["Q3.2","Are domains, the website, social accounts and software subscriptions registered to the Company?"],["Q3.3","Is admin access to every core system held by the Company and by more than one person?"],["Q3.4","Is there an up-to-date inventory of systems and software licences?"]],"open":"Which system would stop the business if it were unavailable for a week?"},{"no":"4","name":"Regulatory compliance and licences","intro":"The rules that apply to the business and how it keeps to them.","requests":[["4.1","Schedule of licences, registrations, permits and authorisations, with renewal dates and owner","P1"],["4.2","Summary of the regulations that apply to the business and how compliance is monitored","P2"],["4.3","Correspondence with any regulator in the last three years, including inspections, complaints and notices","P1"],["4.4","Health and safety policy (written where five or more employees), risk assessments, RIDDOR reports and accident records for the last three years","P1"],["4.5","Consumer protection, advertising and marketing compliance materials, where the Company sells to consumers","P2"],["4.6","Modern slavery statement, only if the Company or its group has total turnover of £36m or more; otherwise supplier labour standards and supply chain policies","P2"],["4.7","Compliance calendar or register of filing and renewal deadlines","P2"],["4.8","Certifications held (for example ISO standards) and the latest audit reports","P2"]],"questions":[["Q4.1","Does the Company hold every licence, registration and permit its activities require?"],["Q4.2","Has the Company identified the regulations that apply to it, with a named owner for each?"],["Q4.3","Is there a compliance calendar for filings, renewals and reviews?"],["Q4.4","Are health and safety duties met (policy, risk assessments, training) for every site and role?"],["Q4.5","Has the Company been free of regulatory complaints, inspection findings or enforcement action in the last three years?"]],"open":"Which regulatory change would affect the business most in the next two years?"},{"no":"5","name":"Financial crime: bribery, sanctions and fraud","intro":"How the Company prevents bribery, fraud and dealings with sanctioned parties.","requests":[["5.1","Anti-bribery and corruption policy, gifts and hospitality register, and training records","P2"],["5.2","Procedures to prevent the facilitation of tax evasion (Criminal Finances Act 2017) and the Company's fraud prevention controls","P2"],["5.3","Sanctions screening approach for customers, suppliers and intermediaries; details of any dealings with sanctioned countries or persons","P1"],["5.4","Confirmation of whether the Company is within scope of the Money Laundering Regulations 2017 and, if so, its supervisor registration and policies","P2"],["5.5","Whistleblowing policy and a log of reports made in the last three years","P2"],["5.6","Internal or external investigations, self-reports or allegations of misconduct in the last five years","P1"]],"questions":[["Q5.1","Does the Company have proportionate procedures to prevent bribery, including controls on gifts and hospitality?"],["Q5.2","Has the Company assessed its exposure to the failure to prevent the facilitation of tax evasion offence, and does it have basic fraud prevention controls?"],["Q5.3","Are customers, suppliers and intermediaries checked against the UK Sanctions List where relevant?"],["Q5.4","Is there a whistleblowing route that staff know about?"],["Q5.5","Has the Company been free of allegations, investigations or self-reports of misconduct in the last five years?"]],"open":"Where would a payment, commission or discount be hardest to explain if someone asked?"},{"no":"6","name":"Data protection and information security","intro":"How the Company handles personal data and protects its systems.","requests":[["6.1","ICO data protection fee: reference number, tier and renewal date","P2"],["6.2","Record of processing activities: categories of personal data, purposes and retention periods","P2"],["6.3","Privacy notices for customers, website users and employees, and the cookie notice","P2"],["6.4","Data protection policies and staff training records","P2"],["6.5","List of data processors and the data processing agreements in place","P2"],["6.6","International data transfer mechanisms (for example the IDTA or the UK Addendum to the EU standard contractual clauses)","P2"],["6.7","Logs of personal data breaches, subject access requests and data protection complaints for the last three years, with any ICO notifications","P1"],["6.8","Information security policy, access control rules and the joiners, movers and leavers procedure","P2"],["6.9","Cyber Essentials or other certifications, penetration tests or security assessments in the last three years, with remediation status","P2"],["6.10","Backup and disaster recovery arrangements, and the date of the last restore test","P2"],["6.11","Security incidents, outages or ransomware events in the last three years","P1"],["6.12","Acceptable use policy and AI use policy","P2"],["6.13","Direct marketing consents and approach to PECR compliance","P2"]],"questions":[["Q6.1","Has the Company paid the ICO data protection fee, or recorded why it is exempt?"],["Q6.2","Is there a current record of the personal data held, why it is held, and for how long?"],["Q6.3","Are privacy notices current for customers, website users and staff?"],["Q6.4","Are data processing agreements in place with every processor and with clients where required?"],["Q6.5","Is there a working process and log for personal data breaches, subject access requests and data protection complaints?"],["Q6.6","Is access controlled through individual accounts, multi-factor authentication and prompt removal of leavers?"],["Q6.7","Are backups in place, and has a restore been tested in the last 12 months?"],["Q6.8","Does the Company hold Cyber Essentials or an equivalent certification?"],["Q6.9","Is there a policy governing staff use of AI tools and the data put into them?"]],"open":"What personal or client data would cause the most harm if it were exposed?"},{"no":"7","name":"People and employment","intro":"Employment terms and compliance, structure, and dependence on key people.","requests":[["7.1","Organisation chart showing roles and reporting lines","P1"],["7.2","Anonymised employee census: role, department, start date, contract type, hours, salary band, notice period and location","P1"],["7.3","Template employment contracts, and any non-standard contracts for senior staff","P2"],["7.4","Contractor, freelancer and self-employed installer list with agreements, rates and the basis for self-employed status; off-payroll (IR35) status determination statements where the Company is a medium or large client","P1"],["7.5","Employee handbook and HR policies","P2"],["7.6","Right to work check process and evidence of compliant checks for every employee, worker and individual subcontractor","P1"],["7.7","Pension scheme details and auto-enrolment compliance, including the latest declaration or re-declaration of compliance","P2"],["7.8","Bonus, commission, incentive and share option schemes","P2"],["7.9","Retention, change of control, severance or transaction bonus arrangements","P1"],["7.10","Disputes, grievances, disciplinary matters and tribunal claims in the last three years","P1"],["7.11","Leavers in the last 24 months, with any settlement agreements","P2"],["7.12","Key person dependencies: roles where knowledge or relationships sit with one person","P1"],["7.13","Recognition agreements with trade unions or employee representative bodies","P2"],["7.14","Sexual harassment prevention policy, risk assessment and training records, including steps to prevent harassment by customers and other third parties","P2"],["7.15","TUPE transfers into or out of the Company in the last three years, with any inherited liabilities or changes to transferred terms","P2"]],"questions":[["Q7.1","Has every employee and worker received a written statement of particulars that reflects their current role and pay?"],["Q7.2","Have right to work checks been completed and recorded for every employee and, for engagements from 1 October 2026, every worker and individual subcontractor?"],["Q7.3","Are contractors on written agreements, with employment status assessed and, where the Company is a medium or large client, off-payroll (IR35) determinations issued?"],["Q7.4","Is there a handbook with the core policies, and do managers apply it consistently?"],["Q7.5","Are national minimum wage, holiday pay and pension auto-enrolment duties met and up to date?"],["Q7.6","Is there a current organisation chart with defined roles and reporting lines?"],["Q7.7","Is the Company free of current employee disputes, grievances or tribunal claims?"],["Q7.8","Could the business run normally for a month without its founder or any single individual?"],["Q7.9","Has the Company taken and recorded all reasonable steps to prevent sexual harassment of its staff, including by customers and other third parties?"],["Q7.10","Has the Company reviewed its contracts, policies and dismissal practices for the Employment Rights Act 2025?"]],"open":"Which roles would be hardest to replace, and what would happen if those people left?"},{"no":"8","name":"Operations and delivery","intro":"How work moves from sale to delivery to invoice, and who owns each step.","requests":[["8.1","Overview of the operating model: how work moves from sale to delivery to invoice","P1"],["8.2","Process maps, standard operating procedures and quality controls for core processes","P2"],["8.3","Operational KPIs and the latest dashboard or report (delivery, quality, capacity, customer satisfaction)","P1"],["8.4","Capacity and resourcing plan for the next 12 months","P2"],["8.5","Key supplier and outsourcing dependencies, with contingency arrangements","P2"],["8.6","Customer complaints log, refunds, goodwill payments and remedial work in the last 24 months","P2"],["8.7","Projects or change programmes in progress, with status","P2"],["8.8","Known operational issues or backlogs","P1"]],"questions":[["Q8.1","Are core processes from sale to invoice documented and followed?"],["Q8.2","Does each core process have a named owner?"],["Q8.3","Are operational KPIs tracked and reviewed on a set cycle?"],["Q8.4","Is the business free of dependence on a single supplier, platform or customer?"],["Q8.5","Is there a resourcing plan for the next 12 months?"],["Q8.6","Are customer complaints logged, tracked and reviewed for root causes?"]],"open":"What is the main operational constraint on growth today?"},{"no":"9","name":"Financial controls","intro":"The controls around money, seen from a governance view. Tax is reviewed separately.","requests":[["9.1","Statutory accounts for the last three years and the latest management accounts (the copies shared for financial due diligence will do)","P1"],["9.2","Current year budget and the latest budget against actual report","P2"],["9.3","Bank mandates, authorised signatories and payment approval rules","P1"],["9.4","Expense and purchasing policies","P2"],["9.5","Credit control procedure and evidence of monthly aged debt review","P2"],["9.6","Accountant or auditor management letters","P2"],["9.7","Grants or other government support received, with any conditions","P2"]],"questions":[["Q9.1","Are management accounts produced within a set number of working days of month end? (State how many.)"],["Q9.2","Is there an annual budget, reviewed against actual results at least quarterly?"],["Q9.3","Do payments above a set threshold require a second approver?"],["Q9.4","Are invoicing and credit control run to a process, with aged debt reviewed monthly?"],["Q9.5","Is a cash flow forecast maintained and updated at least monthly?"]],"open":"Which financial number does leadership trust least, and why?"},{"no":"10","name":"Insurance, risk and resilience","intro":"How the Company identifies risk and would cope with disruption.","requests":[["10.1","Insurance schedule: insurer, cover, limits, excess and renewal date for each policy, including the employers' liability certificate","P1"],["10.2","Claims history for the last five years","P2"],["10.3","Risk register and the latest leadership review of it","P2"],["10.4","Business continuity plan (IT disaster recovery is covered at 6.10)","P2"],["10.5","Operational and health and safety incident log for the last three years (security incidents are covered at 6.11)","P2"]],"questions":[["Q10.1","Is there a risk register that leadership reviews at least quarterly?"],["Q10.2","Is insurance cover reviewed each year against the risks the business carries?"],["Q10.3","Is there a business continuity plan covering loss of systems, premises or key people?"],["Q10.4","Has the Company been free of significant operational or health and safety incidents in the last three years?"],["Q10.5","Will each insurance policy continue after a change of ownership without lapse or insurer consent?"]],"open":"What is the one event that would most damage the business, and how prepared is it?"},{"no":"11","name":"Litigation and disputes","intro":"Claims and proceedings by or against the Company.","requests":[["11.1","Current, pending or threatened litigation, arbitration or claims by or against the Company","P1"],["11.2","Claims settled in the last five years, with any continuing obligations","P2"],["11.3","Judgments (including county court judgments), statutory demands, winding up petitions, orders or undertakings affecting the Company","P1"]],"questions":[["Q11.1","Is the Company free of current, pending or threatened litigation, arbitration or claims?"]],"open":"Which customer, supplier or employee relationship is most likely to lead to a claim, and why?"},{"no":"12","name":"Property and assets","intro":"Where the Company operates from and what it owns or leases.","requests":[["12.1","Leases, licences to occupy and other property documents for every site","P2"],["12.2","Fixed asset register, including equipment and vehicles","P2"],["12.3","Charges, retention of title and hire purchase arrangements over Company assets, reconciled to the Companies House charges register","P1"]],"questions":[["Q12.1","Does the Company hold a valid lease or licence for every site it occupies?"]],"open":"Which site or asset would be hardest to replace, and why?"},{"no":"13","name":"Ownership transition","intro":"What a change of ownership depends on.","requests":[["13.1","Relationships, accounts and services held personally by founders or sellers rather than by the Company","P1"],["13.2","Services provided by a seller, shareholder or related company that would need a transition arrangement","P1"],["13.3","Third-party consents needed for a change of ownership (landlords, lenders, key customers, licensors)","P1"],["13.4","Key staff whose retention the seller considers critical to completion, with any promises made to them","P1"],["13.5","Knowledge held only by the founder or seller, and any handover plan","P2"],["13.6","Personal guarantees, indemnities or security given by founders or shareholders for Company obligations (leases, finance, supplier credit), with what is needed to release them at completion","P1"]],"questions":[["Q13.1","Are all customer, supplier, banking and platform relationships held in the Company's name?"],["Q13.2","Is the business free of reliance on services from a seller, shareholder or related company?"],["Q13.3","Have the third-party consents needed for a change of ownership been identified?"],["Q13.4","Is knowledge held only by the founder or seller written down?"]],"open":"What does the founder or seller do each week that nobody else could do tomorrow?"},{"no":"14","name":"Solar installation and sector compliance","intro":"Certification, consumer protection, grid connection, installation quality and safety.","requests":[["14.1","MCS certificate, certification body and scope (solar PV, battery storage, other technologies), whether certified under the legacy scheme or MCS:2025 and the transition date, with the latest surveillance assessment, any non-conformities and evidence of corrective action","P1"],["14.2","Consumer code membership (RECC or HIES), or, if the Company has left its code under MCS:2025, evidence of compliance with the MCS Customer Commitment; with any code or MCS complaints, monitoring findings, sanctions or alternative dispute resolution cases in the last three years","P1"],["14.3","Insurance-backed guarantee or MCS approved financial protection provider, policy terms, and evidence that each installation was registered; deposit and advance payment protection arrangements, with deposit levels compared to code limits","P1"],["14.4","Competent person scheme registrations covering electrical work (Part P) and microgeneration installation, confirming whether they cover structural work; otherwise building control approvals and roof structural assessments","P1"],["14.5","Installation volumes by month for the last 24 months, split by domestic and commercial, PV and battery","P1"],["14.6","Five complete recent installation files chosen by us: survey, design and performance estimate, contract and cancellation paperwork, electrical installation certificate, Building Regulations compliance certificate, commissioning results, DNO notification or approval, MCS certificate, guarantee registration and handover pack","P1"],["14.7","Log of G98 notifications and G99 applications and approvals for the last 24 months, including multiple premises applications and G100 export limitation schemes, with any outstanding or late","P1"],["14.8","Workmanship warranty terms, and a log of warranty claims and callbacks with their cost","P1"],["14.9","Manufacturer and distributor agreements, product warranty terms, and supply chain checks on panels and batteries, including forced labour risk","P2"],["14.10","Subcontractor list (installers, electricians, scaffolders, roofers) with agreements, insurance and evidence of competence","P1"],["14.11","Work at height and electrical safety: method statements, CDM 2015 arrangements (including client duties taken on for domestic clients), training records, incidents and any HSE contact","P1"],["14.12","Customer finance: lenders and brokers used, FCA credit broking permission or appointed representative status (with the principal agreement), commission arrangements, and finance complaints, section 75 claims and Financial Ombudsman cases","P1"],["14.13","Sales process: quote and contract templates, performance estimates and savings claims, sales scripts and incentives, cancellation rights handling (including written requests to start work early), and use of lead generation partners","P1"],["14.14","Customer complaints, chargebacks and review trends for the last 24 months","P2"],["14.15","WEEE and batteries compliance: producer registrations where the Company imports or own-brands panels or batteries, take-back arrangements, waste carrier registration and waste transfer records for end-of-life panels and batteries","P2"],["14.16","Battery storage fire safety: approach to siting and fire protection for domestic batteries against PAS 63100:2024 and the IET Code of Practice for Electrical Energy Storage Systems, with any thermal or fire incidents","P1"],["14.17","Government funded work: TrustMark registration, PAS 2035 compliance, a list of ECO4, Great British Insulation Scheme, Warm Homes and local authority funded installations, and any audit failures, remediation or clawbacks","P1"],["14.18","Regulatory contact log: correspondence with, or action by, Trading Standards, the CMA, the FCA, Ofgem, the Financial Ombudsman, MCS or a consumer code in the last five years","P1"],["14.19","Planning and structural evidence: roof structural assessments, and planning consents or prior approvals where permitted development did not apply","P2"],["14.20","Product recalls, manufacturer safety notices and field safety actions affecting installed panels, inverters or batteries, with traceability of the installed base","P2"]],"questions":[["Q14.1","Is MCS certification current for every technology the Company installs, including battery storage, with no open non-conformities?"],["Q14.2","Is the Company in good standing with RECC or HIES, or with MCS if it has left its code under MCS:2025, with no current sanctions?"],["Q14.3","Is every domestic installation covered by an insurance-backed guarantee or MCS approved financial protection product, with deposits and advance payments protected as required?"],["Q14.4","Is every installation notified to or approved by the DNO as required (G98 within 28 days of commissioning, or prior approval for multiple premises; G99 approval before installation)?"],["Q14.5","Is an MCS certificate raised within 30 days of commissioning, and a complete handover pack issued, for every installation?"],["Q14.6","Are subcontractors vetted for competence, insurance and right to work, and engaged on written agreements?"],["Q14.7","Are work at height and electrical safety controlled through method statements, training and supervision?"],["Q14.8","Where customers are offered finance, does the Company hold FCA credit broking permission or act as an appointed representative of an authorised principal?"],["Q14.9","Are sales practices compliant with consumer law, including Consumer Contracts Regulations cancellation rights and the DMCC Act 2024 unfair commercial practices rules?"],["Q14.10","Are warranty claims and callbacks logged, costed and analysed?"],["Q14.11","Has the Company completed, or agreed a date with its certification body for, its move to the MCS:2025 scheme?"],["Q14.12","Are battery locations and fire protection assessed against PAS 63100:2024 for every domestic battery installation?"],["Q14.13","Are all government funded installations delivered under current TrustMark registration and PAS 2035, with no open audit failures or remediation?"],["Q14.14","Has the Company had any contact with, or action from, Trading Standards, the CMA, the FCA, Ofgem, the Financial Ombudsman or MCS in the last five years?"]],"open":"Which part of the installation process most often goes wrong, and what does it cost?"}],"respondent":[{"key":"legalName","label":"Company legal name","type":"text"},{"key":"companyNumber","label":"Company registration number","type":"text"},{"key":"leadName","label":"Lead respondent name","type":"text"},{"key":"leadRole","label":"Lead respondent role","type":"text"},{"key":"leadEmail","label":"Lead respondent email","type":"email"},{"key":"contributors","label":"Other people who contributed, and to which sections","type":"long"},{"key":"summary","label":"What the business does and for whom (two or three sentences)","type":"long"},{"key":"headcount","label":"Headcount: employees and regular contractors","type":"text"},{"key":"revenue","label":"Revenue for the last full financial year","type":"choice","options":["Under £1m","£1m to £3m","£3m to £10m","£10m to £25m","Over £25m"]},{"key":"top3","label":"Share of revenue from the three largest customers","type":"choice","options":["Under 25%","25% to 50%","50% to 75%","Over 75%"]},{"key":"issue","label":"The operational issue taking most of leadership's time today","type":"long"}]}</script>
+<script>
+const PACK = JSON.parse(document.getElementById("pack").textContent);
+const API = "/.netlify/functions/dd-portal";
+const MAX_BYTES = 4*1024*1024;
+const S = {code:null, demo:false, company:null, respondent:{}, req:{}, ans:{}, fu:[], view:"start", submitted:false, pending:new Map(), timer:null, saving:false};
+const $ = s=>document.querySelector(s);
+const esc = v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const SECS = PACK.sections;
+const ALLREQ = SECS.flatMap(s=>s.requests.map(([no,item,p])=>({no,item,p,sec:s.no})));
+const ALLQ = SECS.flatMap(s=>s.questions.map(([no,q])=>({no,q,sec:s.no})));
+const fmtDate = d=>{ if(!d) return ""; const x=new Date(d); return isNaN(x)?d:x.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}); };
+
+/* ----- completion rules ----- */
+function reqDone(no){ const r=S.req[no]; if(!r||!r.status) return false;
+  if(r.status==="Provided") return (r.files||[]).length>0 || !!(r.note||"").trim();
+  if(r.status==="To follow") return !!r.date;
+  return !!(r.note||"").trim(); }
+function qDone(no){ const a=S.ans[no]; if(!a||!a.answer) return false; return a.answer==="Yes" || !!(a.explanation||"").trim(); }
+function secCounts(s){ const total=s.requests.length+s.questions.length; const done=s.requests.filter(r=>reqDone(r[0])).length+s.questions.filter(q=>qDone(q[0])).length; return {done,total}; }
+function overall(){ let d=0,t=0; SECS.forEach(s=>{const c=secCounts(s); d+=c.done; t+=c.total;}); return {d,t,pct:t?Math.round(d/t*100):0}; }
+
+/* ----- saving ----- */
+function setSave(state,text){ const el=$("#save"); el.className="save "+state; el.querySelector("span").textContent=text; }
+function queue(kind,key,data){ S.pending.set(kind+"|"+key,{kind,key,data}); clearTimeout(S.timer); setSave("busy","Unsaved changes"); S.timer=setTimeout(flush,1200); }
+async function flush(){
+  if(S.saving){ clearTimeout(S.timer); S.timer=setTimeout(flush,800); return; }
+  if(!S.pending.size) return;
+  const batch=[...S.pending.values()]; S.pending.clear();
+  if(S.demo){ setSave("ok","Not saved"); return; }
+  const body={action:"save",code:S.code,requests:[],answers:[],followups:[],respondent:null};
+  batch.forEach(b=>{ if(b.kind==="req") body.requests.push({no:b.key,...b.data}); else if(b.kind==="ans") body.answers.push({no:b.key,...b.data}); else if(b.kind==="fu") body.followups.push({id:b.key,...b.data}); else body.respondent=S.respondent; });
+  S.saving=true; setSave("busy","Saving");
+  try{
+    const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    if(!r.ok) throw new Error((await r.json().catch(()=>({}))).error||"Save failed");
+    setSave("ok","All changes saved");
+  }catch(e){ batch.forEach(b=>{ if(!S.pending.has(b.kind+"|"+b.key)) S.pending.set(b.kind+"|"+b.key,b); }); setSave("err","Not saved. Retrying"); clearTimeout(S.timer); S.timer=setTimeout(flush,6000); }
+  finally{ S.saving=false; }
+}
+window.addEventListener("beforeunload",e=>{ if(S.pending.size){ flush(); e.preventDefault(); e.returnValue=""; } });
+
+async function upload(no,file){
+  const r=S.req[no]||(S.req[no]={}); r.files=r.files||[];
+  const chip={name:file.name,state:"up"}; r.files.push(chip); renderSection();
+  if(file.size>MAX_BYTES){ chip.state="err"; chip.msg="Over 4 MB. Share a link in the note instead."; renderSection(); return; }
+  if(S.demo){ chip.state="ok"; renderSection(); afterChange(); return; }
+  try{
+    const b64=await new Promise((res,rej)=>{const fr=new FileReader(); fr.onload=()=>res(String(fr.result).split(",")[1]); fr.onerror=rej; fr.readAsDataURL(file);});
+    const resp=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"upload",code:S.code,no,filename:file.name,contentType:file.type||"application/octet-stream",data:b64})});
+    if(!resp.ok) throw new Error((await resp.json().catch(()=>({}))).error||"Upload failed");
+    chip.state="ok"; if(!r.status){ r.status="Provided"; }
+  }catch(e){ chip.state="err"; chip.msg="Upload failed. Try again, or share a link in the note."; }
+  renderSection(); afterChange();
+}
+
+async function uploadFu(id,file){
+  const f=S.fu.find(x=>x.id===id); if(!f) return; f.files=f.files||[];
+  const chip={name:file.name,state:"up"}; f.files.push(chip); renderFollowups();
+  if(file.size>MAX_BYTES){ chip.state="err"; chip.msg="Over 4 MB. Share a link in your answer instead."; renderFollowups(); return; }
+  if(S.demo){ chip.state="ok"; renderFollowups(); renderIndex(); return; }
+  try{
+    const b64=await new Promise((res,rej)=>{const fr=new FileReader(); fr.onload=()=>res(String(fr.result).split(",")[1]); fr.onerror=rej; fr.readAsDataURL(file);});
+    const resp=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"upload",code:S.code,followup:id,filename:file.name,contentType:file.type||"application/octet-stream",data:b64})});
+    if(!resp.ok) throw new Error("Upload failed");
+    chip.state="ok";
+  }catch(e){ chip.state="err"; chip.msg="Upload failed. Try again, or share a link in your answer."; }
+  renderFollowups(); renderIndex();
+}
+const fuDone=f=>!!(f.answer||"").trim()||(f.files||[]).some(x=>x.state==="ok");
+
+/* ----- rendering ----- */
+function render(){
+  const c=S.company||{};
+  const o=overall();
+  $("#app").innerHTML=`
+  <header class="hero gut"><div class="wrap herogrid">
+    <div><span class="eyebrow">Due diligence${c.client?" · "+esc(c.client):""}${c.project?" · Project "+esc(c.project):""}</span>
+      <h1>${esc(c.name||"Your company")}</h1>
+      <p class="sub">Operational, Governance and Compliance Review. Work through each section at your own pace; everything saves as you go.</p></div>
+    <div class="meter"><span class="eyebrow">Progress</span><strong id="pct">${o.pct}%</strong><div class="bar"><i id="pbar" style="width:${o.pct}%"></i></div>
+      <div class="dates">${c.p1Due?`<span><b>Priority 1</b> by ${esc(fmtDate(c.p1Due))}</span>`:""}${c.p2Due?`<span><b>Priority 2</b> by ${esc(fmtDate(c.p2Due))}</span>`:""}<span id="pcount">${o.d} of ${o.t} items complete</span></div></div>
+  </div></header>
+  <div class="gut"><div class="wrap layout">
+    <aside class="idx" id="idx" aria-label="Sections"></aside>
+    <main id="main" tabindex="-1"></main>
+  </div></div>`;
+  renderIndex(); renderMain();
+}
+function renderIndex(){
+  const items=[["start","","Start here",""],["details","","Your details",""],...SECS.map(s=>{const c=secCounts(s);return [s.no,s.no,s.name,`${c.done}/${c.total}`,c.done===c.total];}),...(S.fu.length?[["followups","","Follow-up questions",`${S.fu.filter(fuDone).length}/${S.fu.length}`,S.fu.every(fuDone)]]:[]),["submit","","Review and submit",""]];
+  $("#idx").innerHTML=items.map(([k,no,nm,ct,full])=>`<button type="button" data-v="${k}" aria-current="${S.view===k}"><span class="no">${no}</span><span class="nm">${esc(nm)}</span><span class="ct ${full?"done":""}">${ct}</span></button>`).join("");
+  $("#idx").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.v));
+}
+function go(v){ S.view=v; try{ location.hash = v==="start"?"":"s"+v; }catch(e){} renderIndex(); renderMain(); const m=$("#main"); m.focus({preventScroll:true}); window.scrollTo({top:Math.max(0,m.getBoundingClientRect().top+window.scrollY-90)}); }
+function afterChange(){ const o=overall(); const p=$("#pct"); if(p){p.textContent=o.pct+"%"; $("#pbar").style.width=o.pct+"%"; $("#pcount").textContent=`${o.d} of ${o.t} items complete`;} renderIndex(); }
+function renderMain(){
+  if(S.view==="start") return renderStart();
+  if(S.view==="details") return renderDetails();
+  if(S.view==="submit") return renderSubmit();
+  if(S.view==="followups") return renderFollowups();
+  renderSection();
+}
+function renderStart(){
+  const c=S.company||{};
+  $("#main").innerHTML=`<div class="view">
+    <div><span class="eyebrow">Start here</span><h2>About this review</h2></div>
+    ${S.fu.some(f=>!fuDone(f))?`<div class="notice"><p><b>We have ${S.fu.filter(f=>!fuDone(f)).length} follow-up question${S.fu.filter(f=>!fuDone(f)).length===1?"":"s"} for you.</b> They are listed under Follow-up questions.</p><button class="btn primary" type="button" id="gofu">Answer follow-ups</button></div>`:""}
+    <p class="lead">${esc(c.client||"Our client")} has engaged NexaStrategic to review how ${esc(c.name||"the Company")} is governed and run. The review covers corporate housekeeping, contracts, regulatory and data compliance, people, operations, financial controls, resilience and the solar sector's own requirements.</p>
+    <div class="block"><span class="eyebrow">What we need from you</span><div class="prose">
+      <p>Two things, section by section: the <b>documents</b> we have requested, and answers to a short set of <b>questions</b>. Priority 1 items are needed before our management call${c.p1Due?`, by ${esc(fmtDate(c.p1Due))}`:", within 5 working days"}. Priority 2 items follow${c.p2Due?` by ${esc(fmtDate(c.p2Due))}`:" within 10 working days"}.</p>
+      <p>You can leave and come back at any time using the same link. Several colleagues can work on it; the link is private to your company, so share it only with people who should see these documents.</p></div></div>
+    <div class="block"><span class="eyebrow">How to respond to each document request</span>
+      <table class="key"><tbody>
+      <tr><td>Provided</td><td>Upload the file. Files up to 4 MB each; for larger files, add a link in the note.</td></tr>
+      <tr><td>To follow</td><td>It exists and you will send it. Give the date you expect to.</td></tr>
+      <tr><td>Not available</td><td>It should exist but does not, or cannot be found. Add a short note.</td></tr>
+      <tr><td>Not applicable</td><td>It does not apply to the business. Add a short note explaining why.</td></tr></tbody></table></div>
+    <div class="block"><span class="eyebrow">Answering the questions</span><div class="prose"><p>Answer for the business as it runs today, not as planned. Any answer other than Yes needs a short explanation of what is in place. "Partly" and "Not sure" are useful answers: we will cover them on the call.</p></div></div>
+    <div class="block"><span class="eyebrow">Scope and confidentiality</span><div class="prose"><p>Unless a request says otherwise, it covers the last three years and documents currently in force. "The Company" includes any subsidiaries. Please anonymise personal data unless we ask otherwise. Tax is reviewed separately and is not covered here.</p><p>Everything you provide is held securely, used only for this review, and shared only with ${esc(c.client||"our client")} under the terms of our engagement. This review is operational and does not constitute legal, tax or financial advice.</p></div></div>
+    <div class="pager"><span></span><button class="btn primary" type="button" id="nx">Start with your details</button></div>
+  </div>`;
+  $("#nx").onclick=()=>go("details"); const gf=$("#gofu"); if(gf) gf.onclick=()=>go("followups");
+}
+function renderDetails(){
+  const r=S.respondent;
+  $("#main").innerHTML=`<div class="view">
+    <div><span class="eyebrow">Respondent details</span><h2>Your details</h2></div>
+    <div class="grid2">${PACK.respondent.map(f=>{
+      const v=r[f.key]||""; const id="r-"+f.key;
+      const input = f.type==="long"?`<textarea id="${id}" data-k="${f.key}">${esc(v)}</textarea>`
+        : f.type==="choice"?`<select id="${id}" data-k="${f.key}"><option value="">Choose</option>${f.options.map(o=>`<option ${v===o?"selected":""}>${esc(o)}</option>`).join("")}</select>`
+        : `<input id="${id}" data-k="${f.key}" type="${f.type==="email"?"email":"text"}" value="${esc(v)}">`;
+      return `<div class="field ${f.type==="long"?"wide":""}"><label class="fl" for="${id}">${esc(f.label)}</label>${input}</div>`;}).join("")}</div>
+    <div class="pager"><button class="btn" type="button" id="pv">Back</button><button class="btn primary" type="button" id="nx">Section 1: ${esc(SECS[0].name)}</button></div></div>`;
+  $("#main").querySelectorAll("[data-k]").forEach(el=>el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{S.respondent[el.dataset.k]=el.value; queue("resp","all",null);}));
+  $("#pv").onclick=()=>go("start"); $("#nx").onclick=()=>go(SECS[0].no);
+}
+function seg(name,options,cur,label){
+  return `<div class="seg" role="radiogroup" aria-label="${esc(label)}">${options.map(o=>`<label><input type="radio" name="${name}" value="${esc(o)}" ${cur===o?"checked":""}><span>${esc(o)}</span></label>`).join("")}</div>`;
+}
+function renderSection(){
+  if(["start","details","submit","followups"].includes(S.view)) return;
+  const s=SECS.find(x=>x.no===S.view); if(!s) return go("start");
+  const i=SECS.indexOf(s); const prev=i?SECS[i-1]:null; const next=SECS[i+1];
+  const keep = document.activeElement && document.activeElement.id; const y=window.scrollY;
+  $("#main").innerHTML=`<div class="view">
+    <div><span class="eyebrow">Section ${s.no} of ${SECS.length}</span><h2>${esc(s.name)}</h2></div>
+    <p class="lead">${esc(s.intro)}</p>
+    <div class="block"><span class="eyebrow">Documents requested · ${s.requests.length}</span>
+      ${s.requests.map(([no,item,p])=>reqRow(no,item,p)).join("")}</div>
+    ${s.questions.length?`<div class="block"><span class="eyebrow">Questions · ${s.questions.length}</span>${s.questions.map(([no,q])=>qRow(no,q)).join("")}
+      ${s.open?`<div class="row"><div class="rhead"><span class="rno">Open</span><span class="rtext">${esc(s.open)}</span><span></span></div><div class="rbody"><textarea id="o-${s.no}" data-open="Q${s.no}.O" aria-label="Your answer">${esc((S.ans["Q"+s.no+".O"]||{}).explanation||"")}</textarea></div></div>`:""}</div>`:""}
+    <div class="pager">${prev?`<button class="btn" type="button" data-go="${prev.no}">Back: ${esc(prev.name)}</button>`:`<button class="btn" type="button" data-go="details">Back: Your details</button>`}
+      ${next?`<button class="btn primary" type="button" data-go="${next.no}">Next: ${esc(next.name)}</button>`:(S.fu.length?`<button class="btn primary" type="button" data-go="followups">Next: Follow-up questions</button>`:`<button class="btn primary" type="button" data-go="submit">Review and submit</button>`)}</div>
+  </div>`;
+  wireSection();
+  if(keep){ const el=document.getElementById(keep); if(el){ el.focus({preventScroll:true}); } }
+  window.scrollTo(0,y);
+}
+function reqRow(no,item,p){
+  const r=S.req[no]||{}; const st=r.status||""; const sid=no.replace(".","_");
+  let detail="";
+  if(st==="Provided") detail=`<div class="detail"><div class="drop" data-drop="${no}"><span>Drag files here, or</span><label class="btn"><input type="file" multiple hidden data-file="${no}" id="f-${sid}">Choose files</label></div>
+      ${(r.files||[]).length?`<div class="files">${r.files.map(f=>`<span class="chip ${f.state||""}" title="${esc(f.msg||f.name)}">${f.state==="up"?"Uploading":f.state==="err"?"Failed":'<b class="ok">✓</b>'} <span>${esc(f.name)}</span></span>`).join("")}</div>`:""}
+      ${(r.files||[]).some(f=>f.state==="err")?`<span class="err">${esc((r.files.find(f=>f.state==="err")||{}).msg||"")}</span>`:""}
+      <label class="fl" for="n-${sid}">Note or link (optional)</label><input type="text" id="n-${sid}" data-note="${no}" value="${esc(r.note||"")}" placeholder="For example a shared folder link for large files"></div>`;
+  else if(st==="To follow") detail=`<div class="detail"><label class="fl" for="d-${sid}">Expected date</label><input type="date" id="d-${sid}" data-date="${no}" value="${esc(r.date||"")}"><label class="fl" for="n-${sid}">Note (optional)</label><input type="text" id="n-${sid}" data-note="${no}" value="${esc(r.note||"")}"></div>`;
+  else if(st) detail=`<div class="detail"><label class="fl" for="n-${sid}">${st==="Not applicable"?"Why it does not apply":"What exists instead, or why it is missing"}</label><textarea id="n-${sid}" data-note="${no}">${esc(r.note||"")}</textarea></div>`;
+  return `<div class="row" id="row-${sid}"><div class="rhead"><span class="rno">${no}</span><span class="rtext">${esc(item)}</span><span class="tag ${p==="P1"?"p1":""}">${p==="P1"?"PRIORITY 1":"PRIORITY 2"}</span></div>
+    <div class="rbody">${seg("st-"+sid,PACK.statuses,st,"Status for "+no)}${detail}</div></div>`;
+}
+function qRow(no,q){
+  const a=S.ans[no]||{}; const sid=no.replace(/\./g,"_");
+  const need=a.answer && a.answer!=="Yes";
+  return `<div class="row" id="row-${sid}"><div class="rhead"><span class="rno">${no.replace("Q","")}</span><span class="rtext">${esc(q)}</span><span></span></div>
+    <div class="rbody">${seg("a-"+sid,PACK.answers,a.answer||"","Answer to "+no)}
+    ${need?`<div class="detail"><label class="fl" for="e-${sid}">Explain what is in place today</label><textarea id="e-${sid}" data-exp="${no}">${esc(a.explanation||"")}</textarea></div>`:""}</div></div>`;
+}
+function wireSection(){
+  const m=$("#main");
+  m.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  m.querySelectorAll('input[type=radio][name^="st-"]').forEach(inp=>inp.onchange=()=>{const no=inp.name.slice(3).replace("_","."); const r=S.req[no]||(S.req[no]={}); r.status=inp.value; queue("req",no,{status:r.status,date:r.date||null,note:r.note||""}); renderSection(); afterChange();});
+  m.querySelectorAll('input[type=radio][name^="a-"]').forEach(inp=>inp.onchange=()=>{const no=inp.name.slice(2).replace(/_/g,"."); const a=S.ans[no]||(S.ans[no]={}); a.answer=inp.value; queue("ans",no,{answer:a.answer,explanation:a.explanation||""}); renderSection(); afterChange();});
+  m.querySelectorAll("[data-note]").forEach(el=>el.oninput=()=>{const no=el.dataset.note; const r=S.req[no]||(S.req[no]={}); r.note=el.value; queue("req",no,{status:r.status||null,date:r.date||null,note:r.note}); afterChange();});
+  m.querySelectorAll("[data-date]").forEach(el=>el.onchange=()=>{const no=el.dataset.date; const r=S.req[no]; r.date=el.value; queue("req",no,{status:r.status,date:r.date||null,note:r.note||""}); afterChange();});
+  m.querySelectorAll("[data-exp]").forEach(el=>el.oninput=()=>{const no=el.dataset.exp; const a=S.ans[no]; a.explanation=el.value; queue("ans",no,{answer:a.answer,explanation:a.explanation}); afterChange();});
+  m.querySelectorAll("[data-open]").forEach(el=>el.oninput=()=>{const no=el.dataset.open; const a=S.ans[no]||(S.ans[no]={}); a.explanation=el.value; queue("ans",no,{answer:null,explanation:a.explanation});});
+  m.querySelectorAll("[data-file]").forEach(el=>el.onchange=()=>{[...el.files].forEach(f=>upload(el.dataset.file,f));});
+  m.querySelectorAll("[data-drop]").forEach(z=>{
+    z.ondragover=e=>{e.preventDefault(); z.classList.add("over");}; z.ondragleave=()=>z.classList.remove("over");
+    z.ondrop=e=>{e.preventDefault(); z.classList.remove("over"); [...(e.dataTransfer.files||[])].forEach(f=>upload(z.dataset.drop,f));};
+  });
+}
+function renderFollowups(){
+  if(S.view!=="followups") return;
+  const keep=document.activeElement&&document.activeElement.id; const y=window.scrollY;
+  $("#main").innerHTML=`<div class="view">
+    <div><span class="eyebrow">After our first review</span><h2>Follow-up questions</h2></div>
+    <p class="lead">These are questions we have after reviewing what you sent. Answer each one in a few sentences and attach anything that supports it. Your answers save as you type.</p>
+    <div class="block">${S.fu.map(f=>{const fid=f.id;
+      return `<div class="row"><div class="rhead"><span class="rno">F${esc(f.no)}</span><span class="rtext">${esc(f.question)}${f.related?`<span class="rel"> · relates to ${esc(f.related)}</span>`:""}</span><span class="tag ${fuDone(f)?"":"p1"}">${fuDone(f)?"ANSWERED":"OPEN"}</span></div>
+      <div class="rbody"><label class="fl" for="fu-${fid}">Your answer</label><textarea id="fu-${fid}" data-fu="${fid}">${esc(f.answer||"")}</textarea>
+      <div class="drop" data-fudrop="${fid}"><span>Drag files here, or</span><label class="btn"><input type="file" multiple hidden data-fufile="${fid}">Choose files</label></div>
+      ${(f.files||[]).length?`<div class="files">${f.files.map(x=>`<span class="chip ${x.state||""}" title="${esc(x.msg||x.name)}">${x.state==="up"?"Uploading":x.state==="err"?"Failed":'<b class="ok">✓</b>'} <span>${esc(x.name)}</span></span>`).join("")}</div>`:""}
+      ${(f.files||[]).some(x=>x.state==="err")?`<span class="err">${esc((f.files.find(x=>x.state==="err")||{}).msg||"")}</span>`:""}</div></div>`;}).join("")}</div>
+    <div class="pager"><button class="btn" type="button" data-go="${SECS[SECS.length-1].no}">Back: ${esc(SECS[SECS.length-1].name)}</button><button class="btn primary" type="button" data-go="submit">Review and submit</button></div></div>`;
+  const m=$("#main");
+  m.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  m.querySelectorAll("[data-fu]").forEach(el=>el.oninput=()=>{const f=S.fu.find(x=>x.id===el.dataset.fu); f.answer=el.value; queue("fu",f.id,{answer:f.answer}); renderIndex();});
+  m.querySelectorAll("[data-fufile]").forEach(el=>el.onchange=()=>{[...el.files].forEach(file=>uploadFu(el.dataset.fufile,file));});
+  m.querySelectorAll("[data-fudrop]").forEach(z=>{z.ondragover=e=>{e.preventDefault(); z.classList.add("over");}; z.ondragleave=()=>z.classList.remove("over"); z.ondrop=e=>{e.preventDefault(); z.classList.remove("over"); [...(e.dataTransfer.files||[])].forEach(file=>uploadFu(z.dataset.fudrop,file));};});
+  if(keep){const el=document.getElementById(keep); if(el) el.focus({preventScroll:true});}
+  window.scrollTo(0,y);
+}
+function renderSubmit(){
+  const o=overall();
+  const p1=ALLREQ.filter(r=>r.p==="P1"&&!reqDone(r.no));
+  const p2=ALLREQ.filter(r=>r.p==="P2"&&!reqDone(r.no));
+  const uq=ALLQ.filter(q=>!qDone(q.no));
+  const ready=!p1.length && !uq.length;
+  $("#main").innerHTML=`<div class="view">
+    <div><span class="eyebrow">Review and submit</span><h2>${S.submitted?"Submitted":"Before you submit"}</h2></div>
+    <div class="stats"><div class="stat"><strong>${o.pct}%</strong><span>Overall complete</span></div><div class="stat"><strong>${p1.length}</strong><span>Priority 1 requests without a response</span></div><div class="stat"><strong>${uq.length}</strong><span>Questions unanswered or missing an explanation</span></div><div class="stat"><strong>${p2.length}</strong><span>Priority 2 requests without a response</span></div></div>
+    ${S.fu.some(f=>!fuDone(f))?`<div class="block"><span class="eyebrow">Follow-up questions still open</span><ul class="out">${S.fu.filter(f=>!fuDone(f)).map(f=>`<li><span class="rno">F${esc(f.no)}</span><button type="button" data-jump="followups">${esc(f.question)}</button></li>`).join("")}</ul></div>`:""}
+    ${p1.length?`<div class="block"><span class="eyebrow">Priority 1 still open</span><ul class="out">${p1.map(r=>`<li><span class="rno">${r.no}</span><button type="button" data-jump="${r.sec}">${esc(r.item)}</button></li>`).join("")}</ul></div>`:""}
+    ${uq.length?`<div class="block"><span class="eyebrow">Questions still open</span><ul class="out">${uq.map(q=>`<li><span class="rno">${q.no.replace("Q","")}</span><button type="button" data-jump="${q.sec}">${esc(q.q)}</button></li>`).join("")}</ul></div>`:""}
+    ${S.submitted?`<div class="done"><p class="lead">Thank you. Your responses are with us${S.company&&S.company.attestedBy?`, confirmed by ${esc(S.company.attestedBy)}`:""}.</p><p>You can keep adding documents marked To follow using this link. We will be in touch to arrange the management call.</p></div>`:`
+    <div class="attest"><span class="eyebrow">Confirmation</span>
+      <label class="check"><input type="checkbox" id="ac"> <span>I confirm that, to the best of my knowledge and belief and having made reasonable enquiries, the information provided for this review is accurate and complete. I will tell NexaStrategic promptly of any material change before the review is completed.</span></label>
+      <div class="grid2"><div class="field"><label class="fl" for="an" style="color:var(--blush)">Full name</label><input type="text" id="an" value="${esc(S.respondent.leadName||"")}"></div><div class="field"><label class="fl" for="ar" style="color:var(--blush)">Role</label><input type="text" id="ar" value="${esc(S.respondent.leadRole||"")}"></div></div>
+      ${ready?"":`<span style="font-size:14px">You can submit now and send the remaining items later, but Priority 1 items and all questions are needed before the management call.</span>`}
+      <div><button class="btn primary" type="button" id="sub">Submit responses</button></div><span id="subMsg" role="status"></span></div>`}
+  </div>`;
+  $("#main").querySelectorAll("[data-jump]").forEach(b=>b.onclick=()=>go(b.dataset.jump));
+  const sb=$("#sub"); if(sb) sb.onclick=submit;
+}
+async function submit(){
+  const msg=$("#subMsg");
+  if(!$("#ac").checked){ msg.textContent="Tick the confirmation to submit."; return; }
+  const name=$("#an").value.trim(), role=$("#ar").value.trim();
+  if(!name||!role){ msg.textContent="Add your full name and role."; return; }
+  await flush();
+  if(S.demo){ S.submitted=true; S.company.attestedBy=name; renderSubmit(); return; }
+  $("#sub").disabled=true; msg.textContent="Submitting";
+  try{
+    const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"submit",code:S.code,name,role})});
+    if(!r.ok) throw new Error((await r.json().catch(()=>({}))).error||"Submit failed");
+    S.submitted=true; S.company.attestedBy=name; renderSubmit();
+  }catch(e){ $("#sub").disabled=false; msg.textContent="That did not go through: "+e.message+". Please try again."; }
+}
+
+/* ----- boot ----- */
+function demoData(){
+  S.demo=true; $("#demo").hidden=false; $("#confid").textContent="Preview";
+  S.company={name:"Example Solar Installations Ltd",client:"Example Holdings",project:"Sunrise",p1Due:"2026-11-04",p2Due:"2026-11-11"};
+  S.respondent={legalName:"Example Solar Installations Ltd",leadName:"Sam Taylor",leadRole:"Managing Director"};
+  S.req={"1.1":{status:"Provided",files:[{name:"Group structure.pdf",state:"ok"}]},"1.2":{status:"Provided",files:[{name:"Articles of association.pdf",state:"ok"}]},"1.6":{status:"To follow",date:"2026-11-08"},"1.10":{status:"Not applicable",note:"No powers of attorney have been granted."}};
+  S.fu=[{id:"recDEMO00000000001",no:"1",question:"Your G98 log shows two installations from March with no notification date. Were these notified, and if so when?",related:"14.7",answer:"",files:[]}];
+  S.ans={"Q1.1":{answer:"Yes"},"Q1.4":{answer:"Partly",explanation:"Leadership meets weekly; minutes are kept for board meetings only."}};
+  setSave("ok","Not saved");
+}
+async function boot(){
+  let code=null; try{ code=new URLSearchParams(location.search).get("c"); }catch(e){}
+  const h=(location.hash||"").replace("#",""); if(h&&h.startsWith("s")){ const v=h.slice(1); if(["details","submit","followups"].includes(v)||SECS.some(s=>s.no===v)) S.view=v; }
+  if(!code){
+    if(/(^|\.)nexastrategic\.com$/i.test(location.hostname) && !/[?&]preview\b/.test(location.search)){ gate("This page is for invited companies","If you have been asked to complete a due diligence review, use the full link from your NexaStrategic email."); setSave("ok","Private"); return; }
+    demoData(); render(); return; }
+  S.code=code;
+  try{
+    const r=await fetch(API+"?c="+encodeURIComponent(code),{headers:{"Accept":"application/json"}});
+    if(r.status===404){ gate("This link is not recognised","Check you have the full link from your NexaStrategic email, or ask us for a new one."); return; }
+    if(!r.ok) throw new Error("load");
+    const d=await r.json();
+    S.company=d.company; S.respondent=d.respondent||{}; S.req=d.requests||{}; S.ans=d.answers||{}; S.submitted=!!(d.company&&d.company.submitted); S.fu=(d.followups||[]).map(f=>({...f,files:(f.files||[]).map(x=>({...x,state:"ok"}))})); if(S.view==="followups"&&!S.fu.length) S.view="start";
+    Object.values(S.req).forEach(x=>(x.files||[]).forEach(f=>f.state="ok"));
+    setSave("ok","All changes saved"); render();
+  }catch(e){
+    if(location.protocol==="file:"||!/\.|localhost/.test(location.hostname)){ demoData(); render(); return; }
+    gate("We could not load your review","Please refresh the page in a minute. If it keeps happening, email milica@nexastrategic.com.");
+  }
+}
+function gate(t,m){ $("#app").innerHTML=`<div class="gut"><div class="gate"><span class="eyebrow">NexaStrategic</span><h2>${esc(t)}</h2><p>${esc(m)}</p></div></div>`; setSave("err","Not connected"); }
+boot();
+</script>
+</body>
+</html>
