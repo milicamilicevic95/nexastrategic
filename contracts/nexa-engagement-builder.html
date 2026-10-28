@@ -532,7 +532,7 @@ Sounding-board sessions with the founder</textarea></div>
     <div class="f"><label for="nx_sign">Signatory</label><input id="nx_sign" value="Milica Milićević"></div>
     <div class="f"><label for="nx_role">Role</label><input id="nx_role" value="Director"></div>
     <div class="f"><label for="nx_terms_ver">Terms version</label><input id="nx_terms_ver" value="v1.0"></div>
-    <div class="f"><label for="nx_terms_url">Terms URL</label><input id="nx_terms_url" value="nexastrategic.com/terms/v1"></div>
+    <div class="f"><label for="nx_terms_url">Terms URL</label><input id="nx_terms_url" value="nexastrategic.com/professional-terms"></div>
     <div class="f full"><label for="tags">PandaDoc field tags</label><select id="tags"><option value="curly">Curly brackets {signature:Client}, for upload in the PandaDoc app</option><option value="square">Square brackets [signature:Client], for the PandaDoc API</option><option value="none">No tags, for print or another signing tool</option></select><span class="hint">PandaDoc swaps the tags for signature and date fields. Turn on field tag recognition when you upload, with signer roles “Nexa” and “Client”.</span></div>
   </div></details>
 
@@ -627,7 +627,7 @@ Sounding-board sessions with the founder</textarea></div>
   <div class="kpis" id="pfKpis"></div>
   <div class="two">
     <div class="card"><h3>Results by area</h3><div id="pfAreas" class="flow"></div></div>
-    <div class="card"><h3>Can you use it?</h3><p class="sub">Clause 10.5 of your Terms: name a client only with their written consent. Anonymised results are fine.</p><div id="pfPerm"></div></div>
+    <div class="card"><h3>Can you use it?</h3><p class="sub">Clause 14 of your Professional Services Terms: name a client only with their written consent. Anonymised results are fine.</p><div id="pfPerm"></div></div>
   </div>
   <div id="pfList" class="clist"></div>
 </section>
@@ -836,7 +836,7 @@ function buildDoc(){
     cur.push({k:"kick",runs:["Change Note · "+ref]});
     cur.push({k:"h2",runs:["Change Note"],dot:true});
     opening("Change Note");
-    P("This Change Note is made under clause 16 of the NexaStrategic Terms of Business and varies the Agreement formed by Engagement Order ",F(e.cn_order)," (the ",{b:"Agreement"},").");
+    P("This Change Note is made under clause 2 of the NexaStrategic Professional Services Terms and varies the Agreement formed by Engagement Order ",F(e.cn_order)," (the ",{b:"Agreement"},").");
     H("1. Changes");
     let k=1;
     lines(e.cn_changes).forEach(x=>C("1."+(k++),x));
@@ -918,18 +918,18 @@ function buildDoc(){
     ...fees,
     ["Invoicing","Monthly in "+inv+(inv==="advance"&&+e.inv_day>1?", on the "+ordinal(e.inv_day)+" of each month":"")+", payable within "+(e.pay_days?plural(e.pay_days,"day"):PH)+" of invoice"+(e.prorate?(inv==="advance"&&+e.inv_day>1&&e.svc==="ROA"?", with joiners and leavers pro-rated on the next invoice":", with part months pro-rated"):"")],
     fixed?["Renewal","Renewal review in month "+(e.renew_month||PH)+". Expires at the end of the Initial Term unless renewed in writing"]:["Notice",e.notice?plural(e.notice,"day")+"' written notice"+(e.init_term?", expiring no earlier than the end of the Initial Term":", given at any time"):F("")],
-    ["Key Person cover","Clause 4 of the Terms: after 10 consecutive Business Days of unplanned absence, approved cover or a pro rata reduction in the Fees"],
-    ...(fixed?[]:[["Annual fee review","On each anniversary of the Start Date, on at least 60 days' notice (clause 8.6 of the Terms)"]]),
-    ["Liability cap","As set out in clause 7.3 of the Terms: total Fees paid and payable in the 12 months before the first claim"],
+    ["Key Person cover","If the Key Person is unavailable through unplanned absence for more than 10 consecutive Business Days, Nexa will offer cover approved by the Client or reduce the Fees pro rata for the period of absence"],
+    ...(fixed?[]:[["Annual fee review","Nexa may review the Fees on each anniversary of the Start Date by giving at least 60 days' written notice"]]),
+    ["Liability cap","As set out in clause 15 of the Terms: total fees paid or payable in the 12 months before the event giving rise to the claim"],
     ["Governing law","The law of England and Wales; the courts of England and Wales have exclusive jurisdiction"]
   ]);
 
   /* Page 2: operative clauses (flows on from the key terms in the Word file) */
   page(true);
   H("2. The Agreement");
-  C("2.1","This Engagement Order, the Service Schedule attached to it and the NexaStrategic Terms of Business ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
+  C("2.1","This Engagement Order, the Service Schedule attached to it and the NexaStrategic Professional Services Terms ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
   C("2.2","If there is any conflict, this Engagement Order takes priority over the Service Schedule, and the Service Schedule takes priority over the Terms.");
-  C("2.3","Words with capital letters that are not defined in this Engagement Order have the meanings given to them in the Terms.");
+  C("2.3","Words with capital letters that are not defined in this Engagement Order have the meanings given to them in the Terms. In the Agreement, Nexa is the Supplier, and ",{b:"Business Day"}," means a day other than a Saturday, Sunday or bank holiday in England and Wales.");
   H("3. Fees, VAT and payment");
   const payDays=F(e.pay_days?plural(e.pay_days,"day"):"");
   let k=1;const c3=(...r)=>C("3."+(k++),...r);
@@ -941,7 +941,7 @@ function buildDoc(){
     c3("The Monthly Fee is the Client Rate multiplied by the number of ",Units,". ",{b:Unit}," means ",F(e.roa_def),". For each "+(bp?"Billing Period":"month")+", the number of "+Units+" is "+when+"."+(e.roa_cap?" The number of "+Units+" used to calculate the Monthly Fee is capped at "+e.roa_cap+", so the Monthly Fee will not exceed "+money(Number(e.roa_cap)*Number(e.roa_rate||0))+" plus VAT.":"")+" ",invText,", and each invoice is payable within ",payDays," of its date.");
     const track=lines(e.roa_track).map(x=>x.replace(/\{units\}/g,Units));
     if(track.length){C("3."+(k++),"The Client must:");cur[cur.length-1].list=track}
-    c3((bp&&e.prorate?"Where a "+Unit+" joins or leaves during a Billing Period, Nexa will add or credit a pro rata amount on the next invoice, calculated on the number of days in that Billing Period on which the membership was active.":inv==="advance"?"If the number of "+Units+" changes, the Monthly Fee changes from the next invoice.":"Each monthly invoice uses the number of "+Units+" for the month it covers.")+" Any personal data Nexa receives to verify the number of "+Units+" is processed under Schedule 1 of the Terms, only to calculate the Fees and provide the Services.");
+    c3((bp&&e.prorate?"Where a "+Unit+" joins or leaves during a Billing Period, Nexa will add or credit a pro rata amount on the next invoice, calculated on the number of days in that Billing Period on which the membership was active.":inv==="advance"?"If the number of "+Units+" changes, the Monthly Fee changes from the next invoice.":"Each monthly invoice uses the number of "+Units+" for the month it covers.")+" Any personal data Nexa receives to verify the number of "+Units+" is received by Nexa as an independent controller under clause 11 of the Terms, and is used only to calculate the Fees and provide the Services.");
     if(e.roa_review_m)c3("At "+plural(e.roa_review_m,"month")+" after the Start Date, or when the number of "+Units+" first reaches ",F(e.roa_review),", whichever is earlier, the parties will review in good faith Nexa's operational capacity, the delivery arrangements and any additional scope required. The review does not end the Engagement or change the Fees, and the existing terms continue unless both parties agree changes in writing.");
     else c3("When the number of "+Units+" first reaches ",F(e.roa_review),", the parties will review in good faith the Client Rate, Nexa's capacity and availability to support the Client at that level, and whether tiered pricing should apply. Until they agree any change in writing, the existing terms continue to apply.");
     daysClause();
@@ -990,7 +990,7 @@ function buildDoc(){
       H("A1. Scope"); L("A1.1",lines(e.a_scope).length?lines(e.a_scope):[F("")]);
       H("A2. Delegated authority");
       C("A2.1","The Key Person may approve expenditure of up to ",F(money(e.a_limit))," per item, within the budget the Client's board has approved. Any hire, dismissal or contractual commitment beyond that limit needs the written approval of the Client's chief executive or board.");
-      C("A2.2","The Key Person acts on the Client's behalf only within this delegated authority. All other decisions stay with the Client's board, in line with clause 6 of the Terms.");
+      C("A2.2","The Key Person acts on the Client's behalf only within this delegated authority. All other decisions stay with the Client's board, in line with clause 5 of the Terms.");
       H("A3. Reporting and rhythm");
       C("A3.1","The Key Person reports to ",F(e.a_report),". ",F(e.a_rhythm),".");
       H("A4. Out of scope");
@@ -999,7 +999,7 @@ function buildDoc(){
     if(s[0]==="B"){
       H("B1. Scope"); L("B1.1",lines(e.b_scope).length?lines(e.b_scope):[F("")]);
       H("B2. Authority");
-      C("B2.1","This service is advisory and supportive. The Key Person has no authority to bind the Client, approve expenditure or make employment decisions, and all decisions stay with the Client's board, in line with clause 6 of the Terms.");
+      C("B2.1","This service is advisory and supportive. The Key Person has no authority to bind the Client, approve expenditure or make employment decisions, and all decisions stay with the Client's board, in line with clause 5 of the Terms.");
       C("B2.2","Working in the Client's online workspaces, at its events or on its premises does not make the Key Person part of the Client's workforce. Nexa decides how the Services are carried out, and the Key Person is not subject to the Client's line management.");
       H("B3. Rhythm"); C("B3.1",F(e.b_rhythm),".");
       H("B4. Out of scope"); C("B4.1","Legal, tax or regulated financial advice; statutory director duties; and payroll processing.");
@@ -1070,7 +1070,7 @@ function render(){
       return "";
     }).join("");
     return '<article class="page"><div class="rh"><span class="mk">Nexa<i>.</i></span><span>'+esc(DOCS[docType()].label)+" · "+esc(ref)+"</span></div>"+body+'<div class="ft"><span>'+disc+"</span><span>"+(i+1)+" / "+pages.length+"</span></div></article>";
-  }).join("")+'<p class="note">This is a draft generated from NexaStrategic standard terms. Read it in full before sending, and make sure the Terms of Business '+esc(val("nx_terms_ver")||"")+" are published at the URL quoted.</p>";
+  }).join("")+'<p class="note">This is a draft generated from NexaStrategic standard terms. Read it in full before sending, and make sure the Professional Services Terms '+esc(val("nx_terms_ver")||"")+" are published at the URL quoted.</p>";
   const m=missing();
   document.querySelectorAll("summary .n[data-sec]").forEach(el=>{const s=m.out[el.dataset.sec];if(s===null){el.textContent="Not selected";el.className="n ok"}else if(s&&s.length){el.textContent=s.length+" to complete";el.className="n"}else{el.textContent="Complete";el.className="n ok"}});
   $("checks").innerHTML=m.all.length?"<b>Before you send</b>"+m.all.slice(0,6).map(x=>'<span class="bad">'+esc(x)+" is missing</span>").join("")+(m.all.length>6?"<span class=\"bad\">and "+(m.all.length-6)+" more</span>":""):"<b>Ready</b><span>Every required field is filled in. Read the draft once more, then download it.</span>";
