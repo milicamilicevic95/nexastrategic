@@ -66,6 +66,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/shelf"
+  to = "/.netlify/functions/shelf"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/keel"
   to = "/.netlify/functions/keel"
   status = 200

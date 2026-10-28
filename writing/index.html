@@ -32,6 +32,20 @@ a{color:inherit}
 .menu-btn{display:none;align-items:center;min-height:44px;padding:0 16px;border:1px solid currentColor;background:transparent;border-radius:4px;font:600 15px 'Hanken Grotesk',Arial,sans-serif;color:inherit;cursor:pointer}
 </style>
 
+<style id="shelf-css">
+.sh-row{display:grid;grid-template-columns:minmax(220px,1.1fr) 2fr;gap:6px 40px;padding:24px 0;border-top:1px solid #e6d6cf}
+.sh-row h3{margin:0;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:26px;line-height:1.1;color:#2b1212}
+.sh-by{margin:4px 0 0;font-size:15px;color:#7a5450}
+.sh-v{margin:0;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:21px;line-height:1.45;color:#2b1212}
+.sh-tags{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:14px}
+.sh-tags span{color:#7a5450}.sh-tags a{color:#6d0101;font-weight:600}
+.sh-season{margin:32px 0 0;font-weight:400;font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:20px;color:#6d0101}
+.sh-chip{min-height:44px;padding:0 16px;border:1px solid #6d0101;border-radius:4px;background:transparent;color:#6d0101;font:600 14px 'Hanken Grotesk',Arial,sans-serif;cursor:pointer}
+.sh-chip[aria-pressed=true]{background:#6d0101;color:#fcf4f0}
+.sh-card{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:baseline;padding:28px 32px;margin-bottom:16px;border-radius:12px}
+.sh-card .lab{grid-column:1/-1;font-size:14px;font-weight:600}
+@media (max-width:760px){.sh-row{grid-template-columns:1fr}.sh-card{grid-template-columns:1fr;padding:22px}#shelf>div{padding-left:16px!important;padding-right:16px!important}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -67,6 +81,22 @@ a{color:inherit}
 
 
 
+<section id="shelf" aria-labelledby="shelf-title" hidden style="background: #ffffff; border-top: 1px solid #e6d6cf">
+<div style="max-width: 1360px; margin: 0 auto; padding: 88px 40px 96px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 48px; margin-bottom: 40px">
+<div>
+<p style="margin: 0 0 12px; font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 22px; color: #6d0101">What I’m reading</p>
+<h2 id="shelf-title" style="margin: 0; font-family: 'Gloock', Georgia, serif; font-weight: 400; font-size: clamp(48px, 6vw, 88px); line-height: 0.95; letter-spacing: -0.02em; color: #6d0101">The Shelf.</h2>
+</div>
+<p style="flex: 0 1 420px; margin: 0; font-size: 17px">One line on each book: what it gets right, or where it overreaches. Where a book shows a pattern at work, it links to the Pattern Library.</p>
+</div>
+<div id="shelf-now"></div>
+<div id="shelf-pick"></div>
+<div id="shelf-chips" role="group" aria-label="Filter by shelf" style="display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 24px"></div>
+<div id="shelf-list"></div>
+</div>
+</section>
+
 <section style="background: #6d0101; color: #fcf4f0">
 <div style="max-width: 1360px; margin: 0 auto; padding: 88px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px">
 <div style="max-width: 760px">
@@ -94,5 +124,34 @@ a{color:inherit}
 })();
 </script>
 
+<script>
+(() => {
+  const sec = document.getElementById('shelf'); if (!sec || !window.fetch) return;
+  const esc = t => String(t || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const tags = b => '<div class="sh-tags">' + (b.shelf ? '<span>' + esc(b.shelf) + '</span>' : '') + b.patterns.map(p => '<a href="/pattern-library/#' + esc(p.id) + '">' + esc(p.name) + '</a>').join('') + '</div>';
+  const row = b => '<article class="sh-row"><div><h3>' + esc(b.title) + '</h3><p class="sh-by">' + esc(b.author) + '</p></div><div>' + (b.verdict ? '<p class="sh-v">' + esc(b.verdict) + '</p>' : '') + tags(b) + '</div></article>';
+  const card = (b, lab, bg, fg) => '<div class="sh-card" style="background:' + bg + ';color:' + fg + '"><span class="lab">' + lab + '</span><h3 style="margin:0;font-family:Gloock,Georgia,serif;font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.05">' + esc(b.title) + '</h3><p style="margin:0;font-size:16px">' + esc(b.author) + '</p>' + (b.verdict ? '<p style="grid-column:1/-1;margin:6px 0 0;font-family:\'Brygada 1918\',Georgia,serif;font-style:italic;font-size:22px;line-height:1.4">' + esc(b.verdict) + '</p>' : '') + '</div>';
+  fetch('/api/shelf').then(r => r.ok ? r.json() : { books: [] }).then(({ books }) => {
+    if (!books || !books.length) return;
+    const now = books.filter(b => b.reading), pick = books.find(b => b.pick && !b.reading), done = books.filter(b => !b.reading);
+    document.getElementById('shelf-now').innerHTML = now.map(b => card(b, 'Reading now', '#c0d6ff', '#2b1212')).join('');
+    if (pick) document.getElementById('shelf-pick').innerHTML = card(pick, 'If you read one this year', '#6d0101', '#fcf4f0');
+    const shelves = [...new Set(done.map(b => b.shelf).filter(Boolean))];
+    const list = document.getElementById('shelf-list'), chips = document.getElementById('shelf-chips');
+    let cur = '';
+    const paint = () => {
+      const L = done.filter(b => !cur || b.shelf === cur); let out = '', last = null;
+      L.forEach(b => { const s = b.season || ''; if (s !== last) { if (s) out += '<h3 class="sh-season">' + esc(s) + '</h3>'; last = s; } out += row(b); });
+      list.innerHTML = out;
+      chips.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x.dataset.s === cur));
+    };
+    if (shelves.length > 1) {
+      chips.innerHTML = ['', ...shelves].map(s => '<button type="button" class="sh-chip" data-s="' + esc(s) + '">' + (s ? esc(s) : 'Everything') + '</button>').join('');
+      chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { cur = b.dataset.s; paint(); } });
+    }
+    paint(); sec.hidden = false;
+  }).catch(() => {});
+})();
+</script>
 </body>
 </html>
