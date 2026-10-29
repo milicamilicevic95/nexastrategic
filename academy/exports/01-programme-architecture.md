@@ -1,6 +1,6 @@
 # Programme architecture
 
-_Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
+_Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Current drafts: nothing is approved unless its status says so._
 
 ## Operations programme for founders (working title)
 
@@ -12,7 +12,7 @@ A business that delivers reliably without the founder having to direct every mov
 
 **Guiding question**
 
-How do you remove yourself as the bottleneck in productivity?
+How to not be your own bottleneck?
 
 **How learning works**
 
@@ -28,6 +28,8 @@ How do you remove yourself as the bottleneck in productivity?
 | POSI: Proof of Skill Implementation | Practical placement | One real improvement in the learner's own business, with evidence that it happened and that the founder stepped out of it. | Proposed: yes (to be agreed) |
 
 **Teaching voice.** The programme helps founders find their own answer. Every module ends with coaching questions: "Have you thought about…?", "Consider…". The course gives concepts and methods; the founder decides what fits their business.
+
+**Two lenses.** The **panels** (process, people, commercial, finance and revenue, legal, compliance, governance, risk) describe what operations is made of, and are taught as one ball in Operations Fundamentals. The **pillars** (Direction, Ownership, Delivery, Visibility, Improvement) describe the conditions a business needs so the founder stops being the bottleneck, and carry course 2.
 
 **Principle, method, tactic**
 
@@ -91,20 +93,17 @@ The programme rests on five conditions. Each was tested with David's question: *
 
 **General principles and local requirements.** The programme separates general operating principles, which apply widely, from requirements that depend on jurisdiction, sector, company structure or circumstances. Where a specific legal, regulatory or software claim is made, it is recorded in the Sources register with its source, jurisdiction and review date, or flagged for research or professional review.
 
+**Who it's for and who owns it.** Designed as a NexaStrategic programme that can be offered to other companies and founder communities, not only to Founders House. Founders House is the first cohort. Offering it elsewhere depends on the IP and permitted-use position (decision d07) and is decision d19.
+
 **Proposed learning sequence**
 
 **Proposed learning sequence** (estimates, not commitments)
 
-1. **Operations Fundamentals** (all pillars). Baseline vocabulary and judgement. Required before every other course. About 4 to 5 hours of study plus a capstone of 3 to 5 hours.
-2. **Ownership, Delegation and Decision Rights** (Ownership). Recommended next for most founders, because most bottlenecks start here.
-3. Then, depending on where the learner's bottleneck sits:
-   - **Workflows, Projects and Documentation** (Delivery), or
-   - **Finance Operations and Capacity** (Visibility).
-4. **Operating Rhythm: Reporting, Review and Improvement** (Visibility, Improvement). Best after course 2 and at least one of the courses in step 3.
-5. **Commercial Operations: From Promise to Payment** (Direction, Delivery, Visibility). Requires Finance Operations.
-6. **Governance, Compliance and Legal Awareness** (Ownership, Visibility). Requires Ownership, Delegation and Decision Rights. Best after Commercial Operations.
+1. **Operations Fundamentals.** Operations from zero, as one ball with eight panels in four pairs. Seven modules (OF101 to OF107), about 6.5 to 7 hours including exercises. Required before every other course.
+2. **Not your own bottleneck** (working title; all five pillars). Where and why work depends on the founder, decision rights, documentation people use, seeing without checking, the capstone case and the POSI. About 13.5 to 20 hours including assessment.
+3. **Specialist follow-on courses** (ideas, not yet scoped): Ownership, Delegation and Decision Rights; Workflows, Projects and Documentation; Finance Operations and Capacity; Operating Rhythm; Commercial Operations; Governance, Compliance and Legal Awareness. Several overlap with OF102 to OF106 and course 2, so each will be re-scoped as a deeper follow-on, or dropped.
 
-Learners do not need every course. A founder whose problem is cash timing may go from Fundamentals to Finance Operations and stop there. The fortnightly or monthly masterclasses (frequency to be agreed) apply the courses; they are never required to complete one.
+Learners do not need every course. The masterclasses (frequency to be agreed) sit alongside the courses as after-school expert lectures; they are never required to complete one.
 
 ## Pillars
 
@@ -286,39 +285,91 @@ Improvement uses evidence from Visibility to change Delivery, Ownership or, when
 
 > Status: Draft (not approved)
 
-**Pillars:** Direction; Ownership; Delivery; Visibility; Improvement
+**Pillars:** None
 
 **Prerequisite courses:** None
 
 **Purpose**
 
-Give founders a shared operational vocabulary and enough judgement to diagnose why work depends on them, ask better questions, and choose a sensible first improvement.
+Teach founders what operations is, from zero, and how its parts connect. By the end they know what each part of operations involves, what "good enough" looks like at their size, and who should own it.
 
-The course answers one question: **how do you remove yourself as the bottleneck in productivity?** It does not answer it for each learner's business. It gives them the concepts and methods to answer it for themselves, and to judge advice and tools they are offered.
+The course answers one question: **what is operations, and who holds it in my business?** It is the first course in the programme. Course 2 (working title: Not your own bottleneck) builds on it.
 
 **Subjects covered**
 
-What operations is; how work moves; why founders become bottlenecks; ownership, decision rights and escalation; commitments and when to get specialist advice; documentation and SOPs; visibility; choosing and reviewing a first improvement. Governance, compliance and commercial awareness are introduced at a foundational level throughout.
+The eight panels of operations, taught in four pairs:
+
+| Pair | Panel | In one line |
+|---|---|---|
+| **The work** | Process | How the work gets done, step by step, and the tools it runs on |
+| | People | Who does the work: hiring, contracts, onboarding, leave, leavers, roles |
+| **The money** | Commercial | What you sell, at what price, on what terms |
+| | Finance and revenue | Money in and money out, records, tax and cash |
+| **The rules** | Legal | What the business has agreed to and stands on: structure, contracts, ownership of work |
+| | Compliance | The rules you have to follow, and being able to show you do |
+| **Control** | Governance | Who decides, who's accountable, and how you check |
+| | Risk | What could go wrong, how likely and how bad, and what you'll do about it |
 
 **Prerequisites**
 
-None. This course is the prerequisite for the rest of the programme.
+None. This is the first course in the programme.
 
 **Estimated learning time**
 
 Estimates only, to be checked in the pilot.
 
+| Module | Estimate |
+|---|---|
+| OF101 What operations is | about 45 minutes |
+| OF102 Process | about 60 minutes |
+| OF103 People | about 60 minutes |
+| OF104 Money: commercial, finance and revenue | about 60 minutes |
+| OF105 Legal and compliance | about 60 minutes |
+| OF106 Governance and risk | about 50 minutes |
+| OF107 Holding the ball | about 50 minutes |
+| **Total** | **about 6.5 to 7 hours**, including exercises, over four to seven weeks |
+
+**Not covered here**
+
+Legal, tax, financial or regulatory advice. Software training. The bottleneck diagnostics, decision rights in depth, the capstone case and the POSI, which are in course 2. Specialist depth in any one panel.
+
+### Not your own bottleneck (working title)
+
+> Status: Draft (not approved)
+
+**Pillars:** Direction; Ownership; Delivery; Visibility; Improvement
+
+**Prerequisite courses:** Operations Fundamentals
+
+**Purpose**
+
+Help founders stop being their own bottleneck: find where and why work depends on them, move decisions and outcomes to the right people, and prove one real change in their own business.
+
+The course answers the programme's question: **how to not be your own bottleneck?** It does not answer it for each learner's business. It gives them the concepts and methods to answer it for themselves.
+
+**Subjects covered**
+
+How work moves through a business; why founders become the bottleneck (the five types); ownership, decision rights and escalation; commitments and when to get specialist advice; documentation that people use; seeing what's happening without checking; choosing and reviewing a first improvement.
+
+**Prerequisites**
+
+Operations Fundamentals.
+
+**Estimated learning time**
+
+Estimates only, carried over from the earlier draft and to be re-checked.
+
 | Part | Estimate |
 |---|---|
 | Six modules, recordings | about 75 to 90 minutes in total |
 | Six modules, exercises and resources | about 3 to 3.5 hours in total |
-| Capstone case (OF190) | 3 to 5 hours |
-| POSI: Proof of Skill Implementation (OF195) | 6 to 10 hours, over four to eight weeks |
+| Capstone case (NB290) | 3 to 5 hours |
+| POSI: Proof of Skill Implementation (NB295) | 6 to 10 hours, over four to eight weeks |
 | **Total** | **about 13.5 to 20 hours**, over roughly two to three months |
 
 **Not covered here**
 
-Detailed finance, project management, governance, compliance and legal content. These have their own courses. Software training. The course mentions tools only to show how to judge whether one fits.
+Legal, tax, financial or regulatory advice. Software training. Detailed finance, project management, governance, compliance and legal content beyond recognition and escalation.
 
 ### Ownership, Delegation and Decision Rights
 

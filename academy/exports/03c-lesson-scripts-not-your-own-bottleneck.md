@@ -1,6 +1,6 @@
-# Lesson scripts: Operations Fundamentals
+# Lesson scripts: Not your own bottleneck (working title)
 
-_Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
+_Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Current drafts: nothing is approved unless its status says so._
 
 ## Module 1: What operations is, and why it is commercial
 

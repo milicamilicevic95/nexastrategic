@@ -172,6 +172,33 @@ label.btn{display:inline-flex;align-items:center}
 .card{background:var(--panel);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .card h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;letter-spacing:-.02em;font-variation-settings:"SOFT" 100}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.aqadd{display:grid;grid-template-columns:minmax(0,360px) auto;gap:12px;align-items:end;margin:0 0 14px}
+.aqtbl td{vertical-align:middle}.aqtbl small{color:var(--fg2)}
+.aqrag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;white-space:nowrap}
+.aqrag.red{color:var(--bad)}.aqrag.amber{color:var(--s2)}.aqrag.green{color:var(--good)}.aqrag.na,.aqrag.none{color:var(--fg2)}
+.aqbar{height:6px;background:var(--gridc);min-width:80px;margin:4px 0 2px}.aqbar i{display:block;height:100%;background:var(--s1)}
+.aqhead{align-items:flex-start}.aqname{font-family:var(--display);font-weight:400;font-size:28px;margin:8px 0 2px}
+.aqtabs{margin:0 0 12px}.aqpane{display:flex;flex-direction:column;gap:12px}
+.aqgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.aqsecs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.aqsec{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);background:var(--field);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.aqsec:focus-visible{outline:2px solid var(--pink)}.aqsec b{font-size:13px}.aqsec small{color:var(--fg2);font-size:12px}.aqredt{color:var(--bad);font-weight:600}
+.aqh{margin:6px 0 0;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg2)}
+.aqitem{border:1px solid var(--line);background:var(--panel)}.aqitem.red{border-left:3px solid var(--bad)}.aqitem.amber{border-left:3px solid var(--s2)}.aqitem.green{border-left:3px solid var(--good)}
+.aqitem summary{cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center;padding:11px 14px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--fg)}
+.aqitem summary::-webkit-details-marker{display:none}.aqq{flex:1;font-size:14px;font-weight:600}
+.aqev{font-size:11px;color:var(--fg2)}
+.aqbody{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px}
+.aqreq{margin:0;font-size:13px;color:var(--fg2)}
+.aqrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.aqrow2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aqnote{border-top:1px solid var(--line);padding-top:8px}.aqnote p{margin:2px 0 0;white-space:pre-wrap;font-size:14px}.aqnote small{color:var(--fg2)}
+.aqprop{border:1px solid var(--accent);padding:12px 14px;display:flex;flex-direction:column;gap:8px}.aqpi p{margin:2px 0 0;font-size:13px}
+.aqleft{justify-content:flex-start;align-items:center;gap:10px}
+.aqck{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line);font-size:14px;font-weight:400;color:var(--fg);cursor:pointer}.aqck input{width:18px;height:18px;margin:1px 0 0;flex:none}.aqck.done span{color:var(--fg2);text-decoration:line-through}
+.aqdef{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12.5px;color:var(--fg2)}.aqdef b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.aqsmp{display:grid;grid-template-columns:1fr 2fr 130px 2fr auto;gap:8px;align-items:end;padding:6px 0;border-top:1px solid var(--line)}
+.aqphases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.aqphases>div{min-width:0}
+@media (max-width:900px){.aqgrid,.aqrow,.aqrow2,.aqadd,.aqdef,.aqphases,.aqsmp{grid-template-columns:1fr}}
 .seg{display:flex;gap:4px}.seg .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
 .ptbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin:0 0 14px}
 .pcard .chead{flex-wrap:wrap;row-gap:6px}
@@ -393,7 +420,7 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
 </style>
 
 <div class="top">
-  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="academy" aria-selected="false">Academy</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
+  <div class="brand"><h1><button class="homebtn" type="button" data-go="home">Nexa<i>.</i> OS</button></h1><nav class="tabs" role="tablist" aria-label="Sections"><button class="tab" type="button" role="tab" data-view="home" aria-selected="true">Home</button><button class="tab" type="button" role="tab" data-view="clients" aria-selected="false">Active clients</button><button class="tab" type="button" role="tab" data-view="outreach" aria-selected="false">Outreach</button><button class="tab" type="button" role="tab" data-view="capacity" aria-selected="false">Capacity</button><button class="tab" type="button" role="tab" data-view="portfolio" aria-selected="false">Portfolio</button><button class="tab" type="button" role="tab" data-view="acq" aria-selected="false">Due diligence</button><button class="tab" type="button" role="tab" data-view="patterns" aria-selected="false">Patterns</button><button class="tab" type="button" role="tab" data-view="academy" aria-selected="false">Academy</button><button class="tab" type="button" role="tab" data-view="legal" aria-selected="false">Legal</button><button class="tab" type="button" role="tab" data-view="forecast" aria-selected="false">Finance forecast</button><button class="tab" type="button" role="tab" data-view="pension" aria-selected="false">Pension</button></nav></div>
   <div class="acts" id="contractActs"><span id="refLabel" class="lab2">NX-2026-001</span>
     <span class="status" id="status" role="status"></span>
     <button class="btn" id="newBtn" type="button">New</button>
@@ -437,13 +464,13 @@ tr.tot td{font-weight:700;border-bottom:2px solid var(--fg)}
   </div></details>
 
   <details open id="d-eng" data-doc="EO"><summary>Engagement <span class="n" data-sec="eng"></span></summary><div class="fs">
-    <div class="f full"><label for="svc">Service</label><select id="svc"><option value="FCOO">Fractional COO</option><option value="ROA">Resident Operations Adviser</option><option value="OA">Operations Adviser</option></select></div>
+    <div class="f full"><label for="svc">Service</label><select id="svc"><option value="FCOO">Fractional COO</option><option value="ROA">Operations Adviser in Residence</option><option value="OA">Operations Adviser</option></select></div>
     <div class="f"><label for="order_date">Order date</label><input id="order_date" type="date"></div>
     <div class="f"><label for="start">Start date</label><input id="start" type="date"></div>
-    <div class="f"><label for="init_term">Initial term (months)</label><input id="init_term" type="number" min="1" value="6" placeholder="None: rolling from the start"></div>
+    <div class="f"><label for="init_term">Initial term (months)</label><input id="init_term" type="number" min="1" value="12" placeholder="None: rolling from the start"></div>
     <div class="f"><label for="term_mode">After the initial term</label><select id="term_mode"><option value="rolling">Rolls on until notice</option><option value="fixed">Expires unless renewed in writing</option></select></div>
     <div class="f" data-term="rolling"><label for="notice">Notice after initial term (days)</label><input id="notice" type="number" min="1" value="60"></div>
-    <div class="f" data-term="fixed"><label for="renew_month">Renewal review in month</label><input id="renew_month" type="number" min="1" value="5"></div>
+    <div class="f" data-term="fixed"><label for="renew_month">Renewal review in month</label><input id="renew_month" type="number" min="1" value="11"></div>
     <div class="f full" data-svc="FCOO ROA"><label for="commit_mode">What the client is buying</label><select id="commit_mode"><option value="days">A set number of days per month</option><option value="scope">Defined advisory services, with no day commitment</option></select></div>
     <div class="f" data-svc="FCOO ROA" data-commit="days"><label for="days">Commitment, days per month</label><input id="days" type="number" min="0" step="0.5" value="6"></div>
     <div class="f" data-svc="FCOO"><label for="fcoo_fee">Monthly fee, £ excl. VAT</label><input id="fcoo_fee" type="number" min="0" step="50" value="5000"><span class="hint">Starter level is £5,000. You can change it.</span></div>
@@ -474,7 +501,7 @@ Delivery, supplier and operational risk management</textarea></div>
     <div class="f full"><label for="a_rhythm">Rhythm</label><input id="a_rhythm" value="Weekly founder session and a monthly operating review pack"></div>
   </div></details>
 
-  <details id="d-B"><summary>Schedule · Resident Operations Adviser <span class="n" data-sec="B"></span></summary><div class="fs">
+  <details id="d-B"><summary>Schedule · Operations Adviser in Residence <span class="n" data-sec="B"></span></summary><div class="fs">
     <div class="f full"><label for="b_scope">Scope, one item per line</label><textarea id="b_scope">Embedded operations support to the founder and leadership team
 Process design, documentation and operating cadence
 People operations, onboarding and hiring support
@@ -505,7 +532,7 @@ Sounding-board sessions with the founder</textarea></div>
     <div class="f"><label for="nx_sign">Signatory</label><input id="nx_sign" value="Milica Milićević"></div>
     <div class="f"><label for="nx_role">Role</label><input id="nx_role" value="Director"></div>
     <div class="f"><label for="nx_terms_ver">Terms version</label><input id="nx_terms_ver" value="v1.0"></div>
-    <div class="f"><label for="nx_terms_url">Terms URL</label><input id="nx_terms_url" value="nexastrategic.com/terms/v1"></div>
+    <div class="f"><label for="nx_terms_url">Terms URL</label><input id="nx_terms_url" value="nexastrategic.com/professional-terms"></div>
     <div class="f full"><label for="tags">PandaDoc field tags</label><select id="tags"><option value="curly">Curly brackets {signature:Client}, for upload in the PandaDoc app</option><option value="square">Square brackets [signature:Client], for the PandaDoc API</option><option value="none">No tags, for print or another signing tool</option></select><span class="hint">PandaDoc swaps the tags for signature and date fields. Turn on field tag recognition when you upload, with signer roles “Nexa” and “Client”.</span></div>
   </div></details>
 
@@ -544,6 +571,7 @@ Sounding-board sessions with the founder</textarea></div>
     <button class="door" type="button" data-go="outreach"><b>Outreach</b><span id="doorOutreach"></span></button>
     <button class="door" type="button" data-go="capacity"><b>Capacity</b><span id="doorCapacity"></span></button>
     <button class="door" type="button" data-go="portfolio"><b>Portfolio</b><span id="doorPortfolio"></span></button>
+    <button class="door" type="button" data-go="acq"><b>Operational due diligence</b><span id="doorAcq">Portfolio company workbooks</span></button>
     <button class="door" type="button" data-go="patterns"><b>Pattern library</b><span id="doorPatterns"></span></button>
     <button class="door" type="button" data-go="academy"><b>Operations Academy</b><span id="doorAcademy"></span></button>
     <button class="door" type="button" data-go="legal"><b>Legal</b><span id="doorLegal"></span></button>
@@ -599,9 +627,23 @@ Sounding-board sessions with the founder</textarea></div>
   <div class="kpis" id="pfKpis"></div>
   <div class="two">
     <div class="card"><h3>Results by area</h3><div id="pfAreas" class="flow"></div></div>
-    <div class="card"><h3>Can you use it?</h3><p class="sub">Clause 10.5 of your Terms: name a client only with their written consent. Anonymised results are fine.</p><div id="pfPerm"></div></div>
+    <div class="card"><h3>Can you use it?</h3><p class="sub">Clause 14 of your Professional Services Terms: name a client only with their written consent. Anonymised results are fine.</p><div id="pfPerm"></div></div>
   </div>
   <div id="pfList" class="clist"></div>
+</section>
+
+<section id="view-acq" class="fin" hidden aria-label="Operational due diligence">
+  <div id="aqHome">
+    <div class="phead"><div><h2>Operational due diligence<i>.</i></h2><p class="sub">Portfolio Operations Advisory. One workbook per company: plan the visit, test on site, then rate each finding by what it means for the deal and build the report.</p></div><div class="acts"><span class="status" id="aqSaved" role="status"></span></div></div>
+    <div class="kpis" id="aqKpis"></div>
+    <div class="aqadd"><div class="f"><label for="aqNew">Add a company</label><input id="aqNew" placeholder="Company name"></div><button class="btn primary" type="button" id="aqAdd" data-aqadd disabled>Add company</button></div>
+    <div class="card"><div id="aqList"></div></div>
+  </div>
+  <div id="aqWB" hidden>
+    <div class="phead aqhead" id="aqHead"></div>
+    <div class="pttabs aqtabs" role="tablist" id="aqTabs"></div>
+    <div class="card aqpane" id="aqPane"></div>
+  </div>
 </section>
 
 <section id="view-patterns" class="fin" hidden aria-label="Pattern library">
@@ -741,7 +783,7 @@ const ENG_KEYS=["inv_day","roa_review_m","cl_name","cl_number","cl_juris","cl_of
 ENG_KEYS.unshift("doctype");ENG_KEYS.push("roa_cap","term_mode","renew_month","commit_mode","roa_unit","roa_def","roa_track","prorate","cn_order","cn_effective","cn_changes","cn_fee","cn_commit","nda_purpose","nda_years");
 const DOCS={EO:{label:"Engagement Order",prefix:"NX"},CN:{label:"Change Note",prefix:"CN"},NDA:{label:"Mutual NDA",prefix:"NDA"}};
 const docType=()=>DOCS[val("doctype")]?val("doctype"):"EO";
-const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Resident Operations Adviser"},OA:{letter:"C",name:"Operations Adviser"}};
+const SERVICES={FCOO:{letter:"A",name:"Fractional COO"},ROA:{letter:"B",name:"Operations Adviser in Residence"},OA:{letter:"C",name:"Operations Adviser"}};
 let ref=null, saved=[], db=null, downloads=null, dirty=false;
 
 function val(k){const e=$(k);return e.type==="checkbox"?e.checked:e.value.trim()}
@@ -794,7 +836,7 @@ function buildDoc(){
     cur.push({k:"kick",runs:["Change Note · "+ref]});
     cur.push({k:"h2",runs:["Change Note"],dot:true});
     opening("Change Note");
-    P("This Change Note is made under clause 16 of the NexaStrategic Terms of Business and varies the Agreement formed by Engagement Order ",F(e.cn_order)," (the ",{b:"Agreement"},").");
+    P("This Change Note is made under clause 2 of the NexaStrategic Professional Services Terms and varies the Agreement formed by Engagement Order ",F(e.cn_order)," (the ",{b:"Agreement"},").");
     H("1. Changes");
     let k=1;
     lines(e.cn_changes).forEach(x=>C("1."+(k++),x));
@@ -876,18 +918,18 @@ function buildDoc(){
     ...fees,
     ["Invoicing","Monthly in "+inv+(inv==="advance"&&+e.inv_day>1?", on the "+ordinal(e.inv_day)+" of each month":"")+", payable within "+(e.pay_days?plural(e.pay_days,"day"):PH)+" of invoice"+(e.prorate?(inv==="advance"&&+e.inv_day>1&&e.svc==="ROA"?", with joiners and leavers pro-rated on the next invoice":", with part months pro-rated"):"")],
     fixed?["Renewal","Renewal review in month "+(e.renew_month||PH)+". Expires at the end of the Initial Term unless renewed in writing"]:["Notice",e.notice?plural(e.notice,"day")+"' written notice"+(e.init_term?", expiring no earlier than the end of the Initial Term":", given at any time"):F("")],
-    ["Key Person cover","Clause 4 of the Terms: after 10 consecutive Business Days of unplanned absence, approved cover or a pro rata reduction in the Fees"],
-    ...(fixed?[]:[["Annual fee review","On each anniversary of the Start Date, on at least 60 days' notice (clause 8.6 of the Terms)"]]),
-    ["Liability cap","As set out in clause 7.3 of the Terms: total Fees paid and payable in the 12 months before the first claim"],
+    ["Key Person cover","If the Key Person is unavailable through unplanned absence for more than 10 consecutive Business Days, Nexa will offer cover approved by the Client or reduce the Fees pro rata for the period of absence"],
+    ...(fixed?[]:[["Annual fee review","Nexa may review the Fees on each anniversary of the Start Date by giving at least 60 days' written notice"]]),
+    ["Liability cap","As set out in clause 15 of the Terms: total fees paid or payable in the 12 months before the event giving rise to the claim"],
     ["Governing law","The law of England and Wales; the courts of England and Wales have exclusive jurisdiction"]
   ]);
 
   /* Page 2: operative clauses (flows on from the key terms in the Word file) */
   page(true);
   H("2. The Agreement");
-  C("2.1","This Engagement Order, the Service Schedule attached to it and the NexaStrategic Terms of Business ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
+  C("2.1","This Engagement Order, the Service Schedule attached to it and the NexaStrategic Professional Services Terms ",F(n.nx_terms_ver)," published at ",F(n.nx_terms_url)," (the ",{b:"Terms"},") together form the ",{b:"Agreement"},".");
   C("2.2","If there is any conflict, this Engagement Order takes priority over the Service Schedule, and the Service Schedule takes priority over the Terms.");
-  C("2.3","Words with capital letters that are not defined in this Engagement Order have the meanings given to them in the Terms.");
+  C("2.3","Words with capital letters that are not defined in this Engagement Order have the meanings given to them in the Terms. In the Agreement, Nexa is the Supplier, and ",{b:"Business Day"}," means a day other than a Saturday, Sunday or bank holiday in England and Wales.");
   H("3. Fees, VAT and payment");
   const payDays=F(e.pay_days?plural(e.pay_days,"day"):"");
   let k=1;const c3=(...r)=>C("3."+(k++),...r);
@@ -899,7 +941,7 @@ function buildDoc(){
     c3("The Monthly Fee is the Client Rate multiplied by the number of ",Units,". ",{b:Unit}," means ",F(e.roa_def),". For each "+(bp?"Billing Period":"month")+", the number of "+Units+" is "+when+"."+(e.roa_cap?" The number of "+Units+" used to calculate the Monthly Fee is capped at "+e.roa_cap+", so the Monthly Fee will not exceed "+money(Number(e.roa_cap)*Number(e.roa_rate||0))+" plus VAT.":"")+" ",invText,", and each invoice is payable within ",payDays," of its date.");
     const track=lines(e.roa_track).map(x=>x.replace(/\{units\}/g,Units));
     if(track.length){C("3."+(k++),"The Client must:");cur[cur.length-1].list=track}
-    c3((bp&&e.prorate?"Where a "+Unit+" joins or leaves during a Billing Period, Nexa will add or credit a pro rata amount on the next invoice, calculated on the number of days in that Billing Period on which the membership was active.":inv==="advance"?"If the number of "+Units+" changes, the Monthly Fee changes from the next invoice.":"Each monthly invoice uses the number of "+Units+" for the month it covers.")+" Any personal data Nexa receives to verify the number of "+Units+" is processed under Schedule 1 of the Terms, only to calculate the Fees and provide the Services.");
+    c3((bp&&e.prorate?"Where a "+Unit+" joins or leaves during a Billing Period, Nexa will add or credit a pro rata amount on the next invoice, calculated on the number of days in that Billing Period on which the membership was active.":inv==="advance"?"If the number of "+Units+" changes, the Monthly Fee changes from the next invoice.":"Each monthly invoice uses the number of "+Units+" for the month it covers.")+" Any personal data Nexa receives to verify the number of "+Units+" is received by Nexa as an independent controller under clause 11 of the Terms, and is used only to calculate the Fees and provide the Services.");
     if(e.roa_review_m)c3("At "+plural(e.roa_review_m,"month")+" after the Start Date, or when the number of "+Units+" first reaches ",F(e.roa_review),", whichever is earlier, the parties will review in good faith Nexa's operational capacity, the delivery arrangements and any additional scope required. The review does not end the Engagement or change the Fees, and the existing terms continue unless both parties agree changes in writing.");
     else c3("When the number of "+Units+" first reaches ",F(e.roa_review),", the parties will review in good faith the Client Rate, Nexa's capacity and availability to support the Client at that level, and whether tiered pricing should apply. Until they agree any change in writing, the existing terms continue to apply.");
     daysClause();
@@ -948,7 +990,7 @@ function buildDoc(){
       H("A1. Scope"); L("A1.1",lines(e.a_scope).length?lines(e.a_scope):[F("")]);
       H("A2. Delegated authority");
       C("A2.1","The Key Person may approve expenditure of up to ",F(money(e.a_limit))," per item, within the budget the Client's board has approved. Any hire, dismissal or contractual commitment beyond that limit needs the written approval of the Client's chief executive or board.");
-      C("A2.2","The Key Person acts on the Client's behalf only within this delegated authority. All other decisions stay with the Client's board, in line with clause 6 of the Terms.");
+      C("A2.2","The Key Person acts on the Client's behalf only within this delegated authority. All other decisions stay with the Client's board, in line with clause 5 of the Terms.");
       H("A3. Reporting and rhythm");
       C("A3.1","The Key Person reports to ",F(e.a_report),". ",F(e.a_rhythm),".");
       H("A4. Out of scope");
@@ -957,7 +999,7 @@ function buildDoc(){
     if(s[0]==="B"){
       H("B1. Scope"); L("B1.1",lines(e.b_scope).length?lines(e.b_scope):[F("")]);
       H("B2. Authority");
-      C("B2.1","This service is advisory and supportive. The Key Person has no authority to bind the Client, approve expenditure or make employment decisions, and all decisions stay with the Client's board, in line with clause 6 of the Terms.");
+      C("B2.1","This service is advisory and supportive. The Key Person has no authority to bind the Client, approve expenditure or make employment decisions, and all decisions stay with the Client's board, in line with clause 5 of the Terms.");
       C("B2.2","Working in the Client's online workspaces, at its events or on its premises does not make the Key Person part of the Client's workforce. Nexa decides how the Services are carried out, and the Key Person is not subject to the Client's line management.");
       H("B3. Rhythm"); C("B3.1",F(e.b_rhythm),".");
       H("B4. Out of scope"); C("B4.1","Legal, tax or regulated financial advice; statutory director duties; and payroll processing.");
@@ -1028,7 +1070,7 @@ function render(){
       return "";
     }).join("");
     return '<article class="page"><div class="rh"><span class="mk">Nexa<i>.</i></span><span>'+esc(DOCS[docType()].label)+" · "+esc(ref)+"</span></div>"+body+'<div class="ft"><span>'+disc+"</span><span>"+(i+1)+" / "+pages.length+"</span></div></article>";
-  }).join("")+'<p class="note">This is a draft generated from NexaStrategic standard terms. Read it in full before sending, and make sure the Terms of Business '+esc(val("nx_terms_ver")||"")+" are published at the URL quoted.</p>";
+  }).join("")+'<p class="note">This is a draft generated from NexaStrategic standard terms. Read it in full before sending, and make sure the Professional Services Terms '+esc(val("nx_terms_ver")||"")+" are published at the URL quoted.</p>";
   const m=missing();
   document.querySelectorAll("summary .n[data-sec]").forEach(el=>{const s=m.out[el.dataset.sec];if(s===null){el.textContent="Not selected";el.className="n ok"}else if(s&&s.length){el.textContent=s.length+" to complete";el.className="n"}else{el.textContent="Complete";el.className="n ok"}});
   $("checks").innerHTML=m.all.length?"<b>Before you send</b>"+m.all.slice(0,6).map(x=>'<span class="bad">'+esc(x)+" is missing</span>").join("")+(m.all.length>6?"<span class=\"bad\">and "+(m.all.length-6)+" more</span>":""):"<b>Ready</b><span>Every required field is filled in. Read the draft once more, then download it.</span>";
@@ -1223,7 +1265,7 @@ const MONTHS_FULL=["January","February","March","April","May","June","July","Aug
 const num=id=>{const v=parseFloat($(id).value);return isNaN(v)?0:v};
 const ymKey=(y,m)=>y+"-"+String(m+1).padStart(2,"0");
 const fmtDate=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
-const SVC={FCOO:"Fractional COO",ROA:"Resident Operations Adviser",OA:"Operations Adviser",Other:"Other"};
+const SVC={FCOO:"Fractional COO",ROA:"Operations Adviser in Residence",POA:"Portfolio Operations Advisory",OA:"Operations Adviser",Other:"Other"};
 const uid=()=>"c"+Math.random().toString(36).slice(2,9);
 const cHeads=c=>(c.heads===""||c.heads==null)?(+c.planHeads||0):+c.heads;
 const cfee=c=>c.pricing==="perhead"?(+c.rate||0)*Math.min(cHeads(c),c.cap?+c.cap:Infinity):(+c.fee||0);
@@ -1232,7 +1274,7 @@ function ageNow(){const v=$("fin_dob").value;if(!v)return 0;const d=new Date(v);
 function taxYearRange(ty){const y=+ty.slice(0,4);return [y+"-04-06",(y+1)+"-04-05"]}
 
 /* ---- views ---- */
-const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",patterns:"view-patterns",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension",academy:"view-academy"};
+const VIEWS={home:"view-home",clients:"view-clients",outreach:"view-outreach",capacity:"view-capacity",portfolio:"view-portfolio",acq:"view-acq",patterns:"view-patterns",legal:"view-contracts",forecast:"view-forecast",pension:"view-pension",academy:"view-academy"};
 function show(v){
   if(!VIEWS[v])v="home";
   Object.entries(VIEWS).forEach(([k,id])=>{$(id).hidden=k!==v});
@@ -2628,11 +2670,13 @@ function exHandbook(cid){
   const c=it(cid),s=snap(c);let o=mHead("Module handbook: "+(c?c.title:""));if(!s){skipped.push(c?c.title:cid);return o}
   o+=mSt(s)+mS("Aim",s.f.purpose)+mS("Audience",s.f.audience)+"_Hours are estimates of notional learning time. No credits or accreditation are attached._\n\n";
   const rows=kids(cid).filter(x=>["module","assessment","practical"].includes(x.type)).sort((a,b)=>(TORD[a.type]||0)-(TORD[b.type]||0)||(a.order||0)-(b.order||0)).map(x=>({x,t:snap(x)})).filter(y=>y.t);
+  const mcodes=rows.filter(r=>r.x.type==="module"&&r.t.f.code).map(r=>r.t.f.code),pre=mcodes.length?mcodes[0].slice(0,3):"",
+    assessedBy=rows.filter(r=>r.x.type!=="module").map(r=>r.t.title.split(":")[0].trim());
   o+="| Code | Unit | Principle | Learning outcomes | Lectures | Total time (est.) | Assessed by | Pillars | Prerequisites |\n|---|---|---|---|---|---|---|---|---|\n";
   rows.forEach(({x,t})=>{const outs=x.type==="module"?kids(x.id,"outcome").map(k=>(snap(k)||{}).title).filter(Boolean).map(z=>z.split(" ")[0]).join(", "):tline(t.links.outcomes).split("; ").map(z=>z.split(" ")[0]).join(", ");
     const mins=x.type==="module"?kids(x.id,"lesson").reduce((a,l)=>a+(parseInt(((snap(l)||{f:{}}).f.minutes||"").replace(/\D+/g," ").trim())||0),0):0;
-    const code=t.f.code||(x.type==="assessment"?"OF190":x.type==="practical"?"OF195":"");
-    o+=`| ${cell(code)} | ${cell(t.title)} | ${cell(t.f.principle||(x.type==="practical"?"Show it in your own business.":"Show your reasoning on a case."))} | ${cell(outs)} | ${mins?"~"+mins+" min":"–"} | ${cell((t.f.time||t.f.effort||"").replace(/^Estimate:\s*/,"").split(/[.(,]/)[0].trim())} | ${x.type==="module"?"Exercise; capstone; POSI":x.type==="assessment"?"Human review, rubric":"Human review, rubric"} | ${cell(tline(t.links.pillars))} | ${cell(x.type==="module"?((t.links.prereqs||[]).map(id=>((D.items[id]||{}).f||{}).code||titleOf(id)).join(", ")||"None"):"OF101 to OF106")} |\n`});
+    const code=t.f.code||(pre?pre+(x.type==="assessment"?"90":x.type==="practical"?"95":""):"");
+    o+=`| ${cell(code)} | ${cell(t.title)} | ${cell(t.f.principle||(x.type==="module"?"To draft":x.type==="practical"?"Show it in your own business.":"Show your reasoning on a case."))} | ${cell(outs)} | ${mins?"~"+mins+" min":"–"} | ${cell((t.f.time||t.f.effort||"").replace(/^Estimate:\s*/,"").split(/[.(,]/)[0].trim())} | ${x.type==="module"?cell([kids(x.id,"exercise").length?"Exercise":"",...assessedBy].filter(Boolean).join("; ")||"–"):"Human review, rubric"} | ${cell(tline(t.links.pillars))} | ${cell(x.type==="module"?((t.links.prereqs||[]).map(id=>((D.items[id]||{}).f||{}).code||titleOf(id)).join(", ")||"None"):(mcodes.length?mcodes[0]+(mcodes.length>1?" to "+mcodes[mcodes.length-1]:""):"–"))} |\n`});
   o+="\n";rows.filter(r=>r.x.type==="module").forEach(({x,t})=>{o+=mH(2,(t.f.code?t.f.code+" ":"")+t.title)+mS("Principle",t.f.principle)+mS("Method",t.f.method)+mS("Tactics",t.f.tactic)+mS("Coaching questions",t.f.coaching);
     const outs=kids(x.id,"outcome").map(k=>snap(k)).filter(Boolean);if(outs.length)o+="**Learning outcomes**\n\n"+outs.map(z=>"- "+z.title.split(" ")[0]+": "+(z.f.statement||z.title)).join("\n")+"\n\n"});
   return o;
@@ -2833,5 +2877,302 @@ render();
   if(!db){renderDoor();render();return}
   live=true;subscribe();render();
 })();
+})();
+</script>
+<script>
+/* ---- Operational due diligence workbook (Portfolio Operations Advisory) ---- */
+(()=>{
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clone=o=>JSON.parse(JSON.stringify(o||{}));
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const uidA=()=>"co"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+
+/* Workstreams follow the shape of a Big Four operational due diligence: scope, data request, management interviews and site visit, findings rated by risk, then a 100-day plan. Items are tuned for UK solar and home-energy installers. */
+const WB=[
+ {k:"model",t:"Business and operating model",items:[
+  ["model.org","Organisation chart, decision rights and key-person dependency","Org chart; who signs off sales, pricing, hiring and spend"],
+  ["model.rev","Revenue mix by service line, channel and customer type","Last 12 months revenue by product (PV, battery, EV charger, heat pump) and channel"],
+  ["model.leads","How leads are generated, qualified and converted","Lead sources, cost per lead, conversion rates, finance-partner volumes"],
+  ["model.capacity","Delivery capacity against the sales pipeline","Installs per week, number of crews, current lead time from contract to install"],
+  ["model.kpi","KPIs and management reporting","Monthly management pack or dashboard; who reviews it and when"]]},
+ {k:"people",t:"People and HR",items:[
+  ["people.contracts","Written contracts for every employee and contractor","Contract templates and a list of who is on which"],
+  ["people.status","Employment status of installers and subcontractors","Subcontractor list, how they are paid, status assessments (IR35 where relevant)"],
+  ["people.rtw","Right to work checks","Evidence of checks for all staff"],
+  ["people.policies","Handbook and core policies","Handbook, disciplinary, grievance, holiday, expenses, absence"],
+  ["people.competence","Qualifications and competence of installers","Electrical and MCS-relevant qualifications, training records, competent persons"],
+  ["people.payroll","Payroll, pensions auto-enrolment and benefits","Payroll provider, auto-enrolment status, any arrears"],
+  ["people.keyrisk","Retention risk among key people","Tenure of key staff, notice periods, any known leavers"]]},
+ {k:"ops",t:"Operations and delivery",items:[
+  ["ops.process","Sales-to-install process from contract to handover","Process map or SOPs, handover documents"],
+  ["ops.design","Survey and system design standard","Survey template, design and yield calculation method, shading assessment"],
+  ["ops.qa","Installation quality checks and sign-off","QA checklist, photo evidence, snagging and rework rates"],
+  ["ops.dno","Grid connection notifications (G98/G99) to the DNO","Notification log and any outstanding applications"],
+  ["ops.supply","Supplier and stock dependency","Main distributors, payment terms, stock levels, single points of failure"],
+  ["ops.aftercare","Aftercare, warranties and service calls","Warranty terms passed to customers, service call log, response times"],
+  ["ops.complaints","Complaints handling and redress","Complaints log, resolution times, cases escalated to an ombudsman or code body"]]},
+ {k:"gov",t:"Governance and management",items:[
+  ["gov.board","Board and management meetings, minutes and actions","Minutes from the last three meetings"],
+  ["gov.authority","Delegated authority and spend approvals","Approval limits, bank mandate, who can commit the company"],
+  ["gov.risk","Risk register and how risks are reviewed","Risk register or equivalent"],
+  ["gov.insurance","Insurance cover against the activity","Schedules for public, employers' and professional liability, contract works, vehicles"],
+  ["gov.contracts","Register of key contracts and renewal dates","Contract register: customers, suppliers, finance partners, leases"]]},
+ {k:"comp",t:"Compliance and regulation",items:[
+  ["comp.mcs","MCS certification current for each technology installed","Certificates and last assessment report"],
+  ["comp.code","Consumer code membership (RECC or HIES)","Membership evidence, any audit findings or sanctions"],
+  ["comp.fca","Consumer credit: FCA authorisation or appointed representative status if finance is offered","FCA register entry, finance-partner agreements, financial promotion approvals"],
+  ["comp.part","Electrical work notified through a competent person scheme","Scheme membership and notification records"],
+  ["comp.hs","Health and safety: RAMS, working at height, CDM duties","Risk assessments, method statements, accident book, training"],
+  ["comp.consumer","Consumer contract rules: information, cancellation rights and deposits","Customer contract, cancellation process, how deposits are protected"],
+  ["comp.ads","Advertising and green claims","Current ads and website claims on savings, payback and environmental benefit"],
+  ["comp.waste","Waste and recycling duties","Waste carrier registration, disposal records for panels and batteries"],
+  ["comp.data","Data protection and marketing consent","ICO registration, privacy notice, lead-source consents, call recording"]]},
+ {k:"legal",t:"Legal touchpoints (flag for the client's lawyers)",items:[
+  ["legal.terms","Customer terms and conditions","Current customer contract and terms"],
+  ["legal.supplier","Supplier, distributor and finance-partner agreements","Signed agreements and any exclusivity or change-of-control terms"],
+  ["legal.subs","Subcontractor agreements","Signed subcontractor terms, insurance requirements on subcontractors"],
+  ["legal.claims","Litigation, claims and disputes","List of open or threatened claims"],
+  ["legal.property","Premises, vehicles and leases","Leases, vehicle finance agreements"]]},
+ {k:"fin",t:"Finance operations",items:[
+  ["fin.billing","Deposits, staged payments and cash collection","Billing process, aged debtors, deposit handling"],
+  ["fin.finance","Customer finance reconciliation","Finance-partner statements against installs and payouts"],
+  ["fin.vat","VAT treatment of installations","How the zero rate on qualifying energy-saving materials is applied, VAT returns"],
+  ["fin.books","Bookkeeping, month-end close and budgeting","Accounting system, close timetable, budget against actual"],
+  ["fin.margin","Job costing and gross margin by job","Job costing method and margin by product"]]},
+ {k:"sys",t:"Systems and data",items:[
+  ["sys.stack","Core systems: CRM, job management, finance","System list, owners, integrations"],
+  ["sys.access","User access, leavers and admin rights","User list, leaver process, shared logins"],
+  ["sys.backup","Backups, cyber security and business continuity","Backup arrangements, Cyber Essentials or equivalent, incident history"]]}
+];
+const ALL=WB.flatMap(s=>s.items.map(([id,q,ev])=>({id,q,ev,s:s.k})));
+const STAT=[["","Not reviewed"],["green","Green"],["amber","Amber"],["red","Red"],["na","N/A"]];
+const EVID=["","Requested","Received","Not available"];
+const GRADE=[["","Not graded"],["verified","Seen and verified"],["seen","Seen, not tested"],["told","Told only"],["none","Not available"]];
+const DEAL=[["","Not set"],["price","Price adjustment"],["spa","Protection in the purchase agreement"],["cp","Condition before completion"],["d100","100-day plan"],["later","Longer term"],["none","No deal action"]];
+const MAT=["Not assessed","Ad hoc","Repeatable","Defined","Managed"];
+const NSRC=["Interview","Walkthrough","Document","Observation","Call"];
+const RAGDEF=[["red","Red","Affects price, deal structure or whether to proceed."],["amber","Amber","Must be fixed within 100 days; the cost can be estimated."],["green","Green","Adequate for a business of this size."]];
+/* The three phases of a buy-side operational due diligence */
+const PHASES=[
+ {k:"before",t:"Before the visit",items:[
+  ["b.thesis","Deal thesis agreed with the acquirer: why they are buying, what they plan to change, what would stop the deal"],
+  ["b.scope","Scope and materiality agreed in writing: workstreams covered and the size of issue that matters"],
+  ["b.terms","Engagement terms signed, including who may rely on the report and the liability cap"],
+  ["b.nda","Confidentiality agreed with the company"],
+  ["b.irl","Information request list sent, two to three weeks before the visit"],
+  ["b.review","Documents received reviewed and logged against each check"],
+  ["b.hyp","Hypotheses written: what you expect to be weak and how you will test it"],
+  ["b.plan","Visit plan agreed: interviews, walkthroughs, jobs to sample, sites to see"]]},
+ {k:"site",t:"On site",items:[
+  ["s.mgmt","Structured management interviews: owner, operations, sales, finance"],
+  ["s.walk","Process walkthrough: one real job from lead to handover"],
+  ["s.sample","Sample test of 5 to 10 completed jobs against the paperwork"],
+  ["s.staff","Conversations with staff below management: installers and office"],
+  ["s.observe","Observation: site safety, vans, stock and systems in use"],
+  ["s.debrief","Findings logged the same day, with the evidence behind each"],
+  ["s.gaps","Outstanding requests listed before leaving"]]},
+ {k:"after",t:"After the visit",items:[
+  ["a.follow","Follow-up requests sent and chased"],
+  ["a.redflag","Red-flag summary sent to the acquirer"],
+  ["a.cost","Cost estimated for every red and amber finding"],
+  ["a.deal","Deal treatment set for every red finding"],
+  ["a.draft","Draft report written"],
+  ["a.fact","Factual accuracy check by management: facts only, not conclusions"],
+  ["a.final","Final report issued"],
+  ["a.plan","100-day plan agreed with the owner and the acquirer"]]}];
+const PH_ALL=PHASES.flatMap(p=>p.items);
+const optL=(list,v)=>list.map(([k,l])=>`<option value="${k}"${(v||"")===k?" selected":""}>${l}</option>`).join("");
+const gradeL=k=>(GRADE.find(x=>x[0]===k)||["",""])[1],dealL=k=>(DEAL.find(x=>x[0]===k)||["",""])[1];
+const gbpA=n=>n===""||n==null||isNaN(+n)?"":"£"+Math.round(+n).toLocaleString("en-GB");
+const ragDefHTML=()=>`<div class="aqdef">${RAGDEF.map(([k,l,d])=>`<div><b class="aqrag ${k}" style="display:inline-block;margin-bottom:4px">${l}</b>${d}</div>`).join("")}</div>`;
+const STAGES=["Onboarding","Data requested","Fieldwork","Report sent","Monitoring","Exited"];
+
+let db=null,downloads=null,sample=null,cos=[],sel="",tab="",saveT={},editing=false;const pend=new Set();
+
+function itemsOf(c){return c.items||{}}
+function scoreOf(c){const it=itemsOf(c);let r=0,a=0,g=0,done=0;ALL.forEach(x=>{const s=(it[x.id]||{}).status;if(s){done++;if(s==="red")r++;else if(s==="amber")a++;else if(s==="green")g++}});return {r,a,g,done,pct:Math.round(done/ALL.length*100),rag:r?"red":a>2?"amber":done?"green":""}}
+const pill=s=>s?`<span class="aqrag ${s}">${{red:"Red",amber:"Amber",green:"Green",na:"N/A"}[s]}</span>`:`<span class="aqrag none">Not rated</span>`;
+
+function renderList(){
+  const L=cos.filter(c=>c.stage!=="Exited"),ex=cos.length-L.length;
+  const sc=cos.map(scoreOf),reds=sc.reduce((a,s)=>a+s.r,0);
+  $("aqKpis").innerHTML=[["Companies",String(L.length)+(ex?" · "+ex+" exited":"")],["Monthly fee","£"+(L.length*500).toLocaleString("en-GB")+" + VAT"],["Audits complete",String(cos.filter(c=>scoreOf(c).pct===100).length)],["Red findings",String(reds)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("aqList").innerHTML=cos.length?`<div class="scroll"><table class="aqtbl"><thead><tr><th>Company</th><th>Stage</th><th>Status</th><th>Reviewed</th><th>Red</th><th>Next step</th><th></th></tr></thead><tbody>${cos.map(c=>{const s=scoreOf(c);return `<tr><td><b>${esc(c.name||"Unnamed")}</b>${c.contact?`<br><small>${esc(c.contact)}</small>`:""}</td><td>${esc(c.stage||"Onboarding")}</td><td>${pill(s.rag)}</td><td><div class="aqbar"><i style="width:${s.pct}%"></i></div><small>${s.pct}%</small></td><td>${s.r}</td><td>${esc(c.next||"")}${c.nextDate?`<br><small>${esc(c.nextDate)}</small>`:""}</td><td><button class="btn small" type="button" data-aqopen="${esc(c.id)}">Open workbook</button></td></tr>`}).join("")}</tbody></table></div>`:'<p class="empty">No portfolio companies yet. Add the first one above.</p>';
+}
+
+function itemHTML(c,x){const v=itemsOf(c)[x.id]||{};const ix=esc(x.id);
+  return `<details class="aqitem ${esc(v.status||"")}"${v.status==="red"?" open":""}><summary><span class="aqq">${esc(x.q)}</span>${pill(v.status)}${v.evidence?`<span class="aqev">${esc(v.evidence)}</span>`:""}</summary>
+  <div class="aqbody">
+    <p class="aqreq"><b>Ask for:</b> ${esc(x.ev)}</p>
+    <div class="aqrow"><div class="f"><label for="aq-${ix}-s">Rating</label><select id="aq-${ix}-s" data-aqi="${ix}" data-k="status">${STAT.map(([k,l])=>`<option value="${k}"${(v.status||"")===k?" selected":""}>${l}</option>`).join("")}</select></div>
+    <div class="f"><label for="aq-${ix}-e">Request status</label><select id="aq-${ix}-e" data-aqi="${ix}" data-k="evidence">${EVID.map(o=>`<option${(v.evidence||"")===o?" selected":""} value="${o}">${o||"Not requested"}</option>`).join("")}</select></div>
+    <div class="f"><label for="aq-${ix}-o">Owner</label><input id="aq-${ix}-o" data-aqi="${ix}" data-k="owner" value="${esc(v.owner)}"></div>
+    <div class="f"><label for="aq-${ix}-d">Fix by</label><input id="aq-${ix}-d" type="date" data-aqi="${ix}" data-k="due" value="${esc(v.due)}"></div></div>
+    <div class="aqrow"><div class="f"><label for="aq-${ix}-g">Evidence grade</label><select id="aq-${ix}-g" data-aqi="${ix}" data-k="grade">${optL(GRADE,v.grade)}</select></div>
+    <div class="f"><label for="aq-${ix}-t">How to handle it in the deal</label><select id="aq-${ix}-t" data-aqi="${ix}" data-k="deal">${optL(DEAL,v.deal)}</select></div>
+    <div class="f"><label for="aq-${ix}-c1">One-off cost to fix, £</label><input id="aq-${ix}-c1" type="number" min="0" step="100" data-aqi="${ix}" data-k="oneoff" value="${esc(v.oneoff)}"></div>
+    <div class="f"><label for="aq-${ix}-c2">Ongoing cost, £ a year</label><input id="aq-${ix}-c2" type="number" min="0" step="100" data-aqi="${ix}" data-k="ongoing" value="${esc(v.ongoing)}"></div></div>
+    <div class="f"><label for="aq-${ix}-n">Notes from the review</label><textarea id="aq-${ix}-n" data-aqi="${ix}" data-k="notes" rows="2">${esc(v.notes)}</textarea></div>
+    <div class="aqrow2"><div class="f"><label for="aq-${ix}-fd">Finding</label><textarea id="aq-${ix}-fd" data-aqi="${ix}" data-k="finding" rows="2">${esc(v.finding)}</textarea></div>
+    <div class="f"><label for="aq-${ix}-r">Recommendation</label><textarea id="aq-${ix}-r" data-aqi="${ix}" data-k="rec" rows="2">${esc(v.rec)}</textarea></div></div>
+  </div></details>`}
+
+function renderWB(){
+  const c=cos.find(x=>x.id===sel);if(!c){$("aqWB").hidden=true;$("aqHome").hidden=false;return}
+  $("aqWB").hidden=false;$("aqHome").hidden=true;
+  if(!tab)tab="overview";
+  const s=scoreOf(c);
+  const secs=WB.map(w=>{const it=itemsOf(c);const done=w.items.filter(([id])=>(it[id]||{}).status).length,red=w.items.filter(([id])=>(it[id]||{}).status==="red").length;return {w,done,red}});
+  $("aqHead").innerHTML=`<div><button class="btn small" type="button" data-aqback>← All companies</button><h3 class="aqname">${esc(c.name||"Unnamed")}</h3><p class="sub">${pill(s.rag)} ${s.done} of ${ALL.length} checks reviewed · ${s.r} red · ${s.a} amber</p></div><div class="acts"><button class="btn small" type="button" data-aqirl>Information request list</button><button class="btn small" type="button" data-aqrf>Red-flag summary</button><button class="btn small primary" type="button" data-aqrep>Full report</button></div>`;
+  const phDone=PH_ALL.filter(([id])=>(c.phase||{})[id]).length;
+  $("aqTabs").innerHTML=[["overview","Overview"],["method","Plan and phases ("+phDone+"/"+PH_ALL.length+")"],["notes","Field notes"]].concat(secs.map(x=>[x.w.k,x.w.t+` (${x.done}/${x.w.items.length})`])).map(([k,l])=>`<button type="button" role="tab" data-aqtab="${k}" aria-selected="${k===tab}">${esc(l)}</button>`).join("");
+  let h="";
+  if(tab==="overview"){
+    h=`<div class="aqgrid">
+     <div class="f"><label for="aqf-name">Company name</label><input id="aqf-name" data-aqc="name" value="${esc(c.name)}"></div>
+     <div class="f"><label for="aqf-client">Prepared for (the acquirer)</label><input id="aqf-client" data-aqc="client" value="${esc(c.client)}" placeholder="Only this party may rely on the report"></div>
+     <div class="f"><label for="aqf-contact">Main contact</label><input id="aqf-contact" data-aqc="contact" value="${esc(c.contact)}" placeholder="Name, role, email"></div>
+     <div class="f"><label for="aqf-stage">Stage</label><select id="aqf-stage" data-aqc="stage">${STAGES.map(x=>`<option${(c.stage||"Onboarding")===x?" selected":""}>${x}</option>`).join("")}</select></div>
+     <div class="f"><label for="aqf-start">Joined portfolio</label><input id="aqf-start" type="date" data-aqc="start" value="${esc(c.start)}"></div>
+     <div class="f"><label for="aqf-site">Site visit</label><input id="aqf-site" type="date" data-aqc="site" value="${esc(c.site)}"></div>
+     <div class="f"><label for="aqf-size">Headcount and revenue</label><input id="aqf-size" data-aqc="size" value="${esc(c.size)}" placeholder="e.g. 14 staff, £2.1m"></div>
+     <div class="f"><label for="aqf-tech">Technologies installed</label><input id="aqf-tech" data-aqc="tech" value="${esc(c.tech)}" placeholder="PV, battery, EV, heat pump"></div>
+     <div class="f"><label for="aqf-next">Next step</label><input id="aqf-next" data-aqc="next" value="${esc(c.next)}"></div>
+     <div class="f"><label for="aqf-nd">By</label><input id="aqf-nd" type="date" data-aqc="nextDate" value="${esc(c.nextDate)}"></div>
+    </div>
+    <div class="f"><label for="aqf-sum">Executive summary</label><textarea id="aqf-sum" data-aqc="summary" rows="4" placeholder="Three or four sentences: overall view, the biggest risks, what to do first.">${esc(c.summary)}</textarea></div>
+    <h4 class="aqh">How findings are rated</h4>${ragDefHTML()}
+    <h4 class="aqh">By workstream</h4>
+    <div class="aqsecs">${secs.map(x=>`<button type="button" class="aqsec" data-aqtab="${x.w.k}"><b>${esc(x.w.t)}</b><div class="aqbar"><i style="width:${Math.round(x.done/x.w.items.length*100)}%"></i></div><small>${x.done}/${x.w.items.length} reviewed${x.red?` · <span class="aqredt">${x.red} red</span>`:""} · ${MAT[+(c.maturity||{})[x.w.k]||0]}</small></button>`).join("")}</div>
+    <p class="hint">An operational review, not legal, tax or financial advice. Legal touchpoints are flagged for the company's own lawyers.</p>
+    <div class="acts"><button class="btn small" type="button" data-aqdel>Remove company</button></div>`;
+  }else if(tab==="method"){
+    const ph=c.phase||{},S=c.samples||[];
+    h=`<p class="sub">Work through the three phases in order. The deal thesis and hypotheses steer what you test on site.</p>
+    <div class="aqrow2"><div class="f"><label for="aqf-thesis">Deal thesis</label><textarea id="aqf-thesis" data-aqc="thesis" rows="4" placeholder="Why the acquirer is buying, what they plan to change, what would stop the deal.">${esc(c.thesis)}</textarea></div>
+    <div class="f"><label for="aqf-hyp">Hypotheses to test</label><textarea id="aqf-hyp" data-aqc="hyp" rows="4" placeholder="One per line: what you expect to be weak, and how you will test it on site.">${esc(c.hyp)}</textarea></div></div>
+    <div class="f"><label for="aqf-vp">Visit plan</label><textarea id="aqf-vp" data-aqc="visitPlan" rows="3" placeholder="Who you will interview, which process you will walk through, which jobs you will sample.">${esc(c.visitPlan)}</textarea></div>
+    <div class="aqphases">${PHASES.map(p=>`<div><h4 class="aqh">${esc(p.t)} · ${p.items.filter(([id])=>ph[id]).length}/${p.items.length}</h4>${p.items.map(([id,t])=>`<label class="aqck${ph[id]?" done":""}"><input type="checkbox" data-aqph="${id}"${ph[id]?" checked":""}><span>${esc(t)}</span></label>`).join("")}</div>`).join("")}</div>
+    <h4 class="aqh">Sample testing</h4><p class="sub">Pick 5 to 10 completed jobs and check the paperwork exists for each: contract, survey, MCS certificate, grid notification, handover pack, deposit handling.</p>
+    ${S.map((r,i)=>`<div class="aqsmp"><div class="f"><label for="aqs${i}r">Job reference</label><input id="aqs${i}r" data-aqs="${i}" data-k="ref" value="${esc(r.ref)}"></div><div class="f"><label for="aqs${i}c">What you checked</label><input id="aqs${i}c" data-aqs="${i}" data-k="checked" value="${esc(r.checked)}"></div><div class="f"><label for="aqs${i}o">Result</label><select id="aqs${i}o" data-aqs="${i}" data-k="result">${optL([["","Not tested"],["pass","Pass"],["exception","Exception"]],r.result)}</select></div><div class="f"><label for="aqs${i}n">Note</label><input id="aqs${i}n" data-aqs="${i}" data-k="note" value="${esc(r.note)}"></div><button class="btn small" type="button" data-aqsdel="${i}">Remove</button></div>`).join("")||'<p class="empty">No jobs sampled yet.</p>'}
+    <div class="acts aqleft"><button class="btn small" type="button" data-aqsadd>Add a sampled job</button></div>`;
+  }else if(tab==="notes"){
+    const N=(c.fieldnotes||[]).slice().reverse();
+    h=`<p class="sub">Type or paste notes from interviews and the site visit as you go. Fill the workbook from notes reads them and proposes ratings, findings and recommendations for you to accept.</p>
+    <div class="f" style="max-width:220px"><label for="aqf-nsrc">Where it came from</label><select id="aqf-nsrc">${NSRC.map(x=>`<option>${x}</option>`).join("")}</select></div>
+    <div class="f"><label for="aqf-note">New note</label><textarea id="aqf-note" rows="6" placeholder="e.g. Met ops lead. Two crews, 6-week lead time. No written QA checklist. MCS cert renewed March. Deposits taken by bank transfer, not protected."></textarea></div>
+    <div class="acts aqleft"><button class="btn small" type="button" data-aqaddnote>Save note</button><button class="btn small primary" type="button" data-aqfill${sample?"":" disabled"}>Fill the workbook from notes</button><span class="status" id="aqFillSt" role="status"></span></div>
+    <div id="aqProp"></div>
+    ${N.length?N.map(n=>`<div class="aqnote"><small>${esc(n.at)}${n.src?" · "+esc(n.src):""}</small><p>${esc(n.text)}</p></div>`).join(""):'<p class="empty">No notes yet.</p>'}`;
+  }else{
+    const w=WB.find(x=>x.k===tab);h=`<div class="aqrow2"><p class="sub">${w.items.length} checks. Open a check to rate it, grade the evidence and say how the acquirer should handle it.</p><div class="f"><label for="aqf-mat">Maturity of this area</label><select id="aqf-mat" data-aqm="${w.k}">${MAT.map((m,i)=>`<option value="${i}"${+(c.maturity||{})[w.k]===i?" selected":""}>${m}</option>`).join("")}</select></div></div>${ragDefHTML()}`+w.items.map(([id,q,ev])=>itemHTML(c,{id,q,ev})).join("");
+  }
+  $("aqPane").innerHTML=h;
+}
+function render(fromSnap){if(fromSnap&&editing)return;renderList();renderWB()}
+
+function queue(c){clearTimeout(saveT[c.id]);pend.add(c.id);$("aqSaved").textContent="Saving…";saveT[c.id]=setTimeout(()=>{const o=clone(c);delete o.id;o.updated=new Date().toISOString();db.doc("acq/"+c.id).set(o).then(()=>{pend.delete(c.id);$("aqSaved").textContent="Saved"}).catch(()=>{$("aqSaved").textContent="Not saved. Check your connection."})},600)}
+const cur=()=>cos.find(x=>x.id===sel);
+
+document.addEventListener("input",e=>{const t=e.target;const c=cur();if(!c||!db)return;
+  if(t.dataset.aqc){c[t.dataset.aqc]=t.value;queue(c)}
+  else if(t.dataset.aqi){c.items=c.items||{};const v=c.items[t.dataset.aqi]=c.items[t.dataset.aqi]||{};v[t.dataset.k]=t.value;queue(c)}
+  else if(t.dataset.aqs){const r=(c.samples||[])[+t.dataset.aqs];if(r){r[t.dataset.k]=t.value;queue(c)}}
+  else if(t.dataset.aqm){c.maturity=c.maturity||{};c.maturity[t.dataset.aqm]=+t.value;queue(c)}
+  else if(t.dataset.aqph){c.phase=c.phase||{};c.phase[t.dataset.aqph]=t.checked;const l=t.closest(".aqck");if(l)l.classList.toggle("done",t.checked);queue(c)}});
+document.addEventListener("change",e=>{const t=e.target;if(!(t.dataset.aqi||t.dataset.aqc))return;
+  if(t.dataset.k==="status"||t.dataset.k==="evidence"){const d=t.closest("details");if(d){d.className="aqitem "+(t.dataset.k==="status"?t.value:d.className.replace("aqitem","").trim());const sm=d.querySelector("summary");const c=cur(),v=((c&&c.items)||{})[t.dataset.aqi]||{};sm.innerHTML=`<span class="aqq">${esc(ALL.find(x=>x.id===t.dataset.aqi).q)}</span>${pill(v.status)}${v.evidence?`<span class="aqev">${esc(v.evidence)}</span>`:""}`}}
+  if(t.dataset.aqc==="stage"||t.dataset.aqc==="name")renderList()});
+document.addEventListener("focusin",e=>{if(e.target.closest&&e.target.closest("#view-acq"))editing=true});
+document.addEventListener("focusout",e=>{if(e.target.closest&&e.target.closest("#view-acq"))setTimeout(()=>{if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("#view-acq")){editing=false;renderList()}},80)});
+
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep],[data-aqrf],[data-aqsadd],[data-aqsdel]");if(!b||!db)return;
+  if(b.hasAttribute("data-aqsadd")){const c=cur();if(!c)return;c.samples=(c.samples||[]).concat([{ref:"",checked:"",result:"",note:""}]);queue(c);editing=false;renderWB();const i=$("aqs"+(c.samples.length-1)+"r");if(i)i.focus();return}
+  if(b.dataset.aqsdel!==undefined){const c=cur();if(!c)return;c.samples.splice(+b.dataset.aqsdel,1);queue(c);editing=false;renderWB();return}
+  if(b.hasAttribute("data-aqrf")){await dl("redflag");return}
+  if(b.dataset.aqopen){sel=b.dataset.aqopen;tab="overview";editing=false;render();$("view-acq").scrollIntoView({block:"start"});return}
+  if(b.hasAttribute("data-aqback")){sel="";editing=false;render();return}
+  if(b.dataset.aqtab){tab=b.dataset.aqtab;editing=false;renderWB();return}
+  if(b.hasAttribute("data-aqadd")){const nm=$("aqNew").value.trim();if(!nm){$("aqNew").focus();return}const id=uidA();const c={id,name:nm,stage:"Onboarding",start:today(),items:{},fieldnotes:[]};cos.push(c);$("aqNew").value="";queue(c);sel=id;tab="overview";render();return}
+  if(b.hasAttribute("data-aqdel")){const c=cur();if(!c)return;if(b.dataset.sure!=="1"){b.dataset.sure="1";b.textContent="Click again to remove "+(c.name||"this company");return}cos=cos.filter(x=>x!==c);db.doc("acq/"+c.id).delete();sel="";render();return}
+  if(b.hasAttribute("data-aqaddnote")){const c=cur(),t=$("aqf-note").value.trim();if(!c||!t)return;c.fieldnotes=(c.fieldnotes||[]).concat([{at:new Date().toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"}),src:$("aqf-nsrc").value,text:t}]);queue(c);editing=false;renderWB();return}
+  if(b.hasAttribute("data-aqfill")){await fill(b);return}
+  if(b.hasAttribute("data-aqapply")){applyProp();return}
+  if(b.hasAttribute("data-aqirl")){await dl("irl");return}
+  if(b.hasAttribute("data-aqrep")){await dl("report");return}
+});
+
+let prop=null;
+async function fill(btn){const c=cur();if(!c||!sample)return;
+  const typed=$("aqf-note").value.trim();const notes=(c.fieldnotes||[]).map(n=>(n.src?"["+n.src+"] ":"")+n.text).concat(typed?["["+$("aqf-nsrc").value+"] "+typed]:[]).join("\n\n");
+  if(!notes){$("aqFillSt").textContent="Add a note first.";return}
+  btn.disabled=true;$("aqFillSt").textContent="Reading your notes…";
+  const list=ALL.map(x=>({id:x.id,check:x.q,current:(itemsOf(c)[x.id]||{}).status||""}));
+  const prompt=`You are helping a UK fractional COO complete an operational due diligence workbook for a portfolio company (solar and home-energy installer). Read the field notes and map every fact to the checks it is evidence for. Only use what the notes say; never invent facts. For each check the notes cover, return status ("red" = affects price, deal structure or whether to proceed; "amber" = must be fixed within 100 days and the cost can be estimated; "green" = adequate), grade (how strong the evidence is: "verified" only if the notes say a document or record was seen and tested, "seen" if it was seen but not tested, "told" if someone only said so, "none" if it was asked for and not available), deal (for red and amber only: "price", "spa" for a warranty or indemnity in the purchase agreement, "cp" for a condition before completion, "d100" for the 100-day plan, "later", or ""), oneoff and ongoing (cost in pounds only if the notes give a figure, otherwise ""), notes (a short factual summary of what the notes say, in British English), finding (one sentence) and rec (one practical recommendation, or ""). Skip checks the notes do not mention. Legal points are flagged for the company's lawyers, not advised on. No em dashes.\n\nChecks:\n${JSON.stringify(list)}\n\nField notes:\n${notes}\n\nReturn JSON only: {"updates":[{"id":"...","status":"...","grade":"...","deal":"...","oneoff":"","ongoing":"","notes":"...","finding":"...","rec":"..."}],"summary":"two or three sentences for the executive summary based only on these notes"}`;
+  try{const out=await sample.json(prompt,{modelTier:"default"});prop=out&&Array.isArray(out.updates)?out:{updates:[]};
+    prop.updates=prop.updates.filter(u=>ALL.some(x=>x.id===u.id));
+    $("aqFillSt").textContent=prop.updates.length?prop.updates.length+" checks to update":"Nothing in the notes matched a check.";
+    $("aqProp").innerHTML=prop.updates.length?`<div class="aqprop"><h4 class="aqh">Proposed updates</h4>${prop.updates.map(u=>{const x=ALL.find(y=>y.id===u.id);return `<div class="aqpi">${pill(u.status)} <b>${esc(x.q)}</b>${u.grade?` <span class="aqev">${esc(gradeL(u.grade))}</span>`:""}${u.deal?` <span class="aqev">${esc(dealL(u.deal))}</span>`:""}<p>${esc(u.finding||u.notes||"")}</p>${u.rec?`<p class="aqreq"><b>Recommendation:</b> ${esc(u.rec)}</p>`:""}</div>`}).join("")}${prop.summary?`<p class="aqreq"><b>Summary:</b> ${esc(prop.summary)}</p>`:""}<div class="acts aqleft"><button class="btn small primary" type="button" data-aqapply>Apply to the workbook</button></div><p class="hint">Applying fills empty fields and adds to notes already there. Check each rating before the report goes out.</p></div>`:"";
+  }catch(err){$("aqFillSt").textContent=err&&err.code==="not_granted"?"Claude isn't available on this page.":err&&err.code==="rate_limited"?"Too many requests. Try again in a few minutes.":"That didn't work. Try again.";}
+  btn.disabled=false;
+}
+function applyProp(){const c=cur();if(!c||!prop)return;c.items=c.items||{};
+  prop.updates.forEach(u=>{const v=c.items[u.id]=c.items[u.id]||{};if(u.status&&["green","amber","red","na"].includes(u.status))v.status=u.status;
+    if(u.grade&&GRADE.some(g=>g[0]===u.grade)&&!v.grade)v.grade=u.grade;if(u.deal&&DEAL.some(g=>g[0]===u.deal)&&!v.deal)v.deal=u.deal;
+    ["oneoff","ongoing"].forEach(k=>{if(u[k]!==""&&u[k]!=null&&!isNaN(+u[k])&&(v[k]===""||v[k]==null))v[k]=String(+u[k])});
+    ["notes","finding","rec"].forEach(k=>{if(u[k]){v[k]=v[k]?(v[k].includes(u[k])?v[k]:v[k]+"\n"+u[k]):u[k]}})});
+  if(prop.summary&&!c.summary)c.summary=prop.summary;
+  const t=$("aqf-note").value.trim();if(t)c.fieldnotes=(c.fieldnotes||[]).concat([{at:new Date().toLocaleString("en-GB",{dateStyle:"medium",timeStyle:"short"}),src:$("aqf-nsrc").value,text:t}]);
+  prop=null;queue(c);editing=false;renderWB();$("aqFillSt")&&($("aqFillSt").textContent="Applied.")}
+
+function docHTML(title,body){return `<html><head><meta charset="utf-8"><title>${esc(title)}</title><style>body{font-family:Arial,sans-serif;font-size:11pt;color:#191716}h1{font-size:20pt;color:#5a202b}h2{font-size:14pt;color:#5a202b;border-bottom:1px solid #ddd;padding-bottom:3pt}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4pt 6pt;vertical-align:top;font-size:9.5pt;text-align:left}th{background:#f5efe7}.red{color:#a3341f;font-weight:bold}.amber{color:#9a6a10;font-weight:bold}.green{color:#2f7a4a;font-weight:bold}small{color:#6e6763}</style></head><body>${body}</body></html>`}
+const lab=s=>({red:"Red",amber:"Amber",green:"Green",na:"N/A"}[s]||"Not reviewed");
+async function dl(kind){const c=cur();if(!c)return;if(!downloads){alertSt("Downloads aren't available here. Open Nexa OS in claude.ai.");return}
+  const it=itemsOf(c),nm=c.name||"Company";let html,fn;
+  if(kind==="irl"){html=docHTML(nm+" data request list",`<h1>Information request: ${esc(nm)}</h1><p>NexaStrategic Ltd · ${esc(today())}</p><p>Please share what you have against each line. Partial answers are fine; mark anything that does not apply.</p>`+WB.map(w=>`<h2>${esc(w.t)}</h2><table><tr><th style="width:5%">#</th><th style="width:40%">Area</th><th style="width:40%">Please provide</th><th>Status</th></tr>${w.items.map(([id,q,ev],i)=>`<tr><td>${i+1}</td><td>${esc(q)}</td><td>${esc(ev)}</td><td>${esc((it[id]||{}).evidence||"")}</td></tr>`).join("")}</table>`).join(""));fn=nm+" - information request.doc"}
+  else{const s=scoreOf(c),V=id=>it[id]||{};const reds=ALL.filter(x=>V(x.id).status==="red"),amb=ALL.filter(x=>V(x.id).status==="amber");
+    const cost=k=>ALL.reduce((a,x)=>a+(+V(x.id)[k]||0),0),one=cost("oneoff"),ong=cost("ongoing");
+    const G=GRADE.filter(g=>g[0]).map(([k,l])=>[l,ALL.filter(x=>V(x.id).status&&V(x.id).grade===k).length]);
+    const S=(c.samples||[]).filter(r=>r.ref||r.checked),exc=S.filter(r=>r.result==="exception").length;
+    const head=`<p>NexaStrategic Ltd · ${esc(today())}${c.client?" · Prepared for "+esc(c.client):""} · Overall status: <span class="${s.rag}">${lab(s.rag)}</span> · ${s.done} of ${ALL.length} checks reviewed</p>`;
+    const fRow=x=>{const v=V(x.id);return `<tr><td>${esc(x.q)}</td><td>${esc(v.finding||v.notes||"")}</td><td>${esc(gradeL(v.grade)||"Not graded")}</td><td>${gbpA(v.oneoff)}${v.ongoing?(v.oneoff?" + ":"")+gbpA(v.ongoing)+" a year":""}</td><td>${esc(dealL(v.deal)||"Not set")}</td><td>${esc(v.rec||"")}</td></tr>`};
+    const fTab=L=>L.length?`<table><tr><th style="width:20%">Area</th><th>Finding</th><th style="width:11%">Evidence</th><th style="width:11%">Cost</th><th style="width:13%">In the deal</th><th>Recommendation</th></tr>${L.map(fRow).join("")}</table>`:"<p>None identified.</p>";
+    const defs=`<h2>How findings are rated</h2><table>${RAGDEF.map(([k,l,d])=>`<tr><td class="${k}" style="width:12%">${l}</td><td>${esc(d)}</td></tr>`).join("")}</table><p><small>Evidence grades: seen and verified (document or record tested), seen but not tested, told only (management said so; not evidenced), not available.</small></p>`;
+    const disc=`<p><small>This operational review was prepared by NexaStrategic Ltd${c.client?" for "+esc(c.client)+" only. No other party may rely on it":""}. It is based on the information provided and the work described above, and is not an audit. It is not legal, tax, financial or regulated advice. Points under legal touchpoints should be reviewed by the company's own lawyers and the acquirer's legal advisers.</small></p>`;
+    if(kind==="redflag"){
+      html=docHTML(nm+" red-flag summary",`<h1>Red-flag summary: ${esc(nm)}</h1>${head}<p>Early findings that may affect price, deal structure or whether to proceed. A full report follows.</p><h2>Red flags</h2>${fTab(reds)}<h2>Estimated cost to fix</h2><p>Red findings: ${gbpA(reds.reduce((a,x)=>a+(+V(x.id).oneoff||0),0))||"£0"} one-off, ${gbpA(reds.reduce((a,x)=>a+(+V(x.id).ongoing||0),0))||"£0"} a year.</p>${defs}${disc}`);fn=nm+" - red-flag summary.doc"}
+    else{
+    const plan=ALL.filter(x=>V(x.id).rec).sort((a,b)=>({red:0,amber:1}[V(a.id).status]??2)-({red:0,amber:1}[V(b.id).status]??2));
+    const dealSec=["price","spa","cp"].map(k=>{const L=ALL.filter(x=>V(x.id).deal===k);return L.length?`<h3>${esc(dealL(k))}</h3><ul>${L.map(x=>`<li><b>${esc(x.q)}:</b> ${esc(V(x.id).finding||V(x.id).notes||"")}${V(x.id).oneoff?" ("+gbpA(V(x.id).oneoff)+")":""}</li>`).join("")}</ul>`:""}).join("");
+    html=docHTML(nm+" operational review",`<h1>Operational due diligence: ${esc(nm)}</h1>${head}
+    <h2>Executive summary</h2><p>${esc(c.summary||"[Summary to be written]").replace(/\n/g,"<br>")}</p>
+    ${c.thesis?`<h2>Deal thesis</h2><p>${esc(c.thesis).replace(/\n/g,"<br>")}</p>`:""}
+    <h2>Scope and approach</h2><p>Work completed: ${PHASES.map(p=>esc(p.t)+" "+p.items.filter(([id])=>(c.phase||{})[id]).length+"/"+p.items.length).join(" · ")}.${c.site?" Site visit on "+esc(c.site)+".":""} ${S.length?S.length+" completed job"+(S.length===1?"":"s")+" sample-tested, "+exc+" with exceptions.":"No jobs sample-tested."}</p>
+    <p>Basis of the findings rated: ${G.map(([l,n])=>esc(l)+" "+n).join(" · ")}.</p>
+    <h2>Red flags</h2>${fTab(reds)}
+    <h2>How to handle the findings in the deal</h2>${dealSec||"<p>No findings need deal protection.</p>"}
+    <h2>Estimated costs</h2><p>All rated findings: ${gbpA(one)||"£0"} one-off and ${gbpA(ong)||"£0"} a year. Estimates only, based on the information available.</p>
+    <h2>Areas to improve</h2>${fTab(amb)}
+    <h2>100-day plan</h2>${plan.length?`<table><tr><th>Priority</th><th>Action</th><th>Owner</th><th>By</th></tr>${plan.map(x=>{const v=V(x.id);return `<tr><td class="${v.status||""}">${lab(v.status)}</td><td>${esc(v.rec)}</td><td>${esc(v.owner||"")}</td><td>${esc(v.due||"")}</td></tr>`}).join("")}</table>`:"<p>No actions recorded yet.</p>"}
+    <h2>Maturity by workstream</h2><table><tr><th>Workstream</th><th>Maturity</th><th>Red</th><th>Amber</th></tr>${WB.map(w=>`<tr><td>${esc(w.t)}</td><td>${MAT[+(c.maturity||{})[w.k]||0]}</td><td>${w.items.filter(([id])=>V(id).status==="red").length}</td><td>${w.items.filter(([id])=>V(id).status==="amber").length}</td></tr>`).join("")}</table>
+    `+WB.map(w=>`<h2>${esc(w.t)}</h2><table><tr><th style="width:26%">Check</th><th style="width:9%">Rating</th><th style="width:12%">Evidence</th><th>What we found</th><th>Recommendation</th></tr>${w.items.map(([id,q])=>{const v=V(id);return `<tr><td>${esc(q)}</td><td class="${v.status||""}">${lab(v.status)}</td><td>${esc(gradeL(v.grade))}</td><td>${esc(v.finding||v.notes||"")}</td><td>${esc(v.rec||"")}</td></tr>`}).join("")}</table>`).join("")
+    +(S.length?`<h2>Sample testing</h2><table><tr><th>Job</th><th>What we checked</th><th>Result</th><th>Note</th></tr>${S.map(r=>`<tr><td>${esc(r.ref)}</td><td>${esc(r.checked)}</td><td class="${r.result==="exception"?"red":r.result==="pass"?"green":""}">${r.result==="exception"?"Exception":r.result==="pass"?"Pass":"Not tested"}</td><td>${esc(r.note)}</td></tr>`).join("")}</table>`:"")
+    +defs+disc);fn=nm+" - operational due diligence report.doc"}}
+  try{await downloads.save({filename:fn,data:new Blob([html],{type:"application/msword"})})}catch(_){}
+}
+function alertSt(t){const s=$("aqSaved");if(s)s.textContent=t}
+
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  [db,downloads,sample]=await Promise.all([window.claude.use("db"),window.claude.use("downloads"),window.claude.use("sample")]);
+  if(!db){$("aqList").innerHTML='<p class="empty">Open Nexa OS in claude.ai to use the workbook.</p>';return}
+  $("aqAdd").disabled=false;
+  db.collection("acq").onSnapshot(snap=>{const remote=snap.docs.map(d=>Object.assign(clone(d.data()),{id:d.id}));
+    const keep=cos.filter(l=>pend.has(l.id)||(editing&&l.id===sel));cos=remote.map(r=>keep.find(l=>l.id===r.id)||r).concat(keep.filter(l=>!remote.some(r=>r.id===l.id)&&pend.has(l.id)));
+    cos.sort((a,b)=>(a.name||"").localeCompare(b.name||""));const dn=$("doorAcq");if(dn)dn.textContent=cos.filter(c=>c.stage!=="Exited").length+" companies · "+cos.reduce((a,c)=>a+scoreOf(c).r,0)+" red findings";render(true)},()=>{});
+})();
+render();
 })();
 </script>

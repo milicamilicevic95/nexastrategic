@@ -44,11 +44,11 @@ const openItem = async id => { await page.evaluate(id => { const b = document.cr
 // 1. load and overview counts
 await go("#academy");
 ok(await page.isVisible("#view-academy"), "Academy tab opens from #academy");
-ok((await kpi("Modules approved")) === "0 of 6", "Overview: modules approved derived from records (0 of 6)");
-ok((await kpi("Decisions open")) === "17", "Overview: 17 decisions awaiting agreement");
+ok((await kpi("Modules approved")) === "0 of 13", "Overview: modules approved derived from records across both courses (0 of 13)");
+ok((await kpi("Decisions open")) === "19", "Overview: 19 decisions awaiting agreement");
 ok((await kpi("Claims to verify")) === "4", "Overview: 4 claims to verify (one verified)");
 ok((await kpi("Awaiting assessment")) === "0", "Overview: no assessments awaiting review");
-ok(await page.locator("text=No masterclass has a date yet.").count() === 1, "Overview: empty state for undated masterclasses");
+ok(await page.locator("#acMain").innerText().then(t => t.includes("The heart of the business")), "Overview: lists the first dated masterclass (20 November)");
 await page.screenshot({ path: join(OUT, "01-overview-desktop.png"), fullPage: true });
 
 // 2. existing ERP still works
@@ -63,12 +63,12 @@ await page.click('.tab[data-view="academy"]'); await W(200);
 
 // 3. curriculum edit persists
 await sub("curriculum");
-await openItem("m1");
-ok(await page.inputValue("#axTitle") === "What operations is, and why it is commercial", "Curriculum: Module 1 opens in editor");
+await openItem("f1");
+ok(await page.inputValue("#axTitle") === "What operations is", "Curriculum: Module 1 opens in editor");
 await page.fill("#axf_problem", "EDITED learner problem for test.");
 await page.fill("#axTitle", "What operations is (edited)");
 await W(1100);
-await go("#academy"); await sub("curriculum"); await openItem("m1");
+await go("#academy"); await sub("curriculum"); await openItem("f1");
 ok(await page.inputValue("#axTitle") === "What operations is (edited)", "Edit to title saved and reloaded");
 ok((await page.inputValue("#axf_problem")).startsWith("EDITED"), "Edit to field saved and reloaded");
 
@@ -76,34 +76,34 @@ ok((await page.inputValue("#axf_problem")).startsWith("EDITED"), "Edit to field 
 await page.click('[data-act="tab"][data-tab="history"]'); await W(300);
 await page.fill("#axRevNote", "Test revision"); await page.click('form[data-form="rev"] button'); await W(300);
 let st = await store();
-ok(!!st["acad_revs/m1--r2"] && st["acad_items/m1"].rev === 2, "Saving a revision writes r2 and bumps the item");
+ok(!!st["acad_revs/f1--r2"] && st["acad_items/f1"].rev === 2, "Saving a revision writes r2 and bumps the item");
 await page.click('[data-act="tab"][data-tab="production"]'); await W(150);
 await page.click('[data-act="approve"]'); await W(400);
 st = await store();
-ok(st["acad_items/m1"].status === "Approved" && st["acad_items/m1"].approved.rev === 2, "Approve stamps r2 and sets Approved");
+ok(st["acad_items/f1"].status === "Approved" && st["acad_items/f1"].approved.rev === 2, "Approve stamps r2 and sets Approved");
 await sub("overview");
-ok((await kpi("Modules approved")) === "1 of 6", "Status change updates dashboard count (1 of 6)");
-await sub("curriculum"); await openItem("m1");
+ok((await kpi("Modules approved")) === "1 of 13", "Status change updates dashboard count (1 of 13)");
+await sub("curriculum"); await openItem("f1");
 await page.fill("#axf_time", "Changed after approval."); await W(1100);
 st = await store();
-ok(st["acad_items/m1"].status === "Draft" && st["acad_items/m1"].approved.rev === 2, "Editing after approval returns status to Draft and keeps approved r2");
+ok(st["acad_items/f1"].status === "Draft" && st["acad_items/f1"].approved.rev === 2, "Editing after approval returns status to Draft and keeps approved r2");
 ok(await page.locator("text=Changed since approved version r2").count() > 0, "Editor flags change since approval");
 await page.click('[data-act="tab"][data-tab="history"]'); await W(300);
 await page.click('[data-act="revview"][data-n="1"]'); await W(200);
 await page.click('[data-act="restore"][data-n="1"]'); await W(500);
 st = await store();
-ok(st["acad_items/m1"].title === "What operations is, and why it is commercial", "Restoring r1 brings back the original title");
-ok(!!st["acad_revs/m1--r1"] && !!st["acad_revs/m1--r2"], "Both revisions are preserved after restore");
+ok(st["acad_items/f1"].title === "What operations is", "Restoring r1 brings back the original title");
+ok(!!st["acad_revs/f1--r1"] && !!st["acad_revs/f1--r2"], "Both revisions are preserved after restore");
 
 // 5. lesson: record, approve, publish, draft vs published
-await openItem("m1-l1");
+await openItem("f1-l1");
 await page.click('[data-act="tab"][data-tab="production"]'); await W(150);
 await page.click('[data-act="approve"]'); await W(400);
-await page.fill('input[data-bind="items|m1-l1|recUrl"]', "https://example.com/recording-1"); await W(1000);
+await page.fill('input[data-bind="items|f1-l1|recUrl"]', "https://example.com/recording-1"); await W(1000);
 await page.click('[data-act="record"]'); await W(400);
 await page.click('[data-act="publish"]'); await W(400);
 st = await store();
-const L1 = st["acad_items/m1-l1"];
+const L1 = st["acad_items/f1-l1"];
 ok(L1.published && L1.recording && L1.published.rev === L1.approved.rev, "Lesson approved, recorded and published as the same revision");
 await page.click('[data-act="tab"][data-tab="content"]'); await W(150);
 await page.fill("#axf_summary", "NEW DRAFT SUMMARY after publication."); await W(1100);
@@ -112,7 +112,7 @@ await sub("export");
 await page.click('[data-act="expscope"][data-v="published"]'); await W(100);
 await page.click('[data-act="exp"][data-k="scripts"]'); await W(600);
 let ex = await page.inputValue("#exOut");
-ok(ex.includes("1.1 Operations is how the business keeps its promises") && !ex.includes("NEW DRAFT SUMMARY") && ex.includes("Published version r"), "Published export uses the published revision, not the newer draft");
+ok(ex.includes("1.1 What operations is") && !ex.includes("NEW DRAFT SUMMARY") && ex.includes("Published version r"), "Published export uses the published revision, not the newer draft");
 ok(/Not included \(not published yet\)/.test(ex), "Published export lists what isn't published");
 await page.click('[data-act="expscope"][data-v="draft"]'); await W(100);
 await page.click('[data-act="exp"][data-k="scripts"]'); await W(400);
@@ -120,20 +120,20 @@ ex = await page.inputValue("#exOut");
 ok(ex.includes("NEW DRAFT SUMMARY") && ex.includes("(not approved)"), "Draft export shows the draft and labels its status");
 
 // 6. ordering persists
-await sub("curriculum"); await openItem("m2");
+await sub("curriculum"); await openItem("f2");
 await page.click('[data-act="move"][data-dir="-1"]'); await W(400);
 await go("#academy");
 st = await store();
-ok(st["acad_items/m2"].order === 1 && st["acad_items/m1"].order === 2, "Reordering modules persists after reload");
-await sub("curriculum"); await openItem("m2"); await page.click('[data-act="move"][data-dir="1"]'); await W(400);
+ok(st["acad_items/f2"].order === 1 && st["acad_items/f1"].order === 2, "Reordering modules persists after reload");
+await sub("curriculum"); await openItem("f2"); await page.click('[data-act="move"][data-dir="1"]'); await W(400);
 
 // 7. add and delete a lesson
-await openItem("m3");
+await openItem("f3");
 await page.click('[data-act="additem"][data-type="lesson"]'); await W(400);
 await page.fill("#axTitle", "Temporary lesson"); await W(1000);
 st = await store();
 const tmp = Object.entries(st).find(([k, v]) => k.startsWith("acad_items/") && v.title === "Temporary lesson");
-ok(tmp && tmp[1].parent === "m3" && tmp[1].type === "lesson", "Adding a lesson creates a child record under Module 3");
+ok(tmp && tmp[1].parent === "f3" && tmp[1].type === "lesson", "Adding a lesson creates a child record under OF103");
 await page.click('[data-act="delitem"]'); await W(400);
 st = await store();
 ok(!st[tmp[0]], "Deleting the new lesson removes it");
@@ -167,11 +167,11 @@ const lrn = Object.entries(st).find(([k, v]) => k.startsWith("acad_learners/") &
 ok(lrn && lrn[1].contact && lrn[1].contact.id === "cTEST1", "Learner linked to an existing Nexa client record (id only)");
 const lid = lrn[0].split("/")[1];
 await page.click(`[data-act="enrol"][data-id="${lid}"]`); await W(400);
-await page.selectOption(`select[data-prog$="|m1"]`, "Exercise done"); await W(400);
+await page.selectOption(`select[data-prog$="|f1"]`, "Exercise done"); await W(400);
 st = await store();
 const en = Object.values(st).find(v => v && v.learner === lid && v.course === "c-of" && v.progress);
-ok(en && en.progress.m1.state === "Exercise done" && en.status === "Active", "Manual progress recorded and enrolment becomes Active");
-await page.selectOption("#fb_l", lid); await page.selectOption("#fb_i", "m4"); await page.selectOption("#fb_c", "3"); await page.selectOption("#fb_d", "Too hard");
+ok(en && en.progress.f1.state === "Exercise done" && en.status === "Active", "Manual progress recorded and enrolment becomes Active");
+await page.selectOption("#fb_l", lid); await page.selectOption("#fb_i", "f4"); await page.selectOption("#fb_c", "3"); await page.selectOption("#fb_d", "Too hard");
 await page.fill("#fb_t", "Module 4 felt dense."); await page.fill("#fb_s", "Split lesson 4.3 into two."); await page.click('form[data-form="fb"] button'); await W(400);
 await sub("overview");
 ok((await kpi("Feedback to act on")) === "1", "Pilot feedback counted on the overview");
@@ -246,7 +246,7 @@ await page.click('details[data-key="dec:d01"] > summary').catch(() => {}); await
 if (!(await page.isVisible('textarea[data-bind="dec|d01|agreed"]'))) await page.click('details[data-key="dec:d01"] > summary');
 await page.fill('textarea[data-bind="dec|d01|agreed"]', "One masterclass a month (test)."); await page.fill('input[data-bind="dec|d01|agreedOn"]', "2026-10-21"); await page.dispatchEvent('input[data-bind="dec|d01|agreedOn"]', "change"); await W(1000);
 await sub("overview");
-ok((await kpi("Decisions open")) === "16", "Agreeing a decision updates the open count (16)");
+ok((await kpi("Decisions open")) === "18", "Agreeing a decision updates the open count (18)");
 
 // 13. exports and downloads
 await sub("export");
@@ -254,7 +254,7 @@ for (const k of ["programme", "handbook", "outline", "scripts", "exercises", "ca
   await page.click(`[data-act="exp"][data-k="${k}"]`); await W(300);
   const t = await page.inputValue("#exOut"); ok(t.length > 800 && t.startsWith("# "), "Export '" + k + "' produced Markdown (" + t.length + " chars)");
   if (k === "cases") ok(!t.includes("Assessor reference") && !t.includes("Common weaknesses") && !t.includes("Accept small, real changes") && t.includes("Kestrel Signs") && t.includes("Proof of Skill Implementation"), "Case brief export is learner-facing only");
-  if (k === "handbook") ok(t.includes("| OF101 |") && t.includes("| OF195 |") && t.includes("**Principle**") && t.includes("Have you thought about"), "Module handbook has the course table, principles and coaching questions");
+  if (k === "handbook") ok(t.includes("| OF101 |") && t.includes("| OF107 |") && t.includes("**Principle**") && t.includes("Have you thought about"), "Module handbook has the course table, principles and coaching questions");
   if (k === "rubrics") ok(t.includes("| Criterion |") && t.includes("Rubric v2 (current)") && t.includes("Assessor reference"), "Rubric export includes versions, table and assessor guidance");
 }
 await page.click('[data-act="exp"][data-k="outline"]'); await W(300); await page.click('[data-act="expdl"]'); await W(400);
@@ -285,12 +285,12 @@ const noHScroll = async (name) => { const r = await mp.evaluate(() => [document.
 for (const [s, file] of [["overview", "m-overview"], ["curriculum", "m-curriculum"], ["production", "m-production"], ["masterclasses", "m-masterclasses"], ["assessments", "m-assessments"], ["pilot", "m-pilot"], ["decisions", "m-decisions"], ["export", "m-export"]]) {
   await mp.goto(URL0 + "#academy"); await mp.waitForTimeout(400);
   await mp.click(`#acSub [data-acsub="${s}"]`); await mp.waitForTimeout(300);
-  if (s === "curriculum") { await mp.click('.actree button[data-id="m4"]'); await mp.waitForTimeout(300); }
+  if (s === "curriculum") { await mp.click('.actree button[data-id="f4"]'); await mp.waitForTimeout(300); }
   await noHScroll(s);
   await mp.screenshot({ path: join(OUT, file + ".png"), fullPage: s !== "curriculum" });
 }
 // desktop shots
-await go("#academy"); await sub("curriculum"); await openItem("m5-l3"); await page.screenshot({ path: join(OUT, "02-curriculum-desktop.png") });
+await go("#academy"); await sub("curriculum"); await openItem("f1-l2"); await page.screenshot({ path: join(OUT, "02-curriculum-desktop.png") });
 await page.click('[data-act="pv"][data-v="1"]'); await W(200); await page.screenshot({ path: join(OUT, "03-curriculum-preview.png") });
 await sub("production"); await page.screenshot({ path: join(OUT, "04-production.png") });
 await sub("assessments"); await page.click(`button[data-act="subopen"][data-id="${s1id}"]`); await W(300); await page.screenshot({ path: join(OUT, "05-assessment-review.png"), fullPage: true });

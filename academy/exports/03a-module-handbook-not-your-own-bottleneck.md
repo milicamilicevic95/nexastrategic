@@ -1,33 +1,33 @@
-# Module handbook: Operations Fundamentals
+# Module handbook: Not your own bottleneck (working title)
 
-_Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
+_Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Current drafts: nothing is approved unless its status says so._
 
 > Status: Draft (not approved)
 
 **Aim**
 
-Give founders a shared operational vocabulary and enough judgement to diagnose why work depends on them, ask better questions, and choose a sensible first improvement.
+Help founders stop being their own bottleneck: find where and why work depends on them, move decisions and outcomes to the right people, and prove one real change in their own business.
 
-The course answers one question: **how do you remove yourself as the bottleneck in productivity?** It does not answer it for each learner's business. It gives them the concepts and methods to answer it for themselves, and to judge advice and tools they are offered.
+The course answers the programme's question: **how to not be your own bottleneck?** It does not answer it for each learner's business. It gives them the concepts and methods to answer it for themselves.
 
 **Audience**
 
-Founders and owner-managers of small and growing businesses, from sole traders with a few contractors to companies of around 50 people, who may have little formal operations knowledge. Intelligent, busy, experienced in their own field. No shared operational vocabulary is assumed.
+Founders who have completed Operations Fundamentals, or who already know what each panel of operations involves.
 
 _Hours are estimates of notional learning time. No credits or accreditation are attached._
 
 | Code | Unit | Principle | Learning outcomes | Lectures | Total time (est.) | Assessed by | Pillars | Prerequisites |
 |---|---|---|---|---|---|---|---|---|
-| OF101 | What operations is, and why it is commercial | Operations is how the business keeps its promises, reliably and at a cost it can afford. | M1.1, M1.2 | ~12 min | about 40 minutes | Exercise; capstone; POSI | Direction; Visibility | None |
-| OF102 | How work moves through a business | Most delay is waiting, not working. | M2.1, M2.2, M2.3 | ~17 min | about 60 minutes | Exercise; capstone; POSI | Delivery; Ownership | OF101 |
-| OF103 | Why founders become the bottleneck | "Everything comes to me" is several problems, and each one needs a different fix. | M3.1, M3.2 | ~13 min | about 50 minutes | Exercise; capstone; POSI | Ownership; Delivery; Visibility | OF101, OF102 |
-| OF104 | Ownership, decisions and when to get advice | Delegate outcomes and the authority to decide, not just tasks. Know where your own judgement ends. | M4.1, M4.2, M4.3 | ~20 min | about 65 minutes | Exercise; capstone; POSI | Ownership; Direction; Visibility | OF103 |
-| OF105 | Documentation and SOPs that people use | Document what works, give it an owner and keep it current. A document cannot fix a broken process. | M5.1, M5.2, M5.3 | ~19 min | about 65 minutes | Exercise; capstone; POSI | Delivery; Ownership | OF102, OF104 |
-| OF106 | Seeing what is happening, and choosing a first improvement | You can stop checking when the right people can see what matters. Change one thing at a time, and prove it worked. | M6.1, M6.2, M6.3 | ~14 min | about 65 minutes | Exercise; capstone; POSI | Visibility; Improvement | OF103, OF104, OF105 |
-| OF190 | Capstone: Kestrel Signs keeps missing deadlines | Show your reasoning on a case. | M1.1, M1.2, M2.1, M2.2, M2.3, M3.1, M3.2, M4.1, M4.2, M4.3, M5.1, M5.2, M6.1, M6.2, M6.3 | – | 3 to 5 hours | Human review, rubric | None | OF101 to OF106 |
-| OF195 | POSI: Proof of Skill Implementation | Show it in your own business. | M2.1, M3.1, M4.1, M5.1, M6.1, M6.2, M6.3 | – | 6 to 10 hours of the learner's time across the period | Human review, rubric | None | OF101 to OF106 |
+| NB201 | What operations is, and why it is commercial | Operations is how the business keeps its promises, reliably and at a cost it can afford. | M1.1, M1.2 | ~12 min | about 40 minutes | Exercise; Capstone; POSI | Direction; Visibility | None |
+| NB202 | How work moves through a business | Most delay is waiting, not working. | M2.1, M2.2, M2.3 | ~17 min | about 60 minutes | Exercise; Capstone; POSI | Delivery; Ownership | NB201 |
+| NB203 | Why founders become the bottleneck | "Everything comes to me" is several problems, and each one needs a different fix. | M3.1, M3.2 | ~13 min | about 50 minutes | Exercise; Capstone; POSI | Ownership; Delivery; Visibility | NB201, NB202 |
+| NB204 | Ownership, decisions and when to get advice | Delegate outcomes and the authority to decide, not just tasks. Know where your own judgement ends. | M4.1, M4.2, M4.3 | ~20 min | about 65 minutes | Exercise; Capstone; POSI | Ownership; Direction; Visibility | NB203 |
+| NB205 | Documentation and SOPs that people use | Document what works, give it an owner and keep it current. A document cannot fix a broken process. | M5.1, M5.2, M5.3 | ~19 min | about 65 minutes | Exercise; Capstone; POSI | Delivery; Ownership | NB202, NB204 |
+| NB206 | Seeing what is happening, and choosing a first improvement | You can stop checking when the right people can see what matters. Change one thing at a time, and prove it worked. | M6.1, M6.2, M6.3 | ~14 min | about 65 minutes | Exercise; Capstone; POSI | Visibility; Improvement | NB203, NB204, NB205 |
+| NB290 | Capstone: Kestrel Signs keeps missing deadlines | Show your reasoning on a case. | M1.1, M1.2, M2.1, M2.2, M2.3, M3.1, M3.2, M4.1, M4.2, M4.3, M5.1, M5.2, M6.1, M6.2, M6.3 | – | 3 to 5 hours | Human review, rubric | None | NB201 to NB206 |
+| NB295 | POSI: Proof of Skill Implementation | Show it in your own business. | M2.1, M3.1, M4.1, M5.1, M6.1, M6.2, M6.3 | – | 6 to 10 hours of the learner's time across the period | Human review, rubric | None | NB201 to NB206 |
 
-## OF101 What operations is, and why it is commercial
+## NB201 What operations is, and why it is commercial
 
 **Principle**
 
@@ -55,7 +55,7 @@ Trace each important promise through the work, the people and the money it depen
 - M1.1: Explain, in their own words, what operations covers in their business, giving one example each of a customer promise, a constraint and a recurring decision.
 - M1.2: Trace how one customer promise affects delivery capacity, margin and the timing of cash in and out.
 
-## OF102 How work moves through a business
+## NB202 How work moves through a business
 
 **Principle**
 
@@ -85,7 +85,7 @@ Follow real work from trigger to result, and find where it waits and for whom, b
 - M2.2: Distinguish recurring work, project work and exceptions in a given situation, and explain why each needs a different approach.
 - M2.3: Identify where work waits, and for whom, using observed evidence rather than impression.
 
-## OF103 Why founders become the bottleneck
+## NB203 Why founders become the bottleneck
 
 **Principle**
 
@@ -113,7 +113,7 @@ Separate decision, knowledge, quality-check, relationship and visibility bottlen
 - M3.1: Diagnose which bottleneck types (decision, knowledge, quality check, relationship, visibility) are operating in a scenario, citing evidence for each.
 - M3.2: Write diagnostic questions that separate a symptom from its likely causes and identify what information is missing before deciding.
 
-## OF104 Ownership, decisions and when to get advice
+## NB204 Ownership, decisions and when to get advice
 
 **Principle**
 
@@ -143,7 +143,7 @@ Set decide, consult and inform for recurring decisions, with thresholds and defi
 - M4.2: Before a commitment is made, identify its consequences for scope, capacity, margin, payment and cash, and dependencies on suppliers or other customers.
 - M4.3: Recognise when a matter needs a qualified adviser, say what kind, and list the information to gather before asking.
 
-## OF105 Documentation and SOPs that people use
+## NB205 Documentation and SOPs that people use
 
 **Principle**
 
@@ -173,7 +173,7 @@ Decide whether a task needs documenting, design the process before writing it do
 - M5.2: Distinguish capturing current steps from designing a workable process, and explain what an SOP cannot fix in a given situation.
 - M5.3: Evaluate an SOP hub or documentation tool against the job it needs to do, including ownership, access, review and the effort of keeping it current.
 
-## OF106 Seeing what is happening, and choosing a first improvement
+## NB206 Seeing what is happening, and choosing a first improvement
 
 **Principle**
 

@@ -1,6 +1,6 @@
-# Course outline: Operations Fundamentals
+# Course outline: Not your own bottleneck (working title)
 
-_Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
+_Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Current drafts: nothing is approved unless its status says so._
 
 > Status: Draft (not approved)
 
@@ -8,62 +8,60 @@ _Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Cu
 
 **Purpose**
 
-Give founders a shared operational vocabulary and enough judgement to diagnose why work depends on them, ask better questions, and choose a sensible first improvement.
+Help founders stop being their own bottleneck: find where and why work depends on them, move decisions and outcomes to the right people, and prove one real change in their own business.
 
-The course answers one question: **how do you remove yourself as the bottleneck in productivity?** It does not answer it for each learner's business. It gives them the concepts and methods to answer it for themselves, and to judge advice and tools they are offered.
+The course answers the programme's question: **how to not be your own bottleneck?** It does not answer it for each learner's business. It gives them the concepts and methods to answer it for themselves.
 
 **Audience**
 
-Founders and owner-managers of small and growing businesses, from sole traders with a few contractors to companies of around 50 people, who may have little formal operations knowledge. Intelligent, busy, experienced in their own field. No shared operational vocabulary is assumed.
+Founders who have completed Operations Fundamentals, or who already know what each panel of operations involves.
 
 **Subjects covered**
 
-What operations is; how work moves; why founders become bottlenecks; ownership, decision rights and escalation; commitments and when to get specialist advice; documentation and SOPs; visibility; choosing and reviewing a first improvement. Governance, compliance and commercial awareness are introduced at a foundational level throughout.
+How work moves through a business; why founders become the bottleneck (the five types); ownership, decision rights and escalation; commitments and when to get specialist advice; documentation that people use; seeing what's happening without checking; choosing and reviewing a first improvement.
 
 **Prerequisites**
 
-None. This course is the prerequisite for the rest of the programme.
+Operations Fundamentals.
 
 **Estimated learning time**
 
-Estimates only, to be checked in the pilot.
+Estimates only, carried over from the earlier draft and to be re-checked.
 
 | Part | Estimate |
 |---|---|
 | Six modules, recordings | about 75 to 90 minutes in total |
 | Six modules, exercises and resources | about 3 to 3.5 hours in total |
-| Capstone case (OF190) | 3 to 5 hours |
-| POSI: Proof of Skill Implementation (OF195) | 6 to 10 hours, over four to eight weeks |
+| Capstone case (NB290) | 3 to 5 hours |
+| POSI: Proof of Skill Implementation (NB295) | 6 to 10 hours, over four to eight weeks |
 | **Total** | **about 13.5 to 20 hours**, over roughly two to three months |
 
 **Structure and rationale**
 
-**Why six modules, not five.** The brief suggested about five. Topic 4 (foundational practices for ownership, documentation, delivery, visibility and responsible decision-making) is too large for one short module, and SOPs and documentation are the questions founders have already raised. It is split into Module 4 (ownership and responsible decisions) and Module 5 (documentation and SOPs). Visibility moves into Module 6, where it is needed to judge whether a first improvement has worked. Each module stays short enough for one sitting.
+**Where this course came from.** These six modules were the first draft of Operations Fundamentals (21 October). When that course was rebuilt to teach operations from zero, as one ball with eight panels, this material moved here, where founders arrive already knowing the vocabulary.
 
-| Module | Brief topic |
-|---|---|
-| 1. What operations is, and why it is commercial | 1 |
-| 2. How work moves through a business | 2 |
-| 3. Why founders become the bottleneck | 3 |
-| 4. Ownership, decisions and when to get advice | 4 (ownership, responsible decisions, governance, commercial and legal awareness) |
-| 5. Documentation and SOPs that people use | 4 (documentation, delivery) |
-| 6. Seeing what is happening and choosing a first improvement | 4 (visibility) and 5 |
+**Built on the five pillars.** Direction, Ownership, Delivery, Visibility and Improvement: the conditions David's removal test identified for a business that runs without the founder directing every move.
+
+**Codes.** Modules NB201 to NB206, capstone NB290, POSI NB295.
+
+**To revise before recording.**
+- NB201 overlaps heavily with OF101 (what operations is). Cut it, or fold its promise, margin and cash material into NB202, once OF101 is approved.
+- Add a short "turn the ball" segment to each module, to keep the one-ball approach from Operations Fundamentals.
+- Rewrite lesson scripts to close with the coaching questions (task t11).
 
 **Not covered here**
 
-Detailed finance, project management, governance, compliance and legal content. These have their own courses. Software training. The course mentions tools only to show how to judge whether one fits.
+Legal, tax, financial or regulatory advice. Software training. Detailed finance, project management, governance, compliance and legal content beyond recognition and escalation.
 
 **Completion and evidence**
 
-A learner completes the course in three parts, like a university module:
+Proposed, to be agreed.
 
-1. **Lectures:** the six recorded modules (OF101 to OF106), each built as a principle, a method and tactics.
-2. **Coursework:** the capstone case (OF190), which shows **reasoning about a hypothetical business**.
-3. **Practical:** the POSI, Proof of Skill Implementation (OF195), which shows **one real improvement in the learner's own business** where the founder has stepped out.
+1. **Lectures:** the recorded modules, each built as a principle, a method and tactics.
+2. **Coursework:** the capstone case (NB290), which shows **reasoning about a hypothetical business**.
+3. **Practical:** the POSI, Proof of Skill Implementation (NB295), which shows **one real improvement in the learner's own business**, held for at least two weeks.
 
-The capstone and the POSI are kept separate on purpose: one shows judgement, the other shows implementation. Neither proves business results. No certificate or accreditation is attached. Whether the POSI is required for completion is an open decision.
-
-The fortnightly or monthly masterclasses (frequency to be agreed) are optional. Everything needed to complete the course is in the recordings, exercises and resources.
+The capstone and the POSI are kept separate on purpose: one shows judgement, the other shows implementation. Neither proves business results. No certificate or accreditation is attached.
 
 ## Module 1: What operations is, and why it is commercial
 

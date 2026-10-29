@@ -1,6 +1,6 @@
 # Rubrics and assessor guide
 
-_Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
+_Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Current drafts: nothing is approved unless its status says so._
 
 ## Capstone: Kestrel Signs keeps missing deadlines
 

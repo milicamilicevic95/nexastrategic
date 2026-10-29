@@ -1,8 +1,39 @@
 # Masterclass proposals
 
-_Operations Academy (working name). Exported from Nexa OS on 21 October 2026. Current drafts: nothing is approved unless its status says so._
+_Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Current drafts: nothing is approved unless its status says so._
 
 _Proposals only. No date or guest is agreed unless stated._
+
+## The heart of the business: why operations decides whether a founder's ideas ever happen (proposed title)
+
+> Status: Planned · 20 November 2026
+
+**Purpose**
+
+A standalone, complementary companion to Operations Fundamentals. The course teaches the parts of operations plainly; this masterclass takes the bigger view: operations is the heart of the business, connecting the brain (the founder) to everything else, and when it isn't set, the rest is a mess. Designed to work for people who haven't started the course, and to be repurposed for a wider audience.
+
+**Course outcomes:** None
+
+**Linked modules:** What operations is
+
+**Suggested format**
+
+Proposed, up to 90 minutes including questions.
+
+1. **The picture** (10 min): brain, heart, body. The founder is the brain; customers see the body; operations is the heart, moving decisions, money, information and people to every part, on a rhythm.
+2. **What failure looks like** (20 min): blockages (everything waits for the founder), an irregular rhythm (no operating cadence), a weak pump (cash can't reach where it's needed) and the sudden event (a key person leaves, a big client goes, a contract surprises you). One short anonymised story each.
+3. **Why it's underestimated** (10 min): it's invisible when it works; businesses hire for the body first; and the ball gets cut up into ops teams. One slide back to the beach ball.
+4. **Live case** (25 min): one anonymised founder decision, checked live with the room.
+5. **A health check for this week** (10 min): three checks a founder can run on their own business.
+6. **Questions** (15 min).
+
+**Practical takeaway**
+
+A plain-language way to explain what operations does for the business, and a three-question health check to run on their own business this week.
+
+**Specialist guest**
+
+Not needed for the first one. David could open or close it. (Not needed)
 
 ## SOP clinic: what to document first, and where it should live
 
