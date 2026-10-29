@@ -45,7 +45,7 @@
     QS.forEach(function (Q, i) { var p = el("p"); var s = el("strong", null, "Q" + (i + 1) + ": " + Q.opts[Q.correct] + ". "); p.appendChild(s); p.appendChild(document.createTextNode(Q.why)); why.appendChild(p); });
     r.appendChild(why);
     var acts = el("div", "try-actions");
-    var w = el("a", "btn solid", "Become a founding member →"); w.href = "/concentric/#membership"; w.rel = "noopener"; acts.appendChild(w);
+    var w = el("a", "btn solid", "Apply for a Founding place →"); w.href = "/concentric/apply/"; w.rel = "noopener"; acts.appendChild(w);
     var a = el("a", "textlink", "See membership"); a.href = "#membership"; acts.appendChild(a);
     acts.appendChild(btn("Start again", "try-btn", function () { step = 0; phase = "q"; answers = []; render(); }));
     r.appendChild(acts);
