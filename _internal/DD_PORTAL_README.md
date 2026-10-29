@@ -5,7 +5,7 @@ Two files go into the website repository, in these exact locations:
 - `review/index.html` – the client page, served at `/review/`
 - `netlify/functions/dd-portal.mjs` – the connection to Airtable
 
-The page with no link code (`/review/`) shows a preview on example data and saves nothing. A client only reaches their own company through a private link: `/review/?c=ACCESSCODE`.
+A client only reaches their own company through a private link: `/review/?c=CODE`. The address on its own shows a short private notice.
 
 ## Where the portal lives
 
@@ -34,6 +34,16 @@ The zip adds one address to the site, `/review/`. It is not linked from your men
 `AIRTABLE_BASE` is optional. Without it the function uses the NexaStrategic base (`appW06EMIpNUylqOT`).
 
 If `netlify.toml` sets a different functions folder, put `dd-portal.mjs` in that folder instead.
+
+## 1b. Companies House lookup (optional, free)
+
+The Your details page has a Look up button that fills in the legal name, company number and registered office from Companies House. It needs a free API key:
+
+1. Register at developer.company-information.service.gov.uk and create an application.
+2. Create a REST API key for it ("live" environment).
+3. In Netlify, add a second environment variable: Key `COMPANIES_HOUSE_KEY`, Value the key, Scope Functions. Redeploy.
+
+Without the key the portal still works; the lookup tells the company to type the details in by hand.
 
 ## 2. Fonts
 
@@ -86,7 +96,7 @@ When the review is done, ask Claude to draft the report for that company from Ai
 The function finds Airtable tables and fields by name. Renaming any of these breaks saving:
 
 - Tables: DD Companies, DD Requests, DD Responses, DD Follow-ups
-- DD Companies: Company, Client, Project, P1 due, P2 due, Access code, Portal code, Status, Progress, Attested by, Attested role, Attested at, Legal name, Company number, Contact name, Contact role, Contact email, Contributors, Business summary, Headcount, Revenue band, Top three customer share, Main operational problem
+- DD Companies: Company, Client, Project, P1 due, P2 due, Access code, Portal code, Registered office, Companies House status, Status, Progress, Attested by, Attested role, Attested at, Legal name, Company number, Contact name, Contact role, Contact email, Contributors, Business summary, Headcount, Revenue band, Top three customer share, Main operational problem
 - DD Requests: Key, Company, Company code, No., Section, Item, Priority, Status, Expected date, Client note, Files
 - DD Responses: Key, Company, Company code, Code, Domain, Question, Client answer, Suggested score, Client explanation, Tested by
 - DD Follow-ups: Question, Company, No., Related item, Send, Client answer, Files, Answered at, Status, Portal code
