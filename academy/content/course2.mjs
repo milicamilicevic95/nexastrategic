@@ -76,22 +76,23 @@ export const newDecisions = [
 ];
 
 export const firstMasterclass = {
-  id: "mc7", order: 0, title: "Know enough: the heart of the business, and when to bring someone in",
-  purpose: "A standalone, complementary companion to Operations Fundamentals. Founders don't need to become the operations person; they need enough operating literacy to know what good enough looks like in each panel, when a panel has outgrown them, who to bring in, and what to ask. Works for founders who haven't started the course, and is designed to become a paid masterclass.",
-  objective: "By the end, a founder has scored their own business on the Know Enough Map (red, amber, green), picked one red, and written a four-part brief (problem, decision, out of scope, fee cap and deadline) for the right person on the ladder.",
+  id: "mc7", order: 0, title: "Know Enough: bookkeeper, lawyer or ops hire? What your business needs now, and next",
+  purpose: "A standalone, complementary companion to Operations Fundamentals. Founders don't need to become the operations person; they need enough operating literacy to see the whole ball, know what the business needs now and next, and know when to bring someone in and what to ask. Offered within Founders House first; modular so it extends to 90 minutes, a paid version or a monthly series.",
+  objective: "By the end, a founder has scored their business on the Know Enough Map at Now (the house isn't on fire) and Next (if I stepped away, what breaks?), picked one red, and written a four-part brief (problem, decision, out of scope, fee cap and deadline).",
   outcomes: [], modules: ["f1"],
-  format: `Up to 90 minutes including questions.
+  format: `60 minutes including questions. Kestrel, a fictional composite company, runs through the session.
 
-1. **Why knowing enough matters** (0–15 min): the heart, the ball, the Swiss Army knife, and the flip: "You don't need to be the operator. You need to know enough to know when." The not-advice line. A story of being sold more than was needed.
-2. **Four panels** (15–60 min): finance, legal, people, commercial. For each: good enough, bring someone in when, who (smallest step first), the question to ask, watch for. The other four panels are on the map. Last trigger: when nobody holds the whole ball.
-3. **The brief** (60–75 min): the four-part brief and a live rewrite of a vague one.
-4. **This week** (75–80 min): score, pick one red, write the brief, send it. Pointer to Operations Fundamentals.
-5. **Questions** (80–90 min).`,
-  takeaway: "The Know Enough Map: eight panels with good enough, triggers, who to bring in, the question to ask and what to watch for, scored red, amber or green. On the back, the four-part brief.",
+1. **Open** (0–7 min): what is operations? The ball, the Swiss Army knife, the thesis ("know enough to know when") and the not-advice line.
+2. **Now, Next and the pivot** (7–13 min): the two tests; you move to Next with paying clients in a clear market and runway, and then need a written plan.
+3. **Three panels** (13–37 min): people, finance, legal. Kestrel's story, then Now, Next and who could help; the room scores each row.
+4. **Can't I just use AI?** (37–39 min).
+5. **The brief** (39–50 min): four parts, then a live rewrite of Kestrel's brief.
+6. **This week and close** (50–53 min). 7. **Questions** (53–60 min).`,
+  takeaway: "The Know Enough Map: eight panels scored at Now and Next, who could help (smallest step first) and an example brief. On the back, the four-part brief.",
   resources: `Deck: https://claude.ai/artifact/LAtCaxfgFy42wWCo7wH74r
 Plan, messaging and script: academy/courses/masterclasses/mc-01-know-enough-plan.pdf (repo)
-Handout: academy/courses/masterclasses/mc-01-know-enough-map.pdf (repo)
-Before the day: add your own story (slide 7) and an example per panel if you have them; have an accountant and a solicitor sense-check the map.`,
+Handout: academy/courses/masterclasses/mc-01-know-enough-map.pdf (repo), sent 48 hours ahead
+Before the day: anonymise the stories; tell the data incident story carefully (72-hour reporting rule); sense-check the map with an accountant and a solicitor; confirm the boundary with David and IP (d07).`,
   guest: "Not needed.", guestStatus: "Not needed",
   date: "2026-11-20", status: "Planned"
 };

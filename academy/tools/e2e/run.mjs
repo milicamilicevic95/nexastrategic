@@ -48,7 +48,7 @@ ok((await kpi("Modules approved")) === "0 of 13", "Overview: modules approved de
 ok((await kpi("Decisions open")) === "19", "Overview: 19 decisions awaiting agreement");
 ok((await kpi("Claims to verify")) === "4", "Overview: 4 claims to verify (one verified)");
 ok((await kpi("Awaiting assessment")) === "0", "Overview: no assessments awaiting review");
-ok(await page.locator("#acMain").innerText().then(t => t.includes("Know enough")), "Overview: lists the first dated masterclass (20 November)");
+ok(await page.locator("#acMain").innerText().then(t => t.includes("Know Enough")), "Overview: lists the first dated masterclass (20 November)");
 await page.screenshot({ path: join(OUT, "01-overview-desktop.png"), fullPage: true });
 
 // 2. existing ERP still works
