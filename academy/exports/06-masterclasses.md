@@ -12,24 +12,28 @@ _Proposals only. No date or guest is agreed unless stated._
 
 A standalone, complementary companion to Operations Fundamentals. The course teaches the parts of operations plainly; this masterclass takes the bigger view: operations is the heart of the business, connecting the brain (the founder) to everything else, and when it isn't set, the rest is a mess. Designed to work for people who haven't started the course, and to be repurposed for a wider audience.
 
+**Learning objective**
+
+By the end, a founder can explain in plain language what operations does for their business, recognise which of four failure conditions they have (blockage, no rhythm, a weak pump, the sudden event), and run a four-question heart check on their own business this week.
+
 **Course outcomes:** None
 
 **Linked modules:** What operations is
 
 **Suggested format**
 
-Proposed, up to 90 minutes including questions.
+Up to 90 minutes including questions.
 
-1. **The picture** (10 min): brain, heart, body. The founder is the brain; customers see the body; operations is the heart, moving decisions, money, information and people to every part, on a rhythm.
-2. **What failure looks like** (20 min): blockages (everything waits for the founder), an irregular rhythm (no operating cadence), a weak pump (cash can't reach where it's needed) and the sudden event (a key person leaves, a big client goes, a contract surprises you). One short anonymised story each.
-3. **Why it's underestimated** (10 min): it's invisible when it works; businesses hire for the body first; and the ball gets cut up into ops teams. One slide back to the beach ball.
-4. **Live case** (25 min): one anonymised founder decision, checked live with the room.
-5. **A health check for this week** (10 min): three checks a founder can run on their own business.
-6. **Questions** (15 min).
+1. **The picture** (0–10 min): brain, body, heart. What the heart moves: decisions, money, information, people. "A brilliant brain can't keep a body alive on its own."
+2. **What failure looks like** (10–30 min): blockage, no rhythm, a weak pump, the sudden event. One anonymised story each and a show of hands.
+3. **Why it's underestimated** (30–40 min): invisible when it works; founders hire for the body first; or cut the heart into ops teams (one beach ball slide).
+4. **Live case** (40–65 min): the heart check on one volunteered decision, or the prepared fictional case (Sam's events agency opening in a second city).
+5. **This week** (65–75 min): the four questions, the close, and a pointer to Operations Fundamentals.
+6. **Questions** (75–90 min).
 
 **Practical takeaway**
 
-A plain-language way to explain what operations does for the business, and a three-question health check to run on their own business this week.
+The four-question heart check: What's waiting on me right now? When did we last check it properly? What cash will we have in two months? Who, if gone tomorrow, stops us?
 
 **Specialist guest**
 

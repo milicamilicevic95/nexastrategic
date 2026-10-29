@@ -46,7 +46,7 @@ for (const s0 of [...programme, ...of1, ...of2, ...of3, ...capstone, posi, cours
 }
 for (const r of [rubricV1, posiRubric]) put("acad_rubrics", r.id, { ...r, id: undefined, created: AT });
 [...masterclasses, { ...firstMasterclass, seededStatus: firstMasterclass.status, seededDate: firstMasterclass.date }].forEach(m => put("acad_mc", m.id, { ...m, id: undefined, seededStatus: undefined, seededDate: undefined, status: m.seededStatus || "Proposal", presenter: m.seededStatus ? "Mila" : "Mila (proposed)", date: m.seededDate || "", time: "", tz: "Europe/London",
-  recordingUrl: "", resources: "", attendance: [], attendCount: "", feedbackNotes: "", created: AT, updated: AT }));
+  recordingUrl: "", resources: m.resources || "", attendance: [], attendCount: "", feedbackNotes: "", created: AT, updated: AT }));
 [...decisions, ...newDecisions].forEach(d => put("acad_dec", d.id, { ...d, id: undefined, status: ["d03", "d04"].includes(d.id) ? "Proposed" : "Open", agreed: "", agreedOn: "", agreedBy: "",
   docLink: d.docLink || "", engagementRef: "", notes: "", created: AT, updated: AT }));
 sources.forEach(s => put("acad_src", s.id, { ...s, id: undefined, created: AT, updated: AT }));
