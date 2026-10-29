@@ -4,17 +4,17 @@ _Operations Academy (working name). Exported from Nexa OS on 29 October 2026. Cu
 
 _Proposals only. No date or guest is agreed unless stated._
 
-## The heart of the business: why operations decides whether a founder's ideas ever happen (proposed title)
+## Know enough: the heart of the business, and when to bring someone in
 
 > Status: Planned · 20 November 2026
 
 **Purpose**
 
-A standalone, complementary companion to Operations Fundamentals. The course teaches the parts of operations plainly; this masterclass takes the bigger view: operations is the heart of the business, connecting the brain (the founder) to everything else, and when it isn't set, the rest is a mess. Designed to work for people who haven't started the course, and to be repurposed for a wider audience.
+A standalone, complementary companion to Operations Fundamentals. Founders don't need to become the operations person; they need enough operating literacy to know what good enough looks like in each panel, when a panel has outgrown them, who to bring in, and what to ask. Works for founders who haven't started the course, and is designed to become a paid masterclass.
 
 **Learning objective**
 
-By the end, a founder can explain in plain language what operations does for their business, recognise which of four failure conditions they have (blockage, no rhythm, a weak pump, the sudden event), and run a four-question heart check on their own business this week.
+By the end, a founder has scored their own business on the Know Enough Map (red, amber, green), picked one red, and written a four-part brief (problem, decision, out of scope, fee cap and deadline) for the right person on the ladder.
 
 **Course outcomes:** None
 
@@ -24,20 +24,19 @@ By the end, a founder can explain in plain language what operations does for the
 
 Up to 90 minutes including questions.
 
-1. **The picture** (0–10 min): brain, body, heart. What the heart moves: decisions, money, information, people. "A brilliant brain can't keep a body alive on its own."
-2. **What failure looks like** (10–30 min): blockage, no rhythm, a weak pump, the sudden event. One anonymised story each and a show of hands.
-3. **Why it's underestimated** (30–40 min): invisible when it works; founders hire for the body first; or cut the heart into ops teams (one beach ball slide).
-4. **Live case** (40–65 min): the heart check on one volunteered decision, or the prepared fictional case (Sam's events agency opening in a second city).
-5. **This week** (65–75 min): the four questions, the close, and a pointer to Operations Fundamentals.
-6. **Questions** (75–90 min).
+1. **Why knowing enough matters** (0–15 min): the heart, the ball, the Swiss Army knife, and the flip: "You don't need to be the operator. You need to know enough to know when." The not-advice line. A story of being sold more than was needed.
+2. **Four panels** (15–60 min): finance, legal, people, commercial. For each: good enough, bring someone in when, who (smallest step first), the question to ask, watch for. The other four panels are on the map. Last trigger: when nobody holds the whole ball.
+3. **The brief** (60–75 min): the four-part brief and a live rewrite of a vague one.
+4. **This week** (75–80 min): score, pick one red, write the brief, send it. Pointer to Operations Fundamentals.
+5. **Questions** (80–90 min).
 
 **Practical takeaway**
 
-The four-question heart check: What's waiting on me right now? When did we last check it properly? What cash will we have in two months? Who, if gone tomorrow, stops us?
+The Know Enough Map: eight panels with good enough, triggers, who to bring in, the question to ask and what to watch for, scored red, amber or green. On the back, the four-part brief.
 
 **Specialist guest**
 
-Not needed for the first one. David could open or close it. (Not needed)
+Not needed. (Not needed)
 
 ## SOP clinic: what to document first, and where it should live
 

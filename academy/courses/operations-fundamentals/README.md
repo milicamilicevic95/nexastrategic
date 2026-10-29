@@ -57,4 +57,4 @@ Moves here from the earlier draft: how work moves through a business, why founde
 
 *Not part of the course. To develop over the next couple of weeks.*
 
-Operations is the heart of the business: it connects the brain (the founder) to everything else and makes it work. When operations isn't set, the rest is a mess. The course teaches the panels plainly; the masterclass takes the bigger, more intelligent view of why the whole ball matters.
+The first masterclass is **Know enough** (20 November): founders don't need to become the operations person, but they need to know enough about each panel to know when to bring someone in, who, and what to ask. The course teaches the panels in full; the masterclass gives the founder's-seat judgement. See `../masterclasses/`.
