@@ -21,7 +21,7 @@ It sits with the business rather than founder behaviour, so it shouldn't overlap
 
 A few things I'd love your view on:
 1. Does the question land with members?
-2. Are you comfortable with the Now-to-Next pivot alongside your work?
+2. The "Next" test, "if I stepped away, what breaks?", sits close to your Space step. I see mine as the operational side (which parts of the business would need someone) and yours as the proof. Does that framing work for you, or would you rather I used a different test?
 3. One slide suggests getting a neutral operator to look at the whole business once founders can afford it. Is that fine in the group, or does it read as a pitch?
 4. Could we send members the map 48 hours ahead?
 5. I'd like to share the idea on my website and LinkedIn and run it as an ongoing series. How would you like Founders House credited?
