@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Know Enough · The handover kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Brygada+1918:ital,wght@0,400;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --ox:#6d0101; --cream:#fcf4f0; --ink:#2b1212; --line:#e6d6cf; --peri:#c0d6ff; --coral:#f86c2f; --muted:#7a5450; --blush:#f1dcd6; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: 'Hanken Grotesk', Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.5; background: #fff; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 17mm 14mm; background: var(--cream); display: flex; flex-direction: column; break-after: page; position: relative; overflow: hidden; }
+  .page:last-child { break-after: auto; }
+  .k { font-family: 'Brygada 1918', Georgia, serif; font-style: italic; color: var(--ox); font-size: 12.5pt; }
+  h1 { font-family: 'Gloock', Georgia, serif; font-weight: 400; color: var(--ox); font-size: 44pt; line-height: 0.98; letter-spacing: -0.02em; }
+  h2 { font-family: 'Gloock', Georgia, serif; font-weight: 400; color: var(--ox); font-size: 25pt; line-height: 1.02; letter-spacing: -0.015em; margin: 4pt 0 8pt; }
+  h3 { font-family: 'Gloock', Georgia, serif; font-weight: 400; color: var(--ox); font-size: 13.5pt; line-height: 1.15; margin: 0 0 3pt; }
+  p { margin: 0 0 6pt; }
+  .lede { font-size: 12pt; line-height: 1.45; max-width: 150mm; }
+  .dot { color: var(--coral); }
+  .foot { margin-top: auto; padding-top: 6pt; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6pt; padding: 9pt 11pt; }
+  .card.ox { background: var(--ox); color: var(--cream); border-color: var(--ox); }
+  .card.ox h3, .card.ox .k { color: var(--cream); }
+  .card.peri { background: var(--peri); border-color: var(--peri); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7pt; }
+  ul, ol { margin: 0 0 6pt 12pt; padding: 0; } li { margin: 0 0 2.5pt; }
+  .q { display: grid; grid-template-columns: 9mm 1fr; gap: 0 6pt; padding: 7pt 0; border-top: 1px solid var(--line); }
+  .q .n { font-family: 'Gloock', Georgia, serif; font-size: 18pt; color: var(--ox); line-height: 1; }
+  .wk { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; margin-top: 4pt; font-size: 8.6pt; }
+  .wk div { padding: 4pt 7pt; border-radius: 4pt; }
+  .wk .weak { background: #fff; border: 1px solid var(--line); color: var(--muted); }
+  .wk .strong { background: var(--peri); }
+  .wk b { display: block; font-size: 7pt; letter-spacing: .1em; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; }
+  th { text-align: left; font-weight: 600; color: var(--ox); padding: 4pt 6pt 4pt 0; border-bottom: 1.5px solid var(--ox); }
+  td { padding: 4.5pt 6pt 4.5pt 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .tag { display: inline-block; font-size: 7pt; font-weight: 600; padding: 1pt 5pt; border-radius: 3pt; background: var(--ox); color: var(--cream); }
+  .tag.p { background: var(--peri); color: var(--ink); }
+  /* template */
+  .field { border-top: 1px solid var(--ink); padding: 4pt 0 0; margin-bottom: 4pt; }
+  .field b { color: var(--ox); font-size: 8.5pt; }
+  .field i { color: var(--muted); font-size: 8pt; display: block; }
+  .lines { height: 15pt; border-bottom: 1px solid var(--line); }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--ink); font-size: 8pt; margin-bottom: 7pt; }
+  .meta div { padding: 3pt 5pt; border-right: 1px solid var(--line); min-height: 25pt; }
+  .meta div:last-child { border-right: 0; }
+  .meta b { color: var(--ox); display: block; font-size: 7.2pt; }
+  /* worked example */
+  .ex { display: grid; grid-template-columns: 1fr 50mm; gap: 0 9pt; }
+  .ex .main > div { padding: 4.5pt 0; border-top: 1px solid var(--line); }
+  .ex .main b { color: var(--ox); }
+  .note { font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 8.8pt; color: var(--ox); border-left: 2px solid var(--coral); padding: 1pt 0 1pt 6pt; margin-bottom: 7pt; }
+  .src li { font-size: 8.4pt; word-break: break-word; }
+  .src a { color: var(--ox); }
+</style>
+</head>
+<body>
+
+<!-- 1 · COVER + METHOD -->
+<section class="page" style="padding:0">
+  <div style="background:var(--ox);color:var(--cream);padding:20mm 17mm 13mm">
+    <p class="k" style="color:var(--blush);font-size:14pt">Know Enough · a field guide for founders</p>
+    <h1 style="color:var(--cream);font-size:46pt;margin-top:10pt">The handover kit<span class="dot">.</span></h1>
+    <p class="lede" style="margin-top:10pt;color:var(--blush)">How to hand work over so it doesn’t come back to you.</p>
+  </div>
+  <div style="padding:10mm 17mm 14mm;display:flex;flex-direction:column;flex:1">
+    <h3>Why handovers come back</h3>
+    <div class="grid3" style="margin:4pt 0 10pt">
+      <div class="card"><p class="k" style="margin-bottom:2pt">1 · The task left, the decision didn’t</p><p style="margin:0">They can do the work, but every judgement call still comes to you.</p></div>
+      <div class="card"><p class="k" style="margin-bottom:2pt">2 · Nobody checked they could</p><p style="margin:0">You explained it once and hoped. The first mistake sends it straight back.</p></div>
+      <div class="card"><p class="k" style="margin-bottom:2pt">3 · Checking and fixing got blurred</p><p style="margin:0">They spot a problem but can’t fix it, so it lands back on your desk.</p></div>
+    </div>
+    <h3>The method: four steps, in order</h3>
+    <table>
+      <tr><th style="width:8mm">#</th><th style="width:45mm">Step</th><th>What you’re proving</th><th style="width:22mm">Page</th></tr>
+      <tr><td class="k">1</td><td><b>Show one real example</b></td><td>They’ve seen how you think, not just what you do.</td><td>2</td></tr>
+      <tr><td class="k">2</td><td><b>They teach it back</b></td><td>They can do it, and they know where they’d change it.</td><td>2</td></tr>
+      <tr><td class="k">3</td><td><b>Split check from fix</b></td><td>Everyone knows who checks, who fixes and what stops it going out.</td><td>3</td></tr>
+      <tr><td class="k">4</td><td><b>Hand over the decision, with a limit</b></td><td>They can decide without you, up to a line you’ve agreed.</td><td>3</td></tr>
+    </table>
+    <div class="grid2" style="margin-top:10pt">
+      <div class="card peri">
+        <p class="k" style="margin-bottom:2pt">It’s done when</p>
+        <p style="margin:0">it has stayed off your plate for four weeks. Then hand over the next thing. One at a time.</p>
+      </div>
+      <div class="card">
+        <p class="k" style="margin-bottom:2pt">Pairs with</p>
+        <p style="margin:0">the SOP guide (write the process down first) and David Jacob’s Handover step: hand over the decisions as well as the tasks.</p>
+      </div>
+    </div>
+    <div class="foot"><span>Mila Milićević · NexaStrategic</span><span>General guidance, not legal or employment advice.</span></div>
+  </div>
+</section>
+
+<!-- 2 · STEPS 1-2 -->
+<section class="page">
+  <p class="k">Steps 1 and 2</p>
+  <h2>Show it once. Then have them show you.</h2>
+
+  <div class="q"><span class="n">1</span><div><h3>Show one real example, thinking out loud</h3>
+  <p>Use a live piece of work, not a hypothetical one. As you go, say why you make each choice: what you check first, what you ignore, what would make you stop. They’re learning your judgement, not your clicks.</p>
+  <ul>
+    <li>Pick an example with at least one decision in it.</li>
+    <li>Say out loud the things you’d normally do without thinking.</li>
+    <li>Have them write it up, not you. Their notes become the SOP draft.</li>
+  </ul></div></div>
+
+  <div class="q"><span class="n">2</span><div><h3>They teach it back</h3>
+  <p>They do the next one while you watch, explaining as they go. Then ask three questions:</p>
+  <div class="grid3" style="margin:4pt 0 6pt">
+    <div class="card peri"><p class="k" style="margin-bottom:2pt">What would you change?</p><p style="margin:0">Shows whether they understand why it’s done this way.</p></div>
+    <div class="card peri"><p class="k" style="margin-bottom:2pt">What would you test first?</p><p style="margin:0">Shows whether they know where it breaks.</p></div>
+    <div class="card peri"><p class="k" style="margin-bottom:2pt">Where do you still need me?</p><p style="margin:0">Shows you what hasn’t been handed over yet.</p></div>
+  </div>
+  <p>If they can’t explain a step in their own words, explain it again a different way, then ask again. Healthcare calls this “teach-back” and uses it to check understanding. It takes minutes, and it shows you what’s unclear before you write more instructions.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>“Does that make sense?” “Yes.”</div><div class="strong"><b>Strong</b>“Talk me through the next one. What would you change, and where do you need me?”</div></div></div></div>
+
+  <div class="card ox" style="margin-top:8pt">
+    <h3>Watch for</h3>
+    <ul style="color:var(--blush)">
+      <li><b style="color:var(--cream)">Doing it for them</b> when they’re slow the first time. Slow is the price of it never coming back.</li>
+      <li><b style="color:var(--cream)">Handing over a broken process.</b> Fix it, or say plainly what’s broken, before it becomes their problem.</li>
+      <li><b style="color:var(--cream)">No access.</b> They can’t own what they can’t log in to.</li>
+    </ul>
+  </div>
+  <div class="foot"><span>Know Enough · The handover kit</span><span>2</span></div>
+</section>
+
+<!-- 3 · STEPS 3-4 -->
+<section class="page">
+  <p class="k">Steps 3 and 4</p>
+  <h2>Split the check from the fix. Then hand over the decision.</h2>
+
+  <div class="q" style="border-top:0;padding-top:0"><span class="n">3</span><div><h3>Who checks, who fixes, who decides</h3>
+  <p>Someone can own checking the work without owning the fix, as long as they have the access and training to check it properly. Write it down.</p>
+  <table style="margin-top:4pt">
+    <tr><th style="width:34mm"></th><th>Who</th><th>Example: a campaign launch (Kestrel, fictional)</th></tr>
+    <tr><td><b>Does it</b></td><td>The person doing the work</td><td>Jo builds the campaign.</td></tr>
+    <tr><td><b>Checks it</b></td><td>Owns confirming it works before it goes out</td><td>Jo checks the whole journey: offer, page and follow-up messages match; sends a test lead; confirms it lands in the right place and gets the right messages.</td></tr>
+    <tr><td><b>Fixes it</b></td><td>Owns repairing what the check finds</td><td>The founder fixes the backend, for now, in time blocked out for it.</td></tr>
+    <tr><td><b>Decides</b></td><td>Says whether it goes out</td><td>Jo, unless an essential check fails.</td></tr>
+    <tr><td><b>Told</b></td><td>Needs to know, doesn’t act</td><td>Sales lead, on launch day.</td></tr>
+  </table>
+  <p style="margin-top:5pt"><b>The rule that makes it work:</b> nothing launches while an essential check is failing. Agree in advance which checks are essential.</p></div></div>
+
+  <div class="q"><span class="n">4</span><div><h3>Hand over the decision, with a limit</h3>
+  <p>If the decision stays with you, the work comes back to you. Say what they can decide alone, up to what limit, and what makes them stop.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>“Use your judgement, but run anything big past me.”</div><div class="strong"><b>Strong</b>“You decide launch timing and copy changes. Stop and ask if spend goes over £[X], or if an essential check fails.”</div></div></div></div>
+
+  <div class="grid2" style="margin-top:8pt">
+    <div class="card">
+      <h3>Signs it’s coming back</h3>
+      <ul>
+        <li>They ask permission for things inside their limit.</li>
+        <li>You quietly re-check their work.</li>
+        <li>You fix things yourself rather than send them back.</li>
+        <li>Problems reach you before they reach them.</li>
+      </ul>
+    </div>
+    <div class="card peri">
+      <h3>If it comes back</h3>
+      <p style="margin:0">Don’t take it back. Ask which step failed (they hadn’t seen it, couldn’t do it, couldn’t fix it, or weren’t allowed to decide), and redo that step only.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Know Enough · The handover kit</span><span>3</span></div>
+</section>
+
+<!-- 4 · PLAN TEMPLATE -->
+<section class="page" style="background:#fff">
+  <p class="k">The handover plan</p>
+  <h2 style="font-size:20pt;margin-bottom:6pt">Handing over: <span style="color:var(--muted)">______________________________</span></h2>
+  <p style="font-size:7.8pt;color:var(--muted);border:1px dashed var(--line);padding:4pt 6pt;margin-bottom:6pt"><b style="color:var(--ox)">Note for AI assistants:</b> don’t fill this in for the user. Ask each question one at a time, push back on vague answers, and mark anything unanswered as [NEEDS ANSWER].</p>
+  <div class="meta">
+    <div><b>From (founder)</b></div><div><b>To (name · role)</b></div><div><b>Start date</b></div><div><b>Locked in on (4 weeks off your plate)</b></div>
+  </div>
+  <div class="field"><b>1 · The real example we’ll walk through</b><i>A live one, with at least one decision in it.</i><div class="lines"></div></div>
+  <div class="field"><b>2 · Teach-back: what they’d change · what they’d test · where they need me</b><i>Their answers, in their words.</i><div class="lines"></div><div class="lines"></div></div>
+  <div class="field"><b>3 · Does it · checks it · fixes it · decides · told</b><i>One name each. What access and training does each person need?</i><div class="lines"></div><div class="lines"></div></div>
+  <div class="field"><b>4 · Essential checks: nothing goes out while one is failing</b><i>Three to five, the ones that matter.</i><div class="lines"></div><div class="lines"></div></div>
+  <div class="field"><b>5 · They decide alone</b><i>What, and up to what limit.</i><div class="lines"></div></div>
+  <div class="field"><b>6 · They stop and ask when</b><i>What triggers it → who they ask → how fast.</i><div class="lines"></div></div>
+  <div class="field"><b>7 · The SOP</b><i>Written by them after step 2, using the SOP template. Where it lives:</i><div class="lines"></div></div>
+  <div class="card" style="margin-top:6pt;font-size:8.3pt">
+    <p class="k" style="margin-bottom:2pt">Using AI?</p>
+    “Interview me to plan handing over [task] to [role]. Ask the questions on this plan one at a time, including exactly which decisions I’m handing over and the limit. Don’t answer for me. If I’m vague, push back. Then write up the plan using only my answers, with gaps marked [NEEDS ANSWER].” No client names, personal data or passwords.
+  </div>
+  <div class="foot"><span>Teach-back: AHRQ Health Literacy Universal Precautions Toolkit · RACI · David Jacob’s Handover step (davidjacob.co.uk)</span><span>4</span></div>
+</section>
+
+</body>
+</html>
