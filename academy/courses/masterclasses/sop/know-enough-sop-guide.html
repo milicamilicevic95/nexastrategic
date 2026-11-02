@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Know Enough · The SOP guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Brygada+1918:ital,wght@0,400;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --ox:#6d0101; --cream:#fcf4f0; --ink:#2b1212; --line:#e6d6cf; --peri:#c0d6ff; --coral:#f86c2f; --muted:#7a5450; --blush:#f1dcd6; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: 'Hanken Grotesk', Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.5; background: #fff; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 17mm 14mm; background: var(--cream); display: flex; flex-direction: column; break-after: page; position: relative; overflow: hidden; }
+  .page:last-child { break-after: auto; }
+  .k { font-family: 'Brygada 1918', Georgia, serif; font-style: italic; color: var(--ox); font-size: 12.5pt; }
+  h1 { font-family: 'Gloock', Georgia, serif; font-weight: 400; color: var(--ox); font-size: 44pt; line-height: 0.98; letter-spacing: -0.02em; }
+  h2 { font-family: 'Gloock', Georgia, serif; font-weight: 400; color: var(--ox); font-size: 25pt; line-height: 1.02; letter-spacing: -0.015em; margin: 4pt 0 8pt; }
+  h3 { font-family: 'Gloock', Georgia, serif; font-weight: 400; color: var(--ox); font-size: 13.5pt; line-height: 1.15; margin: 0 0 3pt; }
+  p { margin: 0 0 6pt; }
+  .lede { font-size: 12pt; line-height: 1.45; max-width: 150mm; }
+  .dot { color: var(--coral); }
+  .foot { margin-top: auto; padding-top: 6pt; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6pt; padding: 9pt 11pt; }
+  .card.ox { background: var(--ox); color: var(--cream); border-color: var(--ox); }
+  .card.ox h3, .card.ox .k { color: var(--cream); }
+  .card.peri { background: var(--peri); border-color: var(--peri); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7pt; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7pt; }
+  ul, ol { margin: 0 0 6pt 12pt; padding: 0; } li { margin: 0 0 2.5pt; }
+  .q { display: grid; grid-template-columns: 9mm 1fr; gap: 0 6pt; padding: 7pt 0; border-top: 1px solid var(--line); }
+  .q .n { font-family: 'Gloock', Georgia, serif; font-size: 18pt; color: var(--ox); line-height: 1; }
+  .wk { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; margin-top: 4pt; font-size: 8.6pt; }
+  .wk div { padding: 4pt 7pt; border-radius: 4pt; }
+  .wk .weak { background: #fff; border: 1px solid var(--line); color: var(--muted); }
+  .wk .strong { background: var(--peri); }
+  .wk b { display: block; font-size: 7pt; letter-spacing: .1em; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; }
+  th { text-align: left; font-weight: 600; color: var(--ox); padding: 4pt 6pt 4pt 0; border-bottom: 1.5px solid var(--ox); }
+  td { padding: 4.5pt 6pt 4.5pt 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .tag { display: inline-block; font-size: 7pt; font-weight: 600; padding: 1pt 5pt; border-radius: 3pt; background: var(--ox); color: var(--cream); }
+  .tag.p { background: var(--peri); color: var(--ink); }
+  /* template */
+  .field { border-top: 1px solid var(--ink); padding: 4pt 0 0; margin-bottom: 4pt; }
+  .field b { color: var(--ox); font-size: 8.5pt; }
+  .field i { color: var(--muted); font-size: 8pt; display: block; }
+  .lines { height: 15pt; border-bottom: 1px solid var(--line); }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--ink); font-size: 8pt; margin-bottom: 7pt; }
+  .meta div { padding: 3pt 5pt; border-right: 1px solid var(--line); min-height: 25pt; }
+  .meta div:last-child { border-right: 0; }
+  .meta b { color: var(--ox); display: block; font-size: 7.2pt; }
+  /* worked example */
+  .ex { display: grid; grid-template-columns: 1fr 50mm; gap: 0 9pt; }
+  .ex .main > div { padding: 4.5pt 0; border-top: 1px solid var(--line); }
+  .ex .main b { color: var(--ox); }
+  .note { font-family: 'Brygada 1918', Georgia, serif; font-style: italic; font-size: 8.8pt; color: var(--ox); border-left: 2px solid var(--coral); padding: 1pt 0 1pt 6pt; margin-bottom: 7pt; }
+  .src li { font-size: 8.4pt; word-break: break-word; }
+  .src a { color: var(--ox); }
+</style>
+</head>
+<body>
+
+<!-- 1 · COVER -->
+<section class="page" style="padding:0">
+  <div style="background:var(--ox);color:var(--cream);padding:22mm 17mm 16mm">
+    <p class="k" style="color:var(--blush);font-size:14pt">Know Enough · a field guide for founders</p>
+    <h1 style="color:var(--cream);font-size:50pt;margin-top:10pt">The SOP only you could write<span class="dot">.</span></h1>
+    <p class="lede" style="margin-top:12pt;color:var(--blush)">Copied templates fail because the thinking isn’t in them. This guide gives you the questions. The answers have to come from your business.</p>
+  </div>
+  <div style="padding:12mm 17mm 14mm;display:flex;flex-direction:column;flex:1">
+    <div class="grid2" style="gap:10pt">
+      <div>
+        <h3>Inside</h3>
+        <table>
+          <tr><td style="width:12mm" class="k">p2</td><td>Does this deserve an SOP?</td></tr>
+          <tr><td class="k">p3–4</td><td>The nine questions every good SOP answers</td></tr>
+          <tr><td class="k">p5</td><td>Choosing the format, and writing it well</td></tr>
+          <tr><td class="k">p6</td><td>Making it stick: ownership, testing, review</td></tr>
+          <tr><td class="k">p7</td><td>The blank template</td></tr>
+          <tr><td class="k">p8</td><td>A worked example: fictional, don’t copy it</td></tr>
+          <tr><td class="k">p9</td><td>Where this comes from</td></tr>
+        </table>
+      </div>
+      <div class="card peri">
+        <h3>How to use it</h3>
+        <ol>
+          <li>Pick <b>one</b> process that keeps going wrong, or that only one person knows.</li>
+          <li>Read pages 2 to 6. It takes about fifteen minutes.</li>
+          <li>Have the person who does the work fill in the template with you. Not you alone.</li>
+          <li>Give it to someone who has never done the task. Fix every place they got stuck.</li>
+          <li>Put a review date on it, and keep it where the work happens.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12pt">
+      <p class="k" style="margin-bottom:3pt">The one rule</p>
+      <p style="margin:0;font-size:11pt">If you can fill in a section without thinking about your own business, you haven’t answered it yet.</p>
+    </div>
+    <div class="foot"><span>Mila Milićević · NexaStrategic</span><span>General guidance, not legal or regulatory advice. Regulated activities (health, food, finance, data) need procedures that meet their sector’s own rules.</span></div>
+  </div>
+</section>
+
+<!-- 2 · BEFORE YOU WRITE -->
+<section class="page">
+  <p class="k">Before you write one</p>
+  <h2>Does this deserve an SOP?</h2>
+  <p class="lede">Most founder SOPs fail before the first word: they document the wrong thing, or the right thing too early.</p>
+  <div class="grid2" style="margin-top:6pt">
+    <div class="card">
+      <h3>Write one when two or more are true</h3>
+      <ul>
+        <li><b>It repeats.</b> Monthly or more often.</li>
+        <li><b>A mistake is expensive.</b> It costs money or a client, or creates a legal or compliance problem.</li>
+        <li><b>It moves between people.</b> Handoffs are where work gets dropped.</li>
+        <li><b>Only one person knows it.</b> If they left tomorrow, you’d be stuck.</li>
+        <li><b>New people will have to learn it.</b></li>
+      </ul>
+    </div>
+    <div class="card ox">
+      <h3>Don’t write one yet when</h3>
+      <ul>
+        <li><b>It happens once,</b> or once a year with nobody new involved. A note will do.</li>
+        <li><b>It still changes every week.</b> Get it stable first. A standard is today’s best way of doing it, so there has to be a “best way” to write down.</li>
+        <li><b>The real problem is ownership.</b> If nobody owns it, an SOP becomes a document nobody follows. Name the owner first.</li>
+        <li><b>You’re buying software to fix it.</b> Write the process first, then choose the tool.</li>
+      </ul>
+    </div>
+  </div>
+  <h3 style="margin-top:12pt">Where an SOP sits</h3>
+  <p>Use whichever levels you need. Small businesses usually need three, not five.</p>
+  <table>
+    <tr><th style="width:30mm">Level</th><th>Answers</th><th style="width:52mm">Example</th></tr>
+    <tr><td><b>Policy</b></td><td>What we will and won’t do, and why. The rule.</td><td>“Every client has a signed contract before work starts.”</td></tr>
+    <tr><td><b>Process</b></td><td>The end-to-end flow across people and teams.</td><td>Lead to contract to delivery to invoice to payment.</td></tr>
+    <tr><td><b>SOP</b></td><td>How one recurring task is done, by whom, to what standard.</td><td>Raising and sending a client invoice.</td></tr>
+    <tr><td><b>Checklist</b></td><td>The exact items to do or confirm at one moment.</td><td>Five checks before an invoice is sent.</td></tr>
+    <tr><td><b>Record</b></td><td>Proof it happened.</td><td>The invoice in the client folder, its status in the tracker.</td></tr>
+  </table>
+  <p style="margin-top:6pt;font-size:8.6pt;color:var(--muted)">The ISO 9001 guidance on documented information, ISO 10013:2021, no longer prescribes a fixed hierarchy of documents. Document what helps the work, not what looks complete.</p>
+  <div class="foot"><span>Know Enough · The SOP guide</span><span>2</span></div>
+</section>
+
+<!-- 3 · QUESTIONS 1-5 -->
+<section class="page">
+  <p class="k">The nine questions · 1 to 5</p>
+  <h2>What every good SOP answers.</h2>
+  <p>These are the sections of the template. Each one has a weak answer, which anyone could copy, and a strong one, which only you could write.</p>
+
+  <div class="q"><span class="n">1</span><div><h3>What is it, and what starts it?</h3><p>Name it by what it achieves, and name the trigger: an event, not a vague timeframe.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>Invoicing</div><div class="strong"><b>Strong</b>Raising a client invoice. Starts when a project milestone is signed off in the tracker.</div></div></div></div>
+
+  <div class="q"><span class="n">2</span><div><h3>Why does it exist?</h3><p>The business consequence of getting it wrong. This line is what makes people follow the SOP when nobody is checking.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>To ensure invoices are sent.</div><div class="strong"><b>Strong</b>We pay suppliers up front. Every day an invoice is late is a day we fund the client.</div></div></div></div>
+
+  <div class="q"><span class="n">3</span><div><h3>What does it cover, and what doesn’t it?</h3><p>The edges matter more than the middle. Point to the SOP or person that covers what this one doesn’t.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>All invoicing.</div><div class="strong"><b>Strong</b>Milestone and final invoices. Not deposits (see FIN-002) or credit notes (ask the finance lead).</div></div></div></div>
+
+  <div class="q"><span class="n">4</span><div><h3>Who owns it, who does it, who signs it off?</h3><p>One accountable owner: a role, with a named person beside it. Then who does the work, who approves, and who must be told. That’s a light version of a RACI.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>The team.</div><div class="strong"><b>Strong</b>Owner: finance and ops lead (Sam). Does it: account manager. Signs off over £10,000: finance lead. Told: client lead.</div></div></div></div>
+
+  <div class="q"><span class="n">5</span><div><h3>What does “done well” look like?</h3><p>The standard, in numbers where you can. If you can’t tell whether it was done well, you can’t improve it.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>Invoices sent promptly and accurately.</div><div class="strong"><b>Strong</b>Sent within two working days of sign-off, matching the contract, with no client sending it back.</div></div></div></div>
+
+  <div class="foot"><span>Know Enough · The SOP guide</span><span>3</span></div>
+</section>
+
+<!-- 4 · QUESTIONS 6-9 -->
+<section class="page">
+  <p class="k">The nine questions · 6 to 9</p>
+  <h2>Steps last, not first.</h2>
+  <p>Most people start with the steps. Write them only once questions 1 to 5 are answered: they decide which steps matter.</p>
+
+  <div class="q"><span class="n">6</span><div><h3>What do you need before you start?</h3><p>Inputs, access and where things live. Name the actual system, folder or template.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>The relevant information.</div><div class="strong"><b>Strong</b>Signed-off milestone in the tracker; client PO number; payment terms from the contract (Clients › [name] › Contract).</div></div></div></div>
+
+  <div class="q"><span class="n">7</span><div><h3>Which steps would someone get wrong?</h3><p>Not every click. Only the steps a capable new person would miss, get wrong or skip. Start each with a verb, one action per step, and say why when a step looks optional.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>1. Log in. 2. Click New Invoice. 3. Fill in details. 4. Send.</div><div class="strong"><b>Strong</b>1. Add the client’s PO number. Their accounts team rejects invoices without one.<br>2. Use the payment terms in the contract, not the software default.</div></div></div></div>
+
+  <div class="q"><span class="n">8</span><div><h3>When do you stop and ask?</h3><p>The escalation triggers, who to ask and how fast. This is where judgement stays with a person. Every SOP should have one.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>Contact your manager with any issues.</div><div class="strong"><b>Strong</b>Stop if the amount differs from the contract by more than 5%, or the client disputes sign-off. Tell the finance lead the same day.</div></div></div></div>
+
+  <div class="q"><span class="n">9</span><div><h3>How do we know it happened, and when is it reviewed?</h3><p>The record that proves it was done, plus the control details: ID, version, owner, approved by, last tested by, next review date.</p>
+  <div class="wk"><div class="weak"><b>Weak</b>Reviewed as needed.</div><div class="strong"><b>Strong</b>Invoice saved to the client folder, tracker set to “Invoiced”. Review: every six months, or when the software or contract terms change.</div></div></div></div>
+
+  <div class="foot"><span>Know Enough · The SOP guide</span><span>4</span></div>
+</section>
+
+<!-- 5 · FORMAT AND WRITING -->
+<section class="page">
+  <p class="k">Format and writing</p>
+  <h2>Choose the shape, then write it plainly.</h2>
+  <table>
+    <tr><th style="width:38mm">Format</th><th>Use it when</th><th style="width:46mm">Watch out for</th></tr>
+    <tr><td><b>Numbered steps</b></td><td>One person does a sequence in order.</td><td>Steps that hide two actions.</td></tr>
+    <tr><td><b>Checklist: read-do</b></td><td>The task is rare, high-stakes or new to the person. Read each item, then do it.</td><td>Using it for routine work: people stop reading.</td></tr>
+    <tr><td><b>Checklist: do-confirm</b></td><td>Experienced people do the work from memory, then pause to confirm the critical items.</td><td>More than about five to nine items: it gets skipped.</td></tr>
+    <tr><td><b>Swimlane</b></td><td>The work passes between people or teams. One lane per role.</td><td>Too much detail. Show handoffs, not keystrokes.</td></tr>
+    <tr><td><b>Decision table</b></td><td>The right action depends on conditions: if this, do that.</td><td>Conditions that overlap.</td></tr>
+  </table>
+
+  <div class="grid2" style="margin-top:10pt">
+    <div class="card">
+      <h3>Writing rules</h3>
+      <ul>
+        <li><b>Verb first.</b> “Attach the sign-off email”, not “The sign-off email should be attached”.</li>
+        <li><b>One action per step.</b> If it has “and”, it may be two steps.</li>
+        <li><b>Numbers, not adjectives.</b> “Within two working days”, not “promptly”.</li>
+        <li><b>Name the thing.</b> The actual system, folder and template.</li>
+        <li><b>Say why</b> when a step looks skippable. People skip what they don’t understand.</li>
+        <li><b>The words your team uses,</b> not head-office language.</li>
+        <li><b>One page</b> if you can. Two at most. Longer means it’s really several SOPs.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Checklists that work</h3>
+      <p>From aviation and surgery, as described in Atul Gawande’s <i>The Checklist Manifesto</i>:</p>
+      <ul>
+        <li>A clear <b>pause point</b>: the moment the checklist is used.</li>
+        <li><b>Five to nine items</b>, the ones that matter most and get missed.</li>
+        <li>Simple, exact wording that fits on one page.</li>
+        <li><b>Test it with the people who use it</b> and revise after real use.</li>
+      </ul>
+      <p style="font-size:8.6pt;color:var(--muted)">After the WHO introduced a 19-item surgical safety checklist in eight hospitals, complications fell from 11.0% to 7.0% and deaths from 1.5% to 0.8% (Haynes et al., NEJM, 2009). It was a before-and-after study, so it shows association, not proof.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Know Enough · The SOP guide</span><span>5</span></div>
+</section>
+
+<!-- 6 · MAKE IT STICK -->
+<section class="page">
+  <p class="k">Making it stick</p>
+  <h2>An SOP nobody owns is already out of date.</h2>
+  <div class="grid2">
+    <div class="card ox">
+      <h3>Control: the minimum</h3>
+      <p style="color:var(--blush)">Adapted from the ISO 9001 requirements for documented information, scaled down for a small team.</p>
+      <ul>
+        <li><b>Identify it:</b> title, ID (FIN-003), version, date.</li>
+        <li><b>Review and approve it before use:</b> the owner writes it and one person approves it.</li>
+        <li><b>One current version.</b> Archive old versions. Never leave two live copies.</li>
+        <li><b>Available where the work happens,</b> not buried in a drive.</li>
+        <li><b>A change log:</b> what changed, when, why, who.</li>
+        <li><b>A review date:</b> at least yearly, and whenever the tool, the law or the team changes.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The stranger test</h3>
+      <p>Give the SOP to a capable person who has never done the task. Watch them do it once without helping.</p>
+      <ul>
+        <li>Every question they ask is a gap.</li>
+        <li>Every step they skip needs a “why”.</li>
+        <li>Every place they hesitate needs a name, a number or a link.</li>
+      </ul>
+      <p>Record who tested it and when. A copied SOP fails this test on the first step, and that’s the point.</p>
+      <h3 style="margin-top:6pt">Improve it</h3>
+      <p>Treat the SOP as today’s best way of doing the work, not a permanent rule. In lean practice the standard is the baseline for improvement: without one, you can’t tell whether a change made things better. Plan, do, check, act.</p>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:8pt">
+    <div>
+      <h3>Signs an SOP is dead</h3>
+      <ul>
+        <li>Nobody can say where it lives.</li>
+        <li>The steps mention a tool you no longer use.</li>
+        <li>People do it differently, and that works better.</li>
+        <li>The review date has passed.</li>
+        <li>The owner has left.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The mistakes we see most</h3>
+      <ul>
+        <li>Copying someone else’s template word for word.</li>
+        <li>Writing for an auditor instead of the person doing the work.</li>
+        <li>The founder writing it alone, not the person who does it.</li>
+        <li>Buying the tool first, then designing the process around it.</li>
+        <li>Steps with no “why”, so people skip them.</li>
+        <li>No owner and no review date.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Know Enough · The SOP guide</span><span>6</span></div>
+</section>
+
+<!-- 7 · TEMPLATE -->
+<section class="page" style="background:#fff">
+  <p class="k">The template</p>
+  <h2 style="font-size:21pt;margin-bottom:6pt">SOP: <span style="color:var(--muted)">________________________________</span></h2>
+  <div class="meta">
+    <div><b>ID and version</b></div><div><b>Owner (role · name)</b></div><div><b>Approved by · date</b></div><div><b>Tested by · date</b></div>
+  </div>
+  <div class="field"><b>1 · What starts it?</b><i>The trigger: an event, not “regularly”.</i><div class="lines"></div></div>
+  <div class="field"><b>2 · Why does it exist?</b><i>What goes wrong, for whom, if this isn’t done well.</i><div class="lines"></div><div class="lines"></div></div>
+  <div class="field"><b>3 · Covers / doesn’t cover</b><i>And where to go for what it doesn’t cover.</i><div class="lines"></div></div>
+  <div class="field"><b>4 · Who</b><i>Owns it · does it · signs off (and above what) · must be told.</i><div class="lines"></div></div>
+  <div class="field"><b>5 · Done well looks like</b><i>In numbers: time, accuracy, rework.</i><div class="lines"></div></div>
+  <div class="field"><b>6 · Before you start</b><i>Inputs, access, and where each lives (name the system and folder).</i><div class="lines"></div></div>
+  <div class="field"><b>7 · The steps people get wrong</b><i>Verb first. One action each. Add “because…” where a step looks optional.</i>
+    <div class="lines"></div><div class="lines"></div><div class="lines"></div><div class="lines"></div><div class="lines"></div></div>
+  <div class="field"><b>8 · Stop and ask when</b><i>Trigger → who → how fast.</i><div class="lines"></div><div class="lines"></div></div>
+  <div class="field"><b>9 · Record and review</b><i>Proof it happened · next review date · change log below.</i><div class="lines"></div></div>
+  <div class="foot"><span>If you can fill in a box without thinking about your own business, it isn’t answered yet.</span><span>7</span></div>
+</section>
+
+<!-- 8 · WORKED EXAMPLE -->
+<section class="page">
+  <p class="k">Worked example · Kestrel is fictional · don’t copy it, notice the choices</p>
+  <h2 style="font-size:21pt">SOP · Raising and sending a client invoice</h2>
+  <div class="meta" style="background:#fff">
+    <div><b>ID and version</b>FIN-003 · v1.2</div><div><b>Owner</b>Finance and ops lead · Sam</div><div><b>Approved by</b>Founder · 4 Sep</div><div><b>Tested by</b>New account manager · 11 Sep</div>
+  </div>
+  <div class="ex">
+    <div class="main">
+      <div><b>1 · Starts when</b> a project milestone is marked “Signed off” in the project tracker.</div>
+      <div><b>2 · Why</b> We pay venues and suppliers up front. Every day an invoice is late, we are funding the client’s event.</div>
+      <div><b>3 · Covers</b> milestone and final invoices to clients. <b>Not</b> deposits (FIN-002) or credit notes (ask Sam).</div>
+      <div><b>4 · Who</b> Does it: account manager. Signs off invoices over £10,000: Sam. Told: client lead.</div>
+      <div><b>5 · Done well</b> Sent within two working days of sign-off. Matches the contract. No client sends it back.</div>
+      <div><b>6 · Before you start</b> Signed-off milestone (tracker) · client PO number (Clients › [client] › PO) · payment terms (the signed contract, same folder).</div>
+      <div><b>7 · Steps people get wrong</b>
+        <ol style="margin-top:3pt">
+          <li><b>Add the client’s PO number.</b> Most of our clients’ accounts teams reject invoices without one.</li>
+          <li><b>Set the payment terms from the contract,</b> not the software default of 30 days.</li>
+          <li><b>Attach the client’s sign-off email</b> so their finance team can approve without chasing.</li>
+          <li><b>Send to the accounts address in the contract,</b> copying the client lead.</li>
+          <li><b>Set a reminder for three days before the due date</b> to check it’s been approved.</li>
+        </ol>
+      </div>
+      <div><b>8 · Stop and ask</b> if the amount differs from the contract by more than 5%, the client disputes sign-off, or anyone asks to change the terms. Tell Sam the same day.</div>
+      <div><b>9 · Record and review</b> PDF saved to the client folder; tracker set to “Invoiced”. Review every six months, or when the accounting software or standard contract changes.</div>
+    </div>
+    <div>
+      <p class="note">The trigger is an event. “Monthly” would have let invoices wait for the end of the month.</p>
+      <p class="note">The “why” names the consequence for this business. Yours will be different.</p>
+      <p class="note">One owner with a name. “Finance” isn’t an owner.</p>
+      <p class="note">Only five steps. Everyone already knows how to make an invoice in the software.</p>
+      <p class="note">The stranger test caught the PO number: the new starter missed it, so it became step 1.</p>
+      <p class="note">£10,000 and 5% are Kestrel’s thresholds. Set yours from your own risk.</p>
+      <p class="note">Every step that looks optional says why.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Change log · v1.2 (11 Sep): PO step moved to first after the stranger test · v1.1 (4 Sep): payment-terms step added</span><span>8</span></div>
+</section>
+
+<!-- 9 · SOURCES -->
+<section class="page">
+  <p class="k">Where this comes from</p>
+  <h2>Backed by.</h2>
+  <p>The approach is mine, from operating work. These are the standards and research it draws on, scaled down for founder-led businesses.</p>
+  <table>
+    <tr><th style="width:52mm">Source</th><th>What we took from it</th></tr>
+    <tr><td>US EPA, <i>Guidance for Preparing Standard Operating Procedures</i> (QA/G-6, 2007)</td><td>The standard structure: purpose, scope, roles, procedure and quality checks, plus document tracking and revision.</td></tr>
+    <tr><td>ISO 9001:2015, clause 7.5 (documented information)</td><td>Identification, review and approval, version control, availability at the point of use, retention.</td></tr>
+    <tr><td>ISO 10013:2021, guidance for documented information</td><td>Document what the work needs. The guidance no longer prescribes a fixed hierarchy.</td></tr>
+    <tr><td>Atul Gawande, <i>The Checklist Manifesto</i> (2009)</td><td>Read-do and do-confirm checklists, pause points, five to nine items, testing with real users.</td></tr>
+    <tr><td>Haynes et al., <i>NEJM</i> (2009), WHO Surgical Safety Checklist</td><td>Evidence that short, well-designed checklists change outcomes. A before-and-after study.</td></tr>
+    <tr><td>Toyota Production System · standard work</td><td>The standard is today’s best method and the baseline for improvement.</td></tr>
+    <tr><td>RACI (responsibility assignment)</td><td>Separating who owns, does, approves and is told.</td></tr>
+  </table>
+  <h3 style="margin-top:10pt">Links</h3>
+  <ul class="src">
+    <li>EPA QA/G-6: <a href="https://www.epa.gov/quality/guidance-preparing-standard-operating-procedures-epa-qag-6-march-2001">epa.gov/quality</a></li>
+    <li>ISO 10013:2021 release note: <a href="https://committee.iso.org/sites/tc176/home/news/content-left-area/news-and-updates/release-of-iso-100132021-quality.html">committee.iso.org</a></li>
+    <li>Haynes et al. 2009, summary: <a href="https://news.harvard.edu/gazette/story/2009/01/surgical-safety-checklist-drops-deaths-and-complications-by-more-than-one-third/">news.harvard.edu</a></li>
+  </ul>
+  <div class="card peri" style="margin-top:8pt">
+    <p class="k" style="margin-bottom:2pt">Know Enough</p>
+    <p style="margin:0">You don’t need to be the operator. You need to know enough to know when. This guide is the “know enough” for SOPs. If a process touches regulated activity, contracts or personal data, bring in a specialist and brief them precisely.</p>
+  </div>
+  <div class="foot"><span>Mila Milićević · NexaStrategic · General guidance, not legal or regulatory advice</span><span>9</span></div>
+</section>
+
+</body>
+</html>
