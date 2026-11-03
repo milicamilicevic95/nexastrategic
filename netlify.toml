@@ -78,6 +78,12 @@
   force = true
 
 [[redirects]]
+  from = "/api/keel-member"
+  to = "/.netlify/functions/keel-member"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/apply"
   to = "/.netlify/functions/apply"
   status = 200

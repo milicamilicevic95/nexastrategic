@@ -104,6 +104,7 @@
 
     show(shell([
       h("p", { class: "eyebrow", text: isRetake ? "Keel · Six month retake" : "Keel" }),
+      i.first ? h("p", { class: "k-hello", style: "font-family:var(--serif);font-size:28px;line-height:1.2;margin:0 0 10px", text: "Hello " + i.first + "." }) : null,
       h("h1", { text: isRetake ? "Six months on." : "How you decide, applied to what you are deciding." }),
       h("p", { class: "deck", text: isRetake
         ? "The same questions as before, plus one about what you decided. Your new report compares the two."
@@ -272,4 +273,20 @@
     stepScreen();
   }
   render();
+
+  // Personal links: greet her by name and prefill what we already know. Never overwrites what she typed.
+  if (/^rec[A-Za-z0-9]{14}$/.test(access) && !state.info.first) {
+    fetch("/api/keel-member?m=" + encodeURIComponent(access), { headers: { Accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.ok) return;
+        var i = state.info;
+        if (d.first) i.first = d.first;
+        if (d.name && !i.name.trim()) i.name = d.name;
+        if (d.email && !i.email.trim()) i.email = d.email;
+        save();
+        if (state.step < 0) render();
+      })
+      .catch(function () {});
+  }
 })();
