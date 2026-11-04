@@ -2,10 +2,20 @@
 
 <html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Apply | Concentric</title><meta content="#F2EDE1" name="theme-color"/><link href="/concentric/assets/favicon.png" rel="icon"/><link href="/concentric/styles.css" rel="stylesheet"/><link href="https://nexastrategic.com/concentric/apply/" rel="canonical"/><meta content="index,follow,max-image-preview:large,max-snippet:-1" name="robots"/><style>
 .apply-hero{padding-bottom:30px}
-.apply-hero .deck{font-size:clamp(17px,1.5vw,20px);line-height:1.6;max-width:820px;margin:0 0 22px}
-.apply-price{margin:0 0 8px;font-size:18px;font-weight:600;color:var(--ink)}
-.apply-terms a{text-decoration:underline;text-underline-offset:3px}
-.apply-terms{margin:0 0 26px;max-width:720px;font-size:15px;line-height:1.55;color:var(--muted)}
+.ap-summary{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr);gap:28px 56px;align-items:start;margin:6px 0 30px}
+.ap-facts{margin:0;border-top:1px solid var(--line)}
+.ap-facts div{display:grid;grid-template-columns:150px 1fr;gap:4px 24px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ap-facts dt{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink,#86631f);padding-top:3px}
+.ap-facts dd{margin:0;font-size:17px;line-height:1.5;color:var(--ink)}
+.ap-price{padding:26px 28px;background:var(--paper);border:1px solid var(--line)}
+.ap-amount{margin:0;font-family:var(--serif);font-size:46px;line-height:1;color:var(--olive)}
+.ap-amount span{font-family:inherit;font-size:18px;color:var(--muted)}
+.ap-or{margin:6px 0 12px;font-size:17px;font-weight:600;color:var(--ink)}
+.ap-lock{margin:0 0 14px;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.ap-terms{margin:0 0 14px;padding:12px 0 0;list-style:none;border-top:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink)}
+.ap-terms li{padding:3px 0}
+.ap-cancel{margin:0;font-size:14px}.ap-cancel a{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:860px){.ap-summary{grid-template-columns:1fr}.ap-facts div{grid-template-columns:1fr;gap:2px}}
 .apply-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}
 .criteria h2{font-size:clamp(30px,3vw,40px);margin:10px 0 18px}
 .criteria h3{font-size:22px;margin:28px 0 10px}
@@ -42,9 +52,25 @@
 .apply-done h3{font-size:clamp(28px,3vw,38px);margin:0 0 12px}
 @media (max-width:860px){.apply-grid{grid-template-columns:1fr;gap:36px}}
 </style></head><body><div class="progress"></div><nav class="nav"><div class="shell"><a class="brand" href="/concentric/"><img alt="Concentric" src="/concentric/assets/concentric-logo.png"/></a><button aria-expanded="false" class="menu">Menu</button><div class="links"><a href="/concentric/#keel">Keel</a><a href="/concentric/council/">The Council</a><a href="/concentric/edition-one/">Membership</a><a href="/concentric/journal/">Journal</a><a href="/concentric/about/">About</a></div></div></nav><main>
-<section class="pagehero apply-hero"><div class="shell"><p class="eyebrow">Founding membership · United States</p><h1>Apply for a Founding place.</h1><p class="deck">Each Council is six women who meet on Zoom for 90 minutes once a month. Sessions run on Eastern time, and the day and time each month are set around the group’s availability. The group stays the same, and every session is facilitated by Dr. Melonie Boone, a business psychologist with a PhD in organizational leadership. After each session, members complete a short private journal entry. Keel is your baseline profile of how you make decisions. You complete it in your first month and again at six months, so you can see how your decision making has changed.</p>
-<p class="apply-price">$360 a month, or $3,600 a year, for members who join by January 31, 2027. Your rate stays the same for as long as you remain a member.</p>
-<p class="apply-terms">Monthly membership is month to month. Annual membership is paid for the year: if you cancel, it ends at the end of that year and the remaining months aren’t refunded. Both renew until you cancel, and you can <a href="https://billing.stripe.com/p/login/5kQbIU5Jwa402xfdJubMQ00">cancel online</a> at any time. If your permanent Council hasn’t started within 90 days of joining, you can cancel and we’ll refund your most recent payment.</p><a class="textlink apply-jump" href="#apply-panel">Go to the application ↓</a></div></section>
+<section class="pagehero apply-hero"><div class="shell"><p class="eyebrow">Founding membership · United States</p><h1>Apply for a Founding place.</h1><div class="ap-summary">
+<dl class="ap-facts">
+<div><dt>The Council</dt><dd>Six women, the same group every month. 90 minutes on Zoom, Eastern time, scheduled around the group.</dd></div>
+<div><dt>Facilitator</dt><dd>Dr. Melonie Boone, business psychologist, PhD in organizational leadership.</dd></div>
+<div><dt>Keel</dt><dd>Your decision-making profile. You take it in month one and again at six months to see what has changed.</dd></div>
+<div><dt>Between sessions</dt><dd>A short private journal entry after each Council.</dd></div>
+</dl>
+<div class="ap-price">
+<p class="ap-amount">$360 <span>a month</span></p>
+<p class="ap-or">or $3,600 a year</p>
+<p class="ap-lock">Founding rate for members who join by January 31, 2027. Your rate stays the same for as long as you remain a member.</p>
+<ul class="ap-terms">
+<li>Monthly: cancel any time.</li>
+<li>Annual: paid for the year. Cancelling ends it at year end, with no refund for the remaining months.</li>
+<li>No permanent Council within 90 days? Cancel and we refund your latest payment.</li>
+</ul>
+<p class="ap-cancel"><a href="https://billing.stripe.com/p/login/5kQbIU5Jwa402xfdJubMQ00">Cancel online</a> · <a href="/concentric/legal/#membership">Membership terms</a></p>
+</div>
+</div><a class="textlink apply-jump" href="#apply-panel">Go to the application ↓</a></div></section>
 <section class="section apply-body"><div class="shell apply-grid">
 <aside class="criteria">
 <p class="kicker">The Founding criteria</p>
@@ -64,7 +90,7 @@
 <li>coaching or advice on demand</li>
 <li>a single conversation</li>
 </ul>
-<div class="next-steps"><p class="kicker">How it works</p><ol><li>Apply below. It takes about two minutes.</li><li>We check your answers against the criteria straight away.</li><li>If you qualify, you can join immediately. Your first month includes a Welcome Council, your Keel profile and report, and a 30 minute private debrief. You then move into your permanent Council of six. A few applications need a closer look, and we reply to those within one working day.</li></ol></div>
+<div class="next-steps"><p class="kicker">How it works</p><ol><li>Apply below. It takes about two minutes.</li><li>We check your answers against the criteria straight away.</li><li>If you qualify, you can join straight away. A few applications need a closer look; we reply to those within one working day.</li><li>Month one: a Welcome Council, your Keel report and a 30 minute private debrief. Then you join your permanent Council of six.</li></ol></div>
 </aside>
 <div class="apply-panel" id="apply-panel">
 <form class="formgrid apply-form" id="concentric-apply-form" novalidate>
