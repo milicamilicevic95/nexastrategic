@@ -15,6 +15,7 @@ const F = {
   patterns: 'fldpfhNWhmGxPYIAS',
   pick: 'fld5hkw91JJvAm9Px',
   rating: 'fld11HksPocROmYsh',
+  exact: 'fldb5RkDFpsvM8kCA',
   published: 'fldxzx7m6i0ZBLDPZ'
 };
 // Pattern Library entry name -> its anchor on /pattern-library/.
@@ -130,7 +131,7 @@ exports.handler = async event => {
         finished: text(f[F.finished], 10),
         shelf: choice(f[F.shelf]),
         pick: !!f[F.pick],
-        rating: Math.max(0, Math.min(5, Number(f[F.rating]) || 0)),
+        rating: Math.max(0, Math.min(5, Math.round((Number(f[F.exact]) || Number(f[F.rating]) || 0) * 2) / 2)),
         patterns: (f[F.patterns] || []).map(choice).filter(n => PATTERNS[n]).map(n => ({ name: n, id: PATTERNS[n] }))
       }))
       .sort((a, b) => (b.reading - a.reading) || (b.rating - a.rating) || (b.finished || '').localeCompare(a.finished || ''));
