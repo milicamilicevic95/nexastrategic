@@ -22,7 +22,7 @@ const F = {
 };
 
 const STATES = new Set(['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming']);
-const ROLES = new Set(['Manager','Director or senior director','VP or SVP','C-suite','Founder or owner','Independent or fractional leader','Coach, consultant or adviser','Other']);
+const ROLES = new Set(['Senior Manager','Director or Senior Director','Head of','Founder or Co-Founder','Other']);
 const HEARD = new Set(['LinkedIn','Instagram','Facebook','A friend or colleague','Mila directly','A newsletter or article','Search','Other']);
 
 const json = (statusCode, body) => ({
@@ -39,8 +39,8 @@ function checkCriteria(a) {
   if (!/^https:\/\/([a-z]{2,3}\.)?linkedin\.com\/in\/[^/?#\s]{2,}/i.test(a.linkedin)) {
     review.push('LinkedIn link is not a personal profile (linkedin.com/in/...).');
   }
-  if (a.role === 'Coach, consultant or adviser') {
-    review.push('Role is coach, consultant or adviser: check she is joining for her own decision, not to find clients.');
+  if (a.role === 'Other') {
+    review.push('Role is Other: check she meets the published criteria (senior manager, director or head of function at a company of 200+, or founder with a team of 10+).');
   }
   if (a.decision.split(/\s+/).filter(Boolean).length < 8) {
     review.push('Decision answer is very short.');
@@ -111,7 +111,7 @@ exports.handler = async (event) => {
     const res = await fetch(`https://api.airtable.com/v0/${BASE}/${APPLICANTS}`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields })
+      body: JSON.stringify({ fields, typecast: true })
     });
     if (!res.ok) {
       console.error('Airtable error', res.status, await res.text());
