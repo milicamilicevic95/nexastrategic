@@ -2,6 +2,12 @@
 
 *Draft for review, 21 October 2026. Replaces the earlier six-module structure, which moves to course 2.*
 
+> **Update, 5 November 2026: version 1 is four modules and an applied test.** Agreed with Mila for the Founders House build; overview deck: https://claude.ai/artifact/KWWykwS6eUbWcvNU1gwWZn
+>
+> 1. What operations is (OF101) · 2. The work: process and people · 3. The money: commercial and finance · 4. The rules and control: legal, compliance, governance, risk · 5. Applied test, "Hold the ball": Part A, the Kestrel second-city case; Part B, their own business (panel map at Now and Next, an owner per part, operating rhythm, one task handed over). Reviewed by a person against six questions: Ready, or Not yet with one thing to redo.
+>
+> The seven-module table below is the longer version for later. OF107 is now the applied test.
+
 ## What this course is
 
 Operations, from zero, taught as one whole. Written for founders who have never run operations and were never taught what it covers. By the end they know what each part of operations involves, how the parts connect, what "good enough" looks like at their size, and who should own it.
