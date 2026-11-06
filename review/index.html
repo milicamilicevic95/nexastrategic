@@ -131,6 +131,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:hover{transform:none}}
 .notice{border:1px solid var(--wine);background:#fff;padding:18px 20px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.notice p{margin:0}.rel{color:#6b625d;font-size:.9em}
 .hint{font-size:13px;color:var(--muted);margin:2px 0 0;line-height:1.45}.cfo{border-left:3px solid var(--wine);background:#fff;padding:12px 16px;font-size:15px}.lookup{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.lookup .field{flex:1;min-width:240px}.chres{display:grid;gap:8px;margin-top:4px}.chres button{text-align:left;background:#fff;border:1px solid var(--rule,#cfc6bd);padding:10px 14px;font:inherit;cursor:pointer}.chres button:hover{border-color:var(--wine)}.chres small{display:block;color:var(--muted);font-size:13px}.chok{font-size:14px;color:var(--muted)}
+.linkbar{background:var(--paper-2);border-bottom:1px solid var(--line);padding-block:14px}.linkbar .wrap{display:flex;gap:10px 18px;align-items:center;justify-content:space-between;flex-wrap:wrap}.linkbar p{margin:0;font-size:14px;max-width:760px}.linkbar code{font-family:inherit;font-weight:600;word-break:break-all}.linkbar.new{background:var(--ink);color:var(--paper)}.linkbar.new .btn{border-color:var(--paper);color:var(--paper)}
+.reg{max-width:620px;margin:0 auto;padding-block:56px 80px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px}.reg form>*{min-width:0}.reg h1{font-size:clamp(34px,4.6vw,56px);line-height:.98}.reg form{display:grid;gap:16px;border-top:1px solid var(--ink);padding-top:22px}.reg .hp{position:absolute;left:-9999px}
 </style>
 </head>
 <body>
@@ -231,6 +233,7 @@ function render(){
     <div class="meter"><span class="eyebrow">Progress</span><strong id="pct">${o.pct}%</strong><div class="bar"><i id="pbar" style="width:${o.pct}%"></i></div>
       <div class="dates">${c.p1Due?`<span><b>Priority 1</b> by ${esc(fmtDate(c.p1Due))}</span>`:""}${c.p2Due?`<span><b>Priority 2</b> by ${esc(fmtDate(c.p2Due))}</span>`:""}<span id="pcount">${o.d} of ${o.t} items complete</span></div></div>
   </div></header>
+  ${S.demo?"":linkBar()}
   <div class="gut"><div class="wrap layout">
     <aside class="idx" id="idx" aria-label="Sections"></aside>
     <main id="main" tabindex="-1"></main>
@@ -438,9 +441,48 @@ function demoData(){
   S.ans={"Q1.1":{answer:"Yes"},"Q1.4":{answer:"Partly",explanation:"Leadership meets weekly; minutes are kept for board meetings only."}};
   setSave("ok","Not saved");
 }
+function privateLink(){ return location.origin+"/review/?c="+encodeURIComponent(S.code||""); }
+function linkBar(){ const link=privateLink();
+  return `<div class="linkbar gut ${S.welcome?"new":""}"><div class="wrap"><p>${S.welcome?"<b>Your pack is ready.</b> ":""}This is your company's private link: <code>${esc(link)}</code>. Bookmark it to come back, and share it only with colleagues helping you complete the review.</p><button class="btn" type="button" onclick="copyLink(this)">Copy link</button></div></div>`; }
+function copyLink(b){ const link=privateLink(); const done=()=>{ b.textContent="Copied"; setTimeout(()=>b.textContent="Copy link",2000); };
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done,()=>prompt("Copy your private link:",link)); else prompt("Copy your private link:",link); }
+function renderRegister(inv,invite){
+  $("#app").innerHTML=`<div class="gut"><div class="reg">
+    <div><span class="eyebrow">Due diligence${inv.client?" · "+esc(inv.client):""}${inv.project?" · Project "+esc(inv.project):""}</span>
+    <h1>Operational, Governance and Compliance Review</h1></div>
+    <p class="lead">Tell us which company you are completing the review for. We will set up a private pack for your company straight away. It saves as you go, so you can work through it over several sittings.</p>
+    <form id="regf" novalidate>
+      <div class="field"><label class="fl" for="r-co">Company name</label><input type="text" id="r-co" required autocomplete="organization"></div>
+      <div class="field"><label class="fl" for="r-no">Company number (optional)</label><input type="text" id="r-no" inputmode="text" placeholder="e.g. 01234567"><p class="hint">From Companies House. Leave it blank if you are not sure.</p></div>
+      <div class="grid2"><div class="field"><label class="fl" for="r-nm">Your name</label><input type="text" id="r-nm" required autocomplete="name"></div>
+      <div class="field"><label class="fl" for="r-rl">Your role</label><input type="text" id="r-rl" required autocomplete="organization-title"></div></div>
+      <div class="field"><label class="fl" for="r-em">Work email</label><input type="email" id="r-em" required autocomplete="email"></div>
+      <input class="hp" type="text" id="r-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="err" id="r-err" role="alert" hidden></p>
+      <div><button class="btn primary" type="submit" id="r-go">Set up our pack</button></div>
+      <p class="hint">One pack per company. If a colleague has already set one up, ask them for your company's private link instead.</p>
+    </form></div></div>`;
+  setSave("ok","Private");
+  $("#regf").onsubmit=async e=>{ e.preventDefault(); const err=$("#r-err"), go=$("#r-go"); err.hidden=true;
+    const body={action:"register",invite,company:$("#r-co").value,companyNumber:$("#r-no").value,name:$("#r-nm").value,role:$("#r-rl").value,email:$("#r-em").value,website:$("#r-hp").value};
+    if(!body.company.trim()||!body.name.trim()||!body.role.trim()||!body.email.trim()){ err.textContent="Please complete every field."; err.hidden=false; return; }
+    go.disabled=true; go.textContent="Setting up";
+    try{ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}); const d=await r.json().catch(()=>({}));
+      if(!r.ok||!d.code) throw new Error(d.error||"We could not set up your pack. Please try again.");
+      location.replace("/review/?c="+encodeURIComponent(d.code)+"&welcome=1");
+    }catch(x){ err.textContent=x.message; err.hidden=false; go.disabled=false; go.textContent="Set up our pack"; } };
+}
 async function boot(){
   let code=null; try{ code=new URLSearchParams(location.search).get("c"); }catch(e){}
   const h=(location.hash||"").replace("#",""); if(h&&h.startsWith("s")){ const v=h.slice(1); if(["details","submit","followups"].includes(v)||SECS.some(s=>s.no===v)) S.view=v; }
+  let invite=null; try{ invite=new URLSearchParams(location.search).get("invite"); }catch(e){}
+  try{ const u=new URL(location.href); if(u.searchParams.has("welcome")){ S.welcome=true; u.searchParams.delete("welcome"); history.replaceState(null,"",u.pathname+u.search+u.hash); } }catch(e){}
+  if(!code&&invite){
+    try{ const r=await fetch(API+"?invite="+encodeURIComponent(invite),{headers:{"Accept":"application/json"}});
+      if(r.status===404){ gate("This link is no longer active","Please ask whoever sent it to you for a new one."); return; }
+      if(!r.ok) throw new Error("load"); const d=await r.json(); renderRegister(d.invite||{},invite); return;
+    }catch(e){ gate("We could not load this page","Please refresh in a minute. If it keeps happening, email milica@nexastrategic.com."); return; }
+  }
   if(!code){
     if(/(^|\.)nexastrategic\.com$/i.test(location.hostname) && !/[?&]preview\b/.test(location.search)){ gate("This page is for invited companies","If you have been asked to complete a due diligence review, use the full link from your NexaStrategic email."); setSave("ok","Private"); return; }
     demoData(); render(); return; }

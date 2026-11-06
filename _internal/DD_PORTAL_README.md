@@ -68,6 +68,20 @@ To revoke access, type a new value into Access code (24 letters and numbers); th
 
 A dummy company, "TEST Solar Ltd", is already set up for an end-to-end test. Delete it, and its finding and follow-up, once you have tried the live portal.
 
+## 3a. One shared link (companies register themselves)
+
+Use this when someone else is sending the pack and you don't know the companies in advance.
+
+1. In Airtable, open **DD Invites** and add a row: Name (for you), Invite code (24 random letters and numbers), Client (shown to every company as the acquirer), Project (optional), tick **Active**.
+2. The link is `https://nexastrategic.com/review/?invite=CODE`. Send that one link to everyone.
+3. A company opens it, enters its name, company number (optional), contact name, role and email, and gets its own private pack at once, with its own private link shown at the top of every page.
+4. The new row appears in **DD Companies** with Status Invited, P1 due in 5 working days, P2 due in 10, and **Registered via** set to the invite code.
+5. The same company cannot register twice through the same invite (matched on contact email, company name or company number). It is told to use its private link or email you.
+
+To close the shared link, untick Active (or change the Invite code). Companies already registered keep their own private links.
+
+Current invite: "David Jacob, November 2026".
+
 ## 4. What the client does
 
 - Works through the 14 sections. Everything autosaves.
@@ -95,10 +109,12 @@ When the review is done, ask Claude to draft the report for that company from Ai
 
 The function finds Airtable tables and fields by name. Renaming any of these breaks saving:
 
-- Tables: DD Companies, DD Requests, DD Responses, DD Follow-ups
+- Tables: DD Companies, DD Requests, DD Responses, DD Follow-ups, DD Invites
 - DD Companies: Company, Client, Project, P1 due, P2 due, Access code, Portal code, Registered office, Companies House status, Status, Progress, Attested by, Attested role, Attested at, Legal name, Company number, Contact name, Contact role, Contact email, Contributors, Business summary, Headcount, Revenue band, Top three customer share, Main operational problem
 - DD Requests: Key, Company, Company code, No., Section, Item, Priority, Status, Expected date, Client note, Files
 - DD Responses: Key, Company, Company code, Code, Domain, Question, Client answer, Suggested score, Client explanation, Tested by
+- DD Invites: Invite code, Client, Project, Active
+- DD Companies also: Registered via
 - DD Follow-ups: Question, Company, No., Related item, Send, Client answer, Files, Answered at, Status, Portal code
 
 You can add fields freely (for example Reviewed, Score, Impact, Likelihood, Reviewer comment). The client never sees them.

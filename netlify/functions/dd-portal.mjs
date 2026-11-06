@@ -9,7 +9,7 @@ const PACK = {"title": "Operational, Governance and Compliance Due Diligence", "
 const BASE = process.env.AIRTABLE_BASE || "appW06EMIpNUylqOT";
 const TOKEN = process.env.AIRTABLE_TOKEN || process.env.WAITLIST_AIRTABLE_PAT || process.env.AIRTABLE_PAT;
 const CH_KEY = process.env.COMPANIES_HOUSE_KEY;
-const T = { companies: "DD Companies", requests: "DD Requests", responses: "DD Responses", followups: "DD Follow-ups" };
+const T = { companies: "DD Companies", requests: "DD Requests", responses: "DD Responses", followups: "DD Follow-ups", invites: "DD Invites" };
 const TESTED = {"Q1.1": "1.3, 1.4; Companies House: confirmation statement shareholders", "Q1.2": "1.3, 1.5; Companies House: filing history, overdue flags, registered office", "Q1.3": "1.2, 1.4, 1.6; Call: how decisions are really made", "Q1.4": "1.6, 1.8", "Q1.5": "1.7, 9.3; Sample: one large payment and one contract, who approved", "Q1.6": "1.9, 13.2; Companies House: directors' other appointments", "Q1.7": "1.8, 8.3, 9.2", "Q1.8": "1.5; Companies House: officer and PSC verification status", "Q2.1": "2.1, 2.4; Sample: three signed customer contracts", "Q2.2": "2.3, 14.13", "Q2.3": "2.5, 13.3", "Q2.4": "2.4, 3.3", "Q2.5": "2.4", "Q2.6": "2.10, 11.1", "Q3.1": "3.1, 3.2, 3.8; IPO: trade mark register", "Q3.2": "3.7, 13.1; Domain WHOIS where public", "Q3.3": "3.5, 6.8", "Q3.4": "3.5, 3.3", "Q4.1": "4.1, 14.1, 14.4, 14.12, 14.15; MCS, competent person scheme, FCA, waste carrier registers", "Q4.2": "4.2, 4.7", "Q4.3": "4.7", "Q4.4": "4.4, 14.11; HSE enforcement register", "Q4.5": "4.3, 14.18; HSE register, FCA register, Trading Standards news, CMA cases", "Q5.1": "5.1, 2.6", "Q5.2": "5.2, 9.3", "Q5.3": "5.3; UK Sanctions List: spot check top suppliers and any overseas parties", "Q5.4": "5.5, 7.5", "Q5.5": "5.6", "Q6.1": "6.1; ICO register of fee payers", "Q6.2": "6.2", "Q6.3": "6.3; Website: privacy and cookie notice", "Q6.4": "6.5", "Q6.5": "6.7", "Q6.6": "6.8, 3.5", "Q6.7": "6.10", "Q6.8": "6.9; IASME certificate search", "Q6.9": "6.12", "Q7.1": "7.2, 7.3; Sample: three contracts against the census", "Q7.2": "7.6, 14.10; Sample: three checks, including one subcontractor", "Q7.3": "7.4, 14.10", "Q7.4": "7.5, 7.10", "Q7.5": "7.2, 7.7; The Pensions Regulator: compliance declaration", "Q7.6": "7.1", "Q7.7": "7.10, 7.11, 11.1", "Q7.8": "7.12, 13.5; Call: test with the founder absent", "Q7.9": "7.14", "Q7.10": "7.3, 7.5", "Q8.1": "8.1, 8.2; Installation file walkthrough", "Q8.2": "8.1, 7.1", "Q8.3": "8.3, 1.8", "Q8.4": "2.1, 2.2, 8.5, 14.9; Portal: top three customer share", "Q8.5": "8.4", "Q8.6": "8.6, 14.14; Trustpilot, Google and Checkatrade review trends", "Q9.1": "9.1, 1.8", "Q9.2": "9.2", "Q9.3": "9.3; Sample: two payments above threshold", "Q9.4": "9.5", "Q9.5": "1.8, 9.2; Financial due diligence: ask Alex for the forecast he reviewed", "Q10.1": "10.3", "Q10.2": "10.1, 10.2", "Q10.3": "10.4, 6.10", "Q10.4": "10.5, 6.11, 14.16; HSE enforcement register", "Q10.5": "10.1, 13.3", "Q11.1": "11.1, 11.2, 11.3; Registry Trust: county court judgments; Gazette: winding up petitions", "Q12.1": "12.1; Land Registry: title for each site", "Q13.1": "13.1, 3.7", "Q13.2": "13.2, 1.9", "Q13.3": "13.3, 2.5, 12.1", "Q13.4": "13.5, 7.12", "Q14.1": "14.1; MCS installer register: status and technologies", "Q14.2": "14.2; RECC and HIES member lists", "Q14.3": "14.3, 14.6; Sample: guarantee registration in each installation file", "Q14.4": "14.6, 14.7; Sample: notification dates against commissioning dates", "Q14.5": "14.6, 14.5; Sample: certificate dates against commissioning dates", "Q14.6": "14.10, 7.6", "Q14.7": "14.11, 4.4; HSE enforcement register", "Q14.8": "14.12; FCA register: permission or appointed representative entry", "Q14.9": "14.13, 14.6, 14.14; Website and advertising: savings claims", "Q14.10": "14.8", "Q14.11": "14.1; MCS installer register", "Q14.12": "14.16, 14.6; Sample: battery location in each battery installation file", "Q14.13": "14.17; TrustMark register", "Q14.14": "14.18, 4.3; FCA, HSE and Financial Ombudsman decision searches"};
 const API = "https://api.airtable.com/v0/" + BASE + "/";
 const CONTENT = "https://content.airtable.com/v0/" + BASE + "/";
@@ -44,6 +44,15 @@ async function listAll(table, formula) {
     out.push(...(p.records || [])); offset = p.offset;
   } while (offset);
   return out;
+}
+// Shared entry links: one link per invite, any company can register through it and get its own private pack.
+const fq = v => String(v || "").replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+const newCode = () => { const a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; const b = crypto.getRandomValues(new Uint8Array(24)); let s = ""; for (const x of b) s += a[x % a.length]; return s; };
+function workingDays(n) { const d = new Date(); let added = 0; while (added < n) { d.setUTCDate(d.getUTCDate() + 1); const w = d.getUTCDay(); if (w !== 0 && w !== 6) added++; } return d.toISOString().slice(0, 10); }
+async function findInvite(code) {
+  if (!validCode(code)) return null;
+  const recs = await listAll(T.invites, `AND({Active}, {Invite code}='${code}')`);
+  return recs[0] || null;
 }
 async function findCompany(code) {
   const recs = await listAll(T.companies, `{Portal code}='${code}'`);
@@ -96,6 +105,12 @@ export default async (req) => {
   if (!TOKEN) return json(500, { error: "The portal is not configured yet." });
   try {
     if (req.method === "GET") {
+      const inviteCode = new URL(req.url).searchParams.get("invite");
+      if (inviteCode) {
+        const inv = await findInvite(inviteCode);
+        if (!inv) return json(404, { error: "Not found" });
+        return json(200, { invite: { client: inv.fields["Client"] || "", project: inv.fields["Project"] || "" } });
+      }
       const code = new URL(req.url).searchParams.get("c");
       if (!validCode(code)) return json(404, { error: "Not found" });
       const co = await findCompany(code);
@@ -118,6 +133,24 @@ export default async (req) => {
     }
     if (req.method !== "POST") return json(405, { error: "Method not allowed" });
     const body = await req.json().catch(() => null);
+    if (body && body.action === "register") {
+      if (body.website) return json(400, { error: "Invalid request" }); // honeypot
+      const inv = await findInvite(body.invite);
+      if (!inv) return json(404, { error: "This link is no longer active. Please ask whoever sent it for a new one." });
+      const company = clip(body.company, 200).trim(), name = clip(body.name, 200).trim(), role = clip(body.role, 200).trim();
+      const email = clip(body.email, 200).trim().toLowerCase(), number = clip(body.companyNumber, 20).replace(/\s/g, "").toUpperCase();
+      if (!company || !name || !role || !email) return json(400, { error: "Please complete every field." });
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json(400, { error: "Please enter a valid email address." });
+      if (number && !/^([0-9]{8}|[A-Z]{2}[0-9]{6})$/.test(number)) return json(400, { error: "A UK company number is 8 characters, for example 01234567 or SC123456. Leave it blank if you are not sure." });
+      const ic = inv.fields["Invite code"];
+      const dupe = await listAll(T.companies, `AND({Registered via}='${fq(ic)}', OR(LOWER({Contact email})='${fq(email)}', LOWER(TRIM({Company}))='${fq(company.toLowerCase())}'${number ? `, {Company number}='${fq(number)}'` : ""}))`);
+      if (dupe.length) return json(409, { error: "Your company already has a pack. Use the private link from when you first registered (it is in your browser history), or email milica@nexastrategic.com and we will resend it." });
+      const code = newCode();
+      const fields = { "Company": company, "Client": inv.fields["Client"] || "", "Project": inv.fields["Project"] || "", "Status": "Invited", "P1 due": workingDays(5), "P2 due": workingDays(10), "Access code": code, "Registered via": ic, "Contact name": name, "Contact role": role, "Contact email": email };
+      if (number) fields["Company number"] = number;
+      await at(encodeURIComponent(T.companies), { method: "POST", body: JSON.stringify({ typecast: true, fields }) });
+      return json(200, { ok: true, code });
+    }
     if (!body || !validCode(body.code)) return json(400, { error: "Invalid request" });
     const co = await findCompany(body.code);
     if (!co) return json(404, { error: "Not found" });
