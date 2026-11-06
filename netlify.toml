@@ -66,9 +66,9 @@
   force = true
 
 [[redirects]]
-  from = "/api/shelf"
-  to = "/.netlify/functions/shelf"
-  status = 200
+  from = "/shelf/*"
+  to = "/writing/"
+  status = 301
   force = true
 
 [[redirects]]
