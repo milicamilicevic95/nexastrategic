@@ -62,7 +62,7 @@ In Airtable, open the **Due Diligence Review** interface and add a company on th
 | P2 due | 10 working days from sending |
 | Status | Invited |
 
-The **Portal link** fills in automatically. Send it to the named lead contact only. The first time they open it, the portal creates all 123 document rows and 97 question rows for that company, so the review screens are complete from the start.
+The **Portal link** fills in automatically. Send it to the named lead contact only. The first time they open it, the portal creates all 123 document rows and 96 question rows for that company, so the review screens are complete from the start.
 
 To revoke access, type a new value into Access code (24 letters and numbers); the old link stops working.
 
