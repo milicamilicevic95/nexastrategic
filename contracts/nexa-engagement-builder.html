@@ -491,10 +491,10 @@ give Nexa evidence of that number on reasonable request, such as a billing or CR
     <div class="f full" data-svc="DDP"><label for="ddp_sector">Programme: acquisitions of</label><input id="ddp_sector" value="UK solar and home-energy installation businesses"></div>
     <div class="f" data-svc="DDP"><label for="ddp_assess_fee">Assessment fee per target, £ excl. VAT</label><input id="ddp_assess_fee" type="number" min="0" step="50" value="2000"></div>
     <div class="f" data-svc="DDP"><label for="ddp_assess_hours">Hours included per assessment</label><input id="ddp_assess_hours" type="number" min="1" step="0.5" value="8"></div>
-    <div class="f" data-svc="DDP"><label for="ddp_m_fee">Monthly tier, £ per company per month</label><input id="ddp_m_fee" type="number" min="0" step="50" value="700"></div>
-    <div class="f" data-svc="DDP"><label for="ddp_m_hours">Monthly tier, hours per month</label><input id="ddp_m_hours" type="number" min="1" step="0.5" value="3"></div>
-    <div class="f" data-svc="DDP"><label for="ddp_f_fee">Fortnightly tier, £ per company per month</label><input id="ddp_f_fee" type="number" min="0" step="50" value="1000"></div>
-    <div class="f" data-svc="DDP"><label for="ddp_f_hours">Fortnightly tier, hours per month</label><input id="ddp_f_hours" type="number" min="1" step="0.5" value="5"></div>
+    <div class="f" data-svc="DDP"><label for="ddp_m_fee">Monthly advisory, £ per company per month</label><input id="ddp_m_fee" type="number" min="0" step="50" value="700"></div>
+    <div class="f" data-svc="DDP"><label for="ddp_m_hours">Monthly advisory, hours per month</label><input id="ddp_m_hours" type="number" min="1" step="0.5" value="3"></div>
+    <div class="f" data-svc="DDP"><label for="ddp_f_fee">Fortnightly tier, £ per company per month (optional)</label><input id="ddp_f_fee" type="number" min="0" step="50" placeholder="Leave empty for one monthly rate"></div>
+    <div class="f" data-svc="DDP"><label for="ddp_f_hours">Fortnightly tier, hours per month (optional)</label><input id="ddp_f_hours" type="number" min="1" step="0.5"></div>
     <div class="f" data-svc="DDP"><label for="ddp_hour_rate">Additional hours rate, £</label><input id="ddp_hour_rate" type="number" min="0" step="10" value="200"></div>
     <div class="f" data-svc="DDP"><label for="ddp_credit">Credit limit, £ unpaid at any time</label><input id="ddp_credit" type="number" min="0" step="500" value="10000"></div>
     <div class="f" data-svc="DDP"><label for="ddp_capacity">Assessments in progress at once</label><input id="ddp_capacity" type="number" min="1" step="1" value="2"></div>
@@ -906,11 +906,12 @@ function buildDoc(){
   if(e.svc==="DDP"){
     /* Subcontract: operational due diligence and portfolio advisory for an acquisition programme.
        Clause references are to the NexaStrategic Terms of Business v1.0. */
-    const vatNoteD=n.nx_vat==="registered"?" plus VAT":" plus VAT (from Nexa's VAT effective date)";
+    const vatNoteD=" plus VAT";
     const end=e.ddp_end_name||"", endNo=e.ddp_end_number||"";
     const aFee=money(e.ddp_assess_fee), aHrs=e.ddp_assess_hours, mFee=money(e.ddp_m_fee), mHrs=e.ddp_m_hours, fFee=money(e.ddp_f_fee), fHrs=e.ddp_f_hours;
     const hr=money(e.ddp_hour_rate), credit=money(e.ddp_credit), capN=e.ddp_capacity, canc=e.ddp_cancel_pct, dlv=e.ddp_deliver_days, yrs=e.ddp_claim_years;
     const payD=F(e.pay_days?plural(e.pay_days,"calendar day"):"");
+    const two=!!(e.ddp_f_fee&&String(e.ddp_f_fee).trim());
     page();
     cur.push({k:"kick",runs:["Engagement Order · "+ref]});
     cur.push({k:"h2",runs:["Operational Due Diligence and Portfolio Advisory"],dot:true});
@@ -925,7 +926,7 @@ function buildDoc(){
       ["Start Date",e.start?ukDate(e.start):"The date of the last signature below"],
       ["Term","Until ended under clause 11. Each Work Order continues to completion unless ended under clause 11"],
       ["Assessment Fee",[F(aFee)," per Target"+vatNoteD+", covering up to ",F(aHrs?plural(aHrs,"hour"):"")]],
-      ["Advisory Fees",["Monthly Tier: ",F(mFee)," per Portfolio Company per month"+vatNoteD+", up to ",F(mHrs?plural(mHrs,"hour"):""),". Fortnightly Tier: ",F(fFee)," per Portfolio Company per month"+vatNoteD+", up to ",F(fHrs?plural(fHrs,"hour"):"")]],
+      two?["Advisory Fees",["Monthly Tier: ",F(mFee)," per Portfolio Company per month"+vatNoteD+", up to ",F(mHrs?plural(mHrs,"hour"):""),". Fortnightly Tier: ",F(fFee)," per Portfolio Company per month"+vatNoteD+", up to ",F(fHrs?plural(fHrs,"hour"):"")]]:["Advisory Fee",[F(mFee)," per Portfolio Company per month"+vatNoteD+", up to ",F(mHrs?plural(mHrs,"hour"):"")," of support a month"]],
       ["Additional Hours Rate",[F(hr)," per hour"+vatNoteD+", only where approved in writing in advance"]],
       ["Delivery","Remotely. Site visits are not included"],
       ["Invoicing","Assessment Fee on acceptance of the Work Order. Advisory Fees monthly in advance on the 1st of each month"],
@@ -957,16 +958,16 @@ function buildDoc(){
     H("4. Work Orders");
     C("4.1","The Client orders Services by sending Nexa a Work Order by email. A Work Order for an Assessment must give: the Target's name and company number; the End Client's deal contact; a short summary of the deal thesis and any areas of concern; the materiality threshold agreed with the End Client; the timetable; and confirmation that the confidentiality agreement with the Target names Nexa as a permitted recipient.");
     C("4.2","A Work Order binds Nexa only when Nexa accepts it in writing. Nexa may decline any Work Order, including where it has a conflict under clause 10.3, where accepting it would exceed the capacity in clause 1, or where any invoice is overdue or the Credit Limit would be exceeded.");
-    C("4.3","After an Assessment, the Client may order Portfolio Advisory for that business by choosing the Monthly Tier or the Fortnightly Tier in a Work Order. Unless the Work Order says otherwise, Portfolio Advisory starts on the 1st day of the month after Completion and continues month to month until ended under clause 11.");
-    C("4.4","The Client may change a Portfolio Company's tier with effect from the start of the next month by giving at least 14 days' written notice.");
-    C("4.5","Nexa has no obligation to accept any minimum number of Work Orders, and the Client has no obligation to place any.");
+    C("4.3","After an Assessment, the Client may order Portfolio Advisory for that business"+(two?" by choosing the Monthly Tier or the Fortnightly Tier":"")+" in a Work Order. Unless the Work Order says otherwise, Portfolio Advisory starts on the 1st day of the month after Completion and continues month to month until ended under clause 11.");
+    if(two)C("4.4","The Client may change a Portfolio Company's tier with effect from the start of the next month by giving at least 14 days' written notice.");
+    C(two?"4.5":"4.4","Nexa has no obligation to accept any minimum number of Work Orders, and the Client has no obligation to place any.");
     H("5. Fees and payment");
-    C("5.1","The Client must pay the Fees set out in clause 1 for each Work Order. The Assessment Fee is earned when Nexa accepts the Work Order and is payable in full once Nexa has started work under clause 5.6. Advisory Fees are earned for each month in which Portfolio Advisory is available, whether or not the Client or the Portfolio Company uses all of the hours.");
+    C("5.1","The Client must pay the Fees set out in clause 1 for each Work Order. The Assessment Fee is earned when Nexa accepts the Work Order and is payable in full once Nexa has started work under clause 5.6. Advisory Fees are earned for each month in which Portfolio Advisory is available, whether or not the Client or the Portfolio Company uses all of the hours. If the End Client does not acquire a Target, or the Client does not order Portfolio Advisory after an Assessment, the Assessment Fee remains payable in full and no part of it is refunded or credited.");
     C("5.2",{b:"Payment regardless of outcome."}," The Client is solely responsible for paying the Fees. Its obligation to pay is not conditional on, and must not be deferred because of: (a) whether the End Client pays the Client; (b) whether any acquisition proceeds, completes or is abandoned; (c) the findings of any Assessment; (d) the profitability, performance, funding or sale of any Target or Portfolio Company; or (e) any dispute between the Client and the End Client or any other Programme Party.");
     C("5.3","No Fees are payable as a success fee, deferred fee, share of profit, equity or other contingent payment, unless the parties agree this in writing. Any such agreement is in addition to the Fees, not in place of them.");
     C("5.4","Each invoice is payable within ",payD," of its date. The Client may not withhold or set off any amount against an invoice, except an amount disputed in good faith under clause 8.4 of the Terms.");
     if(n.nx_vat==="registered")C("5.5","All Fees are exclusive of VAT, which the Client must pay in addition under clause 8.3 of the Terms. Nexa's VAT registration number is ",F(n.nx_vat_no),".");
-    else C("5.5","All Fees are exclusive of VAT, which the Client must pay in addition under clause 8.3 of the Terms. Nexa's VAT registration takes effect on ",F(ukDate(n.nx_vat_date)),", and VAT is added to all Fees for supplies made on or after that date.");
+    else C("5.5","All Fees are exclusive of VAT, which the Client must pay in addition under clause 8.3 of the Terms. Nexa's VAT registration takes effect on ",F(ukDate(n.nx_vat_date)),", and VAT is added to all Fees for supplies made on or after that date. Until HM Revenue & Customs issues Nexa's VAT registration number, Nexa's invoices will show the VAT charged, and Nexa will issue VAT invoices for those supplies within 30 days of receiving its number.");
     C("5.6",{b:"Cancellation."}," If the Client cancels an Assessment before Nexa has started work on it, the Client must pay ",F(canc!==""&&canc!=null?canc+"%":"")," of the Assessment Fee. Nexa starts work when it sends the information request to the Target or begins reviewing any information about it. If the Client cancels after that, or the End Client abandons the acquisition, or the Target does not provide information, the full Assessment Fee remains payable, together with any Additional Hours already approved.");
     C("5.7",{b:"Credit Limit."}," Nexa need not accept any Work Order, or start any further work, while the Fees invoiced but unpaid exceed the Credit Limit in clause 1, or while any invoice is overdue.");
     C("5.8",{b:"Late payment and suspension."}," If any invoice is not paid when due, Nexa may charge interest and fixed compensation under the Late Payment of Commercial Debts (Interest) Act 1998. If an invoice remains unpaid 14 days after its due date, Nexa may suspend all Services on 5 Business Days' written notice until all overdue amounts are paid. This applies in place of clause 8.5 of the Terms. The Fees remain payable during any suspension, and Nexa is not liable for any delay it causes.");
@@ -1027,14 +1028,15 @@ function buildDoc(){
     cur.push({k:"h2",runs:["Services"],dot:true});
     H("D1. Service A: Operational Assessment");
     C("D1.1","For each Target, an assessment of up to ",F(aHrs?plural(aHrs,"hour"):"")," covering:");
-    cur[cur.length-1].list=["review of the Target's response to Nexa's operational due diligence information request list","review of the supporting information provided","one consolidated round of follow-up questions","a written assessment with findings, ratings and recommendations","one 60-minute review meeting with the Client, which the End Client may attend"];
+    cur[cur.length-1].list=["the due diligence pack: Nexa's operational information request list, sent to the Target","review of the Target's response and the supporting information provided","one consolidated round of follow-up questions","a written assessment report with findings, ratings and recommendations","a proposal for ongoing Portfolio Advisory for the business, if it is acquired","one 60-minute review meeting with the Client, which the End Client may attend"];
     C("D1.2","The assessment covers, so far as information allows: business and operating model; people and HR; operations and delivery; governance and management; compliance and regulation; legal touchpoints, which are flagged for the End Client's lawyers and not advised on; finance operations, including the Target's monthly management accounts; and systems and data.");
     C("D1.3","The Assessment is carried out remotely. Site visits are not included.");
     C("D1.4","Nexa will deliver the written assessment within ",F(dlv?plural(dlv,"Business Day"):"")," of the later of acceptance of the Work Order and receipt of the Target's response to the information request list. Time is not of the essence.");
     H("D2. Service B: Portfolio Advisory");
-    C("D2.1","For each Portfolio Company, in the tier ordered:");
-    cur[cur.length-1].list=["Monthly Tier: one 60-minute advisory call each month, with relevant preparation, progress review and follow-up, up to "+(mHrs?plural(mHrs,"hour"):PH)+" of support in total each month","Fortnightly Tier: one 60-minute advisory call every two weeks, with relevant preparation, progress review and follow-up, up to "+(fHrs?plural(fHrs,"hour"):PH)+" of support in total each month, including months with three scheduled calls"];
-    C("D2.2","The appropriate tier is agreed after the Assessment. Unused hours do not roll over.");
+    if(!two)C("D2.1","For each Portfolio Company, one 60-minute advisory call each month, with relevant preparation, progress review and follow-up, up to "+(mHrs?plural(mHrs,"hour"):PH)+" of support in total each month.");
+    else {C("D2.1","For each Portfolio Company, in the tier ordered:");
+    cur[cur.length-1].list=["Monthly Tier: one 60-minute advisory call each month, with relevant preparation, progress review and follow-up, up to "+(mHrs?plural(mHrs,"hour"):PH)+" of support in total each month","Fortnightly Tier: one 60-minute advisory call every two weeks, with relevant preparation, progress review and follow-up, up to "+(fHrs?plural(fHrs,"hour"):PH)+" of support in total each month, including months with three scheduled calls"];}
+    C("D2.2",(two?"The appropriate tier is agreed after the Assessment. ":"")+"Unused hours do not roll over.");
     H("D3. Not included");
     C("D3.1","The following are outside the Services and need a separate scope and fee:");
     cur[cur.length-1].list=["implementation, interim management, running any business or managing its staff","financial, tax or legal due diligence, valuation, or any opinion on price or value","advice on any Deal Decision, and any negotiation with sellers or other Programme Parties","regulated advice of any kind, including investment, corporate finance, consumer credit and insurance advice","preparing materials for, or meeting, lenders, investors or later buyers","acting as a director, officer or employee of any Programme Party","recruitment, and finding or introducing acquisition targets","site visits","Targets or Portfolio Companies outside the United Kingdom"];
@@ -1183,7 +1185,7 @@ const REQUIRED={
   FCOO:[["days","Days per month"],["fcoo_fee","Monthly fee"],["day_rate","Extra day rate"]],
   ROA:[["days","Days per month"],["roa_rate","Rate per active client"],["roa_heads","Active clients at start"],["roa_review","Review point"],["day_rate","Extra day rate"]],
   OA:[["oa_rate","Hourly rate"],["oa_hours","Hours per month"]],
-  DDP:[["ddp_end_name","End client name"],["ddp_end_number","End client company number"],["ddp_assess_fee","Assessment fee"],["ddp_m_fee","Monthly tier fee"],["ddp_f_fee","Fortnightly tier fee"],["ddp_hour_rate","Additional hours rate"],["ddp_credit","Credit limit"]],
+  DDP:[["ddp_end_name","End client name"],["ddp_end_number","End client company number"],["ddp_assess_fee","Assessment fee"],["ddp_m_fee","Monthly tier fee"],["ddp_hour_rate","Additional hours rate"],["ddp_credit","Credit limit"]],
   D:[],
   A:[["a_limit","Spend authority"],["a_report","Reports to"]],
   B:[["b_rhythm","Rhythm"]],
