@@ -155,6 +155,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 const PACK = JSON.parse(document.getElementById("pack").textContent);
 const API = "/.netlify/functions/dd-portal";
 const MAX_BYTES = 4*1024*1024;
+const OK_EXT = ["pdf","doc","docx","xls","xlsx","csv","ppt","pptx","txt","rtf","odt","ods","odp","png","jpg","jpeg","heic","msg","eml"];
+const ACCEPT = OK_EXT.map(e=>"."+e).join(",");
+const okType = n=>OK_EXT.includes(String(n||"").split(".").pop().toLowerCase());
+const TYPE_MSG = "This file type can't be uploaded. Use PDF, Word, Excel, PowerPoint, CSV, text, email or image files, or share a link in the note.";
 const S = {code:null, demo:false, company:null, respondent:{}, req:{}, ans:{}, fu:[], view:"start", submitted:false, pending:new Map(), timer:null, saving:false};
 const $ = s=>document.querySelector(s);
 const esc = v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -195,6 +199,7 @@ window.addEventListener("beforeunload",e=>{ if(S.pending.size){ flush(); e.preve
 async function upload(no,file){
   const r=S.req[no]||(S.req[no]={}); r.files=r.files||[];
   const chip={name:file.name,state:"up"}; r.files.push(chip); renderSection();
+  if(!okType(file.name)){ chip.state="err"; chip.msg=TYPE_MSG; renderSection(); return; }
   if(file.size>MAX_BYTES){ chip.state="err"; chip.msg="Over 4 MB. Share a link in the note instead."; renderSection(); return; }
   if(S.demo){ chip.state="ok"; renderSection(); afterChange(); return; }
   try{
@@ -202,13 +207,14 @@ async function upload(no,file){
     const resp=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"upload",code:S.code,no,filename:file.name,contentType:file.type||"application/octet-stream",data:b64})});
     if(!resp.ok) throw new Error((await resp.json().catch(()=>({}))).error||"Upload failed");
     chip.state="ok"; if(!r.status){ r.status="Provided"; }
-  }catch(e){ chip.state="err"; chip.msg="Upload failed. Try again, or share a link in the note."; }
+  }catch(e){ chip.state="err"; chip.msg=(e&&e.message&&e.message!=="Upload failed")?e.message:"Upload failed. Try again, or share a link in the note."; }
   renderSection(); afterChange();
 }
 
 async function uploadFu(id,file){
   const f=S.fu.find(x=>x.id===id); if(!f) return; f.files=f.files||[];
   const chip={name:file.name,state:"up"}; f.files.push(chip); renderFollowups();
+  if(!okType(file.name)){ chip.state="err"; chip.msg=TYPE_MSG; renderFollowups(); return; }
   if(file.size>MAX_BYTES){ chip.state="err"; chip.msg="Over 4 MB. Share a link in your answer instead."; renderFollowups(); return; }
   if(S.demo){ chip.state="ok"; renderFollowups(); renderIndex(); return; }
   try{
@@ -216,7 +222,7 @@ async function uploadFu(id,file){
     const resp=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"upload",code:S.code,followup:id,filename:file.name,contentType:file.type||"application/octet-stream",data:b64})});
     if(!resp.ok) throw new Error("Upload failed");
     chip.state="ok";
-  }catch(e){ chip.state="err"; chip.msg="Upload failed. Try again, or share a link in your answer."; }
+  }catch(e){ chip.state="err"; chip.msg=(e&&e.message&&e.message!=="Upload failed")?e.message:"Upload failed. Try again, or share a link in your answer."; }
   renderFollowups(); renderIndex();
 }
 const fuDone=f=>!!(f.answer||"").trim()||(f.files||[]).some(x=>x.state==="ok");
@@ -316,7 +322,7 @@ function renderSection(){
 function reqRow(no,item,p){
   const r=S.req[no]||{}; const st=r.status||""; const sid=no.replace(".","_");
   let detail="";
-  if(st==="Provided") detail=`<div class="detail"><div class="drop" data-drop="${no}"><span>Drag files here, or</span><span class="hint" style="margin:0 auto 0 0">Up to 4 MB each. Larger files: paste a link in the note below.</span><label class="btn"><input type="file" multiple hidden data-file="${no}" id="f-${sid}">Choose files</label></div>
+  if(st==="Provided") detail=`<div class="detail"><div class="drop" data-drop="${no}"><span>Drag files here, or</span><span class="hint" style="margin:0 auto 0 0">Up to 4 MB each. Larger files: paste a link in the note below.</span><label class="btn"><input type="file" multiple hidden accept="${ACCEPT}" data-file="${no}" id="f-${sid}">Choose files</label></div>
       ${(r.files||[]).length?`<div class="files">${r.files.map(f=>`<span class="chip ${f.state||""}" title="${esc(f.msg||f.name)}">${f.state==="up"?"Uploading":f.state==="err"?"Failed":'<b class="ok">✓</b>'} <span>${esc(f.name)}</span></span>`).join("")}</div>`:""}
       ${(r.files||[]).some(f=>f.state==="err")?`<span class="err">${esc((r.files.find(f=>f.state==="err")||{}).msg||"")}</span>`:""}
       <label class="fl" for="n-${sid}">Note or link (optional)</label><input type="text" id="n-${sid}" data-note="${no}" value="${esc(r.note||"")}" placeholder="For example a shared folder link for large files"></div>`;
@@ -356,7 +362,7 @@ function renderFollowups(){
     <div class="block">${S.fu.map(f=>{const fid=f.id;
       return `<div class="row"><div class="rhead"><span class="rno">F${esc(f.no)}</span><span class="rtext">${esc(f.question)}${f.related?`<span class="rel"> · relates to ${esc(f.related)}</span>`:""}</span><span class="tag ${fuDone(f)?"":"p1"}">${fuDone(f)?"ANSWERED":"OPEN"}</span></div>
       <div class="rbody"><label class="fl" for="fu-${fid}">Your answer</label><textarea id="fu-${fid}" data-fu="${fid}">${esc(f.answer||"")}</textarea>
-      <div class="drop" data-fudrop="${fid}"><span>Drag files here, or</span><label class="btn"><input type="file" multiple hidden data-fufile="${fid}">Choose files</label></div>
+      <div class="drop" data-fudrop="${fid}"><span>Drag files here, or</span><label class="btn"><input type="file" multiple hidden accept="${ACCEPT}" data-fufile="${fid}">Choose files</label></div>
       ${(f.files||[]).length?`<div class="files">${f.files.map(x=>`<span class="chip ${x.state||""}" title="${esc(x.msg||x.name)}">${x.state==="up"?"Uploading":x.state==="err"?"Failed":'<b class="ok">✓</b>'} <span>${esc(x.name)}</span></span>`).join("")}</div>`:""}
       ${(f.files||[]).some(x=>x.state==="err")?`<span class="err">${esc((f.files.find(x=>x.state==="err")||{}).msg||"")}</span>`:""}</div></div>`;}).join("")}</div>
     <div class="pager"><button class="btn" type="button" data-go="${SECS[SECS.length-1].no}">Back: ${esc(SECS[SECS.length-1].name)}</button><button class="btn primary" type="button" data-go="submit">Review and submit</button></div></div>`;

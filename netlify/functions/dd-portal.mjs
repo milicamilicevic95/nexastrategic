@@ -23,7 +23,18 @@ for (const s of PACK.sections) {
 const RESP_KEYS = new Set(PACK.respondent.map(f => f.key));
 const RESP_FIELDS = { legalName: "Legal name", companyNumber: "Company number", registeredOffice: "Registered office", chStatus: "Companies House status", leadName: "Contact name", leadRole: "Contact role", leadEmail: "Contact email", contributors: "Contributors", summary: "Business summary", headcount: "Headcount", revenue: "Revenue band", top3: "Top three customer share", issue: "Main operational problem" };
 
-const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", "X-Robots-Tag": "noindex" } });
+const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", "X-Robots-Tag": "noindex", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer" } });
+// Uploads: only document, spreadsheet, email and image types. The stored content type comes from the extension, never from the browser.
+const FILE_TYPES = { pdf: "application/pdf", doc: "application/msword", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", xls: "application/vnd.ms-excel", xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", csv: "text/csv", ppt: "application/vnd.ms-powerpoint", pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation", txt: "text/plain", rtf: "application/rtf", odt: "application/vnd.oasis.opendocument.text", ods: "application/vnd.oasis.opendocument.spreadsheet", odp: "application/vnd.oasis.opendocument.presentation", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", heic: "image/heic", msg: "application/vnd.ms-outlook", eml: "message/rfc822" };
+const TYPE_ERR = "This file type can't be uploaded. Use PDF, Word, Excel, PowerPoint, CSV, text, email or image files, or share a link in the note.";
+const MAX_FILES_PER_ITEM = 20;
+const MAX_REGISTRATIONS = 50;      // per shared link, unless the invite sets "Max companies"
+const MAX_REGISTRATIONS_HOUR = 10; // per shared link
+function fileMeta(name) {
+  const clean = clip(name, 180).replace(/[\\/\u0000-\u001f<>:"|?*]/g, "_").trim() || "document";
+  const ext = (clean.split(".").pop() || "").toLowerCase();
+  return FILE_TYPES[ext] ? { filename: clean, contentType: FILE_TYPES[ext] } : null;
+}
 const clip = (v, n = 4000) => (v == null ? "" : String(v)).slice(0, n);
 const validCode = c => typeof c === "string" && /^[A-Za-z0-9]{20,40}$/.test(c);
 const validRec = r => typeof r === "string" && /^rec[A-Za-z0-9]{14}$/.test(r);
@@ -150,6 +161,11 @@ export default async (req) => {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json(400, { error: "Please enter a valid email address." });
       if (number && !/^([0-9]{8}|[A-Z]{2}[0-9]{6})$/.test(number)) return json(400, { error: "A UK company number is 8 characters, for example 01234567 or SC123456. Leave it blank if you are not sure." });
       const ic = inv.fields["Invite code"];
+      const cap = Number(inv.fields["Max companies"]) > 0 ? Number(inv.fields["Max companies"]) : MAX_REGISTRATIONS;
+      const used = await listAll(T.companies, `{Registered via}='${fq(ic)}'`);
+      if (used.length >= cap) return json(429, { error: "This link has reached its limit. Please email milica@nexastrategic.com and we will set up your pack." });
+      const hourAgo = Date.now() - 3600 * 1000;
+      if (used.filter(r => Date.parse(r.createdTime) > hourAgo).length >= MAX_REGISTRATIONS_HOUR) return json(429, { error: "Too many registrations through this link in the last hour. Please try again later, or email milica@nexastrategic.com." });
       const dupe = await listAll(T.companies, `AND({Registered via}='${fq(ic)}', OR(LOWER({Contact email})='${fq(email)}', LOWER(TRIM({Company}))='${fq(company.toLowerCase())}'${number ? `, {Company number}='${fq(number)}'` : ""}))`);
       if (dupe.length) return json(409, { error: "Your company already has a pack. Use the private link from when you first registered (it is in your browser history), or email milica@nexastrategic.com and we will resend it." });
       const code = newCode();
@@ -204,12 +220,15 @@ export default async (req) => {
     if (body.action === "upload") {
       const data = typeof body.data === "string" ? body.data : "";
       if (!data || data.length > 5.6 * 1024 * 1024) return json(413, { error: "Files must be 4 MB or smaller" });
+      const meta = fileMeta(body.filename);
+      if (!meta) return json(415, { error: TYPE_ERR });
       if (body.followup) {
         const own = await ownFollowup(body.followup, co);
         if (!own) return json(400, { error: "Unknown follow-up" });
+        if ((own.fields["Files"] || []).length >= MAX_FILES_PER_ITEM) return json(429, { error: "This question already has the maximum number of files. Combine them, or share a link in your answer." });
         const r = await fetch(CONTENT + own.id + "/" + encodeURIComponent("Files") + "/uploadAttachment", {
           method: "POST", headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" },
-          body: JSON.stringify({ contentType: clip(body.contentType, 120) || "application/octet-stream", file: data, filename: clip(body.filename, 180).replace(/[\\/]/g, "_") || "document" })
+          body: JSON.stringify({ contentType: meta.contentType, file: data, filename: meta.filename })
         });
         if (!r.ok) throw new Error("Upload " + r.status + ": " + (await r.text()).slice(0, 300));
         if (!own.fields["Status"] || own.fields["Status"] === "Open") await at(encodeURIComponent(T.followups) + "/" + own.id, { method: "PATCH", body: JSON.stringify({ typecast: true, fields: { "Status": "Answered", "Answered at": new Date().toISOString() } }) });
@@ -218,11 +237,12 @@ export default async (req) => {
       if (!REQ.has(body.no)) return json(400, { error: "Unknown request number" });
       const d = REQ.get(body.no);
       const existing = await listAll(T.requests, `{Key}='${code}|${body.no}'`);
+      if (existing[0] && (existing[0].fields["Files"] || []).length >= MAX_FILES_PER_ITEM) return json(429, { error: "This item already has the maximum number of files. Combine them, or share a link in the note." });
       const status = existing[0] && existing[0].fields["Status"] ? existing[0].fields["Status"] : "Provided";
       const [rec] = await upsert(T.requests, [{ ...base, "Key": code + "|" + body.no, "No.": body.no, "Section": d.sec, "Item": d.item, "Priority": d.p, "Status": status }]);
       const r = await fetch(CONTENT + rec.id + "/" + encodeURIComponent("Files") + "/uploadAttachment", {
         method: "POST", headers: { Authorization: "Bearer " + TOKEN, "Content-Type": "application/json" },
-        body: JSON.stringify({ contentType: clip(body.contentType, 120) || "application/octet-stream", file: data, filename: clip(body.filename, 180).replace(/[\\/]/g, "_") || "document" })
+        body: JSON.stringify({ contentType: meta.contentType, file: data, filename: meta.filename })
       });
       if (!r.ok) throw new Error("Upload " + r.status + ": " + (await r.text()).slice(0, 300));
       return json(200, { ok: true });
