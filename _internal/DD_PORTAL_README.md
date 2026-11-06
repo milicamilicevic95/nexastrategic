@@ -35,16 +35,6 @@ The zip adds one address to the site, `/review/`. It is not linked from your men
 
 If `netlify.toml` sets a different functions folder, put `dd-portal.mjs` in that folder instead.
 
-## 1b. Companies House lookup (optional, free)
-
-The Your details page has a Look up button that fills in the legal name, company number and registered office from Companies House. It needs a free API key:
-
-1. Register at developer.company-information.service.gov.uk and create an application.
-2. Create a REST API key for it ("live" environment).
-3. In Netlify, add a second environment variable: Key `COMPANIES_HOUSE_KEY`, Value the key, Scope Functions. Redeploy.
-
-Without the key the portal still works; the lookup tells the company to type the details in by hand.
-
 ## 2. Fonts
 
 The page asks for Roca One and Neue Montreal first and falls back to Fraunces and Hanken Grotesk from Google Fonts. If the site's own font files sit in the zip, add the site's existing `@font-face` stylesheet link to the `<head>` of `review/index.html` so the portal matches the rest of the site exactly.

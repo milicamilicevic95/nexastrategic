@@ -8,7 +8,6 @@ const PACK = {"title": "Operational, Governance and Compliance Due Diligence", "
 
 const BASE = process.env.AIRTABLE_BASE || "appW06EMIpNUylqOT";
 const TOKEN = process.env.AIRTABLE_TOKEN || process.env.WAITLIST_AIRTABLE_PAT || process.env.AIRTABLE_PAT;
-const CH_KEY = process.env.COMPANIES_HOUSE_KEY;
 const T = { companies: "DD Companies", requests: "DD Requests", responses: "DD Responses", followups: "DD Follow-ups", invites: "DD Invites" };
 const TESTED = {"Q1.1": "1.3, 1.4; Companies House: confirmation statement shareholders", "Q1.2": "1.3, 1.5; Companies House: filing history, overdue flags, registered office", "Q1.3": "1.2, 1.4, 1.6; Call: how decisions are really made", "Q1.4": "1.6, 1.8", "Q1.5": "1.7, 9.3; Sample: one large payment and one contract, who approved", "Q1.6": "1.9, 13.2; Companies House: directors' other appointments", "Q1.7": "1.8, 8.3, 9.2", "Q1.8": "1.5; Companies House: officer and PSC verification status", "Q2.1": "2.1, 2.4; Sample: three signed customer contracts", "Q2.2": "2.3, 14.13", "Q2.3": "2.5, 13.3", "Q2.4": "2.4, 3.3", "Q2.5": "2.4", "Q2.6": "2.10, 11.1", "Q3.1": "3.1, 3.2, 3.8; IPO: trade mark register", "Q3.2": "3.7, 13.1; Domain WHOIS where public", "Q3.3": "3.5, 6.8", "Q3.4": "3.5, 3.3", "Q4.1": "4.1, 14.1, 14.4, 14.12, 14.15; MCS, competent person scheme, FCA, waste carrier registers", "Q4.2": "4.2, 4.7", "Q4.3": "4.7", "Q4.4": "4.4, 14.11; HSE enforcement register", "Q4.5": "4.3, 14.18; HSE register, FCA register, Trading Standards news, CMA cases", "Q5.1": "5.1, 2.6", "Q5.2": "5.2, 9.3", "Q5.3": "5.3; UK Sanctions List: spot check top suppliers and any overseas parties", "Q5.4": "5.5, 7.5", "Q5.5": "5.6", "Q6.1": "6.1; ICO register of fee payers", "Q6.2": "6.2", "Q6.3": "6.3; Website: privacy and cookie notice", "Q6.4": "6.5", "Q6.5": "6.7", "Q6.6": "6.8, 3.5", "Q6.7": "6.10", "Q6.8": "6.9; IASME certificate search", "Q6.9": "6.12", "Q7.1": "7.2, 7.3; Sample: three contracts against the census", "Q7.2": "7.6, 14.10; Sample: three checks, including one subcontractor", "Q7.3": "7.4, 14.10", "Q7.4": "7.5, 7.10", "Q7.5": "7.2, 7.7; The Pensions Regulator: compliance declaration", "Q7.6": "7.1", "Q7.7": "7.10, 7.11, 11.1", "Q7.8": "7.12, 13.5; Call: test with the founder absent", "Q7.9": "7.14", "Q7.10": "7.3, 7.5", "Q8.1": "8.1, 8.2; Installation file walkthrough", "Q8.2": "8.1, 7.1", "Q8.3": "8.3, 1.8", "Q8.4": "2.1, 2.2, 8.5, 14.9; Portal: top three customer share", "Q8.5": "8.4", "Q8.6": "8.6, 14.14; Trustpilot, Google and Checkatrade review trends", "Q9.1": "9.1, 1.8", "Q9.2": "9.2", "Q9.3": "9.3; Sample: two payments above threshold", "Q9.4": "9.5", "Q10.1": "10.3", "Q10.2": "10.1, 10.2", "Q10.3": "10.4, 6.10", "Q10.4": "10.5, 6.11, 14.16; HSE enforcement register", "Q10.5": "10.1, 13.3", "Q11.1": "11.1, 11.2, 11.3; Registry Trust: county court judgments; Gazette: winding up petitions", "Q12.1": "12.1; Land Registry: title for each site", "Q13.1": "13.1, 3.7", "Q13.2": "13.2, 1.9", "Q13.3": "13.3, 2.5, 12.1", "Q13.4": "13.5, 7.12", "Q14.1": "14.1; MCS installer register: status and technologies", "Q14.2": "14.2; RECC and HIES member lists", "Q14.3": "14.3, 14.6; Sample: guarantee registration in each installation file", "Q14.4": "14.6, 14.7; Sample: notification dates against commissioning dates", "Q14.5": "14.6, 14.5; Sample: certificate dates against commissioning dates", "Q14.6": "14.10, 7.6", "Q14.7": "14.11, 4.4; HSE enforcement register", "Q14.8": "14.12; FCA register: permission or appointed representative entry", "Q14.9": "14.13, 14.6, 14.14; Website and advertising: savings claims", "Q14.10": "14.8", "Q14.11": "14.1; MCS installer register", "Q14.12": "14.16, 14.6; Sample: battery location in each battery installation file", "Q14.13": "14.17; TrustMark register", "Q14.14": "14.18, 4.3; FCA, HSE and Financial Ombudsman decision searches"};
 const API = "https://api.airtable.com/v0/" + BASE + "/";
@@ -219,28 +218,6 @@ export default async (req) => {
       });
       if (!r.ok) throw new Error("Upload " + r.status + ": " + (await r.text()).slice(0, 300));
       return json(200, { ok: true });
-    }
-
-    if (body.action === "lookup") {
-      if (!CH_KEY) return json(501, { error: "Lookup not configured" });
-      const q = clip(body.q, 100).trim();
-      if (q.length < 2) return json(400, { error: "Search term too short" });
-      const auth = { Authorization: "Basic " + Buffer.from(CH_KEY + ":").toString("base64") };
-      const CHAPI = "https://api.company-information.service.gov.uk";
-      const fmt = a => a ? [a.premises, a.address_line_1, a.address_line_2, a.locality, a.region, a.postal_code].filter(Boolean).join(", ") : "";
-      let items = [];
-      if (/^(\d{8}|[A-Z]{2}\d{6})$/i.test(q.replace(/\s/g, ""))) {
-        const r = await fetch(CHAPI + "/company/" + encodeURIComponent(q.replace(/\s/g, "").toUpperCase()), { headers: auth });
-        if (r.ok) { const c = await r.json(); items = [{ name: c.company_name, number: c.company_number, status: c.company_status || "", incorporated: c.date_of_creation || "", address: fmt(c.registered_office_address) }]; }
-        else if (r.status !== 404) throw new Error("Companies House " + r.status);
-      }
-      if (!items.length) {
-        const r = await fetch(CHAPI + "/search/companies?items_per_page=6&q=" + encodeURIComponent(q), { headers: auth });
-        if (!r.ok) throw new Error("Companies House " + r.status);
-        const d = await r.json();
-        items = (d.items || []).map(c => ({ name: c.title, number: c.company_number, status: c.company_status || "", incorporated: c.date_of_creation || "", address: c.address_snippet || fmt(c.address) }));
-      }
-      return json(200, { items });
     }
 
     if (body.action === "submit") {

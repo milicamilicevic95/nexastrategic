@@ -227,7 +227,7 @@ function render(){
   const o=overall();
   $("#app").innerHTML=`
   <header class="hero gut"><div class="wrap herogrid">
-    <div><span class="eyebrow">Due diligence${c.client?" · "+esc(c.client):""}${c.project?" · Project "+esc(c.project):""}</span>
+    <div><span class="eyebrow">Due diligence${c.project?" · Project "+esc(c.project):""}</span>
       <h1>${esc(c.name||"Your company")}</h1>
       <p class="sub">Operational, Governance and Compliance Review. Work through each section at your own pace; everything saves as you go.</p></div>
     <div class="meter"><span class="eyebrow">Progress</span><strong id="pct">${o.pct}%</strong><div class="bar"><i id="pbar" style="width:${o.pct}%"></i></div>
@@ -259,7 +259,7 @@ function renderStart(){
   $("#main").innerHTML=`<div class="view">
     <div><span class="eyebrow">Start here</span><h2>About this review</h2></div>
     ${S.fu.some(f=>!fuDone(f))?`<div class="notice"><p><b>We have ${S.fu.filter(f=>!fuDone(f)).length} follow-up question${S.fu.filter(f=>!fuDone(f)).length===1?"":"s"} for you.</b> They are listed under Follow-up questions.</p><button class="btn primary" type="button" id="gofu">Answer follow-ups</button></div>`:""}
-    <p class="lead">${esc(c.client||"Our client")} has engaged NexaStrategic to review how ${esc(c.name||"the Company")} is governed and run. The review covers corporate housekeeping, contracts, regulatory and data compliance, people, operations, financial controls, resilience and the solar sector's own requirements.</p>
+    <p class="lead">NexaStrategic has been engaged to review how ${esc(c.name||"the Company")} is governed and run. The review covers corporate housekeeping, contracts, regulatory and data compliance, people, operations, financial controls, resilience and the solar sector's own requirements.</p>
     <div class="block"><span class="eyebrow">What we need from you</span><div class="prose">
       <p>Two things, section by section: the <b>documents</b> we have requested, and answers to a short set of <b>questions</b>. Priority 1 items are needed before our management call${c.p1Due?`, by ${esc(fmtDate(c.p1Due))}`:", within 5 working days"}. Priority 2 items follow${c.p2Due?` by ${esc(fmtDate(c.p2Due))}`:" within 10 working days"}.</p>
       <p>You can leave and come back at any time using the same link. Several colleagues can work on it; the link is private to your company, so share it only with people who should see these documents.</p></div></div>
@@ -270,39 +270,15 @@ function renderStart(){
       <tr><td>Not available</td><td>It should exist but does not, or cannot be found. Add a short note.</td></tr>
       <tr><td>Not applicable</td><td>It does not apply to the business. Add a short note explaining why.</td></tr></tbody></table></div>
     <div class="block"><span class="eyebrow">Answering the questions</span><div class="prose"><p>Answer for the business as it runs today, not as planned. Any answer other than Yes needs a short explanation of what is in place. "Partly" and "Not sure" are useful answers: we will cover them on the call.</p></div></div>
-    <div class="block"><span class="eyebrow">Scope and confidentiality</span><div class="prose"><p>Unless a request says otherwise, it covers the last three years and documents currently in force. "The Company" includes any subsidiaries. Please anonymise personal data unless we ask otherwise. Tax is reviewed separately by our CFO adviser, who will also follow up directly on sections 5 (financial crime) and 9 (financial controls).</p><p>Everything you provide is held securely, used only for this review, and shared only with ${esc(c.client||"our client")} under the terms of our engagement. This review is operational and does not constitute legal, tax or financial advice.</p></div></div>
+    <div class="block"><span class="eyebrow">Scope and confidentiality</span><div class="prose"><p>Unless a request says otherwise, it covers the last three years and documents currently in force. "The Company" includes any subsidiaries. Please anonymise personal data unless we ask otherwise. Tax is reviewed separately by our CFO adviser, who will also follow up directly on sections 5 (financial crime) and 9 (financial controls).</p><p>Everything you provide is held securely, used only for this review, and shared only with our client under the terms of our engagement. This review is operational and does not constitute legal, tax or financial advice.</p></div></div>
     <div class="pager"><span></span><button class="btn primary" type="button" id="nx">Start with your details</button></div>
   </div>`;
   $("#nx").onclick=()=>go("details"); const gf=$("#gofu"); if(gf) gf.onclick=()=>go("followups");
-}
-function chOut(){
-  if(S.chBusy) return `<p class="hint">Searching Companies House</p>`;
-  if(S.chErr) return `<p class="hint">${esc(S.chErr)}</p>`;
-  if(S.chItems&&S.chItems.length) return `<div class="chres">${S.chItems.map((it,i)=>`<button type="button" data-ch="${i}"><b>${esc(it.name)}</b> · ${esc(it.number)}<small>${esc([it.status,it.incorporated?"incorporated "+fmtDate(it.incorporated):"",it.address].filter(Boolean).join(" · "))}</small></button>`).join("")}</div>`;
-  if(S.chItems) return `<p class="hint">No matches. Check the spelling, or enter the details below by hand.</p>`;
-  if(S.respondent.chStatus) return `<p class="chok">Companies House: ${esc(S.respondent.chStatus)}</p>`;
-  return "";
-}
-function wireCh(){ document.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{ const it=S.chItems[+b.dataset.ch]; const r=S.respondent;
-  r.legalName=it.name; r.companyNumber=it.number; r.registeredOffice=it.address||""; r.chStatus=[it.status,it.incorporated?"incorporated "+fmtDate(it.incorporated):""].filter(Boolean).join(", ");
-  S.chItems=null; queue("resp","all",null); renderDetails(); }); }
-async function chLookup(){
-  const q=($("#chq").value||"").trim(); S.chq=q; if(q.length<2) return;
-  S.chBusy=true; S.chErr=""; S.chItems=null; $("#chout").innerHTML=chOut();
-  try{
-    if(S.demo){ await new Promise(r=>setTimeout(r,300)); S.chItems=[{name:"EXAMPLE SOLAR INSTALLATIONS LTD",number:"09876543",status:"active",incorporated:"2015-03-12",address:"Unit 4, Example Park, Bristol, BS1 1AA"}]; }
-    else{ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"lookup",code:S.code,q})}); const d=await r.json().catch(()=>({})); if(!r.ok) throw new Error(d.error||"Lookup failed"); S.chItems=d.items||[]; }
-  }catch(e){ S.chErr="The lookup is not available right now. Please enter the details below by hand."; }
-  S.chBusy=false; $("#chout").innerHTML=chOut(); wireCh();
 }
 function renderDetails(){
   const r=S.respondent;
   $("#main").innerHTML=`<div class="view">
     <div><span class="eyebrow">Respondent details</span><h2>Your details</h2></div>
-    <div class="block"><span class="eyebrow">Find your company</span>
-      <p class="hint">Type your company name or registration number and press Look up. We fill in the legal name, number and registered office from Companies House; you can still edit them.</p>
-      <div class="lookup"><div class="field"><label class="fl" for="chq">Company name or number</label><input id="chq" type="text" value="${esc(S.chq||r.legalName||"")}" autocomplete="off"></div><button class="btn" type="button" id="chgo">Look up</button></div>
-      <div id="chout">${chOut()}</div></div>
     <div class="grid2">${PACK.respondent.filter(f=>f.type!=="hidden").map(f=>{
       const v=r[f.key]||""; const id="r-"+f.key;
       const input = f.type==="long"?`<textarea id="${id}" data-k="${f.key}">${esc(v)}</textarea>`
@@ -312,8 +288,6 @@ function renderDetails(){
     <div class="pager"><button class="btn" type="button" id="pv">Back</button><button class="btn primary" type="button" id="nx">Section 1: ${esc(SECS[0].name)}</button></div></div>`;
   $("#main").querySelectorAll("[data-k]").forEach(el=>el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{S.respondent[el.dataset.k]=el.value; queue("resp","all",null);}));
   $("#pv").onclick=()=>go("start"); $("#nx").onclick=()=>go(SECS[0].no);
-  $("#chgo").onclick=chLookup; $("#chq").onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); chLookup(); } };
-  wireCh();
 }
 function seg(name,options,cur,label){
   return `<div class="seg" role="radiogroup" aria-label="${esc(label)}">${options.map(o=>`<label><input type="radio" name="${name}" value="${esc(o)}" ${cur===o?"checked":""}><span>${esc(o)}</span></label>`).join("")}</div>`;
@@ -448,7 +422,7 @@ function copyLink(b){ const link=privateLink(); const done=()=>{ b.textContent="
   if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done,()=>prompt("Copy your private link:",link)); else prompt("Copy your private link:",link); }
 function renderRegister(inv,invite){
   $("#app").innerHTML=`<div class="gut"><div class="reg">
-    <div><span class="eyebrow">Due diligence${inv.client?" · "+esc(inv.client):""}${inv.project?" · Project "+esc(inv.project):""}</span>
+    <div><span class="eyebrow">Due diligence${inv.project?" · Project "+esc(inv.project):""}</span>
     <h1>Operational, Governance and Compliance Review</h1></div>
     <p class="lead">Tell us which company you are completing the review for, and we will set up its private pack straight away.</p>
     <ol class="steps">
