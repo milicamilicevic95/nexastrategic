@@ -62,7 +62,7 @@ A dummy company, "TEST Solar Ltd", is already set up for an end-to-end test. Del
 
 Use this when someone else is sending the pack and you don't know the companies in advance.
 
-1. In Airtable, open **DD Invites** and add a row: Name (for you), Invite code (24 random letters and numbers), Client (shown to every company as the acquirer), Project (optional), tick **Active**.
+1. In Airtable, open **DD Invites** and add a row: Name (for you), Invite code (24 random letters and numbers), Client (internal only, not shown to companies), **On behalf of** (shown to companies throughout the portal as "carried out by NexaStrategic on behalf of ..."; use exact names), Project (optional), tick **Active**.
 2. The link is `https://nexastrategic.com/review/?invite=CODE`. Send that one link to everyone.
 3. A company opens it, enters its name, company number (optional), contact name, role and email, and gets its own private pack at once, with its own private link shown at the top of every page.
 4. The new row appears in **DD Companies** with Status Invited, P1 due in 5 working days, P2 due in 10, and **Registered via** set to the invite code.
@@ -103,7 +103,8 @@ The function finds Airtable tables and fields by name. Renaming any of these bre
 - DD Companies: Company, Client, Project, P1 due, P2 due, Access code, Portal code, Registered office, Companies House status, Status, Progress, Attested by, Attested role, Attested at, Legal name, Company number, Contact name, Contact role, Contact email, Contributors, Business summary, Headcount, Revenue band, Top three customer share, Main operational problem
 - DD Requests: Key, Company, Company code, No., Section, Item, Priority, Status, Expected date, Client note, Files
 - DD Responses: Key, Company, Company code, Code, Domain, Question, Client answer, Suggested score, Client explanation, Tested by
-- DD Invites: Invite code, Client, Project, Active
+- DD Invites: Invite code, Client, Project, Active, On behalf of
+- DD Companies also: On behalf of (optional override)
 - DD Companies also: Registered via
 - DD Follow-ups: Question, Company, No., Related item, Send, Client answer, Files, Answered at, Status, Portal code
 

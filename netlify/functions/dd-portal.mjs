@@ -53,6 +53,14 @@ async function findInvite(code) {
   const recs = await listAll(T.invites, `AND({Active}, {Invite code}='${code}')`);
   return recs[0] || null;
 }
+async function onBehalfOf(co) {
+  const own = (co.fields["On behalf of"] || "").trim();
+  if (own) return own;
+  const via = co.fields["Registered via"];
+  if (!validCode(via)) return "";
+  const recs = await listAll(T.invites, `{Invite code}='${via}'`).catch(() => []);
+  return recs[0] ? (recs[0].fields["On behalf of"] || "").trim() : "";
+}
 async function findCompany(code) {
   const recs = await listAll(T.companies, `{Portal code}='${code}'`);
   return recs[0] || null;
@@ -108,7 +116,7 @@ export default async (req) => {
       if (inviteCode) {
         const inv = await findInvite(inviteCode);
         if (!inv) return json(404, { error: "Not found" });
-        return json(200, { invite: { client: inv.fields["Client"] || "", project: inv.fields["Project"] || "" } });
+        return json(200, { invite: { client: inv.fields["Client"] || "", project: inv.fields["Project"] || "", onBehalfOf: inv.fields["On behalf of"] || "" } });
       }
       const code = new URL(req.url).searchParams.get("c");
       if (!validCode(code)) return json(404, { error: "Not found" });
@@ -120,13 +128,13 @@ export default async (req) => {
         await seed(co, code);
         [reqRows, ansRows] = await Promise.all([listAll(T.requests, `{Company code}='${code}'`), listAll(T.responses, `{Company code}='${code}'`)]);
       }
-      const followups = await followupsFor(code).catch(e => { console.error(e); return []; });
+      const [followups, behalf] = await Promise.all([followupsFor(code).catch(e => { console.error(e); return []; }), onBehalfOf(co)]);
       const requests = {}, answers = {}, respondent = {};
       for (const r of reqRows) { const x = r.fields; if (!REQ.has(x["No."])) continue; requests[x["No."]] = { status: x["Status"] || "", date: x["Expected date"] || "", note: x["Client note"] || "", files: (x["Files"] || []).map(a => ({ name: a.filename })) }; }
       for (const r of ansRows) { const x = r.fields; if (!QS.has(x["Code"])) continue; answers[x["Code"]] = { answer: x["Client answer"] || "", explanation: x["Client explanation"] || "" }; }
       for (const [k, fld] of Object.entries(RESP_FIELDS)) if (f[fld]) respondent[k] = f[fld];
       return json(200, {
-        company: { name: f["Company"] || "", client: f["Client"] || "", project: f["Project"] || "", p1Due: f["P1 due"] || "", p2Due: f["P2 due"] || "", submitted: !!f["Attested at"], attestedBy: f["Attested by"] || "" },
+        company: { onBehalfOf: behalf, name: f["Company"] || "", client: f["Client"] || "", project: f["Project"] || "", p1Due: f["P1 due"] || "", p2Due: f["P2 due"] || "", submitted: !!f["Attested at"], attestedBy: f["Attested by"] || "" },
         respondent, requests, answers, followups
       });
     }
