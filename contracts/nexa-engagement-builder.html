@@ -196,7 +196,7 @@ label.btn{display:inline-flex;align-items:center}
 .aqleft{justify-content:flex-start;align-items:center;gap:10px}
 .aqck{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line);font-size:14px;font-weight:400;color:var(--fg);cursor:pointer}.aqck input{width:18px;height:18px;margin:1px 0 0;flex:none}.aqck.done span{color:var(--fg2);text-decoration:line-through}
 .aqdef{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12.5px;color:var(--fg2)}.aqdef b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-.aqsmp{display:grid;grid-template-columns:1fr 2fr 130px 2fr auto;gap:8px;align-items:end;padding:6px 0;border-top:1px solid var(--line)}
+.aqsmp{display:grid;grid-template-columns:1fr 2fr 130px 2fr auto;gap:8px;align-items:end;padding:6px 0;border-top:1px solid var(--line)}.aqtime{display:grid;grid-template-columns:170px 110px 1fr auto;gap:12px;align-items:end;padding:10px 0;border-top:1px solid var(--line)}@media (max-width:700px){.aqtime{grid-template-columns:1fr 1fr}}
 .aqphases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.aqphases>div{min-width:0}
 @media (max-width:900px){.aqgrid,.aqrow,.aqrow2,.aqadd,.aqdef,.aqphases,.aqsmp{grid-template-columns:1fr}}
 .seg{display:flex;gap:4px}.seg .btn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
@@ -664,6 +664,8 @@ Sounding-board sessions with the founder</textarea></div>
     <div class="kpis" id="aqKpis"></div>
     <div class="aqadd"><div class="f"><label for="aqNew">Add a company</label><input id="aqNew" placeholder="Company name"></div><button class="btn primary" type="button" id="aqAdd" data-aqadd disabled>Add company</button></div>
     <div class="card"><div id="aqList"></div></div>
+    <div class="card"><h3 class="aqh">Monthly work statement</h3><p class="sub">Hours and progress for every company in one month, with what each fee will be and when it falls due. Send it to the client with your monthly update. It is a statement, not a VAT invoice: fees are invoiced only when they fall due under the contract.</p>
+      <div class="aqadd"><div class="f"><label for="aqStMonth">Month</label><input id="aqStMonth" type="month"></div><div class="f"><label for="aqStTo">Prepared for</label><input id="aqStTo" value="David Jacob Consulting Services Ltd"></div><div class="f"><label for="aqStRef">Contract reference</label><input id="aqStRef" value="NX-2026-002"></div><button class="btn primary" type="button" data-aqstmt>Download statement</button></div></div>
   </div>
   <div id="aqWB" hidden>
     <div class="phead aqhead" id="aqHead"></div>
@@ -3198,10 +3200,20 @@ function itemsOf(c){return c.items||{}}
 function scoreOf(c){const it=itemsOf(c);let r=0,a=0,g=0,done=0;ALL.forEach(x=>{const s=(it[x.id]||{}).status;if(s){done++;if(s==="red")r++;else if(s==="amber")a++;else if(s==="green")g++}});return {r,a,g,done,pct:Math.round(done/ALL.length*100),rag:r?"red":a>2?"amber":done?"green":""}}
 const pill=s=>s?`<span class="aqrag ${s}">${{red:"Red",amber:"Amber",green:"Green",na:"N/A"}[s]}</span>`:`<span class="aqrag none">Not rated</span>`;
 
+const FEE_DEF={feeA:2000,feeX:1000,feeM:700,longstop:6};
+const fv=(c,k)=>c[k]===undefined||c[k]===""?FEE_DEF[k]:+c[k];
+const OUTC=[["","In progress"],["acquired","Acquired (completed)"],["declined","Not acquired"],["longstop","Long-stop reached"]];
+const hrsOf=(c,ym)=>(c.time||[]).filter(t=>!ym||(t.date||"").slice(0,7)===ym).reduce((a,t)=>a+(+t.hours||0),0);
+const addMonths=(d,m)=>{if(!d)return "";const [y,mo,da]=d.split("-").map(Number);const x=new Date(y,mo-1+m,da);return x.toISOString().slice(0,10)};
+function feeStatus(c){const A=fv(c,"feeA"),X=fv(c,"feeX"),M=fv(c,"feeM"),ls=addMonths(c.reportDate,fv(c,"longstop"));
+  if(c.outcome==="acquired")return {due:A+M,text:"Due on completion"+(c.outcomeDate?" ("+c.outcomeDate+")":"")+": assessment £"+A.toLocaleString("en-GB")+" plus first month of advisory £"+M.toLocaleString("en-GB")};
+  if(c.outcome==="declined")return {due:X,text:"Not acquired"+(c.outcomeDate?" ("+c.outcomeDate+")":"")+": abort fee £"+X.toLocaleString("en-GB")+" due"};
+  if(c.outcome==="longstop")return {due:X,text:"Long-stop reached"+(ls?" ("+ls+")":"")+": abort fee £"+X.toLocaleString("en-GB")+" due"};
+  return {due:0,text:"In progress. £"+A.toLocaleString("en-GB")+" on completion, or £"+X.toLocaleString("en-GB")+" if not acquired"+(ls?". Long-stop "+ls:"")}}
 function renderList(){
   const L=cos.filter(c=>c.stage!=="Exited"),ex=cos.length-L.length;
   const sc=cos.map(scoreOf),reds=sc.reduce((a,s)=>a+s.r,0);
-  $("aqKpis").innerHTML=[["Companies",String(L.length)+(ex?" · "+ex+" exited":"")],["Monthly fee","£"+(L.length*500).toLocaleString("en-GB")+" + VAT"],["Audits complete",String(cos.filter(c=>scoreOf(c).pct===100).length)],["Red findings",String(reds)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  $("aqKpis").innerHTML=[["Companies",String(L.length)+(ex?" · "+ex+" exited":"")],["Hours logged this month",String(Math.round(cos.reduce((a,c)=>a+hrsOf(c,new Date().toISOString().slice(0,7)),0)*10)/10)],["Audits complete",String(cos.filter(c=>scoreOf(c).pct===100).length)],["Red findings",String(reds)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
   $("aqList").innerHTML=cos.length?`<div class="scroll"><table class="aqtbl"><thead><tr><th>Company</th><th>Stage</th><th>Status</th><th>Reviewed</th><th>Red</th><th>Next step</th><th></th></tr></thead><tbody>${cos.map(c=>{const s=scoreOf(c);return `<tr><td><b>${esc(c.name||"Unnamed")}</b>${c.contact?`<br><small>${esc(c.contact)}</small>`:""}</td><td>${esc(c.stage||"Onboarding")}</td><td>${pill(s.rag)}</td><td><div class="aqbar"><i style="width:${s.pct}%"></i></div><small>${s.pct}%</small></td><td>${s.r}</td><td>${esc(c.next||"")}${c.nextDate?`<br><small>${esc(c.nextDate)}</small>`:""}</td><td><button class="btn small" type="button" data-aqopen="${esc(c.id)}">Open workbook</button></td></tr>`}).join("")}</tbody></table></div>`:'<p class="empty">No portfolio companies yet. Add the first one above.</p>';
 }
 
@@ -3230,7 +3242,7 @@ function renderWB(){
   const secs=WB.map(w=>{const it=itemsOf(c);const done=w.items.filter(([id])=>(it[id]||{}).status).length,red=w.items.filter(([id])=>(it[id]||{}).status==="red").length;return {w,done,red}});
   $("aqHead").innerHTML=`<div><button class="btn small" type="button" data-aqback>← All companies</button><h3 class="aqname">${esc(c.name||"Unnamed")}</h3><p class="sub">${pill(s.rag)} ${s.done} of ${ALL.length} checks reviewed · ${s.r} red · ${s.a} amber</p></div><div class="acts"><button class="btn small" type="button" data-aqirl>Information request list</button><button class="btn small" type="button" data-aqrf>Red-flag summary</button><button class="btn small primary" type="button" data-aqrep>Full report</button></div>`;
   const phDone=PH_ALL.filter(([id])=>(c.phase||{})[id]).length;
-  $("aqTabs").innerHTML=[["overview","Overview"],["method","Plan and phases ("+phDone+"/"+PH_ALL.length+")"],["notes","Field notes"]].concat(secs.map(x=>[x.w.k,x.w.t+` (${x.done}/${x.w.items.length})`])).map(([k,l])=>`<button type="button" role="tab" data-aqtab="${k}" aria-selected="${k===tab}">${esc(l)}</button>`).join("");
+  $("aqTabs").innerHTML=[["overview","Overview"],["method","Plan and phases ("+phDone+"/"+PH_ALL.length+")"],["notes","Field notes"],["billing","Time and billing ("+(Math.round(hrsOf(c)*10)/10)+"h)"]].concat(secs.map(x=>[x.w.k,x.w.t+` (${x.done}/${x.w.items.length})`])).map(([k,l])=>`<button type="button" role="tab" data-aqtab="${k}" aria-selected="${k===tab}">${esc(l)}</button>`).join("");
   let h="";
   if(tab==="overview"){
     h=`<div class="aqgrid">
@@ -3261,6 +3273,18 @@ function renderWB(){
     <h4 class="aqh">Sample testing</h4><p class="sub">Pick 5 to 10 completed jobs and check the paperwork exists for each: contract, survey, MCS certificate, grid notification, handover pack, deposit handling.</p>
     ${S.map((r,i)=>`<div class="aqsmp"><div class="f"><label for="aqs${i}r">Job reference</label><input id="aqs${i}r" data-aqs="${i}" data-k="ref" value="${esc(r.ref)}"></div><div class="f"><label for="aqs${i}c">What you checked</label><input id="aqs${i}c" data-aqs="${i}" data-k="checked" value="${esc(r.checked)}"></div><div class="f"><label for="aqs${i}o">Result</label><select id="aqs${i}o" data-aqs="${i}" data-k="result">${optL([["","Not tested"],["pass","Pass"],["exception","Exception"]],r.result)}</select></div><div class="f"><label for="aqs${i}n">Note</label><input id="aqs${i}n" data-aqs="${i}" data-k="note" value="${esc(r.note)}"></div><button class="btn small" type="button" data-aqsdel="${i}">Remove</button></div>`).join("")||'<p class="empty">No jobs sampled yet.</p>'}
     <div class="acts aqleft"><button class="btn small" type="button" data-aqsadd>Add a sampled job</button></div>`;
+  }else if(tab==="billing"){
+    const T=c.time||[],ym=new Date().toISOString().slice(0,7),st=feeStatus(c);
+    const inp=(k,l,type,ph)=>`<div class="f"><label for="aqb-${k}">${l}</label><input id="aqb-${k}" type="${type||"text"}" data-aqc="${k}" value="${esc(c[k]===undefined?"":c[k])}"${ph?` placeholder="${esc(ph)}"`:""}></div>`;
+    h=`<p class="sub">Log every piece of work as you do it. Your log is your evidence for extra hours and for the abort fee, and it feeds the monthly statement.</p>
+    <div class="kpis"><div class="kpi"><span>Hours this month</span><b>${Math.round(hrsOf(c,ym)*10)/10}</b></div><div class="kpi"><span>Hours to date</span><b>${Math.round(hrsOf(c)*10)/10}</b></div><div class="kpi"><span>Fee status</span><b style="font-size:14px">${esc(st.text)}</b></div></div>
+    <h4 class="aqh">Fees for this company</h4>
+    <div class="aqrow">${inp("feeA","Assessment fee, £","number",String(FEE_DEF.feeA))}${inp("feeX","Abort fee, £","number",String(FEE_DEF.feeX))}${inp("feeM","Monthly advisory, £","number",String(FEE_DEF.feeM))}${inp("longstop","Long-stop (months after report)","number",String(FEE_DEF.longstop))}</div>
+    <div class="aqrow"><div class="f"><label for="aqb-outcome">Outcome</label><select id="aqb-outcome" data-aqc="outcome">${optL(OUTC,c.outcome)}</select></div>${inp("reportDate","Report delivered","date")}${inp("outcomeDate","Completion or decision date","date")}</div>
+    <div class="aqrow">${inp("invDate","Invoiced on","date")}${inp("invNo","Invoice number","text","e.g. INV-012")}${inp("paidDate","Paid on","date")}</div>
+    <h4 class="aqh">Time log</h4>
+    ${T.map((t,i)=>`<div class="aqtime"><div class="f"><label for="aqt${i}d">Date</label><input id="aqt${i}d" type="date" data-aqt="${i}" data-k="date" value="${esc(t.date)}"></div><div class="f"><label for="aqt${i}h">Hours</label><input id="aqt${i}h" type="number" min="0" step="0.25" data-aqt="${i}" data-k="hours" value="${esc(t.hours)}"></div><div class="f"><label for="aqt${i}n">What you did</label><input id="aqt${i}n" data-aqt="${i}" data-k="note" value="${esc(t.note)}" placeholder="e.g. Reviewed HR and compliance documents"></div><button class="btn small" type="button" data-aqtdel="${i}">Remove</button></div>`).join("")||'<p class="empty">No time logged yet.</p>'}
+    <div class="acts aqleft"><button class="btn small" type="button" data-aqtadd>Log time</button></div>`;
   }else if(tab==="notes"){
     const N=(c.fieldnotes||[]).slice().reverse();
     h=`<p class="sub">Type or paste notes from interviews and the site visit as you go. Fill the workbook from notes reads them and proposes ratings, findings and recommendations for you to accept.</p>
@@ -3274,7 +3298,7 @@ function renderWB(){
   }
   $("aqPane").innerHTML=h;
 }
-function render(fromSnap){if(fromSnap&&editing)return;renderList();renderWB()}
+function render(fromSnap){if(fromSnap&&editing)return;const m=$("aqStMonth");if(m&&!m.value)m.value=new Date().toISOString().slice(0,7);renderList();renderWB()}
 
 function queue(c){clearTimeout(saveT[c.id]);pend.add(c.id);$("aqSaved").textContent="Saving…";saveT[c.id]=setTimeout(()=>{const o=clone(c);delete o.id;o.updated=new Date().toISOString();db.doc("acq/"+c.id).set(o).then(()=>{pend.delete(c.id);$("aqSaved").textContent="Saved"}).catch(()=>{$("aqSaved").textContent="Not saved. Check your connection."})},600)}
 const cur=()=>cos.find(x=>x.id===sel);
@@ -3283,6 +3307,7 @@ document.addEventListener("input",e=>{const t=e.target;const c=cur();if(!c||!db)
   if(t.dataset.aqc){c[t.dataset.aqc]=t.value;queue(c)}
   else if(t.dataset.aqi){c.items=c.items||{};const v=c.items[t.dataset.aqi]=c.items[t.dataset.aqi]||{};v[t.dataset.k]=t.value;queue(c)}
   else if(t.dataset.aqs){const r=(c.samples||[])[+t.dataset.aqs];if(r){r[t.dataset.k]=t.value;queue(c)}}
+  else if(t.dataset.aqt){const r=(c.time||[])[+t.dataset.aqt];if(r){r[t.dataset.k]=t.value;queue(c)}}
   else if(t.dataset.aqm){c.maturity=c.maturity||{};c.maturity[t.dataset.aqm]=+t.value;queue(c)}
   else if(t.dataset.aqph){c.phase=c.phase||{};c.phase[t.dataset.aqph]=t.checked;const l=t.closest(".aqck");if(l)l.classList.toggle("done",t.checked);queue(c)}});
 document.addEventListener("change",e=>{const t=e.target;if(!(t.dataset.aqi||t.dataset.aqc))return;
@@ -3292,7 +3317,10 @@ document.addEventListener("focusin",e=>{if(e.target.closest&&e.target.closest("#
 document.addEventListener("focusout",e=>{if(e.target.closest&&e.target.closest("#view-acq"))setTimeout(()=>{if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("#view-acq")){editing=false;renderList()}},80)});
 
 document.addEventListener("click",async e=>{
-  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep],[data-aqrf],[data-aqsadd],[data-aqsdel]");if(!b||!db)return;
+  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep],[data-aqrf],[data-aqsadd],[data-aqsdel],[data-aqtadd],[data-aqtdel],[data-aqstmt]");if(!b||!db)return;
+  if(b.hasAttribute("data-aqstmt")){await statement();return}
+  if(b.hasAttribute("data-aqtadd")){const c=cur();if(!c)return;c.time=(c.time||[]).concat([{date:today(),hours:"",note:""}]);queue(c);editing=false;renderWB();const i=$("aqt"+(c.time.length-1)+"h");if(i)i.focus();return}
+  if(b.dataset.aqtdel!==undefined){const c=cur();if(!c)return;c.time.splice(+b.dataset.aqtdel,1);queue(c);editing=false;renderWB();return}
   if(b.hasAttribute("data-aqsadd")){const c=cur();if(!c)return;c.samples=(c.samples||[]).concat([{ref:"",checked:"",result:"",note:""}]);queue(c);editing=false;renderWB();const i=$("aqs"+(c.samples.length-1)+"r");if(i)i.focus();return}
   if(b.dataset.aqsdel!==undefined){const c=cur();if(!c)return;c.samples.splice(+b.dataset.aqsdel,1);queue(c);editing=false;renderWB();return}
   if(b.hasAttribute("data-aqrf")){await dl("redflag");return}
@@ -3333,6 +3361,19 @@ function applyProp(){const c=cur();if(!c||!prop)return;c.items=c.items||{};
 
 function docHTML(title,body){return `<html><head><meta charset="utf-8"><title>${esc(title)}</title><style>body{font-family:Arial,sans-serif;font-size:11pt;color:#2b1212}h1{font-size:20pt;color:#6d0101}h2{font-size:14pt;color:#6d0101;border-bottom:1px solid #ddd;padding-bottom:3pt}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4pt 6pt;vertical-align:top;font-size:9.5pt;text-align:left}th{background:#fcf4f0}.red{color:#a3341f;font-weight:bold}.amber{color:#9a6a10;font-weight:bold}.green{color:#2f7a4a;font-weight:bold}small{color:#6e6763}</style></head><body>${body}</body></html>`}
 const lab=s=>({red:"Red",amber:"Amber",green:"Green",na:"N/A"}[s]||"Not reviewed");
+async function statement(){if(!downloads){alertSt("Downloads aren't available here. Open Nexa OS in claude.ai.");return}
+  const ym=($("aqStMonth").value||new Date().toISOString().slice(0,7)),to=$("aqStTo").value.trim(),ref=$("aqStRef").value.trim();
+  const [yy,mm]=ym.split("-").map(Number),mName=new Date(yy,mm-1,1).toLocaleString("en-GB",{month:"long",year:"numeric"});
+  const L=cos.filter(c=>c.stage!=="Exited"&&(hrsOf(c)>0||c.outcome||c.stage!=="Onboarding"||hrsOf(c,ym)>0));
+  const rows=L.map(c=>{const st=feeStatus(c),work=(c.time||[]).filter(t=>(t.date||"").slice(0,7)===ym&&t.note).map(t=>t.note);
+    return `<tr><td><b>${esc(c.name||"Unnamed")}</b><br><small>${esc(c.stage||"Onboarding")}</small></td><td style="text-align:right">${Math.round(hrsOf(c,ym)*10)/10}</td><td style="text-align:right">${Math.round(hrsOf(c)*10)/10}</td><td>${esc(work.join("; ")||"")}</td><td>${esc(st.text)}${c.invDate?"<br><small>Invoiced "+esc(c.invDate)+(c.invNo?" ("+esc(c.invNo)+")":"")+(c.paidDate?", paid "+esc(c.paidDate):"")+"</small>":""}</td></tr>`}).join("");
+  const hM=L.reduce((a,c)=>a+hrsOf(c,ym),0),due=L.filter(c=>c.outcome&&!c.paidDate).reduce((a,c)=>a+feeStatus(c).due,0);
+  const html=docHTML("Work statement "+mName,`<h1>Work statement: ${esc(mName)}</h1><p>NexaStrategic Ltd${to?" · Prepared for "+esc(to):""}${ref?" · Engagement Order "+esc(ref):""} · ${esc(today())}</p>
+  <table><tr><th style="width:20%">Company</th><th style="width:9%">Hours this month</th><th style="width:9%">Hours to date</th><th>Work this month</th><th style="width:30%">Fee status</th></tr>${rows||'<tr><td colspan="5">No work recorded this month.</td></tr>'}</table>
+  <p><b>Total hours this month:</b> ${Math.round(hM*10)/10}. <b>Fees now due and unpaid:</b> £${due.toLocaleString("en-GB")} plus VAT.</p>
+  <p><small>This is a statement of work in progress, not a VAT invoice. Under clause 5.2${ref?" of Engagement Order "+esc(ref):""}, the assessment fee and the first month of advisory are invoiced on completion of an acquisition, and the abort fee when a company is not acquired or at the long-stop date. Amounts exclude VAT.</small></p>`);
+  try{await downloads.save({filename:"NexaStrategic work statement - "+mName+".doc",data:new Blob([html],{type:"application/msword"})})}catch(_){}
+}
 async function dl(kind){const c=cur();if(!c)return;if(!downloads){alertSt("Downloads aren't available here. Open Nexa OS in claude.ai.");return}
   const it=itemsOf(c),nm=c.name||"Company";let html,fn;
   if(kind==="irl"){html=docHTML(nm+" data request list",`<h1>Information request: ${esc(nm)}</h1><p>NexaStrategic Ltd · ${esc(today())}</p><p>Please share what you have against each line. Partial answers are fine; mark anything that does not apply.</p>`+WB.map(w=>`<h2>${esc(w.t)}</h2><table><tr><th style="width:5%">#</th><th style="width:40%">Area</th><th style="width:40%">Please provide</th><th>Status</th></tr>${w.items.map(([id,q,ev],i)=>`<tr><td>${i+1}</td><td>${esc(q)}</td><td>${esc(ev)}</td><td>${esc((it[id]||{}).evidence||"")}</td></tr>`).join("")}</table>`).join(""));fn=nm+" - information request.doc"}
