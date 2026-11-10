@@ -668,7 +668,10 @@ Sounding-board sessions with the founder</textarea></div>
     <div class="aqadd"><div class="f"><label for="aqNew">Add a company</label><input id="aqNew" placeholder="Company name"></div><button class="btn primary" type="button" id="aqAdd" data-aqadd disabled>Add company</button></div>
     <div class="card"><div id="aqList"></div></div>
     <div class="card"><h3 class="aqh">Monthly work statement</h3><p class="sub">Hours and progress for every company in one month, with what each fee will be and when it falls due. Send it to the client with your monthly update. It is a statement, not a VAT invoice: fees are invoiced only when they fall due under the contract.</p>
-      <div class="aqadd"><div class="f"><label for="aqStMonth">Month</label><input id="aqStMonth" type="month"></div><div class="f"><label for="aqStTo">Prepared for</label><input id="aqStTo" value="David Jacob Consulting Services Ltd"></div><div class="f"><label for="aqStRef">Contract reference</label><input id="aqStRef" value="NX-2026-002"></div><button class="btn primary" type="button" data-aqstmt>Download statement</button></div></div>
+      <div class="aqadd"><div class="f"><label for="aqStMonth">Month</label><input id="aqStMonth" type="month"></div><div class="f"><label for="aqStTo">Prepared for</label><input id="aqStTo" value="David Jacob Consultancy Services Ltd"></div><div class="f"><label for="aqStRef">Contract reference</label><input id="aqStRef" value="NX-2026-002"></div><button class="btn primary" type="button" data-aqstmt>Download statement</button></div></div>
+    <div class="card"><h3 class="aqh">Client tracker</h3><p class="sub">The client's view of the programme: every company, where it is, hours logged, what each fee will be and when it falls due, and the next step. Download it to share, or copy the summary into an email. It shows nothing from the workbook findings.</p>
+      <div class="scroll"><table class="aqtbl" id="aqTrk"></table></div>
+      <div class="acts aqleft"><button class="btn primary" type="button" data-aqtrk>Download tracker with full work log</button><button class="btn small" type="button" data-aqtrkcopy>Copy summary</button><span class="status" id="aqTrkSt" role="status"></span></div></div>
   </div>
   <div id="aqWB" hidden>
     <div class="phead aqhead" id="aqHead"></div>
@@ -3211,13 +3214,16 @@ const hrsOf=(c,ym)=>(c.time||[]).filter(t=>!ym||(t.date||"").slice(0,7)===ym).re
 const addMonths=(d,m)=>{if(!d)return "";const [y,mo,da]=d.split("-").map(Number);const x=new Date(y,mo-1+m,da);return x.toISOString().slice(0,10)};
 function feeStatus(c){const A=fv(c,"feeA"),X=fv(c,"feeX"),M=fv(c,"feeM"),ls=addMonths(c.reportDate,fv(c,"longstop"));
   if(c.outcome==="acquired")return {due:A+M,text:"Due on completion"+(c.outcomeDate?" ("+c.outcomeDate+")":"")+": assessment £"+A.toLocaleString("en-GB")+" plus first month of advisory £"+M.toLocaleString("en-GB")};
-  if(c.outcome==="declined")return {due:X,text:"Not acquired"+(c.outcomeDate?" ("+c.outcomeDate+")":"")+": abort fee £"+X.toLocaleString("en-GB")+" due"};
-  if(c.outcome==="longstop")return {due:X,text:"Long-stop reached"+(ls?" ("+ls+")":"")+": abort fee £"+X.toLocaleString("en-GB")+" due"};
+  const ab=c.reportDate?X:Math.min(X,Math.round(hrsOf(c)*200)),abT=c.reportDate?"abort fee £"+X.toLocaleString("en-GB"):"recorded time "+(Math.round(hrsOf(c)*10)/10)+" hours at £200, £"+ab.toLocaleString("en-GB")+" (capped at £"+X.toLocaleString("en-GB")+")";
+  if(c.outcome==="declined")return {due:ab,text:"Not acquired"+(c.outcomeDate?" ("+c.outcomeDate+")":"")+": "+abT+" due"};
+  if(c.outcome==="longstop")return {due:ab,text:"Long-stop reached"+(ls?" ("+ls+")":"")+": "+abT+" due"};
   return {due:0,text:"In progress. £"+A.toLocaleString("en-GB")+" on completion, or £"+X.toLocaleString("en-GB")+" if not acquired"+(ls?". Long-stop "+ls:"")}}
+function trkRows(){return cos.filter(c=>c.stage!=="Exited").map(c=>{const st=feeStatus(c);return {name:c.name||"Unnamed",stage:c.stage||"Onboarding",start:c.start||"",report:c.reportDate||"",hrs:Math.round(hrsOf(c)*10)/10,hm:Math.round(hrsOf(c,new Date().toISOString().slice(0,7))*10)/10,fee:st.text,next:(c.next||"")+(c.nextDate?" ("+c.nextDate+")":""),c}})}
 function renderList(){
   const L=cos.filter(c=>c.stage!=="Exited"),ex=cos.length-L.length;
   const sc=cos.map(scoreOf),reds=sc.reduce((a,s)=>a+s.r,0);
   $("aqKpis").innerHTML=[["Companies",String(L.length)+(ex?" · "+ex+" exited":"")],["Hours logged this month",String(Math.round(cos.reduce((a,c)=>a+hrsOf(c,new Date().toISOString().slice(0,7)),0)*10)/10)],["Audits complete",String(cos.filter(c=>scoreOf(c).pct===100).length)],["Red findings",String(reds)]].map(([l,v])=>`<div class="kpi"><span>${l}</span><b>${v}</b></div>`).join("");
+  const tk=$("aqTrk");if(tk){const R=trkRows();tk.innerHTML=R.length?`<thead><tr><th>Company</th><th>Stage</th><th>Started</th><th>Report</th><th>Hours this month</th><th>Hours to date</th><th>Fee status</th><th>Next step</th></tr></thead><tbody>${R.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.stage)}</td><td>${esc(x.start)}</td><td>${esc(x.report||"Not yet")}</td><td>${x.hm}</td><td>${x.hrs}</td><td>${esc(x.fee)}</td><td>${esc(x.next)}</td></tr>`).join("")}</tbody>`:'<tbody><tr><td>No companies yet.</td></tr></tbody>'}
   $("aqList").innerHTML=cos.length?`<div class="scroll"><table class="aqtbl"><thead><tr><th>Company</th><th>Stage</th><th>Status</th><th>Reviewed</th><th>Red</th><th>Next step</th><th></th></tr></thead><tbody>${cos.map(c=>{const s=scoreOf(c);return `<tr><td><b>${esc(c.name||"Unnamed")}</b>${c.contact?`<br><small>${esc(c.contact)}</small>`:""}</td><td>${esc(c.stage||"Onboarding")}</td><td>${pill(s.rag)}</td><td><div class="aqbar"><i style="width:${s.pct}%"></i></div><small>${s.pct}%</small></td><td>${s.r}</td><td>${esc(c.next||"")}${c.nextDate?`<br><small>${esc(c.nextDate)}</small>`:""}</td><td><button class="btn small" type="button" data-aqopen="${esc(c.id)}">Open workbook</button></td></tr>`}).join("")}</tbody></table></div>`:'<p class="empty">No portfolio companies yet. Add the first one above.</p>';
 }
 
@@ -3321,8 +3327,10 @@ document.addEventListener("focusin",e=>{if(e.target.closest&&e.target.closest("#
 document.addEventListener("focusout",e=>{if(e.target.closest&&e.target.closest("#view-acq"))setTimeout(()=>{if(!document.activeElement||!document.activeElement.closest||!document.activeElement.closest("#view-acq")){editing=false;renderList()}},80)});
 
 document.addEventListener("click",async e=>{
-  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep],[data-aqrf],[data-aqsadd],[data-aqsdel],[data-aqtadd],[data-aqtdel],[data-aqstmt]");if(!b||!db)return;
+  const b=e.target.closest("[data-aqopen],[data-aqback],[data-aqtab],[data-aqadd],[data-aqdel],[data-aqaddnote],[data-aqfill],[data-aqapply],[data-aqirl],[data-aqrep],[data-aqrf],[data-aqsadd],[data-aqsdel],[data-aqtadd],[data-aqtdel],[data-aqstmt],[data-aqtrk],[data-aqtrkcopy]");if(!b||!db)return;
   if(b.hasAttribute("data-aqstmt")){await statement();return}
+  if(b.hasAttribute("data-aqtrk")){await tracker();return}
+  if(b.hasAttribute("data-aqtrkcopy")){const R=trkRows();const txt="Programme tracker, "+today()+"\n\n"+R.map(x=>x.name+": "+x.stage+". "+x.hrs+" hours to date ("+x.hm+" this month). "+x.fee+"."+(x.next?" Next: "+x.next+".":"")).join("\n")+"\n\nAmounts exclude VAT. Fees are invoiced when they fall due under the Engagement Order.";try{await navigator.clipboard.writeText(txt);$("aqTrkSt").textContent="Copied"}catch(_){$("aqTrkSt").textContent="Couldn't copy here"}return}
   if(b.hasAttribute("data-aqtadd")){const c=cur();if(!c)return;c.time=(c.time||[]).concat([{date:today(),hours:"",note:""}]);queue(c);editing=false;renderWB();const i=$("aqt"+(c.time.length-1)+"h");if(i)i.focus();return}
   if(b.dataset.aqtdel!==undefined){const c=cur();if(!c)return;c.time.splice(+b.dataset.aqtdel,1);queue(c);editing=false;renderWB();return}
   if(b.hasAttribute("data-aqsadd")){const c=cur();if(!c)return;c.samples=(c.samples||[]).concat([{ref:"",checked:"",result:"",note:""}]);queue(c);editing=false;renderWB();const i=$("aqs"+(c.samples.length-1)+"r");if(i)i.focus();return}
@@ -3365,6 +3373,13 @@ function applyProp(){const c=cur();if(!c||!prop)return;c.items=c.items||{};
 
 function docHTML(title,body){return `<html><head><meta charset="utf-8"><title>${esc(title)}</title><style>body{font-family:Arial,sans-serif;font-size:11pt;color:#2b1212}h1{font-size:20pt;color:#6d0101}h2{font-size:14pt;color:#6d0101;border-bottom:1px solid #ddd;padding-bottom:3pt}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4pt 6pt;vertical-align:top;font-size:9.5pt;text-align:left}th{background:#fcf4f0}.red{color:#a3341f;font-weight:bold}.amber{color:#9a6a10;font-weight:bold}.green{color:#2f7a4a;font-weight:bold}small{color:#6e6763}</style></head><body>${body}</body></html>`}
 const lab=s=>({red:"Red",amber:"Amber",green:"Green",na:"N/A"}[s]||"Not reviewed");
+async function tracker(){if(!downloads){alertSt("Downloads aren't available here. Open Nexa OS in claude.ai.");return}
+  const to=$("aqStTo").value.trim(),ref=$("aqStRef").value.trim(),R=trkRows();
+  const sum=`<table><tr><th style="width:16%">Company</th><th style="width:10%">Stage</th><th style="width:10%">Started</th><th style="width:10%">Report delivered</th><th style="width:8%">Hours to date</th><th>Fee status</th><th style="width:18%">Next step</th></tr>${R.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.stage)}</td><td>${esc(x.start)}</td><td>${esc(x.report||"Not yet")}</td><td style="text-align:right">${x.hrs}</td><td>${esc(x.fee)}</td><td>${esc(x.next)}</td></tr>`).join("")||'<tr><td colspan="7">No companies yet.</td></tr>'}</table>`;
+  const logs=R.map(x=>{const T=(x.c.time||[]).filter(t=>t.date||t.hours).slice().sort((a,b)=>(a.date||"").localeCompare(b.date||""));return `<h2>${esc(x.name)}: work log</h2>`+(T.length?`<table><tr><th style="width:16%">Date</th><th style="width:10%">Hours</th><th>Work done</th></tr>${T.map(t=>`<tr><td>${esc(t.date||"")}</td><td style="text-align:right">${esc(t.hours||"")}</td><td>${esc(t.note||"")}</td></tr>`).join("")}<tr><td><b>Total</b></td><td style="text-align:right"><b>${x.hrs}</b></td><td></td></tr></table>`:"<p>No time logged yet.</p>")}).join("");
+  const html=docHTML("Programme tracker",`<h1>Programme tracker</h1><p>NexaStrategic Ltd${to?" · Prepared for "+esc(to):""}${ref?" · Engagement Order "+esc(ref):""} · ${esc(today())}</p>${sum}${logs}<p><small>A record of work in progress, not a VAT invoice. Fees are invoiced when they fall due under${ref?" Engagement Order "+esc(ref)+",":""} clause 5.2. Amounts exclude VAT.</small></p>`);
+  try{await downloads.save({filename:"NexaStrategic programme tracker - "+today()+".doc",data:new Blob([html],{type:"application/msword"})})}catch(_){}
+}
 async function statement(){if(!downloads){alertSt("Downloads aren't available here. Open Nexa OS in claude.ai.");return}
   const ym=($("aqStMonth").value||new Date().toISOString().slice(0,7)),to=$("aqStTo").value.trim(),ref=$("aqStRef").value.trim();
   const [yy,mm]=ym.split("-").map(Number),mName=new Date(yy,mm-1,1).toLocaleString("en-GB",{month:"long",year:"numeric"});
