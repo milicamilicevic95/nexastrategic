@@ -1,0 +1,134 @@
+<title>Module 1 Teleprompter</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: one dark reading field, a fixed reading line at 30% height, a control bar that fades while it runs. Deliberately single-theme dark, like a studio prompter. */
+:root{
+  --ground:#140808; --text:#fcf4f0; --dim:#9c8580; --cue:#f2a7c4; --line:rgba(192,214,255,.16); --mark:#c0d6ff; --bar:#231111; --edge:#3a1f1d;
+  --display:'Gloock', Georgia, serif; --read:'Hanken Grotesk', Arial, sans-serif;
+  --size:56px; color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--ground);color:var(--text);font-family:var(--read);overflow:hidden}
+#field{position:fixed;inset:0;overflow-y:auto;scrollbar-width:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#field::-webkit-scrollbar{display:none}
+#script{max-width:min(1400px,92vw);margin:0 auto;padding-block:30vh 75vh;display:flex;flex-direction:column;gap:calc(var(--size)*1.4)}
+.chapter{font-family:var(--display);font-size:calc(var(--size)*.62);color:var(--mark);border-top:2px solid var(--mark);padding-top:.5em}
+.block{display:flex;flex-direction:column;gap:.5em}
+.slide{display:flex;gap:.8em;align-items:baseline;font-size:calc(var(--size)*.42);color:var(--dim);letter-spacing:.02em}
+.slide b{font-family:var(--display);font-weight:400;font-size:1.6em;color:var(--mark);min-width:1.6em}
+.slide .adv{margin-left:auto;font-weight:600;color:var(--mark);white-space:nowrap}
+.say{font-size:var(--size);line-height:1.5;font-weight:500;text-wrap:pretty}
+.cue{display:inline-block;color:var(--cue);font-weight:600;font-size:.72em;border:2px solid var(--cue);border-radius:.4em;padding:0 .4em;margin:0 .15em;line-height:1.4}
+.end{font-family:var(--display);font-size:calc(var(--size)*.8);color:var(--mark);text-align:center}
+#readline{position:fixed;left:0;right:0;top:30vh;height:calc(var(--size)*1.6);transform:translateY(-12%);background:var(--line);border-top:2px solid rgba(192,214,255,.35);border-bottom:2px solid rgba(192,214,255,.35);pointer-events:none}
+#readline::before{content:"";position:absolute;left:max(6px,env(safe-area-inset-left,0px));top:50%;border:14px solid transparent;border-left:20px solid var(--mark);transform:translateY(-50%)}
+#bar{position:fixed;left:0;right:0;bottom:0;background:var(--bar);border-top:1px solid var(--edge);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:15px;transition:opacity .4s}
+body.running.idle #bar{opacity:0}
+#bar .grp{display:flex;align-items:center;gap:6px}
+#bar label{color:var(--dim)}
+button{font:inherit;color:var(--text);background:#3a1f1d;border:1px solid #5a3532;border-radius:6px;padding:6px 12px;cursor:pointer;min-width:38px}
+button:hover{background:#4a2826}
+button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+#play{background:var(--mark);color:#140808;border-color:var(--mark);font-weight:600;min-width:96px}
+.val{min-width:3.2em;text-align:center;font-variant-numeric:tabular-nums}
+#status{margin-left:auto;color:var(--dim);font-variant-numeric:tabular-nums}
+#status b{color:var(--text);font-weight:600}
+#keys{color:var(--dim);font-size:13px;width:100%}
+#keys kbd{font:inherit;border:1px solid var(--edge);border-radius:4px;padding:0 5px;color:var(--text)}
+#intro{max-width:min(1400px,92vw);margin:0 auto 0;color:var(--dim);font-size:18px;line-height:1.5;border:1px solid var(--edge);border-radius:8px;padding:16px 20px}
+#intro b{color:var(--text)}
+@media (max-width:700px){#keys{display:none} :root{--size:34px}}
+@media (prefers-reduced-motion:reduce){#bar{transition:none}}
+</style>
+<div id="field" tabindex="-1">
+  <div id="script"></div>
+</div>
+<div id="readline" aria-hidden="true"></div>
+<div id="bar" role="toolbar" aria-label="Prompter controls">
+  <button id="play" type="button">Start</button>
+  <div class="grp"><label>Speed</label><button id="slower" type="button" aria-label="Slower">−</button><span class="val" id="speedVal"></span><button id="faster" type="button" aria-label="Faster">+</button></div>
+  <div class="grp"><label>Text</label><button id="smaller" type="button" aria-label="Smaller text">A−</button><button id="bigger" type="button" aria-label="Bigger text">A+</button></div>
+  <div class="grp"><button id="prev" type="button">◀ Slide</button><button id="next" type="button">Slide ▶</button><button id="restart" type="button">Restart</button><button id="full" type="button">Full screen</button></div>
+  <div id="status"><span id="slideNow"></span> · <b id="clock">0:00</b></div>
+  <div id="keys"><kbd>Space</kbd> start/pause · <kbd>↑</kbd><kbd>↓</kbd> speed · <kbd>←</kbd><kbd>→</kbd> previous/next slide · <kbd>+</kbd><kbd>−</kbd> text size · <kbd>Home</kbd> restart · <kbd>F</kbd> full screen. Scroll by hand any time.</div>
+</div>
+<script>
+const SLIDES = [{"n": 1, "title": "Process is one of eight.", "chapter": "Opening", "text": "[Camera on, slide up.] Hi, I’m Mila. I’m a fractional COO, which means my job is to see the whole of a business, not one corner of it. This first module is the frame for everything else in the course. By the end of it you’ll have all eight parts of your own business mapped, each with a name against it, and you’ll have run one real decision past all eight. It’s about 15 minutes, in three short chapters, and then there’s a worksheet. Grab it now if you haven’t already."}, {"n": 2, "title": "Would you sign it?", "chapter": null, "text": "Before I tell you what operations is, a decision. Kestrel is a made-up events agency, about 35 people. Their biggest client offers them a full year of events. It’s the largest deal they’ve ever been offered: a year of guaranteed revenue. Would you sign it? [Pause.] Most founders say yes on the call. Hold on to your answer. We’ll come back to Kestrel in chapter 3, and by then you’ll see what that yes didn’t look at."}, {"n": 3, "title": "What operations is.", "chapter": "Chapter 1 · What operations is", "text": "Chapter 1, about five minutes. Let’s start with what it actually is, because most founders have never been told."}, {"n": 4, "title": "What is operations?", "chapter": null, "text": "This is the question I ask every founder I work with. Pause the video and answer it for yourself. [Pause.] Almost everyone says some version of the same thing: process. Systems. SOPs. Admin. Getting things written down. And that’s not wrong. It’s just one part. Process is one of eight. The rest of this chapter is the other seven."}, {"n": 5, "title": "Everything that makes the business work, behind what the customer sees.", "chapter": null, "text": "This is the definition we’ll use for the whole course. Operations is everything that makes the business work, behind what the customer sees. The customer sees your product, your service, your marketing, the conversations they have with you. Operations is everything that has to happen behind that for the business to deliver, get paid, stay legal and keep going. When it works, nobody notices. When it doesn’t, the customer feels it quickly: an invoice goes out wrong, a deadline’s missed, a contract turns out to say something nobody expected."}, {"n": 6, "title": "You’ve been doing it since your first invoice.", "chapter": null, "text": "You already have operations. Even if it’s just you. The day you agreed your first price, sent your first invoice or signed your first contract, you were doing operations. Nobody called it that, so nobody owns it. Which usually means it lives in your head."}, {"n": 7, "title": "Eight parts, in four pairs", "chapter": null, "text": "Operations has eight parts. I call them panels, and you’ll see why in the next chapter. Eight is a lot to hold, so they come in four pairs. The work: process and people, how the work gets done and by whom. The money: commercial and finance, what you charge, and what comes in and goes out. The rules: legal and compliance, what you’ve agreed to and what you have to follow. Control: governance and risk, who decides and what could go wrong. Work, money, rules, control. Remember those four and the eight follow. [Draw it if you’re on paper: four boxes, two words in each.]"}, {"n": 8, "title": "The gap I look for first, in each part", "chapter": null, "text": "You know what finance is, so I won’t define the eight for you. They’re on the worksheet with prompts. What I’ll give you instead is the gap I look for first in each one. Process: it works, but only because one person remembers how. People: who does what is clear, until someone leaves. Commercial: discounts and terms agreed on a call and never written down. Finance: profit isn’t cash. You can be profitable and still miss payroll; that’s module 3. Legal: who actually owns your templates, your code, your content. Compliance: you follow the rules, but you couldn’t show it if asked. Governance: nobody’s quite sure who’s allowed to say yes. Risk: the one client, supplier or person you couldn’t afford to lose. Notice which of those made you wince. Before chapter 2, think of one decision you’ve made in the last month: a client, a hire, a price, a supplier. You’ll turn it in the exercise."}, {"n": 9, "title": "One ball.", "chapter": "Chapter 2 · One ball", "text": "Chapter 2, about four minutes. Why the eight only work as one thing, and who in your business is holding it."}, {"n": 10, "title": "Eight panels. One ball.", "chapter": null, "text": "Think of a beach ball. Eight panels, sewn together. That’s operations. You can look at one panel at a time, but you can’t take one off and still have a ball. Every decision you make lands on the whole thing. A new client is a commercial decision, and it’s also a finance decision, a people decision, a legal one. You just might only be looking at one colour when you make it. [On paper: draw a circle, cut it into eight, write a name in each.]"}, {"n": 11, "title": "Things fall through the seams.", "chapter": null, "text": "As companies grow, they tend to cut the ball up. Legal ops, finance ops, rev ops, people ops. Each team gets good at its panel, and that’s fine. The trouble is each team only sees its own colour. Finance sees the payment terms. Legal sees the contract. Nobody sees that the payment terms, the contract and the staffing plan are one decision. Split the ball and you split three things: who does the work, who answers for it, and who knows how it works. Problems rarely sit on a panel. They sit on the seams between them. The fix is never another team. It’s someone who sees the whole ball."}, {"n": 12, "title": "One form. Four teams. Nobody told.", "chapter": null, "text": "I worked at a regulated financial services scale-up, a couple of hundred people. After a change in regulator, the compliance team rewrote the client onboarding form. New requirements, including extra paperwork for some long-standing clients. A reasonable change. But they launched it on their own. The account managers didn’t know, so they couldn’t warn their clients. The operations team doing the onboarding didn’t know. Sales didn’t know. When I saw it, I flagged it: we needed a change log, everyone affected in one room, and clients told before anything changed. I told my manager and the chief compliance officer we’d lose clients over it. We did. Established clients, holding significant money with us, who didn’t want to redo paperwork nobody had warned them about. Afterwards, any proposed change went round the teams for input before it launched. It properly tightened up once onboarding had its own team who owned the process. Until then, the onboarding team was me, onboarding and offboarding everyone, and spotting problems that were never my job to spot. Nobody got their own part wrong. Compliance got compliance right. The damage was on the seam between compliance, the commercial side and process. That’s what deciding in silos costs. [Look up.] And notice what fixed it: not another rule. An owner."}, {"n": 13, "title": "You’re holding the ball. Because nobody decided otherwise.", "chapter": null, "text": "In most founder-led businesses, the founder holds the ball. Nobody sat down and decided it. You set the first prices, signed the first contracts, hired the first people, and it all stayed with you. That works for a while. It stops working when you’re the only person who can answer a question about any of the eight, and you’re also meant to be running the business."}, {"n": 14, "title": "How it usually changes as you grow", "chapter": null, "text": "This is roughly how it changes. At the start, it’s just you, holding every panel. Then panels get helpers: a bookkeeper, a freelancer, an assistant. They do the work, but you still make the calls. Then panels get owners: people who decide within limits you’ve agreed. That’s the shift David talks about, handing over decisions, not just tasks. Eventually someone holds the whole ball who isn’t you, usually an ops lead or a COO. It’s a common pattern, not a rule, and not every business needs stage four. What matters is being honest about which panels have owners and which are still just you. They’re rarely all at the same stage."}, {"n": 15, "title": "You can hand over the work. The business keeps the responsibility.", "chapter": null, "text": "You can hand over the work. You can’t hand over the responsibility. If your bookkeeper files late, the company’s late. If a freelancer mishandles customer data, it’s your business that answers for it. So handing a panel to someone is good, and you should. But you still need to know who has it, and how you’d know if it was going wrong. That’s the last column on your map: how would you know it’s slipping?"}, {"n": 16, "title": "Turn the ball.", "chapter": "Chapter 3 · Turn the ball", "text": "Chapter 3, about four minutes. We’ll take one real decision and turn it all the way round."}, {"n": 17, "title": "Back to Kestrel. Now turn the ball", "chapter": null, "text": "Back to Kestrel. From the commercial panel, it’s their best deal ever. Now turn it. Finance: the client pays in 90 days, but venues want deposits up front, so Kestrel funds the client’s events for three months. People: the team is already full, so this needs freelancers, which means contracts and onboarding. Process: the client wants sign-off on every event, which adds a step to everything. Legal: the contract gives the client all creative work, including the templates Kestrel has used for years. Compliance: attendee personal data would sit on staff’s personal drives. Governance: the founder agreed it alone, on a call, and nobody else knew. Risk: this one client would be half of revenue. Same deal. Seven more things to know. So, would you still sign it?"}, {"n": 18, "title": "Say yes knowingly.", "chapter": null, "text": "The point isn’t to say no. It might still be a great deal. The point is to say yes knowingly, and change what you can. Push for better payment terms, or a deposit. Carve your templates out of the IP clause. Move the data somewhere it belongs. Agree who signs off on deals this size. And decide, out loud, whether you can live with one client being half the business. The legal and data points here are illustrations, not legal advice. For a real contract, get it checked."}, {"n": 19, "title": "Eight questions to turn any decision", "chapter": null, "text": "Eight questions, one per part. You don’t need a meeting for this; for most decisions it’s five minutes with a notepad. I won’t read all eight, they’re on your worksheet. Two to show how they work. Finance: when does cash go out, and when does it come in? That’s the one that would have caught Kestrel’s 90 days. Governance: who is allowed to decide this, and who needs to know? That’s the one that would have stopped it being agreed alone on a call."}, {"n": 20, "title": "Your turn · about 30 minutes, on the worksheet", "chapter": "Close", "text": "Your turn. About 30 minutes, on the worksheet. One: map your eight. For each part, write the main work, one name who looks after it, where it lives, how you’d know it was slipping, and whether it’s owned, only you, or unsure. One name, not a team. If it’s you, write me. Two: name your weakest part, the one you’d least like an investor to ask about. Three: take the decision you thought of earlier and turn it through all eight questions. Be honest. Nobody marks the map. It’s yours."}, {"n": 21, "title": "Which part did you not know was yours?", "chapter": null, "text": "Last thing. When you’ve done the map, ask yourself one question: which part did you not know was yours? Most founders find at least one. Bring that answer to module 2, because that’s where we start getting things out of your head. Do this, and you stop finding parts of your business by accident. See you in module 2."}];
+const $ = s => document.querySelector(s);
+const field = $('#field'), script = $('#script');
+const store = {get(k,d){try{const v=localStorage.getItem('tp1.'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('tp1.'+k,JSON.stringify(v))}catch(e){}}};
+let speed = store.get('speed', 4), size = store.get('size', 56), running = false, last = 0, carry = 0, elapsed = 0, idleTimer;
+
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function render(){
+  const intro = document.createElement('div');
+  intro.id='intro';
+  intro.innerHTML='<b>Before you record.</b> In Loom, share only the deck’s window or tab, and keep this prompter on your other screen, so it never appears in the video. Press Start, or Space, when you begin talking. Pink boxes are stage directions, not lines. A blue “change slide” marks where you click to the next slide.';
+  script.appendChild(intro);
+  SLIDES.forEach((s,i)=>{
+    if(s.chapter){const c=document.createElement('div');c.className='chapter';c.textContent=s.chapter;script.appendChild(c)}
+    const b=document.createElement('section');b.className='block';b.id='s'+s.n;
+    const said=esc(s.text).replace(/\[(.*?)\]/g,'<span class="cue">$1</span>');
+    b.innerHTML='<div class="slide"><b>'+s.n+'</b><span>'+esc(s.title)+'</span>'+(i?'<span class="adv">change slide ▶</span>':'')+'</div><p class="say">'+said+'</p>';
+    script.appendChild(b);
+  });
+  const e=document.createElement('p');e.className='end';e.textContent='End of module 1. Stop recording.';script.appendChild(e);
+}
+// speed levels: px per second at 56px text, scaled with text size
+const LEVELS=[0,10,14,18,23,28,34,40,48,58,70];
+function pxPerSec(){return LEVELS[speed]*(size/56)}
+function applySize(){document.documentElement.style.setProperty('--size',size+'px');store.set('size',size)}
+function showSpeed(){$('#speedVal').textContent=speed+' / 10';store.set('speed',speed)}
+function blocks(){return [...script.querySelectorAll('.block')]}
+function lineY(){return field.clientHeight*0.30}
+function currentIndex(){const y=lineY()+field.scrollTop;let idx=0;blocks().forEach((b,i)=>{if(b.offsetTop<=y+4)idx=i});return idx}
+function updateStatus(){const i=currentIndex();$('#slideNow').textContent='Slide '+SLIDES[i].n+' of '+SLIDES.length;const s=Math.floor(elapsed);$('#clock').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function goTo(i){const bs=blocks();i=Math.max(0,Math.min(bs.length-1,i));field.scrollTop=bs[i].offsetTop-lineY();carry=0;updateStatus()}
+function tick(t){
+  if(!running)return;
+  const dt=last?Math.min(0.1,(t-last)/1000):0; last=t; elapsed+=dt;
+  carry+=pxPerSec()*dt; const whole=Math.floor(carry);
+  if(whole){field.scrollTop+=whole;carry-=whole}
+  if(field.scrollTop+field.clientHeight>=field.scrollHeight-2){setRunning(false)}
+  updateStatus(); requestAnimationFrame(tick);
+}
+let wake=null;
+async function lockScreen(on){try{if(on&&'wakeLock'in navigator){wake=await navigator.wakeLock.request('screen')}else if(wake){await wake.release();wake=null}}catch(e){}}
+function setRunning(on){
+  running=on; document.body.classList.toggle('running',on);
+  $('#play').textContent=on?'Pause':(elapsed?'Resume':'Start');
+  last=0; lockScreen(on); if(on){requestAnimationFrame(tick);poke()}
+}
+function poke(){document.body.classList.remove('idle');clearTimeout(idleTimer);idleTimer=setTimeout(()=>document.body.classList.add('idle'),2500)}
+function full(){const d=document;try{if(!d.fullscreenElement)d.documentElement.requestFullscreen().catch(()=>{});else d.exitFullscreen().catch(()=>{})}catch(e){}}
+function bump(n){speed=Math.max(1,Math.min(10,speed+n));showSpeed()}
+function resize(n){const i=currentIndex();size=Math.max(28,Math.min(110,size+n));applySize();requestAnimationFrame(()=>goTo(i))}
+
+render(); applySize(); showSpeed(); goTo(0);
+$('#play').onclick=()=>setRunning(!running);
+$('#slower').onclick=()=>bump(-1); $('#faster').onclick=()=>bump(1);
+$('#smaller').onclick=()=>resize(-6); $('#bigger').onclick=()=>resize(6);
+$('#prev').onclick=()=>goTo(currentIndex()-1); $('#next').onclick=()=>goTo(currentIndex()+1);
+$('#restart').onclick=()=>{setRunning(false);elapsed=0;goTo(0);$('#play').textContent='Start'};
+$('#full').onclick=full;
+field.addEventListener('scroll',()=>{if(!running)updateStatus()});
+document.addEventListener('mousemove',poke);
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='BUTTON'&&(e.key===' '||e.key==='Enter'))return;
+  const k=e.key;
+  if(k===' '){e.preventDefault();setRunning(!running)}
+  else if(k==='ArrowUp'){e.preventDefault();bump(1)}
+  else if(k==='ArrowDown'){e.preventDefault();bump(-1)}
+  else if(k==='ArrowRight'){e.preventDefault();goTo(currentIndex()+1)}
+  else if(k==='ArrowLeft'){e.preventDefault();goTo(currentIndex()-1)}
+  else if(k==='+'||k==='='){resize(6)}
+  else if(k==='-'||k==='_'){resize(-6)}
+  else if(k==='Home'){e.preventDefault();$('#restart').click()}
+  else if(k==='f'||k==='F'){full()}
+  else return;
+  poke();
+});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&running)lockScreen(true)});
+</script>
