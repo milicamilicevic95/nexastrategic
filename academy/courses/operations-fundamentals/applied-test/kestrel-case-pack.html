@@ -1,0 +1,96 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>Applied test · Kestrel case pack</title>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Brygada+1918:ital,wght@1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>@page{size:A4;margin:0}*{box-sizing:border-box;margin:0}
+body{font-family:'Hanken Grotesk',Arial,sans-serif;color:#2b1212;font-size:9.6pt;line-height:1.45}
+.page{width:210mm;height:297mm;padding:15mm 16mm 12mm;background:#fcf4f0;display:flex;flex-direction:column;break-after:page;overflow:hidden}
+.page:last-child{break-after:auto}
+.k{font-family:'Brygada 1918',Georgia,serif;font-style:italic;color:#6d0101;font-size:12pt}
+h1{font-family:'Gloock',Georgia,serif;font-weight:400;color:#6d0101;font-size:40pt;line-height:1;margin:3pt 0 8pt}
+h2{font-family:'Gloock',Georgia,serif;font-weight:400;color:#6d0101;font-size:22pt;line-height:1.05;margin:2pt 0 6pt}
+.d{color:#d94c86} p{margin:0 0 6pt} .lede{font-size:11.5pt;max-width:160mm}
+table{width:100%;border-collapse:collapse;background:#fff}
+th{text-align:left;font-weight:600;color:#6d0101;font-size:8.6pt;padding:5pt;border-bottom:1.5px solid #6d0101}
+td{padding:5pt;border-bottom:1px solid #eadbd5;vertical-align:top;font-size:8.8pt}
+.pair{font-family:'Brygada 1918',Georgia,serif;font-style:italic;color:#6d0101;width:22mm}
+.pn{font-family:'Gloock',Georgia,serif;color:#6d0101;font-size:11pt;width:26mm}
+.map td{height:24mm} .ck{width:22mm;font-size:7.6pt;color:#7a5450;vertical-align:middle}
+.box{background:#fff;border:1px solid #eadbd5;border-radius:6pt;padding:8pt 10pt;margin-top:7pt}
+.box b{color:#6d0101;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:12pt;display:block;margin-bottom:2pt}
+.box i{color:#7a5450;font-size:8.4pt}
+.ln{border-bottom:1px solid #d9c6bf;height:15pt}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7pt;margin:6pt 0 10pt}
+.steps div{background:#fff;border:1px solid #eadbd5;border-radius:6pt;padding:8pt 10pt}
+.steps b{font-family:'Gloock',Georgia,serif;font-size:20pt;color:#6d0101;font-weight:400;display:block;line-height:1}
+.q{display:grid;grid-template-columns:62mm 1fr;gap:8pt;padding:3pt 0;border-top:1px solid #eadbd5;align-items:end}
+.q b{display:block;font-family:Gloock,Georgia,serif;font-weight:400;color:#6d0101;font-size:11pt}
+.q span{font-size:8.4pt;line-height:1.3} .q .ln{height:20pt}
+.close{background:#6d0101;color:#fcf4f0;border-radius:6pt;padding:10pt 12pt;margin-top:8pt}
+.close b{font-family:'Gloock',Georgia,serif;font-weight:400;font-size:15pt;display:block}
+.close .ln{border-color:#a0504a}
+.small{font-size:7.8pt;color:#7a5450;margin-top:6pt}
+.foot{margin-top:auto;padding-top:5pt;border-top:1px solid #eadbd5;display:flex;justify-content:space-between;font-size:7.5pt;color:#7a5450}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:7pt}
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7pt}
+.box .ln{height:16pt}
+.grid td{height:9mm}
+.grid td.lab{font-weight:600;color:#2b1212;width:32mm}
+.grid tr.tot td{background:#fcf4f0;font-weight:600;color:#6d0101}
+.grid th{font-size:7.6pt}
+.cash td{height:7.2mm;border-right:1px solid #f1e6e1}
+.cash td.lab{width:38mm;font-size:8.4pt}
+.cash th{text-align:center;font-size:7.6pt}
+.cash tr.sec td{background:#fcf4f0;color:#6d0101;font-weight:600;height:6mm}
+.cash tr.tot td{font-weight:600}
+.circle{display:flex;gap:6pt;flex-wrap:wrap;margin:4pt 0}
+.circle span{border:1px solid #6d0101;border-radius:20pt;padding:2pt 9pt;color:#6d0101;font-size:9pt}
+@page wide{size:A4 landscape;margin:0}
+.page.wide{page:wide;width:297mm;height:210mm}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:6pt;margin:6pt 0 8pt}
+.facts div{background:#fff;border:1px solid #eadbd5;border-radius:6pt;padding:7pt 9pt}
+.facts b{display:block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:17pt;color:#6d0101;line-height:1.1}
+.facts span{font-size:8pt;color:#7a5450}
+.quote{font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:11pt;color:#6d0101;border-left:2px solid #d94c86;padding:2pt 0 2pt 8pt;margin:4pt 0 8pt}
+.snap td{font-size:8.4pt;vertical-align:top}
+.snap td:first-child{font-family:Gloock,Georgia,serif;color:#6d0101;font-size:10pt;width:24mm}
+.ans td{height:15mm;vertical-align:top}
+.ans td.lab{font-family:Gloock,Georgia,serif;color:#6d0101;font-size:10pt;width:24mm;font-weight:400}
+.rev td{height:11mm;vertical-align:middle}
+.rev td.qq b{font-family:'Hanken Grotesk',Arial,sans-serif;font-weight:600;color:#2b1212}
+.qh{color:#7a5450;font-size:7.6pt}
+.rev td.qq{font-size:8.6pt;width:82mm;line-height:1.3}
+ol.tight{margin:2pt 0 6pt 14pt}ol.tight li{margin-bottom:2pt}
+</style></head><body>
+<div class="page"><p class="k">Operations Fundamentals · Applied test · Part A</p><h1>Kestrel’s second city<span class="d">.</span></h1>
+<p class="lede">Kestrel is a made-up events agency in London. You’ve met them in every module. Everything here is fictional, and it’s all you need for Part A.</p>
+<div class="facts"><div><b>35</b><span>people: 31 employees, 4 regular freelancers</span></div><div><b>£4.1m</b><span>revenue, last 12 months</span></div><div><b>£190k</b><span>profit before tax, last year</span></div><div><b>£210k</b><span>in the bank today</span></div></div>
+<p class="k">The opportunity</p><h2>Client C wants Manchester</h2>
+<p>Client C, the year-long contract from module 1, wants Kestrel to run its events in Manchester too: <b>12 events from April 2027 to March 2028, worth about £620,000 in fees</b>, on the same 60-day terms. Manchester venues want a <b>30% deposit at booking</b>, so April’s events need deposits paid in January and February. Two smaller Manchester prospects, worth about £150,000 between them, have asked for proposals but haven’t signed.</p>
+<p>Running Manchester needs a local events lead and two coordinators (hired or freelance), Manchester venues and suppliers, and travel between the two cities. Kestrel has no office there.</p>
+<p class="k" style="margin-top:6pt">The founder’s view</p>
+<p class="quote">“We should say yes this week, before they ask someone else. Marcus can run it from London for the first few months, and we’ll hire once it’s proven.”</p>
+<p class="k">Who does what</p>
+<table><tr><th>Who</th><th>Role</th></tr>
+<tr><td>Alex</td><td>Founder. Sales, Client C relationship, signs venue contracts, still reviews most invoices over £10,000.</td></tr>
+<tr><td>Dee</td><td>Ops lead. People, compliance calendar, systems. The only person who can run payroll.</td></tr>
+<tr><td>Marcus</td><td>Events lead. Runs delivery for all London events. Already at capacity in spring.</td></tr>
+<tr><td>Jo and Sam</td><td>Account managers. Jo now sends invoices up to £10,000 within 5% of the contract.</td></tr>
+<tr><td>External</td><td>Bookkeeper (two days a month) and an accountancy firm (year end and tax).</td></tr></table>
+<div class="foot"><span>Operations Fundamentals · Applied test · Kestrel case pack</span><span>1</span></div></div>
+<div class="page"><p class="k">The eight parts today</p><h2>Where Kestrel stands</h2>
+<table class="snap"><tr><th>Part</th><th>What’s in place</th><th>Who owns it</th></tr><tr><td>Process</td><td>Invoicing handed from the founder to an account manager in October, with an SOP. Event delivery and venue booking are not written down; the events lead runs them from memory.</td><td>Events lead (delivery); account manager (invoicing)</td></tr><tr><td>People</td><td>31 employees, all London. Written contracts for 28; three October hires still waiting. Right-to-work checks recorded for all employees. Four regular freelancers. One-line roles for about half the team.</td><td>Ops lead</td></tr><tr><td>Commercial</td><td>Payment terms now in every new contract. 20% deposit on new clients, but not on Client C. Client C’s terms were renegotiated from 90 to 60 days in the summer.</td><td>Founder</td></tr><tr><td>Finance</td><td>Part-time bookkeeper, two days a month. Accountant for year end and tax. 13-week cash view started three weeks ago. No finance director.</td><td>Founder, with the bookkeeper</td></tr><tr><td>Legal</td><td>Client C contract: Kestrel’s templates carved out of the IP clause at renewal. Venue contracts are all London venues. Event booking software auto-renewed in March for three years.</td><td>Founder</td></tr><tr><td>Compliance</td><td>Attendee data moved into one system in October. ICO fee paid. Employers’ liability in place, renews in June. Confirmation statement due in February. Year end 31 March.</td><td>Ops lead</td></tr><tr><td>Governance</td><td>Decision limits written down in October. The founder still signs every venue contract, whatever the size.</td><td>Founder</td></tr><tr><td>Risk</td><td>Five risks listed, each with an owner. Top one: Client C is 48% of revenue.</td><td>Founder</td></tr></table>
+<p class="k" style="margin-top:8pt">The money</p>
+<table><tr><th>Client</th><th>Share of revenue</th><th>Terms</th><th>Actually pays</th></tr>
+<tr><td>Client A</td><td>14%</td><td>30 days</td><td>47 days</td></tr>
+<tr><td>Client B</td><td>9%</td><td>30 days</td><td>31 days</td></tr>
+<tr><td>Client C</td><td>48%</td><td>60 days</td><td>85 days</td></tr>
+<tr><td>Everyone else</td><td>29%</td><td>30 days</td><td>About 40 days</td></tr></table>
+<p style="margin-top:6pt">Payroll is about <b>£155,000 a month</b>. The 13-week cash view’s lowest week is <b>£62,000 in week 7</b>. If Client C pays a month late, the lowest week drops to <b>minus £48,000 in week 9</b>. That’s before any Manchester deposits.</p>
+<p class="k" style="margin-top:6pt">Decision limits (written in October)</p>
+<table><tr><th>Decision</th><th>Who</th><th>Up to</th></tr>
+<tr><td>Discounts</td><td>Account manager</td><td>10%</td></tr><tr><td>Spending</td><td>Ops lead</td><td>£2,000</td></tr>
+<tr><td>Freelancers</td><td>Events lead</td><td>Within the event budget</td></tr><tr><td>Contracts</td><td>Founder</td><td>Over 12 months or £20,000</td></tr></table>
+<p class="small">All figures are made up for the course. Where Kestrel’s situation raises a legal, tax or insurance question, the right answer is to name the specialist and write the brief, not to solve it yourself.</p>
+<div class="foot"><span>Operations Fundamentals · Applied test · Kestrel case pack</span><span>2</span></div></div>
+</body></html>

@@ -1,0 +1,105 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>Applied test · Workbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Brygada+1918:ital,wght@1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>@page{size:A4;margin:0}*{box-sizing:border-box;margin:0}
+body{font-family:'Hanken Grotesk',Arial,sans-serif;color:#2b1212;font-size:9.6pt;line-height:1.45}
+.page{width:210mm;height:297mm;padding:15mm 16mm 12mm;background:#fcf4f0;display:flex;flex-direction:column;break-after:page;overflow:hidden}
+.page:last-child{break-after:auto}
+.k{font-family:'Brygada 1918',Georgia,serif;font-style:italic;color:#6d0101;font-size:12pt}
+h1{font-family:'Gloock',Georgia,serif;font-weight:400;color:#6d0101;font-size:40pt;line-height:1;margin:3pt 0 8pt}
+h2{font-family:'Gloock',Georgia,serif;font-weight:400;color:#6d0101;font-size:22pt;line-height:1.05;margin:2pt 0 6pt}
+.d{color:#d94c86} p{margin:0 0 6pt} .lede{font-size:11.5pt;max-width:160mm}
+table{width:100%;border-collapse:collapse;background:#fff}
+th{text-align:left;font-weight:600;color:#6d0101;font-size:8.6pt;padding:5pt;border-bottom:1.5px solid #6d0101}
+td{padding:5pt;border-bottom:1px solid #eadbd5;vertical-align:top;font-size:8.8pt}
+.pair{font-family:'Brygada 1918',Georgia,serif;font-style:italic;color:#6d0101;width:22mm}
+.pn{font-family:'Gloock',Georgia,serif;color:#6d0101;font-size:11pt;width:26mm}
+.map td{height:24mm} .ck{width:22mm;font-size:7.6pt;color:#7a5450;vertical-align:middle}
+.box{background:#fff;border:1px solid #eadbd5;border-radius:6pt;padding:8pt 10pt;margin-top:7pt}
+.box b{color:#6d0101;font-family:'Gloock',Georgia,serif;font-weight:400;font-size:12pt;display:block;margin-bottom:2pt}
+.box i{color:#7a5450;font-size:8.4pt}
+.ln{border-bottom:1px solid #d9c6bf;height:15pt}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7pt;margin:6pt 0 10pt}
+.steps div{background:#fff;border:1px solid #eadbd5;border-radius:6pt;padding:8pt 10pt}
+.steps b{font-family:'Gloock',Georgia,serif;font-size:20pt;color:#6d0101;font-weight:400;display:block;line-height:1}
+.q{display:grid;grid-template-columns:62mm 1fr;gap:8pt;padding:3pt 0;border-top:1px solid #eadbd5;align-items:end}
+.q b{display:block;font-family:Gloock,Georgia,serif;font-weight:400;color:#6d0101;font-size:11pt}
+.q span{font-size:8.4pt;line-height:1.3} .q .ln{height:20pt}
+.close{background:#6d0101;color:#fcf4f0;border-radius:6pt;padding:10pt 12pt;margin-top:8pt}
+.close b{font-family:'Gloock',Georgia,serif;font-weight:400;font-size:15pt;display:block}
+.close .ln{border-color:#a0504a}
+.small{font-size:7.8pt;color:#7a5450;margin-top:6pt}
+.foot{margin-top:auto;padding-top:5pt;border-top:1px solid #eadbd5;display:flex;justify-content:space-between;font-size:7.5pt;color:#7a5450}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:7pt}
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7pt}
+.box .ln{height:16pt}
+.grid td{height:9mm}
+.grid td.lab{font-weight:600;color:#2b1212;width:32mm}
+.grid tr.tot td{background:#fcf4f0;font-weight:600;color:#6d0101}
+.grid th{font-size:7.6pt}
+.cash td{height:7.2mm;border-right:1px solid #f1e6e1}
+.cash td.lab{width:38mm;font-size:8.4pt}
+.cash th{text-align:center;font-size:7.6pt}
+.cash tr.sec td{background:#fcf4f0;color:#6d0101;font-weight:600;height:6mm}
+.cash tr.tot td{font-weight:600}
+.circle{display:flex;gap:6pt;flex-wrap:wrap;margin:4pt 0}
+.circle span{border:1px solid #6d0101;border-radius:20pt;padding:2pt 9pt;color:#6d0101;font-size:9pt}
+@page wide{size:A4 landscape;margin:0}
+.page.wide{page:wide;width:297mm;height:210mm}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:6pt;margin:6pt 0 8pt}
+.facts div{background:#fff;border:1px solid #eadbd5;border-radius:6pt;padding:7pt 9pt}
+.facts b{display:block;font-family:Gloock,Georgia,serif;font-weight:400;font-size:17pt;color:#6d0101;line-height:1.1}
+.facts span{font-size:8pt;color:#7a5450}
+.quote{font-family:'Brygada 1918',Georgia,serif;font-style:italic;font-size:11pt;color:#6d0101;border-left:2px solid #d94c86;padding:2pt 0 2pt 8pt;margin:4pt 0 8pt}
+.snap td{font-size:8.4pt;vertical-align:top}
+.snap td:first-child{font-family:Gloock,Georgia,serif;color:#6d0101;font-size:10pt;width:24mm}
+.ans td{height:15mm;vertical-align:top}
+.ans td.lab{font-family:Gloock,Georgia,serif;color:#6d0101;font-size:10pt;width:24mm;font-weight:400}
+.rev td{height:11mm;vertical-align:middle}
+.rev td.qq b{font-family:'Hanken Grotesk',Arial,sans-serif;font-weight:600;color:#2b1212}
+.qh{color:#7a5450;font-size:7.6pt}
+.rev td.qq{font-size:8.6pt;width:82mm;line-height:1.3}
+ol.tight{margin:2pt 0 6pt 14pt}ol.tight li{margin-bottom:2pt}
+</style></head><body>
+<div class="page"><p class="k">Operations Fundamentals · Applied test</p><h1>Hold the ball<span class="d">.</span></h1>
+<p class="lede">Watching four videos isn’t the point. This is. Two parts, about 90 minutes of your own time, and then four weeks of leaving one task alone.</p>
+<div class="two" style="margin-top:6pt">
+<div class="box info"><b>Part A · Kestrel’s second city</b><i>About 45 minutes · uses the case pack</i><p style="margin-top:4pt">Kestrel has been asked to run events in Manchester. The question isn’t yes or no. It’s “yes, once…”: what has to be true first? Everyone answers the same case, so nobody shares anything sensitive.</p></div>
+<div class="box info"><b>Part B · Your own business</b><i>About 45 minutes, plus four weeks</i><p style="margin-top:4pt">Your eight parts, now and next; one name on each; who holds the whole; your weekly and monthly rhythm; and one task handed over, with the date it’s off your plate.</p></div></div>
+<p class="k" style="margin-top:10pt">How I review it</p><h2>Six questions, answered by me</h2>
+<ol class="tight"><li><b>Are all eight parts there?</b></li><li><b>Could it only be this business?</b> Specific to Kestrel or to you, not generic.</li><li><b>Is now kept apart from next?</b></li><li><b>Does every part have a name?</b> One person, not a team.</li><li><b>Did the decision move, with a limit?</b> Part B handover: what they decide alone, up to what.</li><li><b>Could a specialist act on the brief?</b> Part A brief: same day, without a call first.</li></ol>
+<p>Each is a yes or a not yet. You get back <b>Ready</b>, or <b>Not yet</b> with the one thing to redo. No score, no certificate, and no AI marks anything.</p>
+<p class="k" style="margin-top:8pt">Dates</p>
+<div class="two"><div class="box info"><b>Send Parts A and B by</b><i>Friday 15 January 2027.</i></div><div class="box info"><b>Handover evidence</b><i>Once the task has stayed off your plate for four weeks: the date, and what you checked.</i></div></div>
+<p class="small">Use your worksheets from modules 1 to 4: this test is built from them. Fill in this PDF on screen, save it, and send it to me.</p>
+<div class="foot"><span>Operations Fundamentals · Applied test · Workbook</span><span>1</span></div></div>
+<div class="page"><p class="k">Part A · about 45 minutes</p><h2>Kestrel’s second city: what has to be true first?</h2>
+<p>Read the case pack. For each part, write what has to be in place <b>now</b>, before Kestrel says yes, and what can wait until <b>next</b>, the first six months. Then one name.</p>
+<table class="ans"><tr><th>Part</th><th>Now: before saying yes</th><th>Next: first six months</th><th>Owner</th></tr><tr><td class="lab">Process</td><td></td><td></td><td></td></tr><tr><td class="lab">People</td><td></td><td></td><td></td></tr><tr><td class="lab">Commercial</td><td></td><td></td><td></td></tr><tr><td class="lab">Finance</td><td></td><td></td><td></td></tr><tr><td class="lab">Legal</td><td></td><td></td><td></td></tr><tr><td class="lab">Compliance</td><td></td><td></td><td></td></tr><tr><td class="lab">Governance</td><td></td><td></td><td></td></tr><tr><td class="lab">Risk</td><td></td><td></td><td></td></tr></table>
+<div class="box"><b>Kestrel’s answer, in one line</b><i>“Yes, once…”</i><div class="ln"></div></div>
+<div class="foot"><span>Operations Fundamentals · Applied test · Workbook</span><span>2</span></div></div>
+<div class="page"><p class="k">Part A · continued</p><h2>The brief for a specialist</h2>
+<p>Pick the one specialist Kestrel most needs before saying yes: a lawyer, an accountant, an insurer or another. Write the brief they’d get. It should be clear enough to act on the same day, without a call first.</p>
+<div class="two"><div class="box"><b>Specialist</b><div class="ln"></div></div><div class="box"><b>Answer needed by</b><div class="ln"></div></div></div>
+<div class="box"><b>What’s happening</b><i>The situation in three or four sentences. No client names.</i><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+<div class="box"><b>What Kestrel has already done or decided</b><div class="ln"></div><div class="ln"></div></div>
+<div class="box"><b>The precise question</b><i>What exactly do you need to know?</i><div class="ln"></div><div class="ln"></div></div>
+<div class="box"><b>What would make the answer useful</b><i>The format, the level of detail, any limits on cost.</i><div class="ln"></div><div class="ln"></div></div>
+<div class="foot"><span>Operations Fundamentals · Applied test · Workbook</span><span>3</span></div></div>
+<div class="page"><p class="k">Part B · your business</p><h2>Your eight parts, now and next</h2>
+<p>Now: is it Owned, Only me, or Unsure? Next: the one change in the next three months. Then one name, not a team. Use your module 1 map.</p>
+<table class="ans"><tr><th>Part</th><th>Now</th><th>Next: one change, next three months</th><th>Owner</th><th>How I’d know it’s slipping</th></tr><tr><td class="lab">Process</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">People</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">Commercial</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">Finance</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">Legal</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">Compliance</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">Governance</td><td></td><td></td><td></td><td></td></tr><tr><td class="lab">Risk</td><td></td><td></td><td></td><td></td></tr></table>
+<div class="box"><b>Apart from me, who holds the whole ball?</b><i>If the honest answer is nobody yet, say when that changes.</i><div class="ln"></div></div>
+<div class="foot"><span>Operations Fundamentals · Applied test · Workbook</span><span>4</span></div></div>
+<div class="page"><p class="k">Part B · continued</p><h2>Your rhythm</h2>
+<p>What gets looked at, how often, and by whom. Keep it short: what you’d actually do.</p>
+<table class="grid"><tr><th>What gets looked at</th><th>Weekly or monthly</th><th>Who looks</th><th>Day</th></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table>
+<p class="small">For example: the 13-week cash view, weekly, the founder, Monday. The compliance calendar, monthly, the ops lead, first Friday.</p>
+<p class="k" style="margin-top:8pt">One task, handed over</p><h2>Off your plate</h2>
+<div class="two"><div class="box"><b>The task</b><div class="ln"></div></div><div class="box"><b>Handed to</b><i>Name and role.</i><div class="ln"></div></div></div>
+<div class="box"><b>The decision they now make alone, and the limit</b><div class="ln"></div></div>
+<div class="two"><div class="box"><b>Handover started</b><div class="ln"></div></div><div class="box"><b>Locked in on</b><i>Four weeks later.</i><div class="ln"></div></div></div>
+<div class="box"><b>Evidence, once it’s locked in</b><i>What you checked each week, and whether it came back.</i><div class="ln"></div><div class="ln"></div></div>
+<div class="foot"><span>Operations Fundamentals · Applied test · Workbook</span><span>5</span></div></div>
+</body></html>
