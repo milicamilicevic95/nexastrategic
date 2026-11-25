@@ -1,0 +1,161 @@
+<title>Course 2 · Module 1 Teleprompter</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* Layout: one dark reading field, a fixed reading line at 30% height, a control bar that fades while it runs. Deliberately single-theme dark, like a studio prompter. */
+:root{
+  --ground:#140808; --text:#fcf4f0; --dim:#9c8580; --cue:#f2a7c4; --line:rgba(192,214,255,.16); --mark:#c0d6ff; --bar:#231111; --edge:#3a1f1d;
+  --display:'Gloock', Georgia, serif; --read:'Hanken Grotesk', Arial, sans-serif;
+  --size:56px; color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--ground);color:var(--text);font-family:var(--read);overflow:hidden}
+#field{position:fixed;inset:0;overflow-y:auto;scrollbar-width:none;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#field::-webkit-scrollbar{display:none}
+#script{max-width:min(1400px,92vw);margin:0 auto;padding-block:30vh 75vh;display:flex;flex-direction:column;gap:calc(var(--size)*1.4)}
+.chapter{font-family:var(--display);font-size:calc(var(--size)*.62);color:var(--mark);border-top:2px solid var(--mark);padding-top:.5em}
+.block{display:flex;flex-direction:column;gap:.5em}
+.slide{display:flex;gap:.8em;align-items:baseline;font-size:calc(var(--size)*.42);color:var(--dim);letter-spacing:.02em}
+.slide b{font-family:var(--display);font-weight:400;font-size:1.6em;color:var(--mark);min-width:1.6em}
+.slide .adv{margin-left:auto;font-weight:600;color:var(--mark);white-space:nowrap}
+.say{font-size:var(--size);line-height:1.5;font-weight:500;text-wrap:pretty}
+.cue{display:inline-block;color:var(--cue);font-weight:600;font-size:.72em;border:2px solid var(--cue);border-radius:.4em;padding:0 .4em;margin:0 .15em;line-height:1.4}
+.end{font-family:var(--display);font-size:calc(var(--size)*.8);color:var(--mark);text-align:center}
+#readline{position:fixed;left:0;right:0;top:30vh;height:calc(var(--size)*1.6);transform:translateY(-12%);background:var(--line);border-top:2px solid rgba(192,214,255,.35);border-bottom:2px solid rgba(192,214,255,.35);pointer-events:none}
+#readline::before{content:"";position:absolute;left:max(6px,env(safe-area-inset-left,0px));top:50%;border:14px solid transparent;border-left:20px solid var(--mark);transform:translateY(-50%)}
+#bar{position:fixed;left:0;right:0;bottom:0;background:var(--bar);border-top:1px solid var(--edge);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:15px;transition:opacity .4s}
+body.running.idle #bar{opacity:0}
+#bar .grp{display:flex;align-items:center;gap:6px}
+#bar label{color:var(--dim)}
+button{font:inherit;color:var(--text);background:#3a1f1d;border:1px solid #5a3532;border-radius:6px;padding:6px 12px;cursor:pointer;min-width:38px}
+button:hover{background:#4a2826}
+button:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+#play{background:var(--mark);color:#140808;border-color:var(--mark);font-weight:600;min-width:96px}
+.val{min-width:3.2em;text-align:center;font-variant-numeric:tabular-nums}
+#status{margin-left:auto;color:var(--dim);font-variant-numeric:tabular-nums}
+#status b{color:var(--text);font-weight:600}
+#keys{color:var(--dim);font-size:13px;width:100%}
+#keys kbd{font:inherit;border:1px solid var(--edge);border-radius:4px;padding:0 5px;color:var(--text)}
+#intro{max-width:min(1400px,92vw);margin:0 auto 0;color:var(--dim);font-size:18px;line-height:1.5;border:1px solid var(--edge);border-radius:8px;padding:16px 20px}
+#intro b{color:var(--text)}
+body.camera{--col:420px}
+body.camera #script{max-width:min(var(--col),92vw);padding-top:16vh}
+body.camera .say{line-height:1.35}
+#fade{position:fixed;left:0;right:0;top:calc(16vh + var(--size)*5.8);bottom:0;pointer-events:none;background:linear-gradient(to bottom,rgba(20,8,8,0) 0,rgba(20,8,8,.82) calc(var(--size)*1.6),rgba(20,8,8,.92) 100%);display:none}
+#fadeTop{position:fixed;left:0;right:0;top:0;height:calc(16vh - 4px);pointer-events:none;background:linear-gradient(to top,rgba(20,8,8,.55),rgba(20,8,8,.92));display:none}
+body.camera.focus #fade,body.camera.focus #fadeTop{display:block}
+.camOnly{display:none}
+body.camera .camOnly{display:flex}
+#focus[aria-pressed="true"]{background:var(--mark);color:#140808;border-color:var(--mark)}
+body.camera #readline{top:16vh;left:max(0px,calc(50% - var(--col)/2 - 48px));right:max(0px,calc(50% - var(--col)/2 - 48px))}
+body.camera .slide{flex-wrap:wrap;gap:.2em .6em}
+body.camera .slide .adv{margin-left:0;width:100%}
+body.camera #intro{max-width:min(var(--col),92vw);font-size:16px}
+#cam[aria-pressed="true"]{background:var(--mark);color:#140808;border-color:var(--mark)}
+@media (max-width:700px){#keys{display:none} :root{--size:34px}}
+@media (prefers-reduced-motion:reduce){#bar{transition:none}}
+</style>
+<div id="field" tabindex="-1">
+  <div id="script"></div>
+</div>
+<div id="readline" aria-hidden="true"></div>
+<div id="fadeTop" aria-hidden="true"></div><div id="fade" aria-hidden="true"></div>
+<div id="bar" role="toolbar" aria-label="Prompter controls">
+  <button id="play" type="button">Start</button>
+  <div class="grp"><label>Speed</label><button id="slower" type="button" aria-label="Slower">−</button><span class="val" id="speedVal"></span><button id="faster" type="button" aria-label="Faster">+</button></div>
+  <div class="grp"><label>Text</label><button id="smaller" type="button" aria-label="Smaller text">A−</button><button id="bigger" type="button" aria-label="Bigger text">A+</button></div>
+  <div class="grp"><button id="prev" type="button">◀ Slide</button><button id="next" type="button">Slide ▶</button><button id="restart" type="button">Restart</button><button id="full" type="button">Full screen</button><button id="cam" type="button" aria-pressed="false">Camera mode</button></div>
+  <div class="grp camOnly"><label>Width</label><button id="narrower" type="button" aria-label="Narrower column">−</button><span class="val" id="colVal"></span><button id="wider" type="button" aria-label="Wider column">+</button><button id="focus" type="button" aria-pressed="true">Focus</button></div>
+  <div id="status"><span id="slideNow"></span> · <b id="clock">0:00</b></div>
+  <div id="keys"><kbd>Space</kbd> start/pause · <kbd>↑</kbd><kbd>↓</kbd> speed · <kbd>←</kbd><kbd>→</kbd> previous/next slide · <kbd>+</kbd><kbd>−</kbd> text size · <kbd>Home</kbd> restart · <kbd>F</kbd> full screen · <kbd>C</kbd> camera mode · <kbd>[</kbd><kbd>]</kbd> column width · <kbd>D</kbd> focus (dims all but the next lines). Scroll by hand any time.</div>
+</div>
+<script>
+const SLIDES = [{"n": 1, "title": "Hire for the work, not the title.", "chapter": "Opening", "text": "[Camera on, slide up.] Hi, welcome to course 2. Quick note before we start: if you see me looking off to the side, it’s because I’m sharing the slides on another screen. So I’m looking at them, not ignoring you. Course 1 was about what your business is made of. This course is about who does that work, so it stops coming back to you. We’re starting with the question I hear most: who should I hire next? Have your module 1 map from course 1 to hand. You’ll build on it."}, {"n": 2, "title": "Who’s your next hire?", "chapter": null, "text": "First, a question. Who’s your next hire? Answer it in your head. [Pause.] Now notice how you answered. Most founders give me a title: an ops manager, a head of sales, a marketing person. A title is a guess at a solution. By the end of this module you’ll have a different kind of answer: the gap in your business, the kind of hire that fills it, and when you can afford it."}, {"n": 3, "title": "Four modules, one hire.", "chapter": null, "text": "A word on how this course works. On the left, the four modules. They follow one hire from start to finish: deciding who, choosing well, getting them to day ninety, and handling what goes wrong. At the bottom is the applied test, on Kestrel first and then on your own hire. On the right is what you’ll leave with today: a team map built around the work, your next hire and what kind it should be, and what it will really cost."}, {"n": 4, "title": "Map the work, not the people.", "chapter": "Chapter 1 · Map the work, not the people", "text": "Chapter 1, about four minutes. Before you decide who to hire, you need to see the work."}, {"n": 5, "title": "Titles last.", "chapter": null, "text": "When founders draw an org chart, they usually start with boxes and titles. Head of this, manager of that. Then they try to fit people in. It feels like progress, but it skips the only question that matters: what work does the business need done? The order on this slide is the whole method. Map the work first. Then put one owner on each piece. Name the role last, after the work it owns."}, {"n": 6, "title": "[Your story, in one line.]", "chapter": null, "text": "[CHECK BEFORE RECORDING: replace with a real moment, anonymised, where a hire was made for a title rather than a need. About 30 seconds: the business, the title they hired, what the work actually needed, what happened, and what you’d do instead.]"}, {"n": 7, "title": "Map the work in four steps", "chapter": null, "text": "Here’s the method, in four steps. One: list the work in each part of the business, using the eight parts from course 1. Process, people, commercial, finance, legal, compliance, governance, risk. Two: put one name on each. One owner, not a team. If two people own something, nobody does. Three: mark each one. Owned means someone other than you could run it. Only me. Nobody. Or overloaded, where someone owns it but can’t keep up. Four: look at where those marks cluster. That’s where your next hire is, before anyone’s given it a title."}, {"n": 8, "title": "Kestrel’s map, today", "chapter": null, "text": "Here’s Kestrel, our events agency, mapped the same way. Owner in the middle, status on the right. People and compliance are owned by Dee. Process, which for Kestrel is event delivery, is Marcus, and he’s overloaded. Then look at the founder, Alex. Commercial, finance, legal, governance and risk: five parts, all marked only me. If you asked Alex who the next hire should be, the answer would probably be a Manchester events lead. The map says something different, and that’s the line at the bottom. The gap is delivery capacity, and the founder holding five parts."}, {"n": 9, "title": "When to hire.", "chapter": "Chapter 2 · When to hire", "text": "Chapter 2, about four minutes. You’ve found the gap. Now, is it time to fill it, and is it really a job?"}, {"n": 10, "title": "Signs it’s time", "chapter": null, "text": "These are the signs it’s time to hire, on the slide. You’re turning down good work because there’s no capacity. Deadlines or quality are slipping. The same work keeps landing back on your desk. The fourth matters most: you can name the work, and you can count the hours. Vague overwhelm isn’t a job description. If you can’t say what the person would do and how much of it there is, you’re not ready to hire yet. Then, as the line at the bottom says, test it against a slow month. We’ll come to that."}, {"n": 11, "title": "Count it before you hire for it.", "chapter": null, "text": "How do you count the hours? Keep a log for two representative weeks. Every time something lands on you that someone else could do, write down four things: the task, how long it took, how often it happens, and the skill it needed. It feels tedious, but it’s the best thirty minutes of admin you’ll do this year. Most founders find the work they thought was a full-time job is two days a week, or the work they thought was small is eating three days."}, {"n": 12, "title": "Sort what you logged", "chapter": null, "text": "Then sort what you logged into four piles, down the left. Recurring, core work that happens every week and runs the business: that’s a role. Specialist work you need a few days a month, like finance, legal or design: that’s specialist hours, not a hire. Repeatable work with clear rules: software or a better process. The last pile is the one founders skip. Work that shouldn’t exist at all. Stop doing it. Only the first pile is a hire. If it’s thin, your next hire might not be a person."}, {"n": 13, "title": "Test the hire against a slow month, not a good one.", "chapter": null, "text": "One test before any hire. A salary is a fixed cost. It goes out in your slow months too, and most small businesses have slow months. Open your thirteen-week cash view from course 1 and add the hire’s monthly cost to every week. Then look at your lowest week. If that week still holds, you can carry the hire. If it doesn’t, you need a different kind of hire, or a different start date, or the cash to cover the gap first."}, {"n": 14, "title": "What kind of hire.", "chapter": "Chapter 3 · What kind of hire", "text": "Chapter 3, about five minutes. You know the gap and the timing. Now, what kind of hire fills it, and what does it really cost?"}, {"n": 15, "title": "Five ways to fill a gap", "chapter": null, "text": "There are five ways to fill a gap, and only two of them are an employee. Full-time: core, ongoing work you direct, and the biggest commitment. Part-time: core work that doesn’t fill a week. They have the same rights as full-timers, pro rata, including holiday. Contractor or freelancer: a deliverable, a busy period, or a specialist skill. The watch-out, on the right, is status, which we’ll come to. Fractional or agency: senior judgement for a few days a month. You’re buying experience, not hours. At the bottom, software or a better process. Sometimes the honest answer to who’s your next hire is nobody."}, {"n": 16, "title": "What a £35,000 hire really costs", "chapter": null, "text": "Here’s what a thirty-five thousand pound hire really costs, in the UK this tax year. The salary. Employer National Insurance: fifteen percent on everything above five thousand pounds, so four and a half thousand. The minimum employer pension: three percent of qualifying earnings, about eight hundred and sixty. That’s just over forty thousand a year, before equipment, software and your own time getting them started. The Employment Allowance can take up to ten and a half thousand off the business’s total National Insurance bill, though not if your only employee is a director. Then the line at the bottom: with 5.6 weeks of paid holiday, you pay for fifty-two weeks and get about forty-six weeks of work. That isn’t a reason not to hire. It’s a reason to plan for it. Your accountant can confirm your own numbers."}, {"n": 17, "title": "Calling someone a contractor doesn’t make them one.", "chapter": null, "text": "One trap with contractors. You can’t choose someone’s employment status by what you call them, or by what the contract says. It follows how the work is actually done. Who controls how, when and where they work? Can they send someone else in their place? Whose equipment do they use? If you set their hours, direct their work and they can’t send a substitute, they may well be an employee, whatever the contract says. HMRC has a free tool, Check Employment Status for Tax, that walks you through it. If you’re a small company and they work through their own limited company, it’s their company that decides their status for tax. If you’re hiring in the US, the rules are different, so check with a US adviser."}, {"n": 18, "title": "Putting it in order", "chapter": null, "text": "When you have more than one gap, put them in order. Bottleneck first: fill the gap that costs you the most, in money, missed work, or your time. Doers before managers. A manager needs work and people to manage, and a first manager with nobody to manage ends up doing the work anyway, at a manager’s salary. Titles last. Then the line at the bottom: your next hire is the gap, not the org chart you’d like to have in two years."}, {"n": 19, "title": "Kestrel’s next moves", "chapter": null, "text": "Back to Kestrel. The map showed two gaps: delivery, and the founder holding five parts. Delivery is core, weekly work that Marcus directs, so it’s a full-time event producer, an employee. Finance is specialist work Kestrel needs a few days a month, so it’s more bookkeeper days and some fractional finance support, not a finance director. Then payroll, which only Dee can run. That’s a risk, and the fix is training a second person or using a payroll provider. It isn’t a hire at all. That’s the line at the bottom: one hire, one specialist, and one fix that isn’t a hire. Notice there’s no Manchester events lead yet. That decision comes once delivery has capacity."}, {"n": 20, "title": "Your turn · on the worksheet", "chapter": "Close", "text": "Your turn. Today, about thirty minutes: map your eight parts on the worksheet. The work in each, one owner, and a status: owned, only me, nobody, or overloaded. This week, keep the two-week log. Then sort what you logged, choose the kind of hire, cost it with the numbers on the worksheet, and test it against your slowest month. Bring the answer to the ops clinic and we’ll pressure-test it together. It’s much easier to spot a title dressed up as a need when someone else is looking."}, {"n": 21, "title": "Is your next hire a gap, or a title?", "chapter": null, "text": "Last question, on the slide. Is your next hire a gap, or a title? If you can describe the work, the hours and the kind of hire, it’s a gap. If you can only describe the job title, keep mapping. Next module: how to hire well, so the person you choose can actually do the work. See you there."}];
+const $ = s => document.querySelector(s);
+const field = $('#field'), script = $('#script');
+const store = {get(k,d){try{const v=localStorage.getItem('tp1.'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('tp1.'+k,JSON.stringify(v))}catch(e){}}};
+let speed = store.get('speed', 4), size = store.get('size', 56), running = false, last = 0, carry = 0, elapsed = 0, idleTimer;
+
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function render(){
+  const intro = document.createElement('div');
+  intro.id='intro';
+  intro.innerHTML='<b>Before you record.</b> In Loom, share only the deck’s window or tab, and keep this prompter on your other screen, so it never appears in the video. Press Start, or Space, when you begin talking. Pink boxes are stage directions, not lines. A blue “change slide” marks where you click to the next slide.';
+  script.appendChild(intro);
+  SLIDES.forEach((s,i)=>{
+    if(s.chapter){const c=document.createElement('div');c.className='chapter';c.textContent=s.chapter;script.appendChild(c)}
+    const b=document.createElement('section');b.className='block';b.id='s'+s.n;
+    const said=esc(s.text).replace(/\[(.*?)\]/g,'<span class="cue">$1</span>');
+    b.innerHTML='<div class="slide"><b>'+s.n+'</b><span>'+esc(s.title)+'</span>'+(i?'<span class="adv">change slide ▶</span>':'')+'</div><p class="say">'+said+'</p>';
+    script.appendChild(b);
+  });
+  const e=document.createElement('p');e.className='end';e.textContent='End of course 2 · module 1. Stop recording.';script.appendChild(e);
+}
+// speed levels: px per second at 56px text, scaled with text size
+const LEVELS=[0,10,14,18,23,28,34,40,48,58,70];
+function pxPerSec(){return LEVELS[speed]*(size/56)}
+function applySize(){document.documentElement.style.setProperty('--size',size+'px');store.set('size',size)}
+function showSpeed(){$('#speedVal').textContent=speed+' / 10';store.set('speed',speed)}
+function blocks(){return [...script.querySelectorAll('.block')]}
+function lineY(){return field.clientHeight*(document.body.classList.contains('camera')?0.16:0.30)}
+function currentIndex(){const y=lineY()+field.scrollTop;let idx=0;blocks().forEach((b,i)=>{if(b.offsetTop<=y+4)idx=i});return idx}
+function updateStatus(){const i=currentIndex();$('#slideNow').textContent='Slide '+SLIDES[i].n+' of '+SLIDES.length;const s=Math.floor(elapsed);$('#clock').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function goTo(i){const bs=blocks();i=Math.max(0,Math.min(bs.length-1,i));field.scrollTop=bs[i].offsetTop-lineY();carry=0;updateStatus()}
+function tick(t){
+  if(!running)return;
+  const dt=last?Math.min(0.1,(t-last)/1000):0; last=t; elapsed+=dt;
+  carry+=pxPerSec()*dt; const whole=Math.floor(carry);
+  if(whole){field.scrollTop+=whole;carry-=whole}
+  if(field.scrollTop+field.clientHeight>=field.scrollHeight-2){setRunning(false)}
+  updateStatus(); requestAnimationFrame(tick);
+}
+let wake=null;
+async function lockScreen(on){try{if(on&&'wakeLock'in navigator){wake=await navigator.wakeLock.request('screen')}else if(wake){await wake.release();wake=null}}catch(e){}}
+function setRunning(on){
+  running=on; document.body.classList.toggle('running',on);
+  $('#play').textContent=on?'Pause':(elapsed?'Resume':'Start');
+  last=0; lockScreen(on); if(on){requestAnimationFrame(tick);poke()}
+}
+function poke(){document.body.classList.remove('idle');clearTimeout(idleTimer);idleTimer=setTimeout(()=>document.body.classList.add('idle'),2500)}
+function full(){const d=document;try{if(!d.fullscreenElement)d.documentElement.requestFullscreen().catch(()=>{});else d.exitFullscreen().catch(()=>{})}catch(e){}}
+function bump(n){speed=Math.max(1,Math.min(10,speed+n));showSpeed()}
+function resize(n){const i=currentIndex();size=Math.max(28,Math.min(110,size+n));applySize();requestAnimationFrame(()=>goTo(i))}
+
+function setCamera(on){const i=currentIndex();document.body.classList.toggle('camera',on);$('#cam').setAttribute('aria-pressed',String(on));store.set('camera',on);requestAnimationFrame(()=>goTo(i))}
+let col=store.get('col',420), focus=store.get('focus',true);
+function applyCol(){document.documentElement.style.setProperty('--col',col+'px');document.body.style.setProperty('--col',col+'px');$('#colVal').textContent=col+'px';store.set('col',col)}
+function setFocus(on){focus=on;document.body.classList.toggle('focus',on);$('#focus').setAttribute('aria-pressed',String(on));store.set('focus',on)}
+function widen(n){const i=currentIndex();col=Math.max(220,Math.min(1000,col+n));applyCol();requestAnimationFrame(()=>goTo(i))}
+render(); applySize(); applyCol(); setFocus(focus); showSpeed(); document.body.classList.toggle('camera',store.get('camera',false)); $('#cam').setAttribute('aria-pressed',String(store.get('camera',false))); goTo(0);
+$('#narrower').onclick=()=>widen(-40); $('#wider').onclick=()=>widen(40); $('#focus').onclick=()=>setFocus(!focus);
+$('#cam').onclick=()=>setCamera(!document.body.classList.contains('camera'));
+$('#play').onclick=()=>setRunning(!running);
+$('#slower').onclick=()=>bump(-1); $('#faster').onclick=()=>bump(1);
+$('#smaller').onclick=()=>resize(-6); $('#bigger').onclick=()=>resize(6);
+$('#prev').onclick=()=>goTo(currentIndex()-1); $('#next').onclick=()=>goTo(currentIndex()+1);
+$('#restart').onclick=()=>{setRunning(false);elapsed=0;goTo(0);$('#play').textContent='Start'};
+$('#full').onclick=full;
+field.addEventListener('scroll',()=>{if(!running)updateStatus()});
+document.addEventListener('mousemove',poke);
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='BUTTON'&&(e.key===' '||e.key==='Enter'))return;
+  const k=e.key;
+  if(k===' '){e.preventDefault();setRunning(!running)}
+  else if(k==='ArrowUp'){e.preventDefault();bump(1)}
+  else if(k==='ArrowDown'){e.preventDefault();bump(-1)}
+  else if(k==='ArrowRight'){e.preventDefault();goTo(currentIndex()+1)}
+  else if(k==='ArrowLeft'){e.preventDefault();goTo(currentIndex()-1)}
+  else if(k==='+'||k==='='){resize(6)}
+  else if(k==='-'||k==='_'){resize(-6)}
+  else if(k==='Home'){e.preventDefault();$('#restart').click()}
+  else if(k==='f'||k==='F'){full()}
+  else if(k==='['){widen(-40)}
+  else if(k===']'){widen(40)}
+  else if(k==='d'||k==='D'){setFocus(!focus)}
+  else if(k==='c'||k==='C'){setCamera(!document.body.classList.contains('camera'))}
+  else return;
+  poke();
+});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&running)lockScreen(true)});
+</script>
